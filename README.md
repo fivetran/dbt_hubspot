@@ -1,4 +1,4 @@
-Welcome to your new dbt project!
+# Hubspot
 
 ### Using the starter project
 
