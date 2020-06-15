@@ -1,3 +1,10 @@
 name: 'hubspot'
 version: '1.0.0'
 config-version: 2
+
+vars:
+  hubspot:
+    email_event: "{{ ref('stg_hubspot__email_event') }}"
+    email_event_sent: "{{ ref('stg_hubspot__email_event_sent') }}"
+    email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
+    email_event_open: "{{ ref('stg_hubspot__email_event_open') }}"
