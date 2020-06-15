@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: hubspot__email_sends
+    columns:
+      - name: event_id
+        tests: 
+          - unique
+          - not_null

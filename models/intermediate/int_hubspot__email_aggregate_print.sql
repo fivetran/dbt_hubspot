@@ -1,0 +1,1 @@
+{{ email_events_aggregate(ref('hubspot__email_event_print'), 'prints') }}
