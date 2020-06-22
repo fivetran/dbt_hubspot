@@ -16,3 +16,11 @@ vars:
     email_event_spam_report: "{{ ref('stg_hubspot__email_event_spam_report') }}"
     email_event_status_change: "{{ ref('stg_hubspot__email_event_status_change') }}"
     email_event: "{{ ref('stg_hubspot__email_event') }}"
+
+models:
+  hubspot:
+    +materialized: table
+    email_events:
+      +materialized: ephemeral
+    intermediate:
+      +materialized: ephemeral
