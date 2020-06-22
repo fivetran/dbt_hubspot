@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: hubspot__email_sends
+    columns:
+      - name: event_id
+        tests: 
+          - unique
+          - not_null
+  - name: hubspot__email_campaigns
+    columns:
+      - name: email_campaign_id
+        tests: 
+          - unique
+          - not_null
+  - name: hubspot__contacts
+    columns:
+      - name: contact_id
+        tests: 
+          - unique
+          - not_null
+  - name: hubspot__contact_lists
+    columns:
+      - name: contact_list_id
+        tests: 
+          - unique
+          - not_null

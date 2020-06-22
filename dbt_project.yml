@@ -4,6 +4,9 @@ config-version: 2
 
 vars:
   hubspot:
+    contact: "{{ ref('stg_hubspot__contact') }}"
+    contact_list: "{{ ref('stg_hubspot__contact_list') }}"
+    contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
     email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
@@ -16,6 +19,18 @@ vars:
     email_event_spam_report: "{{ ref('stg_hubspot__email_event_spam_report') }}"
     email_event_status_change: "{{ ref('stg_hubspot__email_event_status_change') }}"
     email_event: "{{ ref('stg_hubspot__email_event') }}"
+
+    email_metrics:
+      - bounces
+      - clicks
+      - deferrals
+      - deliveries
+      - drops
+      - forwards
+      - opens
+      - prints
+      - spam_reports
+      - unsubscribes
 
 models:
   hubspot:

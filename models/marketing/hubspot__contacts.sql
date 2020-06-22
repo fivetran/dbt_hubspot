@@ -1,20 +1,7 @@
-{% set email_metrics = [
-    'bounces',
-    'clicks',
-    'deferrals',
-    'deliveries',
-    'drops',
-    'forwards',
-    'opens',
-    'prints',
-    'spam_reports',
-    'unsubscribes'
-] %}
-
 with contacts as (
 
     select *
-    from {{ ref('stg_hubspot__contact') }}
+    from {{ var('contact') }}
 
 ), email_sends as (
 
@@ -25,9 +12,9 @@ with contacts as (
 
     select 
         recipient_email_address,
-        {% for metric in email_metrics %}
-        sum(email_sends.{{ metric }}) as total_{{ metric }},
-        count(distinct case when email_sends.{{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
+        {% for metric in var('email_metrics') %}
+        sum({{ metric }}) as total_{{ metric }},
+        count(distinct case when {{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
     from email_sends
@@ -37,7 +24,7 @@ with contacts as (
 
     select 
         contacts.*,
-        {% for metric in email_metrics %}
+        {% for metric in var('email_metrics') %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},
         coalesce(email_metrics.total_unique_{{ metric }}, 0) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}

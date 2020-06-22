@@ -1,0 +1,27 @@
+with contact_lists as (
+
+    select *
+    from {{ var('contact_list') }}
+
+), email_metrics as (
+
+    select *
+    from {{ ref('int_hubspot__email_metrics__by_contact_list') }}
+
+), joined as (
+
+    select 
+        contact_lists.*,
+        {% for metric in var('email_metrics') %}
+        coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},
+        coalesce(email_metrics.total_unique_{{ metric }}, 0) as total_unique_{{ metric }}
+        {% if not loop.last %},{% endif %}
+        {% endfor %}
+    from contact_lists
+    left join email_metrics
+        using (contact_list_id)
+
+)
+
+select *
+from joined

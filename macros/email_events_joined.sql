@@ -10,7 +10,12 @@ with base as (
     select *
     from {{ var('email_event') }}
 
-), joined as (
+), contacts as (
+
+    select *
+    from {{ var('contact') }}
+
+), events_joined as (
 
     select 
         base.*,
@@ -23,9 +28,18 @@ with base as (
     left join events
         using (event_id)
 
+), contacts_joined as (
+
+    select 
+        events_joined.*,
+        contacts.contact_id
+    from events_joined
+    left join contacts
+        on events_joined.recipient_email_address = contacts.email
+
 )
 
 select *
-from joined
+from contacts_joined
 
 {% endmacro %}

@@ -61,3 +61,9 @@ models:
         tests:
           - unique
           - not_null
+  - name: int_hubspot__email_metrics__by_contact_list
+    columns:
+      - name: contact_list_id
+        tests:
+          - unique
+          - not_null
