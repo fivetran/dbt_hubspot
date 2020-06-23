@@ -7,6 +7,7 @@ vars:
     contact: "{{ ref('stg_hubspot__contact') }}"
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
+
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
     email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
@@ -19,6 +20,18 @@ vars:
     email_event_spam_report: "{{ ref('stg_hubspot__email_event_spam_report') }}"
     email_event_status_change: "{{ ref('stg_hubspot__email_event_status_change') }}"
     email_event: "{{ ref('stg_hubspot__email_event') }}"
+
+    engagement: "{{ ref('stg_hubspot__engagement') }}"
+    engagement_call: "{{ ref('stg_hubspot__engagement_call') }}"
+    engagement_company: "{{ ref('stg_hubspot__engagement_company') }}"
+    engagement_contact: "{{ ref('stg_hubspot__engagement_contact') }}"
+    engagement_deal: "{{ ref('stg_hubspot__engagement_deal') }}"
+    engagement_email_cc: "{{ ref('stg_hubspot__engagement_email_cc') }}"
+    engagement_email_to: "{{ ref('stg_hubspot__engagement_email_to') }}"
+    engagement_email: "{{ ref('stg_hubspot__engagement_email') }}"
+    engagement_meeting: "{{ ref('stg_hubspot__engagement_meeting') }}"
+    engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
+    engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
 
     email_metrics:
       - bounces

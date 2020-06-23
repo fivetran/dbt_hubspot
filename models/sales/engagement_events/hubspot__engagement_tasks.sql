@@ -1,0 +1,1 @@
+{{ engagements_joined(var('engagement_task')) }}
