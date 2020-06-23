@@ -7,12 +7,15 @@ vars:
     contact: "{{ ref('stg_hubspot__contact') }}"
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
+    contact_property_history: "{{ ref('stg_hubspot__contact_property_history') }}"
 
     company: "{{ ref('stg_hubspot__company') }}"
+    company_property_history: "{{ ref('stg_hubspot__company_property_history') }}"
 
     deal: "{{ ref('stg_hubspot__deal') }}"
     deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
     deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
+    deal_property_history: "{{ ref('stg_hubspot__deal_property_history') }}"
 
     owner: "{{ ref('stg_hubspot__owner') }}"
 
