@@ -1,1 +1,0 @@
-{{ email_events_aggregate(ref('hubspot__email_event_spam_report'), 'spam_reports') }}
