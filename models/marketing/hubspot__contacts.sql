@@ -8,6 +8,11 @@ with contacts as (
     select *
     from {{ ref('hubspot__email_sends') }}
 
+), engagements as (
+
+    select *
+    from {{ ref('int_hubspot__engagement_metrics__by_contact') }}
+
 ), email_metrics as (
 
     select 
@@ -20,7 +25,7 @@ with contacts as (
     from email_sends
     group by 1
 
-), joined as (
+), email_joined as (
 
     select 
         contacts.*,
@@ -33,7 +38,18 @@ with contacts as (
     left join email_metrics
         on contacts.email = email_metrics.recipient_email_address
 
+), engagements_joined as (
+
+    select 
+        email_joined.*,
+        {% for metric in engagement_metrics() %}
+        engagements.{{ metric }} {% if not loop.last %},{% endif %}
+        {% endfor %}
+    from email_joined
+    left join engagements
+        using (contact_id)
+
 )
 
 select *
-from joined
+from engagements_joined

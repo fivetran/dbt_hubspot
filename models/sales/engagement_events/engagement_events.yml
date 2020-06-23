@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: hubspot__engagement_calls
+    columns:
+      - name: engagement_id
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__engagement_emails
+    columns:
+      - name: engagement_id
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__engagement_meetings
+    columns:
+      - name: engagement_id
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__engagement_notes
+    columns:
+      - name: engagement_id
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__engagement_tasks
+    columns:
+      - name: engagement_id
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__engagements
+    columns:
+      - name: engagement_id
+        tests:
+          - unique
+          - not_null

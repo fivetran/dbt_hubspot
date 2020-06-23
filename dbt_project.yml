@@ -8,6 +8,10 @@ vars:
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
 
+    company: "{{ ref('stg_hubspot__company') }}"
+
+    deal: "{{ ref('stg_hubspot__deal') }}"
+
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
     email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
