@@ -43,7 +43,7 @@ with contacts as (
     select 
         email_joined.*,
         {% for metric in engagement_metrics() %}
-        engagements.{{ metric }} {% if not loop.last %},{% endif %}
+        coalesce(engagements.{{ metric }},0) as {{ metric }} {% if not loop.last %},{% endif %}
         {% endfor %}
     from email_joined
     left join engagements

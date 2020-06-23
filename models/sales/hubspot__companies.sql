@@ -19,7 +19,7 @@ with companies as (
         engagements.engagement_type,
         engagement_companies.company_id
     from engagements
-    left join engagement_companies
+    inner join engagement_companies
         using (engagement_id)
 
 ), engagement_companies_agg as (
@@ -31,7 +31,7 @@ with companies as (
     select 
         companies.*,
         {% for metric in engagement_metrics() %}
-        engagement_companies_agg.{{ metric }} {% if not loop.last %},{% endif %}
+        coalesce(engagement_companies_agg.{{ metric }},0) as {{ metric }} {% if not loop.last %},{% endif %}
         {% endfor %}
     from companies
     left join engagement_companies_agg

@@ -11,6 +11,10 @@ vars:
     company: "{{ ref('stg_hubspot__company') }}"
 
     deal: "{{ ref('stg_hubspot__deal') }}"
+    deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
+    deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
+
+    owner: "{{ ref('stg_hubspot__owner') }}"
 
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"

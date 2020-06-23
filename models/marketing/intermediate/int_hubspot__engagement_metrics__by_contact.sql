@@ -14,7 +14,7 @@ with engagements as (
         engagements.engagement_type,
         engagement_contacts.contact_id
     from engagements
-    left join engagement_contacts
+    inner join engagement_contacts
         using (engagement_id)
 
 ), engagement_contacts_agg as (
