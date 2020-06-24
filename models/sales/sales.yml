@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: hubspot__deals
+    columns:
+      - name: deal_id
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__companies
+    columns:
+      - name: company_id
+        tests:
+          - unique
+          - not_null
