@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: hubspot__contact_history
+    columns:
+      - name: id
+        tests:
+          - unique
+          - not_null

@@ -15,7 +15,14 @@ with history as (
         lead(change_timestamp) over (partition by company_id order by change_timestamp) as valid_to
     from history
 
+), surrogate as (
+
+    select 
+        windows.*,
+        {{ dbt_utils.surrogate_key(['field_name','company_id','valid_from']) }} as id
+    from windows
+
 )
 
 select *
-from windows
+from surrogate
