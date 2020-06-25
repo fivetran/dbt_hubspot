@@ -59,7 +59,6 @@ vars:
 models:
   hubspot:
     +materialized: table
-    email_events:
-      +materialized: ephemeral
-    intermediate:
-      +materialized: ephemeral
+    marketing:
+      intermediate:
+        +materialized: ephemeral
