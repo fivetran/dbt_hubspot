@@ -1,15 +1,142 @@
 version: 2
 
 models:
+
   - name: hubspot__deals
+    description: Each record represents a deal in Hubspot.
     columns:
       - name: deal_id
+        description: The ID of the deal
         tests:
-          - unique
           - not_null
+          - unique
+
+      - name: is_deleted
+        description: Whether the record was deleted.
+
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+
+      - name: deal_pipeline_id
+        description: The ID of the deal's pipeline.
+
+      - name: deal_pipeline_stage_id
+        description: The ID of the deal's pipeline stage.
+
+      - name: owner_id
+        description: The ID of the deal's owner. 
+
+      - name: count_engagement_notes
+        description: "{{ doc('count_engagement_notes') }}"
+
+      - name: count_engagement_tasks
+        description: "{{ doc('count_engagement_tasks') }}"
+
+      - name: count_engagement_calls
+        description: "{{ doc('count_engagement_calls') }}"
+
+      - name: count_engagement_meetings
+        description: "{{ doc('count_engagement_meetings') }}"
+
+      - name: count_engagement_emails
+        description: "{{ doc('count_engagement_emails') }}"
+
+      - name: count_engagement_incoming_emails
+        description: "{{ doc('count_engagement_incoming_emails') }}"
+
+      - name: count_engagement_forwarded_emails
+        description: "{{ doc('count_engagement_forwarded_emails') }}"
+
+      - name: pipeline_label
+        description: The label of the deal's pipeline.
+
+      - name: pipeline_stage_label
+        description: The label of the deal's pipeline stage.
+
+      - name: owner_email_address
+        description: The email address of the deal's owner.
+
+      - name: owner_full_name
+        description: The full name of the deal's owner.
+
+
   - name: hubspot__companies
+    description: Each record represents a company in Hubspot.
     columns:
       - name: company_id
+        description: The ID of the company.
         tests:
           - unique
           - not_null
+      
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+      
+      - name: is_deleted
+        description: '{{ doc("is_deleted") }}'
+
+      - name: count_engagement_notes
+        description: "{{ doc('count_engagement_notes') }}"
+
+      - name: count_engagement_tasks
+        description: "{{ doc('count_engagement_tasks') }}"
+
+      - name: count_engagement_calls
+        description: "{{ doc('count_engagement_calls') }}"
+
+      - name: count_engagement_meetings
+        description: "{{ doc('count_engagement_meetings') }}"
+
+      - name: count_engagement_emails
+        description: "{{ doc('count_engagement_emails') }}"
+
+      - name: count_engagement_incoming_emails
+        description: "{{ doc('count_engagement_incoming_emails') }}"
+
+      - name: count_engagement_forwarded_emails
+        description: "{{ doc('count_engagement_forwarded_emails') }}"
+
+  - name: hubspot__engagements
+    description: Each record represents an engagement 
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: activity_type
+        description: The engagement's activity type.
+
+      - name: created_timestamp
+        description: A timestamp representing when the engagement was created.
+
+      - name: engagement_id
+        description: The ID of the engagement.
+        tests:
+          - not_null
+          - unique
+
+      - name: engagement_type
+        description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
+
+      - name: is_active
+        description: Whether the engagement is currently being shown in the UI.
+
+      - name: last_updated_timestamp
+        description: A timestamp in representing when the engagement was last updated.
+
+      - name: occurred_timestamp
+        description: A timestamp in representing the time that the engagement should appear in the timeline.
+
+      - name: owner_id
+        description: The ID of the engagement's owner.
+
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+
+      - name: contact_ids
+        description: List of contacts related to the engagement.
+
+      - name: deal_ids
+        description: List of deals related to the engagement.
+
+      - name: company_ids
+        description: List of companies related to the engagement.
