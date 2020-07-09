@@ -1,22 +1,16 @@
+{{ config(enabled=enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled'])) }}
+
 with engagements as (
 
     select *
     from {{ var('engagement') }}
 
+{% if enabled_vars(['hubspot_engagement_contact_enabled']) %}
+
 ), contacts as (
 
     select *
     from {{ var('engagement_contact') }}
-
-), companies as (
-
-    select *
-    from {{ var('engagement_company') }}
-
-), deals as (
-
-    select *
-    from {{ var('engagement_deal') }}
 
 ), contacts_agg as (
 
@@ -26,6 +20,15 @@ with engagements as (
     from contacts
     group by 1
 
+{% endif %}
+
+{% if enabled_vars(['hubspot_engagement_deal_enabled']) %}
+
+), deals as (
+
+    select *
+    from {{ var('engagement_deal') }}
+ 
 ), deals_agg as (
 
     select 
@@ -33,6 +36,15 @@ with engagements as (
         {{ array_agg('deal_id') }} as deal_ids
     from deals
     group by 1
+
+{% endif %}
+
+{% if enabled_vars(['hubspot_engagement_company_enabled']) %}
+
+), companies as (
+
+    select *
+    from {{ var('engagement_company') }}
 
 ), companies_agg as (
 
@@ -42,17 +54,19 @@ with engagements as (
     from companies
     group by 1
 
+{% endif %}
+
 ), joined as (
 
     select 
-        engagements.*,
-        contacts_agg.contact_ids,
-        deals_agg.deal_ids,
-        companies_agg.company_ids
+        {% if enabled_vars(['hubspot_engagement_contact_enabled']) %} contacts_agg.contact_ids, {% endif %}
+        {% if enabled_vars(['hubspot_engagement_deal_enabled']) %} deals_agg.deal_ids, {% endif %}
+        {% if enabled_vars(['hubspot_engagement_company_enabled']) %} companies_agg.company_ids, {% endif %}
+        engagements.*
     from engagements
-    left join contacts_agg using (engagement_id)
-    left join deals_agg using (engagement_id)
-    left join companies_agg using (engagement_id)
+    {% if enabled_vars(['hubspot_engagement_contact_enabled']) %} left join contacts_agg using (engagement_id) {% endif %}
+    {% if enabled_vars(['hubspot_engagement_deal_enabled']) %} left join deals_agg using (engagement_id) {% endif %}
+    {% if enabled_vars(['hubspot_engagement_company_enabled']) %} left join companies_agg using (engagement_id) {% endif %}
 
 )
 
