@@ -1,3 +1,5 @@
+{{ config(enabled=enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])) }}
+
 with sends as (
 
     select *
@@ -7,11 +9,6 @@ with sends as (
 
     select *
     from {{ ref('int_hubspot__email_event_aggregates') }}
-
-), unsubscribes as (
-
-    select *
-    from {{ ref('int_hubspot__email_aggregate_status_change') }}
 
 ), joined as (
 
@@ -25,11 +22,9 @@ with sends as (
         coalesce(metrics.forwards,0) as forwards,
         coalesce(metrics.opens,0) as opens,
         coalesce(metrics.prints,0) as prints,
-        coalesce(metrics.spam_reports,0) as spam_reports,
-        coalesce(unsubscribes.unsubscribes,0) as unsubscribes   
+        coalesce(metrics.spam_reports,0) as spam_reports
     from sends
     left join metrics using (email_send_id)
-    left join unsubscribes using (email_send_id)
 
 ), booleans as (
 
@@ -42,11 +37,35 @@ with sends as (
         forwards > 0 as was_forwarded,
         opens > 0 as was_opened,
         prints > 0 as was_printed,
-        spam_reports > 0 as was_spam_reported,
-        unsubscribes > 0 as was_unsubcribed
+        spam_reports > 0 as was_spam_reported
     from joined
+
+{% if enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+
+), unsubscribes as (
+
+    select *
+    from {{ ref('int_hubspot__email_aggregate_status_change') }}
+
+), unsubscribes_joined as (
+
+    select 
+        booleans.*,
+        coalesce(unsubscribes.unsubscribes,0) as unsubscribes,
+        coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed
+    from booleans
+    left join unsubscribes using (email_send_id)
+
+)
+
+select *
+from unsubscribes_joined
+
+{% else %}
 
 )
 
 select *
 from booleans
+
+{% endif %}

@@ -1,7 +1,11 @@
+{{ config(enabled=enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled'])) }}
+
 with companies as (
 
     select *
     from {{ var('company') }}
+
+{% if enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_company_enabled']) %}
 
 ), engagements as (
 
@@ -41,3 +45,12 @@ with companies as (
 
 select *
 from joined
+
+{% else %}
+
+)
+
+select *
+from companies
+
+{% endif %}
