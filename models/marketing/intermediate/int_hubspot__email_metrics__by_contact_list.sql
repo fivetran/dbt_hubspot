@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(enabled=enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled']), materialized='table') }}
 
 with email_sends as (
 

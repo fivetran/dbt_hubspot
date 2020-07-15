@@ -1,17 +1,17 @@
+{% set emails_enabled = enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled']) %}
+{% set engagements_enabled = enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled']) %}
+
 with contacts as (
 
     select *
     from {{ var('contact') }}
 
+{% if emails_enabled %}
+
 ), email_sends as (
 
     select *
     from {{ ref('hubspot__email_sends') }}
-
-), engagements as (
-
-    select *
-    from {{ ref('int_hubspot__engagement_metrics__by_contact') }}
 
 ), email_metrics as (
 
@@ -38,14 +38,25 @@ with contacts as (
     left join email_metrics
         on contacts.email = email_metrics.recipient_email_address
 
+{% endif %}
+
+{% if engagements_enabled %}
+
+{% set cte_ref = 'email_joined' if emails_enabled else 'contacts' %}
+
+), engagements as (
+
+    select *
+    from {{ ref('int_hubspot__engagement_metrics__by_contact') }}
+
 ), engagements_joined as (
 
     select 
-        email_joined.*,
+        {{ cte_ref }}.*,
         {% for metric in engagement_metrics() %}
         coalesce(engagements.{{ metric }},0) as {{ metric }} {% if not loop.last %},{% endif %}
         {% endfor %}
-    from email_joined
+    from {{ cte_ref }}
     left join engagements
         using (contact_id)
 
@@ -53,3 +64,19 @@ with contacts as (
 
 select *
 from engagements_joined
+
+{% elif emails_enabled %}
+
+)
+
+select *
+from email_joined
+
+{% else %}
+
+)
+
+select *
+from contacts
+
+{% endif %}

@@ -1,3 +1,5 @@
+{{ config(enabled=enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])) }}
+
 {% set email_metrics = [
     'bounces',
     'clicks',
