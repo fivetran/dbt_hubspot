@@ -1,0 +1,99 @@
+
+name: 'hubspot_integration_tests'
+version: '1.0.0'
+profile: 'integration_tests'
+config-version: 2
+
+vars:
+  hubspot_source: 
+    company: "{{ ref('company_data')}}"
+    company_property_history: "{{ ref('company_property_history_data')}}"
+    contact: "{{ ref('contact_data')}}"
+    contact_list: "{{ ref('contact_list_data')}}"
+    contact_list_member: "{{ ref('contact_list_member_data')}}"
+    contact_property_history: "{{ ref('contact_property_history_data')}}"
+    deal: "{{ ref('deal_data')}}"
+    deal_pipeline: "{{ ref('deal_pipeline_data')}}"
+    deal_pipeline_stage: "{{ ref('deal_pipeline_stage_data')}}"
+    deal_property_history: "{{ ref('deal_property_history_data')}}"
+    email_campaign: "{{ ref('email_campaign_data')}}"
+    email_event: "{{ ref('email_event_data')}}"
+    email_event_bounce: "{{ ref('email_event_bounce_data')}}"
+    email_event_click: "{{ ref('email_event_click_data')}}"
+    email_event_deferred: "{{ ref('email_event_deferred_data')}}"
+    email_event_delivered: "{{ ref('email_event_delivered_data')}}"
+    email_event_dropped: "{{ snowflake_seed_data('email_event_dropped_data') }}"
+    email_event_forward: "{{ ref('email_event_forward_data')}}"
+    email_event_open: "{{ ref('email_event_open_data')}}"
+    email_event_print: "{{ ref('email_event_print_data')}}"
+    email_event_sent: "{{ snowflake_seed_data('email_event_sent_data') }}"
+    email_event_spam_report: "{{ ref('email_event_spam_report_data')}}"
+    email_event_status_change: "{{ ref('email_event_status_change_data')}}"
+    engagement: "{{ ref('engagement_data')}}"
+    engagement_call: "{{ ref('engagement_call_data')}}"
+    engagement_company: "{{ ref('engagement_company_data')}}"
+    engagement_contact: "{{ ref('engagement_contact_data')}}"
+    engagement_deal: "{{ ref('engagement_deal_data')}}"
+    engagement_email: "{{ ref('engagement_email_data')}}"
+    engagement_meeting: "{{ ref('engagement_meeting_data')}}"
+    engagement_note: "{{ ref('engagement_note_data')}}"
+    engagement_task: "{{ ref('engagement_task_data')}}"
+    owner: "{{ ref('owner_data')}}"
+
+seeds:
+  +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+  hubspot_integration_tests:
+    owner_data:
+      +column_types:
+        owner_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    company_data:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    deal_data:
+      +column_types:
+        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    deal_data:
+      +column_types:
+        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        owner_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    company_property_history_data:
+      +column_types:
+        company_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    email_campaign_data:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        content_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    deal_property_history_data:
+      +column_types:
+        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_call_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_company_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        company_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_contact_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        contact_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_deal_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_data:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_meeting_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_email_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_task_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        completion_date: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    engagement_note_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"

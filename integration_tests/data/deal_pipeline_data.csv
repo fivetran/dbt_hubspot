@@ -1,0 +1,7 @@
+pipeline_id,_fivetran_deleted,_fivetran_synced,active,display_order,label
+mp_pipeline_monitoring,false,2020-07-09 15:25:37.051 UTC,true,0,83t7Vz1pOW/Fx81JI4o+4g==
+default,false,2020-07-09 15:25:37.053 UTC,true,0,FioJAMNdGX8U65mUGCkDwA==
+mp_pipeline_service,false,2020-07-09 15:25:37.024 UTC,true,0,eDLdK7glKfd0VRV0G5OcLg==
+mp_pipeline_archived,false,2020-07-09 15:25:37.054 UTC,true,3,pHm8C3GMK7LnsWuMcT6sgw==
+mp_pipeline_sales,false,2020-07-09 15:25:37.049 UTC,true,4,4sZLZi4xR6kmTh+A8waTCw==
+mp_pipeline_operations,false,2020-07-09 15:25:37.052 UTC,true,5,r2LpcB5mggWrgSrGkJERpg==
