@@ -42,6 +42,52 @@ vars:
 
 For additional configurations for the source models, please visit the [Hubspot source package](https://github.com/fivetran/dbt_hubspot_source).
 
+### Disabling models
+
+When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. In order to disable the relevant functionality in the package, you will need to add the relevant variables. By default, all variables are assumed to be `true`. You only need to add variables for the tables you would like to disable:  
+
+```yml
+# dbt_project.yml
+
+...
+config-version: 2
+
+vars:
+  hubspot_source:
+
+    # Marketing
+
+    hubspot_marketing_enabled: false                        # Disables all marketing models 
+    hubspot_email_event_enabled: false                      # Disables all email_event models and functionality
+    hubspot_email_event_bounce_enabled: false
+    hubspot_email_event_click_enabled: false
+    hubspot_email_event_deferred_enabled: false
+    hubspot_email_event_delivered_enabled: false
+    hubspot_email_event_dropped_enabled: false
+    hubspot_email_event_forward_enabled: false
+    hubspot_email_event_click_enabled: false
+    hubspot_email_event_opens_enabled: false
+    hubspot_email_event_print_enabled: false
+    hubspot_email_event_sent_enabled: false
+    hubspot_email_event_spam_report: false
+    hubspot_email_event_status_change_enabled: false
+
+    # Sales
+
+    hubspot_sales_enabled: false                            # Disables all sales models
+    hubspot_company_enabled: false
+    hubspot_deal_enabled: false
+    hubspot_engagement_enabled: false                       # Disables all engagement models and functionality
+    hubspot_engagement_contact_enabled: false
+    hubspot_engagement_company_enabled: false
+    hubspot_engagement_deal_enabled: false
+    hubspot_engagement_calls_enabled: false
+    hubspot_engagement_emails_enabled: false
+    hubspot_engagement_meetings_enabled: false
+    hubspot_engagement_notes_enabled: false
+    hubspot_engagement_tasks_enabled: false
+```
+
 ## Contributions
 
 Additional contributions to this package are very welcome! Please create issues
