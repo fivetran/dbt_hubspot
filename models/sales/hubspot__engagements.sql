@@ -16,7 +16,7 @@ with engagements as (
 
     select 
         engagement_id,
-        {{ array_agg('contact_id') }} as contact_ids
+        {{ fivetran_utils.array_agg('contact_id') }} as contact_ids
     from contacts
     group by 1
 
@@ -33,7 +33,7 @@ with engagements as (
 
     select 
         engagement_id,
-        {{ array_agg('deal_id') }} as deal_ids
+        {{ fivetran_utils.array_agg('deal_id') }} as deal_ids
     from deals
     group by 1
 
@@ -50,7 +50,7 @@ with engagements as (
 
     select 
         engagement_id,
-        {{ array_agg('company_id') }} as company_ids
+        {{ fivetran_utils.array_agg('company_id') }} as company_ids
     from companies
     group by 1
 
