@@ -1,4 +1,4 @@
-{{ config(enabled=enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
 
 with deals as (
 
@@ -36,7 +36,7 @@ with deals as (
     left join owners
         using (owner_id)
 
-{% if enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
 
 ), engagements as (
 

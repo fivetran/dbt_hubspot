@@ -1,11 +1,11 @@
-{{ config(enabled=enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled'])) }}
+{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled'])) }}
 
 with engagements as (
 
     select *
     from {{ var('engagement') }}
 
-{% if enabled_vars(['hubspot_engagement_contact_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %}
 
 ), contacts as (
 
@@ -22,7 +22,7 @@ with engagements as (
 
 {% endif %}
 
-{% if enabled_vars(['hubspot_engagement_deal_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %}
 
 ), deals as (
 
@@ -39,7 +39,7 @@ with engagements as (
 
 {% endif %}
 
-{% if enabled_vars(['hubspot_engagement_company_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %}
 
 ), companies as (
 
@@ -59,14 +59,14 @@ with engagements as (
 ), joined as (
 
     select 
-        {% if enabled_vars(['hubspot_engagement_contact_enabled']) %} contacts_agg.contact_ids, {% endif %}
-        {% if enabled_vars(['hubspot_engagement_deal_enabled']) %} deals_agg.deal_ids, {% endif %}
-        {% if enabled_vars(['hubspot_engagement_company_enabled']) %} companies_agg.company_ids, {% endif %}
+        {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %} contacts_agg.contact_ids, {% endif %}
+        {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %} deals_agg.deal_ids, {% endif %}
+        {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %} companies_agg.company_ids, {% endif %}
         engagements.*
     from engagements
-    {% if enabled_vars(['hubspot_engagement_contact_enabled']) %} left join contacts_agg using (engagement_id) {% endif %}
-    {% if enabled_vars(['hubspot_engagement_deal_enabled']) %} left join deals_agg using (engagement_id) {% endif %}
-    {% if enabled_vars(['hubspot_engagement_company_enabled']) %} left join companies_agg using (engagement_id) {% endif %}
+    {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %} left join contacts_agg using (engagement_id) {% endif %}
+    {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %} left join deals_agg using (engagement_id) {% endif %}
+    {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %} left join companies_agg using (engagement_id) {% endif %}
 
 )
 

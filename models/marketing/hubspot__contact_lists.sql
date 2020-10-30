@@ -1,11 +1,11 @@
-{{ config(enabled=enabled_vars(['hubspot_marketing_enabled'])) }}
+{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled'])) }}
 
 with contact_lists as (
 
     select *
     from {{ var('contact_list') }}
 
-{% if enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled']) %}
 
 ), email_metrics as (
 
