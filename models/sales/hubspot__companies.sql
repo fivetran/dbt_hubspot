@@ -1,11 +1,11 @@
-{{ config(enabled=enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled'])) }}
+{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled'])) }}
 
 with companies as (
 
     select *
     from {{ var('company') }}
 
-{% if enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_company_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_company_enabled']) %}
 
 ), engagements as (
 

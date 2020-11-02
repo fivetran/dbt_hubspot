@@ -1,5 +1,5 @@
-{% set emails_enabled = enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled']) %}
-{% set engagements_enabled = enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled']) %}
+{% set emails_enabled = fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled']) %}
+{% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled']) %}
 
 with contacts as (
 
