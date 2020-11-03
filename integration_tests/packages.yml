@@ -1,5 +1,4 @@
 packages:
   - local: ../
-  - local: ../../dbt_hubspot_source
   - package: fishtown-analytics/dbt_utils
     version: [">=0.4.0"]
