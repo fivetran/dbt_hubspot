@@ -53,7 +53,7 @@ When setting up your Hubspot connection in Fivetran, it is possible that not eve
 config-version: 2
 
 vars:
-  hubspot_source:
+  hubspot:
 
     # Marketing
 
