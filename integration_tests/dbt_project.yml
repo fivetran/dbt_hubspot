@@ -1,6 +1,6 @@
 
 name: 'hubspot_integration_tests'
-version: '1.0.0'
+version: '0.3.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -13,6 +13,7 @@ vars:
     contact_list_member: "{{ ref('contact_list_member_data')}}"
     contact_property_history: "{{ ref('contact_property_history_data')}}"
     deal: "{{ ref('deal_data')}}"
+    deal_company: "{{ ref('deal_company_data')}}"
     deal_pipeline: "{{ ref('deal_pipeline_data')}}"
     deal_pipeline_stage: "{{ ref('deal_pipeline_stage_data')}}"
     deal_property_history: "{{ ref('deal_property_history_data')}}"

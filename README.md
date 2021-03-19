@@ -89,7 +89,19 @@ vars:
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
 ```
+### Changing the Build Schema
+By default this package will build the HubSpot staging models within a schema titled (<target_schema> + `_stg_hubspot`) and HubSpot final models within a schema titled (<target_schema> + `hubspot`) in your target database. If this is not where you would like your modeled HubSpot data to be written to, add the following configuration to your `dbt_project.yml` file:
 
+```yml
+# dbt_project.yml
+
+...
+models:
+    hubspot:
+      +schema: my_new_schema_name # leave blank for just the target_schema
+    hubspot_source:
+      +schema: my_new_schema_name # leave blank for just the target_schema
+```
 ## Contributions
 
 Additional contributions to this package are very welcome! Please create issues
