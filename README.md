@@ -53,39 +53,41 @@ When setting up your Hubspot connection in Fivetran, it is possible that not eve
 config-version: 2
 
 vars:
-  hubspot:
 
-    # Marketing
+  # Marketing
 
-    hubspot_marketing_enabled: false                        # Disables all marketing models 
-    hubspot_email_event_enabled: false                      # Disables all email_event models and functionality
-    hubspot_email_event_bounce_enabled: false
-    hubspot_email_event_click_enabled: false
-    hubspot_email_event_deferred_enabled: false
-    hubspot_email_event_delivered_enabled: false
-    hubspot_email_event_dropped_enabled: false
-    hubspot_email_event_forward_enabled: false
-    hubspot_email_event_click_enabled: false
-    hubspot_email_event_opens_enabled: false
-    hubspot_email_event_print_enabled: false
-    hubspot_email_event_sent_enabled: false
-    hubspot_email_event_spam_report: false
-    hubspot_email_event_status_change_enabled: false
+  hubspot_marketing_enabled: false                        # Disables all marketing models
+  hubspot_contact_enabled: false                          # Disables the contact models
+  hubspot_contact_list_enabled: false                     # Disables contact list models
+  hubspot_contact_property_enabled: false                 # Disables the contact property models
+  hubspot_email_event_enabled: false                      # Disables all email_event models and functionality
+  hubspot_email_event_bounce_enabled: false
+  hubspot_email_event_click_enabled: false
+  hubspot_email_event_deferred_enabled: false
+  hubspot_email_event_delivered_enabled: false
+  hubspot_email_event_dropped_enabled: false
+  hubspot_email_event_forward_enabled: false
+  hubspot_email_event_click_enabled: false
+  hubspot_email_event_opens_enabled: false
+  hubspot_email_event_print_enabled: false
+  hubspot_email_event_sent_enabled: false
+  hubspot_email_event_spam_report: false
+  hubspot_email_event_status_change_enabled: false
 
-    # Sales
+  # Sales
 
-    hubspot_sales_enabled: false                            # Disables all sales models
-    hubspot_company_enabled: false
-    hubspot_deal_enabled: false
-    hubspot_engagement_enabled: false                       # Disables all engagement models and functionality
-    hubspot_engagement_contact_enabled: false
-    hubspot_engagement_company_enabled: false
-    hubspot_engagement_deal_enabled: false
-    hubspot_engagement_calls_enabled: false
-    hubspot_engagement_emails_enabled: false
-    hubspot_engagement_meetings_enabled: false
-    hubspot_engagement_notes_enabled: false
-    hubspot_engagement_tasks_enabled: false
+  hubspot_sales_enabled: false                            # Disables all sales models
+  hubspot_company_enabled: false
+  hubspot_deal_enabled: false
+  hubspot_engagement_enabled: false                       # Disables all engagement models and functionality
+  hubspot_engagement_contact_enabled: false
+  hubspot_engagement_company_enabled: false
+  hubspot_engagement_deal_enabled: false
+  hubspot_engagement_calls_enabled: false
+  hubspot_engagement_emails_enabled: false
+  hubspot_engagement_meetings_enabled: false
+  hubspot_engagement_notes_enabled: false
+  hubspot_engagement_tasks_enabled: false
 ```
 
 ## Contributions
