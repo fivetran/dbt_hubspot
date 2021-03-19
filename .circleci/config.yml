@@ -29,7 +29,7 @@ jobs:
             echo `pwd`
             cd integration_tests
             dbt deps
-            dbt seed --target redshift --full-refresh --exclude email_event_dropped_data_snowflake email_event_sent_data_snowflake
+            dbt seed --target redshift --full-refresh
             dbt run --target redshift --full-refresh
             dbt test --target redshift
       - run:
@@ -39,7 +39,7 @@ jobs:
             echo `pwd`
             cd integration_tests
             dbt deps
-            dbt seed --target snowflake --full-refresh --exclude email_event_dropped_data email_event_sent_data
+            dbt seed --target snowflake --full-refresh
             dbt run --target snowflake --full-refresh
             dbt test --target snowflake
       - run:
@@ -52,6 +52,7 @@ jobs:
             echo `pwd`
             cd integration_tests
             dbt deps
-            dbt seed --target bigquery --full-refresh --exclude email_event_dropped_data_snowflake email_event_sent_data_snowflake
+            dbt seed --target bigquery --full-refresh
             dbt run --target bigquery --full-refresh
+            dbt run --target bigquery --vars '{jira_using_sprints: false, jira_using_components: false}'
             dbt test --target bigquery
