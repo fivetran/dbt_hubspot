@@ -50,7 +50,7 @@ with deals as (
 
     {% if var('hubspot_company_enabled', True) %}
     left join companies 
-        using (company_id)
+        on deals.deal_id = companies.deal_id
     {% endif %}
 
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
