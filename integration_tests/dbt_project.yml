@@ -98,3 +98,11 @@ seeds:
     engagement_note_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    email_event_sent_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"    
+    email_event_sent_data:
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
+    email_event_dropped_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+    email_event_dropped_data:
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
