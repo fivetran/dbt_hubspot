@@ -3,6 +3,10 @@ version: '0.3.0'
 config-version: 2
 require-dbt-version: [">=0.18.0", "<0.20.0"]
 
+models:
+  hubspot:
+    +materialized: table
+    +schema: hubspot
 vars:
   hubspot:
     contact: "{{ ref('stg_hubspot__contact') }}"
