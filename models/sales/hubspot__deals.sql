@@ -20,6 +20,13 @@ with deals as (
     select *
     from {{ var('owner') }}
 
+{% if var('hubspot_company_enabled', True) %}
+), companies as (
+
+    select *
+    from {{ var('deal_company') }}
+{% endif %}
+
 ), deal_fields_joined as (
 
     select 
@@ -28,6 +35,11 @@ with deals as (
         pipeline_stages.pipeline_stage_label,
         owners.email_address as owner_email_address,
         owners.full_name as owner_full_name
+
+        {% if var('hubspot_company_enabled', True) %}
+        , companies.company_id
+        {% endif %}
+
     from deals
     left join pipelines
         using (deal_pipeline_id)
@@ -35,6 +47,11 @@ with deals as (
         using (deal_pipeline_stage_id)
     left join owners
         using (owner_id)
+
+    {% if var('hubspot_company_enabled', True) %}
+    left join companies 
+        using (company_id)
+    {% endif %}
 
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
 
