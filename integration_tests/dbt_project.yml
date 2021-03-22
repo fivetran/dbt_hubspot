@@ -1,6 +1,6 @@
 
 name: 'hubspot_integration_tests'
-version: '1.0.0'
+version: '0.3.0'
 profile: 'integration_tests'
 config-version: 2
 
@@ -13,6 +13,7 @@ vars:
     contact_list_member: "{{ ref('contact_list_member_data')}}"
     contact_property_history: "{{ ref('contact_property_history_data')}}"
     deal: "{{ ref('deal_data')}}"
+    deal_company: "{{ ref('deal_company_data')}}"
     deal_pipeline: "{{ ref('deal_pipeline_data')}}"
     deal_pipeline_stage: "{{ ref('deal_pipeline_stage_data')}}"
     deal_property_history: "{{ ref('deal_property_history_data')}}"
@@ -22,11 +23,11 @@ vars:
     email_event_click: "{{ ref('email_event_click_data')}}"
     email_event_deferred: "{{ ref('email_event_deferred_data')}}"
     email_event_delivered: "{{ ref('email_event_delivered_data')}}"
-    email_event_dropped: "{{ snowflake_seed_data('email_event_dropped_data') }}"
+    email_event_dropped: "{{ fivetran_utils.snowflake_seed_data('email_event_dropped_data') }}"
     email_event_forward: "{{ ref('email_event_forward_data')}}"
     email_event_open: "{{ ref('email_event_open_data')}}"
     email_event_print: "{{ ref('email_event_print_data')}}"
-    email_event_sent: "{{ snowflake_seed_data('email_event_sent_data') }}"
+    email_event_sent: "{{ fivetran_utils.snowflake_seed_data('email_event_sent_data') }}"
     email_event_spam_report: "{{ ref('email_event_spam_report_data')}}"
     email_event_status_change: "{{ ref('email_event_status_change_data')}}"
     engagement: "{{ ref('engagement_data')}}"
@@ -97,3 +98,11 @@ seeds:
     engagement_note_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    email_event_sent_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"    
+    email_event_sent_data:
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
+    email_event_dropped_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+    email_event_dropped_data:
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
