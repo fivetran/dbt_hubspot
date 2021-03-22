@@ -59,6 +59,7 @@ vars:
   hubspot_marketing_enabled: false                        # Disables all marketing models
   hubspot_contact_enabled: false                          # Disables the contact models
   hubspot_contact_list_enabled: false                     # Disables contact list models
+  hubspot_contact_list_member_enabled: false              # Disables contact list member models
   hubspot_contact_property_enabled: false                 # Disables the contact property models
   hubspot_email_event_enabled: false                      # Disables all email_event models and functionality
   hubspot_email_event_bounce_enabled: false
