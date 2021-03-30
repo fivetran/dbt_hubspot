@@ -58,11 +58,8 @@ models:
 
       - name: owner_full_name
         description: The full name of the deal's owner.
-      
-      - name: company_id
-        description: ID of the deal's associated company.
 
-
+        
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
     columns:
