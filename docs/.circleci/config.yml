@@ -36,6 +36,19 @@ jobs:
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target redshift --full-refresh
             dbt test --target redshift
       - run:
+          name: "Run Tests - Postgres"
+          command: |
+            . venv/bin/activate
+            echo `pwd`
+            cd integration_tests
+            dbt deps
+            dbt seed --target postgres --full-refresh
+            dbt run --target postgres --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target postgres
+            dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target postgres
+            dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target postgres
+            dbt test --target postgres
+      - run:
           name: "Run Tests - Snowflake"
           command: |
             . venv/bin/activate
