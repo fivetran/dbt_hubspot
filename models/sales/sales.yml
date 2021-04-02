@@ -89,9 +89,6 @@ models:
       - name: deal_pipeline_stage_id
         description: The ID of the deal's pipeline stage.
 
-      - name: company_id
-        description: The ID of the deal's company. 
-
       - name: owner_id
         description: The ID of the deal's owner. 
 
