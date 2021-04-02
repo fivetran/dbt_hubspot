@@ -16,7 +16,7 @@ This package contains transformation models, designed to work simultaneously wit
 | [hubspot__contact_history](models/hubspot__contact_history.sql) | Each record represents a change to a contact in Hubspot, with `valid_to` and `valid_from` information.               |
 | [hubspot__contact_lists](models/hubspot__contact_lists.sql)   | Each record represents a contact list in Hubspot, enriched with metrics about email activities.                      |
 | [hubspot__deals](models/hubspot__deals.sql)            | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.                         |
-| [hubspot__deal_stags](models/hubspot__deal_stages.sql)            | Each record represents a deal stage in Hubspot, enriched with metrics deal activities.                         |
+| [hubspot__deal_stages](models/hubspot__deal_stages.sql)            | Each record represents a deal stage in Hubspot, enriched with metrics deal activities.                         |
 | [hubspot__deal_history](models/hubspot__deal_history.sql)    | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.                  |
 | [hubspot__email_campaigns](models/hubspot__email_campaigns.sql) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.                    |
 | [hubspot__email_event_*](models/marketing/email_events/)   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.           |
