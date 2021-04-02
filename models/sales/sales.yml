@@ -75,7 +75,7 @@ models:
         description: The timestamp the deal stage was entered.
 
       - name: date_stage_exited
-        description: The Fivetran calculated exist time of the deal stage.
+        description: The Fivetran calculated exit time of the deal stage.
 
       - name: is_stage_active
         description: Boolean indicating whether the deal stage is active.
