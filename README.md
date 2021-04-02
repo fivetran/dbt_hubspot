@@ -106,7 +106,7 @@ vars:
       alias:          "new_name_for_this_field_id"
       transform_sql:  "cast(new_name_for_this_field as int64)"
     - name:           "this_other_field"
-      alias:          "new_field_name"
+      transform_sql:  "cast(this_other_field as string)"
   hubspot__contact_pass_through_columns:
     - name:           "wow_i_can_add_all_my_custom_fields"
       alias:          "best_field"
