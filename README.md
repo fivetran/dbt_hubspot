@@ -73,7 +73,7 @@ vars:
   hubspot_email_event_opens_enabled: false
   hubspot_email_event_print_enabled: false
   hubspot_email_event_sent_enabled: false
-  hubspot_email_event_spam_report: false
+  hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
 
   # Sales
