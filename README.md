@@ -64,7 +64,6 @@ vars:
   hubspot_contact_property_enabled: false                 # Disables the contact property models
   hubspot_email_event_enabled: false                      # Disables all email_event models and functionality
   hubspot_email_event_bounce_enabled: false
-  hubspot_email_event_click_enabled: false
   hubspot_email_event_deferred_enabled: false
   hubspot_email_event_delivered_enabled: false
   hubspot_email_event_dropped_enabled: false
