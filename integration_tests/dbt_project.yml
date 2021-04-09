@@ -1,45 +1,46 @@
 
 name: 'hubspot_integration_tests'
-version: '0.3.1'
+version: '0.3.2'
 profile: 'integration_tests'
 config-version: 2
 
 vars:
   hubspot_source: 
-    company: "{{ ref('company_data')}}"
-    company_property_history: "{{ ref('company_property_history_data')}}"
-    contact: "{{ ref('contact_data')}}"
-    contact_list: "{{ ref('contact_list_data')}}"
-    contact_list_member: "{{ ref('contact_list_member_data')}}"
-    contact_property_history: "{{ ref('contact_property_history_data')}}"
-    deal: "{{ ref('deal_data')}}"
-    deal_company: "{{ ref('deal_company_data')}}"
-    deal_pipeline: "{{ ref('deal_pipeline_data')}}"
-    deal_pipeline_stage: "{{ ref('deal_pipeline_stage_data')}}"
-    deal_property_history: "{{ ref('deal_property_history_data')}}"
-    email_campaign: "{{ ref('email_campaign_data')}}"
-    email_event: "{{ ref('email_event_data')}}"
-    email_event_bounce: "{{ ref('email_event_bounce_data')}}"
-    email_event_click: "{{ ref('email_event_click_data')}}"
-    email_event_deferred: "{{ ref('email_event_deferred_data')}}"
-    email_event_delivered: "{{ ref('email_event_delivered_data')}}"
-    email_event_dropped: "{{ fivetran_utils.snowflake_seed_data('email_event_dropped_data') }}"
-    email_event_forward: "{{ ref('email_event_forward_data')}}"
-    email_event_open: "{{ ref('email_event_open_data')}}"
-    email_event_print: "{{ ref('email_event_print_data')}}"
-    email_event_sent: "{{ fivetran_utils.snowflake_seed_data('email_event_sent_data') }}"
-    email_event_spam_report: "{{ ref('email_event_spam_report_data')}}"
-    email_event_status_change: "{{ ref('email_event_status_change_data')}}"
-    engagement: "{{ ref('engagement_data')}}"
-    engagement_call: "{{ ref('engagement_call_data')}}"
-    engagement_company: "{{ ref('engagement_company_data')}}"
-    engagement_contact: "{{ ref('engagement_contact_data')}}"
-    engagement_deal: "{{ ref('engagement_deal_data')}}"
-    engagement_email: "{{ ref('engagement_email_data')}}"
-    engagement_meeting: "{{ ref('engagement_meeting_data')}}"
-    engagement_note: "{{ ref('engagement_note_data')}}"
-    engagement_task: "{{ ref('engagement_task_data')}}"
-    owner: "{{ ref('owner_data')}}"
+    company:                    "{{ ref('company_data')}}"
+    company_property_history:   "{{ ref('company_property_history_data')}}"
+    contact:                    "{{ ref('contact_data')}}"
+    contact_list:               "{{ fivetran_utils.seed_data_helper('contact_list_data', ['postgres']) }}"
+    contact_list_member:        "{{ ref('contact_list_member_data')}}"
+    contact_property_history:   "{{ ref('contact_property_history_data')}}"
+    deal:                       "{{ ref('deal_data')}}"
+    deal_stage:                 "{{ ref('deal_stage_data')}}"
+    deal_company:               "{{ ref('deal_company_data')}}"
+    deal_pipeline:              "{{ ref('deal_pipeline_data')}}"
+    deal_pipeline_stage:        "{{ ref('deal_pipeline_stage_data')}}"
+    deal_property_history:      "{{ ref('deal_property_history_data')}}"
+    email_campaign:             "{{ ref('email_campaign_data')}}"
+    email_event:                "{{ ref('email_event_data')}}"
+    email_event_bounce:         "{{ ref('email_event_bounce_data')}}"
+    email_event_click:          "{{ ref('email_event_click_data')}}"
+    email_event_deferred:       "{{ ref('email_event_deferred_data')}}"
+    email_event_delivered:      "{{ ref('email_event_delivered_data')}}"
+    email_event_dropped:        "{{ fivetran_utils.seed_data_helper('email_event_dropped_data', ['snowflake','postgres']) }}"
+    email_event_forward:        "{{ ref('email_event_forward_data')}}"
+    email_event_open:           "{{ ref('email_event_open_data')}}"
+    email_event_print:          "{{ ref('email_event_print_data')}}"
+    email_event_sent:           "{{ fivetran_utils.seed_data_helper('email_event_sent_data', ['snowflake','postgres']) }}"
+    email_event_spam_report:    "{{ ref('email_event_spam_report_data')}}"
+    email_event_status_change:  "{{ ref('email_event_status_change_data')}}"
+    engagement:                 "{{ ref('engagement_data')}}"
+    engagement_call:            "{{ ref('engagement_call_data')}}"
+    engagement_company:         "{{ ref('engagement_company_data')}}"
+    engagement_contact:         "{{ ref('engagement_contact_data')}}"
+    engagement_deal:            "{{ ref('engagement_deal_data')}}"
+    engagement_email:           "{{ ref('engagement_email_data')}}"
+    engagement_meeting:         "{{ ref('engagement_meeting_data')}}"
+    engagement_note:            "{{ ref('engagement_note_data')}}"
+    engagement_task:            "{{ ref('engagement_task_data')}}"
+    owner:                      "{{ ref('owner_data')}}"
 
 seeds:
   +quote_columns: "{{ true if target.type == 'redshift' else false }}"
@@ -50,7 +51,7 @@ seeds:
     company_data:
       +column_types:
         id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-    deal_data:
+    deal_stage_data:
       +column_types:
         deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
     deal_data:
@@ -100,9 +101,17 @@ seeds:
         engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
     email_event_sent_data_snowflake:
       +enabled: "{{ true if target.type == 'snowflake' else false }}"    
+    email_event_sent_data_postgres:
+      +enabled: "{{ true if target.type == 'postgres' else false }}" 
     email_event_sent_data:
-      +enabled: "{{ true if target.type != 'snowflake' else false }}"
+      +enabled: "{{ true if target.type not in ('snowflake', 'postgres') else false }}"
     email_event_dropped_data_snowflake:
-      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"    
+    email_event_dropped_data_postgres:
+      +enabled: "{{ true if target.type == 'postgres' else false }}" 
     email_event_dropped_data:
-      +enabled: "{{ true if target.type != 'snowflake' else false }}"
+      +enabled: "{{ true if target.type not in ('snowflake', 'postgres') else false }}"
+    contact_list_data:
+      +enabled: "{{ true if target.type != 'postgres' else false }}"
+    contact_list_data_postgres:
+      +enabled: "{{ true if target.type == 'postgres' else false }}" 

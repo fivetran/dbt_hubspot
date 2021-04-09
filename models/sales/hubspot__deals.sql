@@ -1,41 +1,9 @@
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
 
-with deals as (
+with deals_enhanced as (
 
     select *
-    from {{ var('deal') }}
-
-), pipelines as (
-
-    select *
-    from {{ var('deal_pipeline') }}
-
-), pipeline_stages as (
-
-    select *
-    from {{ var('deal_pipeline_stage') }}
-
-), owners as (
-
-    select *
-    from {{ var('owner') }}
-
-), deal_fields_joined as (
-
-    select 
-        deals.*,
-        pipelines.pipeline_label,
-        pipeline_stages.pipeline_stage_label,
-        owners.email_address as owner_email_address,
-        owners.full_name as owner_full_name
-
-    from deals
-    left join pipelines
-        using (deal_pipeline_id)
-    left join pipeline_stages
-        using (deal_pipeline_stage_id)
-    left join owners
-        using (owner_id)
+    from {{ ref('int_hubspot__deals_enhanced') }}
 
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
 
@@ -65,11 +33,11 @@ with deals as (
 ), engagements_joined as (
 
     select 
-        deal_fields_joined.*,
+        deals_enhanced.*,
         {% for metric in engagement_metrics() %}
         coalesce(engagement_deal_agg.{{ metric }},0) as {{ metric }} {% if not loop.last %},{% endif %}
         {% endfor %}
-    from deal_fields_joined
+    from deals_enhanced
     left join engagement_deal_agg
         using (deal_id)
 
@@ -83,6 +51,6 @@ from engagements_joined
 )
 
 select *
-from deal_fields_joined
+from deals_enhanced
 
 {% endif %}
