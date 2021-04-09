@@ -59,7 +59,57 @@ models:
       - name: owner_full_name
         description: The full name of the deal's owner.
 
-        
+  - name: hubspot__deal_stages
+    description: Each record represents a stage within a deal in Hubspot
+    columns:
+      - name: deal_stage_id
+        description: The unique deal stage identifier.
+        tests:
+          - not_null
+          - unique
+
+      - name: deal_stage_name
+        description: The name of the deal stage.
+
+      - name: date_stage_entered
+        description: The timestamp the deal stage was entered.
+
+      - name: date_stage_exited
+        description: The Fivetran calculated exit time of the deal stage.
+
+      - name: is_stage_active
+        description: Boolean indicating whether the deal stage is active.
+
+      - name: deal_id
+        description: The ID of the deal.
+
+      - name: deal_pipeline_id
+        description: The ID of the deal's pipeline.
+
+      - name: deal_pipeline_stage_id
+        description: The ID of the deal's pipeline stage.
+
+      - name: owner_id
+        description: The ID of the deal's owner. 
+
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+
+      - name: pipeline_label
+        description: The label of the deal's pipeline.
+
+      - name: is_pipeline_active
+        description: Boolean indicating if the deal pipeline is active.
+
+      - name: pipeline_stage_label
+        description: The label of the deal's pipeline stage.
+
+      - name: owner_email_address
+        description: The email address of the deal's owner.
+
+      - name: owner_full_name
+        description: The full name of the deal's owner.
+
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
     columns:

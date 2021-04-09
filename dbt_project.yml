@@ -1,5 +1,5 @@
 name: 'hubspot'
-version: '0.3.1'
+version: '0.3.2'
 config-version: 2
 require-dbt-version: [">=0.18.0", "<0.20.0"]
 
@@ -14,6 +14,7 @@ vars:
     company_property_history: "{{ ref('stg_hubspot__company_property_history') }}"
 
     deal: "{{ ref('stg_hubspot__deal') }}"
+    deal_stage: "{{ ref('stg_hubspot__deal_stage') }}"
     deal_company: "{{ ref('stg_hubspot__deal_company') }}"
     deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
     deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
@@ -65,5 +66,8 @@ models:
     +materialized: table
     +schema: hubspot
     marketing:
+      intermediate:
+        +materialized: ephemeral
+    sales:
       intermediate:
         +materialized: ephemeral

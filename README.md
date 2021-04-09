@@ -10,17 +10,18 @@ This package contains transformation models, designed to work simultaneously wit
 
 | **model**                | **description**                                                                                                      |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| hubspot__companies       | Each record represents a company in Hubspot, enriched with metrics about engagement activities.                      |
-| hubspot__company_history | Each record represents a change to a company in Hubspot, with `valid_to` and `valid_from` information.               |
-| hubspot__contacts        | Each record represents a contact in Hubspot, enriched with metrics about email and engagement activities.            |
-| hubspot__contact_history | Each record represents a change to a contact in Hubspot, with `valid_to` and `valid_from` information.               |
-| hubspot__contact_lists   | Each record represents a contact list in Hubspot, enriched with metrics about email activities.                      |
-| hubspot__deal            | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.                         |
-| hubspot__deal_history    | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.                  |
-| hubspot__email_campaigns | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.                    |
-| hubspot__email_event_*   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.           |
-| hubspot__email_sends     | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity. |
-| hubspot__engagement_*    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.      |
+| [hubspot__companies](models/hubspot__companies.sql)         | Each record represents a company in Hubspot, enriched with metrics about engagement activities.                      |
+| [hubspot__company_history](models/hubspot__company_history.sql) | Each record represents a change to a company in Hubspot, with `valid_to` and `valid_from` information.               |
+| [hubspot__contacts](models/hubspot__contacts.sql)        | Each record represents a contact in Hubspot, enriched with metrics about email and engagement activities.            |
+| [hubspot__contact_history](models/hubspot__contact_history.sql) | Each record represents a change to a contact in Hubspot, with `valid_to` and `valid_from` information.               |
+| [hubspot__contact_lists](models/hubspot__contact_lists.sql)   | Each record represents a contact list in Hubspot, enriched with metrics about email activities.                      |
+| [hubspot__deals](models/hubspot__deals.sql)            | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.                         |
+| [hubspot__deal_stages](models/hubspot__deal_stages.sql)            | Each record represents a deal stage in Hubspot, enriched with metrics deal activities.                         |
+| [hubspot__deal_history](models/hubspot__deal_history.sql)    | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.                  |
+| [hubspot__email_campaigns](models/hubspot__email_campaigns.sql) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.                    |
+| [hubspot__email_event_*](models/marketing/email_events/)   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.           |
+| [hubspot__email_sends](models/hubspot__email_sends.sql)     | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity. |
+| [hubspot__engagement_*](models/sales/engagement_events/)    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.      |
 
 ## Installation Instructions
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
@@ -63,7 +64,6 @@ vars:
   hubspot_contact_property_enabled: false                 # Disables the contact property models
   hubspot_email_event_enabled: false                      # Disables all email_event models and functionality
   hubspot_email_event_bounce_enabled: false
-  hubspot_email_event_click_enabled: false
   hubspot_email_event_deferred_enabled: false
   hubspot_email_event_delivered_enabled: false
   hubspot_email_event_dropped_enabled: false
@@ -72,7 +72,7 @@ vars:
   hubspot_email_event_opens_enabled: false
   hubspot_email_event_print_enabled: false
   hubspot_email_event_sent_enabled: false
-  hubspot_email_event_spam_report: false
+  hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
 
   # Sales
@@ -80,6 +80,7 @@ vars:
   hubspot_sales_enabled: false                            # Disables all sales models
   hubspot_company_enabled: false
   hubspot_deal_enabled: false
+  hubspot_deal_company_enabled: false
   hubspot_engagement_enabled: false                       # Disables all engagement models and functionality
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
@@ -90,6 +91,7 @@ vars:
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
 ```
+
 
 ### Email Metrics
 This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet and remove any fields you want to be ignored in the final model.
@@ -111,6 +113,36 @@ vars:
                   'unsubscribes'  #Remove if you do not want metrics in final model.
                   ]
 ```
+
+### Passthrough Columns
+Additionally, this package includes all source columns defined in the macros folder. We highly recommend including custom fields in this package as models now only bring in a few fields for the `company`, `contact`, `deal`, and `ticket` tables. You can add more columns using our pass-through column variables. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables.
+
+```yml
+# dbt_project.yml
+
+...
+vars:
+
+  hubspot__deal_pass_through_columns:
+    - name:           "property_field_new_id"
+      alias:          "new_name_for_this_field_id"
+      transform_sql:  "cast(new_name_for_this_field as int64)"
+    - name:           "this_other_field"
+      transform_sql:  "cast(this_other_field as string)"
+  hubspot__contact_pass_through_columns:
+    - name:           "wow_i_can_add_all_my_custom_fields"
+      alias:          "best_field"
+  hubspot__company_pass_through_columns:
+    - name:           "this_is_radical"
+      alias:          "radical_field"
+      transform_sql:  "cast(radical_field as string)"
+  hubspot__ticket_pass_through_columns:
+    - name:           "property_mmm"
+      alias:          "mmm"
+    - name:           "property_bop"
+      alias:          "bop"
+```
+
 ### Changing the Build Schema
 By default this package will build the HubSpot staging models within a schema titled (<target_schema> + `_stg_hubspot`) and HubSpot final models within a schema titled (<target_schema> + `hubspot`) in your target database. If this is not where you would like your modeled HubSpot data to be written to, add the following configuration to your `dbt_project.yml` file:
 
@@ -124,6 +156,10 @@ models:
     hubspot_source:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
+
+## Database Support
+This package has been tested on BigQuery, Snowflake, Redshift, and Postgres.
+
 ## Contributions
 
 Additional contributions to this package are very welcome! Please create issues
@@ -132,11 +168,14 @@ or open PRs against `master`. Check out
 on the best workflow for contributing to a package.
 
 ## Resources:
+- Provide [feedback](https://www.surveymonkey.com/r/DQ7K7WW) on our existing dbt packages or what you'd like to see next
+- Have questions, feedback, or need help? Book a time during our office hours [using Calendly](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) or email us at solutions@fivetran.com
 - Find all of Fivetran's pre-built dbt packages in our [dbt hub](https://hub.getdbt.com/fivetran/)
-- Learn more about Fivetran [here](https://fivetran.com/docs)
+- Learn how to orchestrate [dbt transformations with Fivetran](https://fivetran.com/docs/transformations/dbt)
+- Learn more about Fivetran overall [in our docs](https://fivetran.com/docs)
 - Check out [Fivetran's blog](https://fivetran.com/blog)
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
+- Learn more about dbt [in the dbt docs](https://docs.getdbt.com/docs/introduction)
 - Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
 - Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
 - Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+- Check out [the dbt blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
