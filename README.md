@@ -90,6 +90,27 @@ vars:
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
 ```
+
+### Email Metrics
+This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet and remove any fields you want to be ignored in the final model.
+
+```yml
+# dbt_project.yml
+
+...
+vars:
+  email_metrics: ['bounces',      #Remove if you do not want metrics in final model.
+                  'clicks',       #Remove if you do not want metrics in final model.
+                  'deferrals',    #Remove if you do not want metrics in final model.
+                  'deliveries',   #Remove if you do not want metrics in final model.
+                  'drops',        #Remove if you do not want metrics in final model.
+                  'forwards',     #Remove if you do not want metrics in final model.
+                  'opens',        #Remove if you do not want metrics in final model.
+                  'prints',       #Remove if you do not want metrics in final model.
+                  'spam_reports', #Remove if you do not want metrics in final model.
+                  'unsubscribes'  #Remove if you do not want metrics in final model.
+                  ]
+```
 ### Changing the Build Schema
 By default this package will build the HubSpot staging models within a schema titled (<target_schema> + `_stg_hubspot`) and HubSpot final models within a schema titled (<target_schema> + `hubspot`) in your target database. If this is not where you would like your modeled HubSpot data to be written to, add the following configuration to your `dbt_project.yml` file:
 
