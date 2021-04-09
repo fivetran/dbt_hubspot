@@ -92,6 +92,28 @@ vars:
   hubspot_engagement_tasks_enabled: false
 ```
 
+
+### Email Metrics
+This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet and remove any fields you want to be ignored in the final model.
+
+```yml
+# dbt_project.yml
+
+...
+vars:
+  email_metrics: ['bounces',      #Remove if you do not want metrics in final model.
+                  'clicks',       #Remove if you do not want metrics in final model.
+                  'deferrals',    #Remove if you do not want metrics in final model.
+                  'deliveries',   #Remove if you do not want metrics in final model.
+                  'drops',        #Remove if you do not want metrics in final model.
+                  'forwards',     #Remove if you do not want metrics in final model.
+                  'opens',        #Remove if you do not want metrics in final model.
+                  'prints',       #Remove if you do not want metrics in final model.
+                  'spam_reports', #Remove if you do not want metrics in final model.
+                  'unsubscribes'  #Remove if you do not want metrics in final model.
+                  ]
+```
+
 ### Passthrough Columns
 Additionally, this package includes all source columns defined in the macros folder. We highly recommend including custom fields in this package as models now only bring in a few fields for the `company`, `contact`, `deal`, and `ticket` tables. You can add more columns using our pass-through column variables. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables.
 
@@ -100,6 +122,7 @@ Additionally, this package includes all source columns defined in the macros fol
 
 ...
 vars:
+
   hubspot__deal_pass_through_columns:
     - name:           "property_field_new_id"
       alias:          "new_name_for_this_field_id"
