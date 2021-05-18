@@ -95,7 +95,7 @@ seeds:
     engagement_task_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        completion_date: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        completion_date: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     engagement_note_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
