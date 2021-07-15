@@ -32,7 +32,7 @@ with sends as (
         *,
         bounces > 0 as was_bounced,
         clicks > 0 as was_clicked,
-        deferrals > 0 as was_deffered,
+        deferrals > 0 as was_deferred,
         deliveries > 0 as was_delivered,
         forwards > 0 as was_forwarded,
         opens > 0 as was_opened,
