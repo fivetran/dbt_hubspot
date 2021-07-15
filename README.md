@@ -24,7 +24,17 @@ This package contains transformation models, designed to work simultaneously wit
 | [hubspot__engagement_*](models/sales/engagement_events/)    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.      |
 
 ## Installation Instructions
+`dbt_hubspot` currently supports `dbt 0.20.x`.
+
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
+
+Include in `packages.yml`
+
+```yaml
+packages:
+  - package: fivetran/hubspot
+    version: [">=0.4.0", "<0.5.0"]
+```
 
 ## Configuration
 By default this package will look for your Hubspot data in the `hubspot` schema of your [target database](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile). If this is not where your Hubspot data is, please add the following configuration to your `dbt_project.yml` file:
