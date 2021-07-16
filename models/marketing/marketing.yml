@@ -83,8 +83,8 @@ models:
       - name: was_clicked
         description: Whether the email was clicked.
 
-      - name: was_deffered
-        description: Whether the email was deffered.
+      - name: was_deferred
+        description: Whether the email was deferred.
 
       - name: was_delivered
         description: Whether the email was delivered.
