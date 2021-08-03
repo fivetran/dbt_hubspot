@@ -70,7 +70,7 @@ models:
     +schema: hubspot
     marketing:
       intermediate:
-        +materialized: table
+        +materialized: ephemeral
     sales:
       intermediate:
         +materialized: ephemeral
