@@ -9,6 +9,7 @@ vars:
     company:                    "{{ ref('company_data')}}"
     company_property_history:   "{{ ref('company_property_history_data')}}"
     contact:                    "{{ ref('contact_data')}}"
+    contact_merge_audit:        "{{ ref('contact_merge_audit_data')}}"
     contact_list:               "{{ fivetran_utils.seed_data_helper('contact_list_data', ['postgres']) }}"
     contact_list_member:        "{{ ref('contact_list_member_data')}}"
     contact_property_history:   "{{ ref('contact_property_history_data')}}"
@@ -43,8 +44,8 @@ vars:
     owner:                      "{{ ref('owner_data')}}"
 
 seeds:
-  +quote_columns: "{{ true if target.type == 'redshift' else false }}"
   hubspot_integration_tests:
+    +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     owner_data:
       +column_types:
         owner_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
