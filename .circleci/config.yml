@@ -32,6 +32,7 @@ jobs:
             dbt seed --target redshift --full-refresh
             dbt run --target redshift --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target redshift --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: true, hubspot_contact_merge_audit_enabled: true, hubspot_sales_enabled: false}' --target redshift
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target redshift --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target redshift --full-refresh
             dbt test --target redshift
@@ -45,6 +46,7 @@ jobs:
             dbt seed --target postgres --full-refresh
             dbt run --target postgres --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target postgres
+            dbt run --vars '{hubspot_marketing_enabled: true, hubspot_contact_merge_audit_enabled: true, hubspot_sales_enabled: false}' --target postgres
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target postgres
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target postgres
             dbt test --target postgres
@@ -58,6 +60,7 @@ jobs:
             dbt seed --target snowflake --full-refresh
             dbt run --target snowflake --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target snowflake --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: true, hubspot_contact_merge_audit_enabled: true, hubspot_sales_enabled: false}' --target snowflake
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target snowflake --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target snowflake --full-refresh
             dbt test --target snowflake
@@ -74,6 +77,7 @@ jobs:
             dbt seed --target bigquery --full-refresh
             dbt run --target bigquery --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target bigquery --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: true, hubspot_contact_merge_audit_enabled: true, hubspot_sales_enabled: false}' --target bigquery
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target bigquery --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target bigquery --full-refresh
             dbt test --target bigquery
