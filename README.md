@@ -83,6 +83,8 @@ vars:
   hubspot_email_event_sent_enabled: false
   hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
+  
+  hubspot_contact_merge_audit_enabled: true               # Enables contact merge auditing to be applied to final models (removes any merged contacts that are still persisting in the contact table)
 
   # Sales
 
@@ -99,8 +101,6 @@ vars:
   hubspot_engagement_meetings_enabled: false
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
-
-  hubspot_contact_merge_audit_enabled: true               # Enables contact merge auditing to be applied to final models (removes any merged contacts that are still persisting in the contact table)
 ```
 
 
