@@ -1,11 +1,12 @@
 name: 'hubspot'
-version: '0.4.0'
+version: '0.4.1'
 config-version: 2
 require-dbt-version: ">=0.20.0"
 
 vars:
   hubspot:
     contact: "{{ ref('stg_hubspot__contact') }}"
+    contact_merge_audit: "{{ ref('stg_hubspot__contact_merge_audit') }}"
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
     contact_property_history: "{{ ref('stg_hubspot__contact_property_history') }}"
@@ -60,6 +61,8 @@ vars:
                     'unsubscribes'
                     ]
 
+    #Contact Merge Audit Enable Variable
+    hubspot_contact_merge_audit_enabled:  false
 
 models:
   hubspot:

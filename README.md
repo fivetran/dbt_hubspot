@@ -25,8 +25,6 @@ This package contains transformation models, designed to work simultaneously wit
 | [hubspot__engagement_*](models/sales/engagement_events/)    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.      |
 
 ## Installation Instructions
-`dbt_hubspot` currently supports `dbt 0.20.x`.
-
 Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions, or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 
 Include in your `packages.yml`
@@ -56,7 +54,7 @@ For additional configurations for the source models, please visit the [Hubspot s
 
 ### Disabling models
 
-When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. In order to disable the relevant functionality in the package, you will need to add the relevant variables. By default, all variables are assumed to be `true`. You only need to add variables for the tables you would like to disable:  
+When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. In order to disable the relevant functionality in the package, you will need to add the relevant variables. By default, all variables are assumed to be `true` (with exception of `hubspot_contact_merge_audit_enabled`). You only need to add variables for the tables you would like to disable or enable respectively:
 
 ```yml
 # dbt_project.yml
@@ -101,6 +99,8 @@ vars:
   hubspot_engagement_meetings_enabled: false
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
+
+  hubspot_contact_merge_audit_enabled: true               # Enables contact merge auditing to be applied to final models (removes any merged contacts that are still persisting in the contact table)
 ```
 
 

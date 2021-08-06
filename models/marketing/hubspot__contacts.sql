@@ -5,7 +5,11 @@
 with contacts as (
 
     select *
-    from {{ var('contact') }}
+    from {% if var('hubspot_contact_merge_audit_enabled', false) %} 
+            {{ ref('int_hubspot__contact_merge_adjust') }} 
+        {% else %} 
+            {{ var('contact') }} 
+        {% endif %}
 
 {% if emails_enabled %}
 
