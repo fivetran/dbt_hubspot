@@ -32,7 +32,7 @@ integration_tests:
       method: service-account
       keyfile: "{{ env_var('GCLOUD_SERVICE_KEY_PATH') }}"
       project: 'dbt-package-testing'
-      schema: hubspot_integration_tests
+      schema: hubspot_integration_test
       threads: 8
     snowflake:
       type: snowflake
