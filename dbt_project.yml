@@ -1,7 +1,7 @@
 name: 'hubspot'
-version: '0.4.1'
+version: '0.5.0'
 config-version: 2
-require-dbt-version: ">=0.20.0"
+require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 vars:
   hubspot:
@@ -48,21 +48,10 @@ vars:
     engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
 
-    email_metrics: [
-                    'bounces',
-                    'clicks',
-                    'deferrals',
-                    'deliveries',
-                    'drops',
-                    'forwards',
-                    'opens',
-                    'prints',
-                    'spam_reports',
-                    'unsubscribes'
-                    ]
+    email_metrics: ['bounces', 'clicks', 'deferrals', 'deliveries', 'drops', 'forwards', 'opens', 'prints', 'spam_reports', 'unsubscribes']
 
     #Contact Merge Audit Enable Variable
-    hubspot_contact_merge_audit_enabled:  false
+    hubspot_contact_merge_audit_enabled: false
 
 models:
   hubspot:
