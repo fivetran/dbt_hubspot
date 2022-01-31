@@ -30,13 +30,13 @@ with deals as (
         owners.email_address as owner_email_address,
         owners.full_name as owner_full_name
 
-    from deals
-    left join pipelines
-        using (deal_pipeline_id)
-    left join pipeline_stages
-        using (deal_pipeline_stage_id)
-    left join owners
-        using (owner_id)
+    from deals    
+    left join pipelines 
+        on deals.deal_pipeline_id = pipelines.deal_pipeline_id
+    left join pipeline_stages 
+        on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
+    left join owners 
+        on deals.owner_id = owners.owner_id
 )
 
 select *
