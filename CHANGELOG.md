@@ -1,6 +1,6 @@
 # dbt_hubspot v0.5.1
 ## Under the Hood
-- Modified the join conditions within the `deal_fields_joined` cte of int_hubspot__deals_enhanced model to leverage the more appropriate `left join` rather than the `using` condition. This is to allow for correct and accurate joins across warehouses. ((#60)[https://github.com/fivetran/dbt_hubspot/pull/60])
+- Modified the join conditions within the `deal_fields_joined` cte of int_hubspot__deals_enhanced model to leverage the more appropriate `left join` rather than the `using` condition. This is to allow for correct and accurate joins across warehouses. ([#60](https://github.com/fivetran/dbt_hubspot/pull/60))
 
 # dbt_hubspot v0.5.0
 🎉 dbt v1.0.0 Compatibility 🎉
