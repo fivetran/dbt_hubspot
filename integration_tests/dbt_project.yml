@@ -1,6 +1,6 @@
 
 name: 'hubspot_integration_tests'
-version: '0.4.1'
+version: '0.5.1'
 profile: 'integration_tests'
 config-version: 2
 
@@ -100,6 +100,12 @@ seeds:
     engagement_note_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    deal_pipeline_data:
+      +column_types:
+        pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
+    deal_pipeline_stage_data:
+      +column_types:
+        stage_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     email_event_sent_data_snowflake:
       +enabled: "{{ true if target.type == 'snowflake' else false }}"    
     email_event_sent_data_postgres:
