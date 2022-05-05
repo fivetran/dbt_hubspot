@@ -92,6 +92,7 @@ vars:
   hubspot_company_enabled: false
   hubspot_deal_enabled: false
   hubspot_deal_company_enabled: false
+  hubspot_deal_contact_enabled: false
   hubspot_engagement_enabled: false                       # Disables all engagement models and functionality
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
