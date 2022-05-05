@@ -1,3 +1,6 @@
+# dbt_hubspot v0.5.3
+## Under the Hood
+- Added integration testing to support the new `stg_hubspot__deal_contact` model to the `dbt_hubspot_source` package.
 # dbt_hubspot v0.5.2
 ## Under the Hood
 - Updated the `engagements_joined` [macro](https://github.com/fivetran/dbt_hubspot/blob/main/macros/engagements_joined.sql) to conditionally include relevant fields if their respective variables are enabled. Previously if a variable was disabled then the `hubspot__engagement_calls` model, which depends on the `engagements_joined` macro, would error out on the missing fields that were from the disabled variables. ([#65](https://github.com/fivetran/dbt_hubspot/pull/65))

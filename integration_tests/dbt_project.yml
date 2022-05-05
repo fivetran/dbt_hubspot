@@ -1,6 +1,6 @@
 
 name: 'hubspot_integration_tests'
-version: '0.5.2'
+version: '0.5.3'
 profile: 'integration_tests'
 config-version: 2
 
@@ -16,6 +16,7 @@ vars:
     deal:                       "{{ ref('deal_data')}}"
     deal_stage:                 "{{ ref('deal_stage_data')}}"
     deal_company:               "{{ ref('deal_company_data')}}"
+    deal_contact:               "{{ ref('deal_contact_data')}}"
     deal_pipeline:              "{{ ref('deal_pipeline_data')}}"
     deal_pipeline_stage:        "{{ ref('deal_pipeline_stage_data')}}"
     deal_property_history:      "{{ ref('deal_property_history_data')}}"
@@ -54,6 +55,10 @@ seeds:
         id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
     deal_stage_data:
       +column_types:
+        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    deal_contact_data:
+      +column_types:
+        contact_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
         deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
     deal_data:
       +column_types:
