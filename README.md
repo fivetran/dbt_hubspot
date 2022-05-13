@@ -17,8 +17,8 @@
 # 📣 What does this dbt package do?
 - Produces modeled tables that leverage HubSpot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot) in the format described by [this ERD](https://fivetran.com/docs/applications/hubspot#schemainformation) and build off the output of our [HubSpot source package](https://github.com/fivetran/dbt_hubspot_source).HubSpot
 - Enables you to better understand your HubSpot email and engagement performance. The package achieves this by performing the following:
- - Generates models for contacts, companies, and deals with enriched email and engagement metrics. 
- - Provides analysis-ready event tables for email and engagement activities.
+    - Generates models for contacts, companies, and deals with enriched email and engagement metrics. 
+    - Provides analysis-ready event tables for email and engagement activities.
 - Generates a comprehensive data dictionary of your source and modeled HubSpot data through the [dbt docs site](https://fivetran.github.io/dbt_hubspot/).
 
 The following table provides a detailed list of all models materialized within this package by default. 
