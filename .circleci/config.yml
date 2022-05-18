@@ -68,13 +68,13 @@ jobs:
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target bigquery --full-refresh
             dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target bigquery --full-refresh
             dbt test --target bigquery
-     - run:
-        name: "Run Tests - Redshift"
-        command: |
-          . venv/bin/activate
-          echo `pwd`
-          cd integration_tests
-          dbt deps
-          dbt seed --target redshift --full-refresh
-          dbt run --target redshift --full-refresh
-          dbt test --target redshift
+      - run:
+          name: "Run Tests - Redshift"
+          command: |
+            . venv/bin/activate
+            echo `pwd`
+            cd integration_tests
+            dbt deps
+            dbt seed --target redshift --full-refresh
+            dbt run --target redshift --full-refresh
+            dbt test --target redshift
