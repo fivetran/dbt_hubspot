@@ -1,3 +1,10 @@
+# dbt_hubspot v0.5.4
+## Under the Hood
+- Updated the below models such that the respective `lead()` functions also account for `field_name` in partitions
+  - `hubspot__contact_history`
+  - `hubspot__company_history`
+  - `hubspot__deal_history`
+
 # dbt_hubspot v0.5.3
 ## Under the Hood
 - Added integration testing to support the new `stg_hubspot__deal_contact` model to the `dbt_hubspot_source` package.
