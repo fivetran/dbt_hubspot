@@ -4,6 +4,9 @@
   - `hubspot__contact_history`
   - `hubspot__company_history`
   - `hubspot__deal_history`
+- Added test cases for the above models that can be found, respectively, in: 
+  - `models/marketing/history/history.yml`
+  - `models/sales/history/history.yml`
 
 # dbt_hubspot v0.5.3
 ## Under the Hood

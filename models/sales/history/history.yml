@@ -4,6 +4,12 @@ models:
 
   - name: hubspot__company_history
     description: Each record represents a change to company record in Hubspot.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - company_id
+            - field_name
+            - valid_to
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -37,6 +43,12 @@ models:
 
   - name: hubspot__deal_history
     description: Each record represents a change to deal record in Hubspot.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - deal_id
+            - field_name
+            - valid_to
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
