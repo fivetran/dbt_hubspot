@@ -3,7 +3,13 @@ version: 2
 models:
 
   - name: hubspot__contact_history
-    description: Each record represents a change to contact record in Hubspot.
+    description: Each record represents a change to contact record in Hubspot; the grain of this model is contact_id -> field_name -> valid_to.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_id
+            - field_name
+            - valid_to
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
