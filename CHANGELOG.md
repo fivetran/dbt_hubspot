@@ -1,9 +1,9 @@
 # dbt_hubpost [next release changes]
 ## Fixes
-- Spelling correction within the README. ((#70)[https://github.com/fivetran/dbt_hubspot/pull/70])
+- Spelling correction within the README. ([#70](https://github.com/fivetran/dbt_hubspot/pull/70))
 
 ## Contributors
-- [@mp56](https://github.com/moreaupascal56) ((#70)[https://github.com/fivetran/dbt_hubspot/pull/70])
+- [@mp56](https://github.com/moreaupascal56) ([#70](https://github.com/fivetran/dbt_hubspot/pull/70))
 
 # dbt_hubspot v0.5.3
 ## Under the Hood
