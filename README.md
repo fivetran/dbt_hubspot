@@ -78,7 +78,7 @@ vars:
   hubspot_email_event_dropped_enabled: false
   hubspot_email_event_forward_enabled: false
   hubspot_email_event_click_enabled: false
-  hubspot_email_event_opens_enabled: false
+  hubspot_email_event_open_enabled: false
   hubspot_email_event_print_enabled: false
   hubspot_email_event_sent_enabled: false
   hubspot_email_event_spam_report_enabled: false
@@ -97,11 +97,11 @@ vars:
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
   hubspot_engagement_deal_enabled: false
-  hubspot_engagement_calls_enabled: false
-  hubspot_engagement_emails_enabled: false
-  hubspot_engagement_meetings_enabled: false
-  hubspot_engagement_notes_enabled: false
-  hubspot_engagement_tasks_enabled: false
+  hubspot_engagement_call_enabled: false
+  hubspot_engagement_email_enabled: false
+  hubspot_engagement_meeting_enabled: false
+  hubspot_engagement_note_enabled: false
+  hubspot_engagement_task_enabled: false
 ```
 
 
