@@ -24,9 +24,9 @@ with deals as (
 
     select 
         deals.*,
-        pipelines.pipeline_label,
-        pipelines.is_active as is_pipeline_active,
-        pipeline_stages.pipeline_stage_label,
+        pipelines.pipeline_label as current_pipeline_label,
+        pipelines.is_active as is_current_pipeline_active,
+        pipeline_stages.pipeline_stage_label as current_pipeline_stage_label,
         owners.email_address as owner_email_address,
         owners.full_name as owner_full_name
 
