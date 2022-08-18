@@ -5,8 +5,6 @@ profile: 'integration_tests'
 config-version: 2
 
 vars:
-  hubspot_source: 
-vars:
   hubspot_schema: hubspot_integration_tests
   hubspot_source:
     hubspot_service_enabled:    true

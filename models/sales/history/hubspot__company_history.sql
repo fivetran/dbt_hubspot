@@ -14,7 +14,7 @@ with history as (
         change_source_id,
         change_timestamp as valid_from,
         new_value,
-        lead(change_timestamp) over (partition by company_id order by change_timestamp) as valid_to
+        lead(change_timestamp) over (partition by company_id, field_name order by change_timestamp) as valid_to
     from history
 
 ), surrogate as (

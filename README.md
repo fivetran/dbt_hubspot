@@ -85,7 +85,7 @@ vars:
   hubspot_email_event_dropped_enabled: false
   hubspot_email_event_forward_enabled: false
   hubspot_email_event_click_enabled: false
-  hubspot_email_event_opens_enabled: false
+  hubspot_email_event_open_enabled: false
   hubspot_email_event_print_enabled: false
   hubspot_email_event_sent_enabled: false
   hubspot_email_event_spam_report_enabled: false
@@ -104,11 +104,21 @@ vars:
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
   hubspot_engagement_deal_enabled: false
+<<<<<<< HEAD
   hubspot_engagement_calls_enabled: false
   hubspot_engagement_emails_enabled: false
   hubspot_engagement_meetings_enabled: false
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
+=======
+  hubspot_engagement_call_enabled: false
+  hubspot_engagement_email_enabled: false
+  hubspot_engagement_meeting_enabled: false
+  hubspot_engagement_note_enabled: false
+  hubspot_engagement_task_enabled: false
+```
+
+>>>>>>> release/v0.5.5
 
   # Service
   hubspot_service_enabled: true                           # Enables all service models
@@ -234,7 +244,27 @@ A small team of analytics engineers at Fivetran develops these dbt packages. How
 
 We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package!
 
+<<<<<<< HEAD
 # 🏪 Are there any resources available?
 - If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose) section to find the right avenue of support for you.
 - If you would like to provide feedback to the dbt package team at Fivetran or would like to request a new dbt package, fill out our [Feedback Form](https://www.surveymonkey.com/r/DQ7K7WW).
 - Have questions or want to just say hi? Book a time during our office hours [on Calendly](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) or email us at solutions@fivetran.com.
+=======
+Additional contributions to this package are very welcome! Please create issues
+or open PRs against `main`. Check out 
+[this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) 
+on the best workflow for contributing to a package.
+
+## Resources:
+- Provide [feedback](https://www.surveymonkey.com/r/DQ7K7WW) on our existing dbt packages or what you'd like to see next
+- Have questions, feedback, or need help? Book a time during our office hours [using Calendly](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) or email us at solutions@fivetran.com
+- Find all of Fivetran's pre-built dbt packages in our [dbt hub](https://hub.getdbt.com/fivetran/)
+- Learn how to orchestrate your models with [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt)
+- Learn more about Fivetran overall [in our docs](https://fivetran.com/docs)
+- Check out [Fivetran's blog](https://fivetran.com/blog)
+- Learn more about dbt [in the dbt docs](https://docs.getdbt.com/docs/introduction)
+- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
+- Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
+- Find [dbt events](https://events.getdbt.com) near you
+- Check out [the dbt blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+>>>>>>> release/v0.5.5
