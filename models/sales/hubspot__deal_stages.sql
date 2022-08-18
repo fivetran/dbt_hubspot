@@ -24,8 +24,8 @@ with deals_enhanced as (
 
     select
         deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id order by deal_stage.date_entered asc) as deal_stage_id,
-        deal_stage.source,
-        deal_stage.source_id,
+        deals_enhanced.deal_id,
+        deals_enhanced.deal_name,
         deal_stage._fivetran_start as date_stage_entered,
         deal_stage._fivetran_end as date_stage_exited,
         deal_stage._fivetran_active as is_stage_active,
@@ -34,14 +34,14 @@ with deals_enhanced as (
         pipeline_stage.pipeline_stage_label,
         pipeline_stage.deal_pipeline_id as pipeline_id,
         pipeline.pipeline_label,
+        deal_stage.source,
+        deal_stage.source_id,
         pipeline_stage.is_active as is_pipeline_stage_active,
         pipeline.is_active as is_pipeline_active,
         pipeline_stage.is_closed_won as is_pipeline_stage_closed_won,
         pipeline_stage.display_order as pipeline_stage_display_order,
         pipeline.display_order as pipeline_display_order,
         pipeline_stage.probability as pipeline_stage_probability,
-
-        deals_enhanced.* -- should we continue to pass deal info here? 
 
     from deal_stage
 
