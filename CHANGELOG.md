@@ -1,11 +1,7 @@
-# dbt_hubspot v0.5.4
-## Fixes
-- Typo fix and spelling correction within the README. ([#70](https://github.com/fivetran/dbt_hubspot/pull/70))
-- Spelling correction of the variable names within the README. ([#74](https://github.com/fivetran/dbt_hubspot/pull/74))
-
-## Contributors
-- [@moreaupascal56](https://github.com/moreaupascal56) ([#70](https://github.com/fivetran/dbt_hubspot/pull/70), [#74](https://github.com/fivetran/dbt_hubspot/pull/74))
-
+# dbt_hubspot v0.6.0
+## 🎉 Documentation and Feature Updates
+- Updated README documentation updates for easier navigation and setup of the dbt package
+- Included `hubspot_[source_table_name]_identifier` variable for additional flexibility within the package when source tables are named differently.
 # dbt_hubspot v0.5.3
 ## Under the Hood
 - Added integration testing to support the new `stg_hubspot__deal_contact` model to the `dbt_hubspot_source` package.
