@@ -68,7 +68,7 @@ models:
           - not_null
           - unique
 
-      - name: deal_stage_name
+      - name: pipeline_stage_id
         description: The name of the deal stage.
 
       - name: date_stage_entered

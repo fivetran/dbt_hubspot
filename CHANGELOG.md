@@ -1,3 +1,6 @@
+# dbt_hubspot v0.6.0
+## Fixes
+
 # dbt_hubspot v0.5.4
 ## Fixes
 - Typo fix and spelling correction within the README. ([#70](https://github.com/fivetran/dbt_hubspot/pull/70))
