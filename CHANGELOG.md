@@ -1,5 +1,12 @@
 # dbt_hubspot v0.6.0
-## Fixes
+## 🎉 Documentation and Feature Updates
+- Updated README documentation updates for easier navigation and setup of the dbt package
+- Included `hubspot_[source_table_name]_identifier` variable for additional flexibility within the package when source tables are named differently.
+
+## 🚨 Breaking Changes 🚨
+- The `hubspot__deal_stages` model has undergone two major changes:
+  1. The stage and pipeline label columns now reflect where the deal was at a certain point of time (from `date_stage_entered` to `date_stage_exited`). Previously, this information reflected the deal's _current_ stage and pipeline in every record associated with the deal.
+  2. This model previously passed through _all_ fields from the parent deals model. We removed these fields, as they are all present in `hubspot__deals` final model and do not change across deal stages. If you would like to join `DEAL` fields into the `hubspot__deal_stages` model, join `hubspot__deal_stages` with `hubspot__deals` on `deal_id`.
 
 # dbt_hubspot v0.5.4
 ## Fixes

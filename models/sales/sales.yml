@@ -78,37 +78,46 @@ models:
         description: The Fivetran calculated exit time of the deal stage.
 
       - name: is_stage_active
-        description: Boolean indicating whether the deal stage is active.
+        description: Boolean indicating whether the deal stage active.
 
       - name: deal_id
         description: The ID of the deal.
 
-      - name: deal_pipeline_id
+      - name: pipeline_id
         description: The ID of the deal's pipeline.
 
-      - name: deal_pipeline_stage_id
+      - name: pipeline_stage_id
         description: The ID of the deal's pipeline stage.
-
-      - name: owner_id
-        description: The ID of the deal's owner. 
-
-      - name: portal_id
-        description: '{{ doc("portal_id") }}'
 
       - name: pipeline_label
         description: The label of the deal's pipeline.
 
       - name: is_pipeline_active
-        description: Boolean indicating if the deal pipeline is active.
+        description: Boolean indicating if the pipeline is active.
+
+      - name: is_pipeline_stage_active
+        description: Boolean indicating if the pipeline stage is active.
 
       - name: pipeline_stage_label
         description: The label of the deal's pipeline stage.
 
-      - name: owner_email_address
-        description: The email address of the deal's owner.
+      - name: source
+        description: The relevant source of the deal stage.
 
-      - name: owner_full_name
-        description: The full name of the deal's owner.
+      - name: source_id
+        description: Reference to the source.
+
+      - name: is_pipeline_stage_closed_won
+        description: Whether the stage represents a Closed Won deal.
+        
+      - name: pipeline_stage_display_order
+        description: Used to determine the order in which the stages appear when viewed in HubSpot.
+      
+      - name: pipeline_stage_probability
+        description: The probability that the deal will close. Used for the deal forecast.
+      
+      - name: deal_name
+        description: The name you have given this deal.
 
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
