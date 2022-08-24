@@ -1,6 +1,6 @@
 packages:
   - git: https://github.com/fivetran/dbt_hubspot_source.git
-    revision: release/v0.3.8
+    revision: main
     warn-unpinned: false
 ## TO SWITCH BEFORE MERGE
 #  - package: fivetran/hubspot_source
