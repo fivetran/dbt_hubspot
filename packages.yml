@@ -1,6 +1,6 @@
 packages:
   - git: https://github.com/fivetran/dbt_hubspot_source.git
-    revision: feature/disable-ticket-deal
+    revision: release/v0.3.8
     warn-unpinned: false
 ## TO SWITCH BEFORE MERGE
 #  - package: fivetran/hubspot_source
