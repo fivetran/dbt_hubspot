@@ -25,14 +25,14 @@ integration_tests:
       pass: "{{ env_var('CI_POSTGRES_DBT_PASS') }}"
       dbname: "{{ env_var('CI_POSTGRES_DBT_DBNAME') }}"
       port: 5432
-      schema: hubspot_source_integration_tests
+      schema: hubspot_integration_tests
       threads: 8
     bigquery:
       type: bigquery
       method: service-account
       keyfile: "{{ env_var('GCLOUD_SERVICE_KEY_PATH') }}"
       project: 'dbt-package-testing'
-      schema: hubspot_integration_test
+      schema: hubspot_integration_tests
       threads: 8
     snowflake:
       type: snowflake
