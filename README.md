@@ -17,11 +17,11 @@
 # 📣 What does this dbt package do?
 - Produces modeled tables that leverage HubSpot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot) in the format described by [this ERD](https://fivetran.com/docs/applications/hubspot#schemainformation) and build off the output of our [HubSpot source package](https://github.com/fivetran/dbt_hubspot_source).
 - Enables you to better understand your HubSpot email and engagement performance. The package achieves this by performing the following:
-    - Generates models for contacts, companies, and deals with enriched email and engagement metrics. 
+    - Generates models for contacts, companies, and deals with enriched email and engagement metrics.
     - Provides analysis-ready event tables for email and engagement activities.
 - Generates a comprehensive data dictionary of your source and modeled HubSpot data through the [dbt docs site](https://fivetran.github.io/dbt_hubspot/).
 
-The following table provides a detailed list of all models materialized within this package by default. 
+The following table provides a detailed list of all models materialized within this package by default.
 > TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_hubspot/#!/overview?g_v=1).
 
 | **model**                | **description**                                                                                                      |
@@ -62,7 +62,7 @@ By default, this package runs using your destination and the `hubspot` schema. I
 ```yml
 vars:
     hubspot_database: your_destination_name
-    hubspot_schema: your_schema_name 
+    hubspot_schema: your_schema_name
 ```
 
 ## Step 4: Disable models for non-existent sources
@@ -90,7 +90,7 @@ vars:
   hubspot_email_event_sent_enabled: false
   hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
-  
+
   hubspot_contact_merge_audit_enabled: true               # Enables contact merge auditing to be applied to final models (removes any merged contacts that are still persisting in the contact table)
 
   # Sales
@@ -104,28 +104,18 @@ vars:
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
   hubspot_engagement_deal_enabled: false
-<<<<<<< HEAD
   hubspot_engagement_calls_enabled: false
   hubspot_engagement_emails_enabled: false
   hubspot_engagement_meetings_enabled: false
   hubspot_engagement_notes_enabled: false
   hubspot_engagement_tasks_enabled: false
-=======
-  hubspot_engagement_call_enabled: false
-  hubspot_engagement_email_enabled: false
-  hubspot_engagement_meeting_enabled: false
-  hubspot_engagement_note_enabled: false
-  hubspot_engagement_task_enabled: false
-```
-
->>>>>>> release/v0.5.5
 
   # Service
   hubspot_service_enabled: true                           # Enables all service models
 ```
 ## (Optional) Step 5: Additional configurations
 <details><summary>Expand for configurations</summary>
-    
+
 ### Configure email metrics
 This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet within your root `dbt_project.yml` and remove any fields you want to be ignored in the final model.
 
@@ -201,7 +191,7 @@ models:
     hubspot_source:
       +schema: my_new_schema_name # leave blank for just the target_schema
 ```
-    
+
 ### Change the source table references
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
 
@@ -209,21 +199,21 @@ If an individual source table has a different name than the package expects, add
 
 ```yml
 vars:
-    hubspot_<default_source_table_name>_identifier: your_table_name 
+    hubspot_<default_source_table_name>_identifier: your_table_name
 ```
 </details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
 <br>
-    
+
 Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core™ setup guides](https://fivetran.com/docs/transformations/dbt#setupguide).
 </details>
 
 # 🔍 Does this package have dependencies?
 This dbt package is dependent on the following dbt packages. Please be aware that these dependencies are installed by default within this package. For more information on the following packages, refer to the [dbt hub](https://hub.getdbt.com/) site.
 > IMPORTANT: If you have any of these dependent packages in your own `packages.yml` file, we highly recommend that you remove them from your root `packages.yml` to avoid package version conflicts.
-    
+
 ```yml
 packages:
     - package: fivetran/hubspot_source
@@ -240,19 +230,17 @@ packages:
 The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/hubspot/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_hubspot/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
 
 ## Contributions
-A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions! 
+A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions!
 
 We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package!
 
-<<<<<<< HEAD
 # 🏪 Are there any resources available?
 - If you have questions or want to reach out for help, please refer to the [GitHub Issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose) section to find the right avenue of support for you.
 - If you would like to provide feedback to the dbt package team at Fivetran or would like to request a new dbt package, fill out our [Feedback Form](https://www.surveymonkey.com/r/DQ7K7WW).
 - Have questions or want to just say hi? Book a time during our office hours [on Calendly](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) or email us at solutions@fivetran.com.
-=======
 Additional contributions to this package are very welcome! Please create issues
-or open PRs against `main`. Check out 
-[this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) 
+or open PRs against `main`. Check out
+[this post](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657)
 on the best workflow for contributing to a package.
 
 ## Resources:
@@ -267,4 +255,3 @@ on the best workflow for contributing to a package.
 - Join the [chat](http://slack.getdbt.com/) on Slack for live discussions and support
 - Find [dbt events](https://events.getdbt.com) near you
 - Check out [the dbt blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
->>>>>>> release/v0.5.5
