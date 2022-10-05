@@ -1,3 +1,7 @@
+# dbt_hubspot v0.6.2
+## Under the Hood
+- Updated the docs as there were issues with the previous deployment. ([#82](https://github.com/fivetran/dbt_hubspot/pull/82))
+- Introduced a GitHub workflow to ensure docs are re-built prior to merges to `main`. ([#82](https://github.com/fivetran/dbt_hubspot/pull/82))
 # dbt_hubspot v0.6.1
 ## Fixes
 - The README had holdover merge artifacts included within it. Those artifacts have since been removed in this release. [#80](https://github.com/fivetran/dbt_hubspot/pull/80)
