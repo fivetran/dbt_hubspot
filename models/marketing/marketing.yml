@@ -197,16 +197,16 @@ models:
       - name: total_unique_prints
         description: "{{ doc('unique_prints') }}"
 
-      - name: total_spam_reports
+      - name: total_unique_spam_reports
         description: "{{ doc('unique_spam_reports') }}"
 
-      - name: total_unsubscribes
+      - name: total_unique_unsubscribes
         description: "{{ doc('unique_unsubscribes') }}"
 
   - name: hubspot__contacts
     description: Each record represents a contact in Hubspot.
     columns:
-         - name: _fivetran_deleted
+      - name: _fivetran_deleted
         description: '{{ doc("_fivetran_deleted") }}'
 
       - name: _fivetran_synced
