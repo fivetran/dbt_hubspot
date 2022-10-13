@@ -11,6 +11,24 @@ models:
       - name: call_duration_milliseconds
         description: The length of the call in milliseconds
 
+      - name: call_notes
+        description: The description of the call, including any notes that you want to add.
+
+      - name: callee_object_id
+        description: The ID of the HubSpot record associated with the call. This will be the recipient of the call for OUTBOUND calls, or the dialer of the call for INBOUND calls.
+
+      - name: callee_object_type
+        description: The ID of the object to which the call's associated record belongs (e.g., specifies if the record is a contact or company). This will be the object of the recipient for OUTBOUND calls, or the object of the dialer for INBOUND calls.
+
+      - name: call_status
+        description: The status of the call. The statuses are BUSY, CALLING_CRM_USER, CANCELED, COMPLETED, CONNECTING, FAILED, IN_PROGRESS, NO_ANSWER, QUEUED, and RINGING.
+      
+      - name: transcription_id
+        description: The ID of the transcription for the call.
+      
+      - name: unknown_visitor_conversation
+        description: If a visitor is unknown.
+        
       - name: disposition_id
         description: The internal ID for the call outcome.
 
@@ -92,6 +110,9 @@ models:
       - name: error_message
         description: The error message, if applicable.
 
+      - name: facsimile_send_id
+        description: facsimile_send_id
+
       - name: from_email
         description: The email address of the sender.
 
@@ -101,17 +122,32 @@ models:
       - name: from_last_name
         description: The last name of the sender.
 
+      - name: logged_from
+        description: The source of the logged email.
+
       - name: media_processing_status
         description: The processing status of the media content in the email.
 
       - name: message_id
         description: The ID of the message.
 
+      - name: post_send_status
+        description: Indicates if the post was sent.
+
+      - name: recipient_drop_reasons
+        description: recipient_drop_reasons
+
       - name: sent_via
         description: How the email was sent.
 
       - name: thread_id
         description: The ID of the email thread.
+
+      - name: tracker_key
+        description: The ID of the tracker.
+
+      - name: validation_skipped
+        description: validation_skipped
 
       - name: was_attached_video_opened
         description: Whether the the attached video was opened.
@@ -146,6 +182,9 @@ models:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
+      - name: created_from_link_id
+        description: created_from_link_id
+
       - name: end_timestamp
         description: A timestamp representing the end time of the meeting
 
@@ -167,6 +206,9 @@ models:
       - name: meeting_title
         description: The title or subject of the meeting
 
+      - name: pre_meeting_prospect_reminders
+        description: pre_meeting_prospect_reminders
+        
       - name: source
         description: The source of the meeting.
 

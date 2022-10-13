@@ -197,23 +197,47 @@ models:
       - name: total_unique_prints
         description: "{{ doc('unique_prints') }}"
 
-      - name: total_spam_reports
+      - name: total_unique_spam_reports
         description: "{{ doc('unique_spam_reports') }}"
 
-      - name: total_unsubscribes
+      - name: total_unique_unsubscribes
         description: "{{ doc('unique_unsubscribes') }}"
 
   - name: hubspot__contacts
     description: Each record represents a contact in Hubspot.
     columns:
+      - name: _fivetran_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
+
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_deleted") }}'
+
       - name: contact_id
         description: The ID of the contact.
         tests:
           - unique
           - not_null
 
+      - name: contact_company
+        description: The name of the contact's company
+
+      - name: first_name
+        description: The contact's first name.
+
+      - name: last_name
+        description: The contact's last name.
+        
       - name: email
         description: The email address of the contact.
+
+      - name: created_at
+        description: The date that the contact was created in your HubSpot account.
+
+      - name: job_title
+        description: The contact's job title.
+
+      - name: company_annual_revenue
+        description: The contact's annual company revenue.
 
       - name: total_bounces
         description: "{{ doc('bounces') }}"
