@@ -5,11 +5,29 @@ models:
   - name: hubspot__deals
     description: Each record represents a deal in Hubspot.
     columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: description
+        description: A brief description of the deal.
+
+      - name: amount
+        description: The total value of the deal in the deal's currency.
+
+      - name: closed_at
+        description: The day the deal is expected to close, or was closed.
+
+      - name: created_at
+        description: The date the deal was created. This property is set automatically by HubSpot.
+
       - name: deal_id
         description: The ID of the deal
         tests:
           - not_null
           - unique
+
+      - name: deal_name
+        description: The name you have given this deal.
 
       - name: is_deleted
         description: Whether the record was deleted.
@@ -46,6 +64,9 @@ models:
 
       - name: count_engagement_forwarded_emails
         description: "{{ doc('count_engagement_forwarded_emails') }}"
+
+      - name: is_pipeline_active
+        description: Boolean indicating if the pipeline is active.
 
       - name: pipeline_label
         description: The label of the deal's pipeline.
@@ -113,6 +134,9 @@ models:
       - name: pipeline_stage_display_order
         description: Used to determine the order in which the stages appear when viewed in HubSpot.
       
+      - name: pipeline_display_order
+        description: Used to determine the order in which the pipelines appear when viewed in HubSpot.
+
       - name: pipeline_stage_probability
         description: The probability that the deal will close. Used for the deal forecast.
       
