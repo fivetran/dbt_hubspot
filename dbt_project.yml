@@ -1,8 +1,7 @@
 name: 'hubspot'
-version: '0.6.3'
+version: '0.7.0'
 config-version: 2
-require-dbt-version: [">=1.0.0", "<2.0.0"]
-
+require-dbt-version: [">=1.3.0", "<2.0.0"]
 vars:
   hubspot:
     contact: "{{ ref('stg_hubspot__contact') }}"
@@ -10,19 +9,15 @@ vars:
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
     contact_property_history: "{{ ref('stg_hubspot__contact_property_history') }}"
-
     company: "{{ ref('stg_hubspot__company') }}"
     company_property_history: "{{ ref('stg_hubspot__company_property_history') }}"
-
     deal: "{{ ref('stg_hubspot__deal') }}"
     deal_stage: "{{ ref('stg_hubspot__deal_stage') }}"
     deal_company: "{{ ref('stg_hubspot__deal_company') }}"
     deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
     deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
     deal_property_history: "{{ ref('stg_hubspot__deal_property_history') }}"
-
     owner: "{{ ref('stg_hubspot__owner') }}"
-
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
     email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
@@ -35,7 +30,6 @@ vars:
     email_event_spam_report: "{{ ref('stg_hubspot__email_event_spam_report') }}"
     email_event_status_change: "{{ ref('stg_hubspot__email_event_status_change') }}"
     email_event: "{{ ref('stg_hubspot__email_event') }}"
-
     engagement: "{{ ref('stg_hubspot__engagement') }}"
     engagement_call: "{{ ref('stg_hubspot__engagement_call') }}"
     engagement_company: "{{ ref('stg_hubspot__engagement_company') }}"
@@ -47,12 +41,8 @@ vars:
     engagement_meeting: "{{ ref('stg_hubspot__engagement_meeting') }}"
     engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
-
     email_metrics: ['bounces', 'clicks', 'deferrals', 'deliveries', 'drops', 'forwards', 'opens', 'prints', 'spam_reports', 'unsubscribes']
-
-    #Contact Merge Audit Enable Variable
     hubspot_contact_merge_audit_enabled: false
-
 models:
   hubspot:
     +materialized: table
