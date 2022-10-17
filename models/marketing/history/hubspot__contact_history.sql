@@ -21,7 +21,7 @@ with history as (
 
     select 
         windows.*,
-        {{ dbt_utils.surrogate_key(['field_name','contact_id','valid_from']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['field_name','contact_id','valid_from']) }} as id
     from windows
 
 )
