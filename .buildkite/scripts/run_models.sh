@@ -17,7 +17,8 @@ dbt deps
 dbt seed --target "$db" --full-refresh
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
-## UPDATE FOR VARS HERE, IF NO VARS, PLEASE REMOVE
-dbt run --vars '{apple_search_ads__using_search_terms: True}' --target "$db" --full-refresh
-dbt test --target "$db"
-### END VARS CHUNK, REMOVE IF NOT USING
+dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target "$db" --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: true, hubspot_contact_merge_audit_enabled: true, hubspot_sales_enabled: false}' --target "$db" --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target "$db" --full-refresh
+            dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target "$db" --full-refresh
+            dbt test --target "$db"
