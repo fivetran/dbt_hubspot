@@ -101,7 +101,7 @@ vars:
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
   hubspot_engagement_deal_enabled: false
-  hubspot_engagement_calls_enabled: false
+  hubspot_engagement_call_enabled: false
   hubspot_engagement_emails_enabled: false
   hubspot_engagement_meetings_enabled: false
   hubspot_engagement_notes_enabled: false
