@@ -134,3 +134,7 @@ seeds:
       +enabled: "{{ true if target.type != 'postgres' else false }}"
     contact_list_data_postgres:
       +enabled: "{{ true if target.type == 'postgres' else false }}"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
