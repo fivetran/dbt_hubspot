@@ -39,7 +39,7 @@
 - Dependencies on `fivetran/fivetran_utils` have been upgraded, previously `[">=0.3.0", "<0.4.0"]` now `[">=0.4.0", "<0.5.0"]`.
 
 ## 🎉 Features
-- 🧱 Databricks compatibility! [(PR #87)](https://github.com/fivetran/dbt_hubspot/pull/87)
+- 🧱 Databricks compatibility! [(PR #89)](https://github.com/fivetran/dbt_hubspot/pull/89)
 
 # dbt_hubspot v0.6.3
 PR [#84](https://github.com/fivetran/dbt_hubspot/pull/84) incorporates the following updates:
