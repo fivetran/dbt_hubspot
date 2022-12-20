@@ -3,7 +3,7 @@
         href="https://github.com/fivetran/dbt_hubspot/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
     <a alt="dbt-core">
-        <img src="https://img.shields.io/badge/dbt_Core™_version->=1.0.0_,<2.0.0-orange.svg" /></a>
+        `<img src="https://img.shields.io/badge/dbt_Core™_version->=1.3.0_,<2.0.0-orange.svg" /></a>` 
     <a alt="Maintained?">
         <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
     <a alt="PRs">
@@ -42,7 +42,15 @@ The following table provides a detailed list of all models materialized within t
 To use this dbt package, you must have the following:
 
 - At least one Fivetran HubSpot connector syncing data into your destination.
-- A **BigQuery**, **Snowflake**, **Redshift**, or **PostgreSQL** destination.
+- A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
+
+### Databricks Dispatch Configuration
+If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
+```yml
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+```
 
 ## Step 2: Install the package
 Include the following hubspot package version in your `packages.yml` file:
@@ -50,7 +58,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.6.0", "<0.7.0"]
+    version: [">=0.7.0", "<0.8.0"]
 
 ```
 ## Step 3: Define database and schema variables
@@ -101,7 +109,7 @@ vars:
   hubspot_engagement_contact_enabled: false
   hubspot_engagement_company_enabled: false
   hubspot_engagement_deal_enabled: false
-  hubspot_engagement_calls_enabled: false
+  hubspot_engagement_call_enabled: false
   hubspot_engagement_emails_enabled: false
   hubspot_engagement_meetings_enabled: false
   hubspot_engagement_notes_enabled: false
@@ -214,13 +222,16 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/hubspot_source
-      version: [">=0.6.0", "<0.7.0"]
+      version: [">=0.7.0", "<0.8.0"]
 
     - package: fivetran/fivetran_utils
-      version: [">=0.3.0", "<0.4.0"]
+      version: [">=0.4.0", "<0.5.0"]
 
     - package: dbt-labs/dbt_utils
-      version: [">=0.8.0", "<0.9.0"]
+      version: [">=1.0.0", "<2.0.0"]
+
+    - package: dbt-labs/spark_utils
+      version: [">=0.3.0", "<0.4.0"]
 ```
 # 🙌 How is this package maintained and can I contribute?
 ## Package Maintenance
