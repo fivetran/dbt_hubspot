@@ -1,3 +1,18 @@
+# dbt_hubspot v0.7.1
+
+## Features
+- Soft deleted records are now included in the below models/macros:
+  - `macros/email_events_joined`
+  - `models/marketing/intermediate/int_hubspot__email_metrics__by_contact_list`
+  - `models/sales/intermediate/int_hubspot__deals_enhanced`
+  - `models/sales/deal_stages`
+
+- Soft deleted records can now be removed by using the following respective flags for the above models:
+  - `is_contact_list_member_deleted`
+  - `is_deal_pipeline_deleted`
+  - `is_deal_pipeline_stage_deleted`
+  - `is_deal_deleted`
+
 # dbt_hubspot v0.7.0
 
 ## 🚨 Breaking Changes 🚨:

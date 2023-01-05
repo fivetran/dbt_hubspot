@@ -24,12 +24,13 @@ with deals as (
 
     select 
         deals.*,
+        coalesce(pipelines.is_deal_pipeline_deleted, false) as is_deal_pipeline_deleted,
         pipelines.pipeline_label,
         pipelines.is_active as is_pipeline_active,
+        coalesce(pipeline_stages.is_deal_pipeline_stage_deleted, false) as is_deal_pipeline_stage_deleted,
         pipeline_stages.pipeline_stage_label,
         owners.email_address as owner_email_address,
         owners.full_name as owner_full_name
-
     from deals    
     left join pipelines 
         on deals.deal_pipeline_id = pipelines.deal_pipeline_id

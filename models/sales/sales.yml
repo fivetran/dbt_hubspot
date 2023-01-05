@@ -143,6 +143,15 @@ models:
       - name: deal_name
         description: The name you have given this deal.
 
+      - name: is_deal_pipeline_deleted
+        description: Whether the record was deleted from the deal pipeline table.
+
+      - name: is_deal_pipeline_stage_deleted
+        description: Whether the record was deleted from the deal pipeline stage table.
+
+      - name: is_deal_deleted
+        description: Whether the record was deleted from the deal table.
+
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
     columns:
