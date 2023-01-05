@@ -41,7 +41,7 @@ with deals_enhanced as (
         pipeline_stage.display_order as pipeline_stage_display_order,
         pipeline.display_order as pipeline_display_order,
         pipeline_stage.probability as pipeline_stage_probability,
-        coalesce(pipeline.is_deal_pipeline_deleted) as is_deal_pipeline_deleted,
+        coalesce(pipeline.is_deal_pipeline_deleted, false) as is_deal_pipeline_deleted,
         coalesce(pipeline_stage.is_deal_pipeline_stage_deleted, false) as is_deal_pipeline_stage_deleted,
         coalesce(deals_enhanced.is_deal_deleted, false) as is_deal_deleted
 
