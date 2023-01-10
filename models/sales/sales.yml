@@ -33,10 +33,10 @@ models:
         description: '{{ doc("is_deleted") }}'
 
       - name: is_deal_pipeline_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: is_deal_pipeline_stage_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: portal_id
         description: '{{ doc("portal_id") }}'
@@ -96,10 +96,10 @@ models:
           - unique
       
       - name: is_deal_pipeline_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: is_deal_pipeline_stage_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: is_deal_deleted
         description: '{{ doc("is_deleted") }}'
