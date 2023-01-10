@@ -14,8 +14,7 @@ with email_sends as (
 
     select
         email_sends.*,
-        contact_list_member.contact_list_id,
-        coalesce(contact_list_member.is_contact_list_member_deleted, false) as is_contact_list_member_deleted
+        contact_list_member.contact_list_id
     from email_sends
     left join contact_list_member
         using (contact_id)
@@ -25,14 +24,13 @@ with email_sends as (
 
     select 
         contact_list_id,
-        is_contact_list_member_deleted,
         {% for metric in var('email_metrics') %}
         sum({{ metric }}) as total_{{ metric }},
         count(distinct case when {{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
     from joined
-    group by 1,2
+    group by 1
 
 )
 

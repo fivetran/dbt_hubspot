@@ -29,8 +29,14 @@ models:
       - name: deal_name
         description: The name you have given this deal.
 
-      - name: is_deleted
-        description: Whether the record was deleted.
+      - name: is_deal_deleted
+        description: '{{ doc("is_deleted") }}'
+
+      - name: is_deal_pipeline_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
+
+      - name: is_deal_pipeline_stage_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
 
       - name: portal_id
         description: '{{ doc("portal_id") }}'
@@ -88,6 +94,15 @@ models:
         tests:
           - not_null
           - unique
+      
+      - name: is_deal_pipeline_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
+
+      - name: is_deal_pipeline_stage_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
+
+      - name: is_deal_deleted
+        description: '{{ doc("is_deleted") }}'
 
       - name: pipeline_stage_id
         description: The name of the deal stage.
@@ -164,7 +179,7 @@ models:
       - name: portal_id
         description: '{{ doc("portal_id") }}'
       
-      - name: is_deleted
+      - name: is_company_deleted
         description: '{{ doc("is_deleted") }}'
 
       - name: count_engagement_notes
