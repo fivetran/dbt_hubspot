@@ -7,6 +7,9 @@ models:
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+        
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
 
       - name: bcc_emails
         description: The 'cc' field of the email message.
@@ -206,11 +209,11 @@ models:
   - name: hubspot__contacts
     description: Each record represents a contact in Hubspot.
     columns:
-      - name: _fivetran_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
 
       - name: _fivetran_synced
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("_fivetran_synced") }}'
 
       - name: contact_id
         description: The ID of the contact.
@@ -323,11 +326,8 @@ models:
   - name: hubspot__contact_lists
     description: Each record represents a contact list in Hubspot.
     columns:
-      - name: _fivetran_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
-
       - name: _fivetran_synced
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("_fivetran_synced") }}'
 
       - name: contact_list_id
         description: The ID of the contact list.
@@ -337,6 +337,9 @@ models:
 
       - name: contact_list_name
         description: The name of the contact list.
+
+      - name: is_contact_list_deleted
+        description: '{{ doc("is_deleted") }}'
 
       - name: created_timestamp
         description: A timestamp of the time the list was created.

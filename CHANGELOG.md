@@ -1,3 +1,44 @@
+# dbt_hubspot v0.8.0
+
+## 🚨 Breaking Changes 🚨:
+[PR #92](https://github.com/fivetran/dbt_hubspot/pull/92) incorporates the following changes:
+
+- The below models/macros have new soft deleted record flags **explicitly** added to them:
+  - `is_contact_deleted` added in `macros/email_events_joined` which can affect the following downstream models found in `models/marketing/email_events/`:
+    - `hubspot__email_event_bounce`
+    - `hubspot__email_event_clicks`
+    - `hubspot__email_event_deferred`
+    - `hubspot__email_event_delivered`
+    - `hubspot__email_event_dropped`
+    - `hubspot__email_event_forward`
+    - `hubspot__email_event_open`
+    - `hubspot__email_event_print`
+    - `hubspot__email_event_sent`
+    - `hubspot__email_event_spam_report`
+    - `hubspot__email_event_status_change`
+  - `is_deal_pipeline_deleted` and `is_deal_pipeline_stage_deleted` added in `models/sales/intermediate/int_hubspot__deals_enhanced` which can affect the following downstream models found in `models/sales/`:
+    - `hubspot__deal_stages`
+    - `hubspot__deals`
+  - `is_deal_pipeline_deleted`, `is_deal_pipeline_stage_deleted` and `is_deal_deleted` added in `models/sales/hubspot__deal_stages`
+
+- Soft deleted records are also now **implicitly** inherited (e.g. via a `select *`) from the `dbt_hubspot_source` package's staging models and can affect the below final models (for more information, see [dbt_hubspot_source PR #96](https://github.com/fivetran/dbt_hubspot_source/pull/96)):
+  - Soft deleted company records (`companies.is_company_deleted`) included in the below models:
+    - `sales/hubspot__companies`
+  - Soft deleted deal records (`deals.is_deal_deleted`) included in the below models:
+    - `sales/hubspot__deal_stages`
+    - `sales/hubspot__deals`
+  - Soft deleted contact list records (`contact_lists.is_contact_list_deleted`) included in the below models:
+    - `marketing/hubspot__contact_lists`
+  - Soft deleted contact records (`contacts.is_contact_deleted`) included in the below models:
+    - `marketing/hubspot__contacts`
+  - Soft deleted email sends records (`sends.is_contact_deleted`) included in the below models:
+    - `marketing/hubspot__email_sends`
+
+- For completeness, soft deleted records are also now included for `ticket*` tables, however does not currently affect this package directly and includes the following staging models:
+    - `stg_hubspot__ticket` (`is_ticket_deleted`)
+    - `stg_hubspot__ticket_pipeline_stage`(`is_ticket_pipeline_stage_deleted`)
+    - `stg_hubspot__ticket_pipeline` (`is_ticket_pipeline_deleted`)
+
 # dbt_hubspot v0.7.0
 
 ## 🚨 Breaking Changes 🚨:

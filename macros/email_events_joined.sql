@@ -36,7 +36,8 @@ with base as (
 
     select 
         events_joined.*,
-        contacts.contact_id
+        contacts.contact_id,
+        coalesce(contacts.is_contact_deleted, false) as is_contact_deleted
     from events_joined
     left join contacts
         on events_joined.recipient_email_address = contacts.email

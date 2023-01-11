@@ -29,7 +29,6 @@ with deals_enhanced as (
         deal_stage._fivetran_start as date_stage_entered,
         deal_stage._fivetran_end as date_stage_exited,
         deal_stage._fivetran_active as is_stage_active,
-
         deal_stage.deal_stage_name as pipeline_stage_id,
         pipeline_stage.pipeline_stage_label,
         pipeline_stage.deal_pipeline_id as pipeline_id,
@@ -41,7 +40,10 @@ with deals_enhanced as (
         pipeline_stage.is_closed_won as is_pipeline_stage_closed_won,
         pipeline_stage.display_order as pipeline_stage_display_order,
         pipeline.display_order as pipeline_display_order,
-        pipeline_stage.probability as pipeline_stage_probability
+        pipeline_stage.probability as pipeline_stage_probability,
+        coalesce(pipeline.is_deal_pipeline_deleted, false) as is_deal_pipeline_deleted,
+        coalesce(pipeline_stage.is_deal_pipeline_stage_deleted, false) as is_deal_pipeline_stage_deleted,
+        coalesce(deals_enhanced.is_deal_deleted, false) as is_deal_deleted
 
     from deal_stage
 
