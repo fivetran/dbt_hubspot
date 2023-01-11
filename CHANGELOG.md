@@ -31,6 +31,8 @@
     - `marketing/hubspot__contact_lists`
   - Soft deleted contact records (`contacts.is_contact_deleted`) included in the below models:
     - `marketing/hubspot__contacts`
+  - Soft deleted email sends records (`sends.is_contact_deleted`) included in the below models:
+    - `marketing/hubspot__email_sends`
 
 - For completeness, soft deleted records are also now included for `ticket*` tables, however does not currently affect this package directly and includes the following staging models:
     - `stg_hubspot__ticket` (`is_ticket_deleted`)

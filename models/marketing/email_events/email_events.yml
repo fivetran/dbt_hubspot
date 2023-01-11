@@ -9,7 +9,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: bounce_category
         description: |
@@ -54,7 +54,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: browser
         description: '{{ doc("email_event_browser") }}'
@@ -105,7 +105,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: attempt_number
         description: The delivery attempt number.
@@ -144,7 +144,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: event_id
         description: The ID of the event.
@@ -183,7 +183,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: bcc_emails
         description: The 'bcc' field of the email message.
@@ -237,7 +237,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: browser
         description: '{{ doc("email_event_browser") }}'
@@ -282,7 +282,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: browser
         description: '{{ doc("email_event_browser") }}'
@@ -330,7 +330,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: browser
         description: '{{ doc("email_event_browser") }}'
@@ -375,7 +375,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: bcc_emails
         description: The 'cc' field of the email message.
@@ -423,7 +423,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: event_id
         description: The ID of the event.
@@ -462,7 +462,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
 
       - name: is_contact_deleted
-        description: '{{ doc("_fivetran_deleted") }}'
+        description: '{{ doc("is_deleted") }}'
 
       - name: change_source
         description: The source of the subscription change. 

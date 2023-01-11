@@ -7,6 +7,9 @@ models:
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+        
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
 
       - name: bcc_emails
         description: The 'cc' field of the email message.
@@ -334,6 +337,9 @@ models:
 
       - name: contact_list_name
         description: The name of the contact list.
+
+      - name: is_contact_list_deleted
+        description: '{{ doc("is_deleted") }}'
 
       - name: created_timestamp
         description: A timestamp of the time the list was created.
