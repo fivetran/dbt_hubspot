@@ -218,7 +218,6 @@ models:
       - name: contact_id
         description: The ID of the contact.
         tests:
-          - unique
           - not_null
 
       - name: contact_company
@@ -332,7 +331,6 @@ models:
       - name: contact_list_id
         description: The ID of the contact list.
         tests:
-          - unique
           - not_null
 
       - name: contact_list_name

@@ -1,3 +1,7 @@
+# dbt_hubspot v0.8.1
+## Bug Fixes
+- Following the release of `v0.8.0`, the end model uniqueness tests were not updated to account for the added flexibility of the inclusion of deleted records. As such, these uniqueness tests were removed to ensure test failures were not erroneously being thrown.
+
 # dbt_hubspot v0.8.0
 
 ## 🚨 Breaking Changes 🚨:
