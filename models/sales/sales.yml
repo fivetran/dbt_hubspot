@@ -24,6 +24,7 @@ models:
         description: The ID of the deal
         tests:
           - not_null
+          - unique
 
       - name: deal_name
         description: The name you have given this deal.
@@ -92,6 +93,7 @@ models:
         description: The unique deal stage identifier.
         tests:
           - not_null
+          - unique
       
       - name: is_deal_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
@@ -171,6 +173,7 @@ models:
       - name: company_id
         description: The ID of the company.
         tests:
+          - unique
           - not_null
       
       - name: portal_id
