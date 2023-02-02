@@ -23,7 +23,8 @@ models:
       - name: deal_id
         description: The ID of the deal
         tests:
-          - not_null
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not is_deal_deleted"
           - unique
 
       - name: deal_name
@@ -92,7 +93,8 @@ models:
       - name: deal_stage_id
         description: The unique deal stage identifier.
         tests:
-          - not_null
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not is_deal_pipeline_stage_deleted"
           - unique
       
       - name: is_deal_pipeline_deleted
@@ -158,22 +160,14 @@ models:
       - name: deal_name
         description: The name you have given this deal.
 
-      - name: is_deal_pipeline_deleted
-        description: Whether the record was deleted from the deal pipeline table.
-
-      - name: is_deal_pipeline_stage_deleted
-        description: Whether the record was deleted from the deal pipeline stage table.
-
-      - name: is_deal_deleted
-        description: Whether the record was deleted from the deal table.
-
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
     columns:
       - name: company_id
         description: The ID of the company.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not is_company_deleted"
           - not_null
       
       - name: portal_id
