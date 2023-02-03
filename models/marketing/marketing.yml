@@ -24,7 +24,7 @@ models:
         description: The ID of the event.
         tests:
           - dbt_expectations.expect_column_values_to_be_unique:
-              row_condition: "not is_contact_deleted"
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: from_email
@@ -220,7 +220,7 @@ models:
         description: The ID of the contact.
         tests:
           - dbt_expectations.expect_column_values_to_be_unique:
-              row_condition: "not is_contact_deleted"
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: contact_company
@@ -335,7 +335,7 @@ models:
         description: The ID of the contact list.
         tests:
           - dbt_expectations.expect_column_values_to_be_unique:
-              row_condition: "not is_contact_list_deleted"
+              row_condition: "not coalesce(is_contact_list_deleted, false)"
           - not_null
 
       - name: contact_list_name
