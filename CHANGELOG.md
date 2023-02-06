@@ -1,3 +1,10 @@
+# dbt_hubspot v0.8.2
+## Bug Fixes
+- Following the release of `v0.8.0`, the end model uniqueness tests were not updated to account for the added flexibility of the inclusion of deleted records. As such the respective end model tests have been adjusted to test uniqueness only on non-deleted records. ([#94](https://github.com/fivetran/dbt_hubspot/pull/94))
+
+## Under the Hood
+- Addition of the dbt-expectations package to be used for more robust testing of uniqueness for end models. ([#94](https://github.com/fivetran/dbt_hubspot/pull/94))
+
 # dbt_hubspot v0.8.0
 
 ## 🚨 Breaking Changes 🚨:

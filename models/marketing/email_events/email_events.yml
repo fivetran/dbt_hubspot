@@ -20,7 +20,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: returned_response
@@ -65,7 +66,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: geo_location
@@ -113,7 +115,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: returned_response
@@ -149,7 +152,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: returned_response
@@ -203,7 +207,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: from_email
@@ -245,7 +250,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: geo_location
@@ -293,7 +299,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: geo_location
@@ -338,7 +345,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: geo_location
@@ -389,7 +397,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: from_email
@@ -428,7 +437,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: ip_address
@@ -470,7 +480,8 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
+          - dbt_expectations.expect_column_values_to_be_unique:
+              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
 
       - name: is_bounced
