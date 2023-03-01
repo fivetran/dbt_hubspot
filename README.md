@@ -89,7 +89,6 @@ vars:
   hubspot_email_event_delivered_enabled: false
   hubspot_email_event_dropped_enabled: false
   hubspot_email_event_forward_enabled: false
-  hubspot_email_event_click_enabled: false
   hubspot_email_event_open_enabled: false
   hubspot_email_event_print_enabled: false
   hubspot_email_event_sent_enabled: false
