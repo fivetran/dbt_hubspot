@@ -1,5 +1,6 @@
 packages:
-  - package: fivetran/hubspot_source
-    version: [">=0.8.0", "<0.9.0"]
+  # - package: fivetran/hubspot_source
+  #   version: [">=0.8.0", "<0.9.0"]
   - package: calogica/dbt_expectations
     version: [">=0.8.0", "<0.9.0"]
+  - local: ../Hubspot/dbt_hubspot_source
