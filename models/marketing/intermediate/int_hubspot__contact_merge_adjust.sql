@@ -5,7 +5,7 @@ with contacts as (
     select *
     from {{ var('contact') }}
 
-{% if target.type == 'bigquery' or var('hubspot_contact_merge_audit_enabled', false) %}
+{% if var('hubspot_contact_merge_audit_enabled', target.type == 'bigquery') %}
 ), contact_merge_audit as (
     select *
     from {{ var('contact_merge_audit') }}
