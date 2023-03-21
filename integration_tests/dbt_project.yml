@@ -4,6 +4,7 @@ profile: 'integration_tests'
 config-version: 2
 vars:
   hubspot_schema: hubspot_integration_tests_1
+  hubspot_contact_merge_audit_enabled: true
   hubspot_source:
     hubspot_service_enabled: true
     hubspot_company_property_history_identifier: "company_property_history_data"
@@ -56,62 +57,62 @@ seeds:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     owner_data:
       +column_types:
-        owner_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_data:
       +column_types:
-        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_stage_data:
       +column_types:
-        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_contact_data:
       +column_types:
-        contact_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_data:
       +column_types:
-        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        owner_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_property_history_data:
       +column_types:
-        company_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        company_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     email_campaign_data:
       +column_types:
-        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        content_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        content_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_property_history_data:
       +column_types:
-        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_call_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_company_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        company_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        company_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_contact_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        contact_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_deal_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
-        deal_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_data:
       +column_types:
-        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_meeting_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_email_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_task_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         completion_date: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     engagement_note_data:
       +column_types:
-        engagement_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_pipeline_data:
       +column_types:
         pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
