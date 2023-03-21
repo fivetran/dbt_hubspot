@@ -106,6 +106,8 @@ seeds:
     engagement_email_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        email_send_event_id_created: timestamp
     engagement_task_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -135,6 +137,13 @@ seeds:
       +enabled: "{{ true if target.type != 'postgres' else false }}"
     contact_list_data_postgres:
       +enabled: "{{ true if target.type == 'postgres' else false }}"
+    email_event_data: 
+      +column_types:
+        _fivetran_synced: timestamp
+        caused_by_created: timestamp
+        created: timestamp
+        obsoleted_by_created: timestamp
+        sent_by_created: timestamp
 
 dispatch:
   - macro_namespace: dbt_utils
