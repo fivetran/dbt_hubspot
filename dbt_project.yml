@@ -50,6 +50,8 @@ models:
     marketing:
       intermediate:
         +materialized: ephemeral
+        int_hubspot__contact_merge_adjust:
+          +materialized: table
     sales:
       intermediate:
         +materialized: ephemeral
