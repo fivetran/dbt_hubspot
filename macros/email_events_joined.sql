@@ -13,11 +13,7 @@ with base as (
 ), contacts as (
 
     select *
-    from {% if var('hubspot_contact_merge_audit_enabled', false) %} 
-            {{ ref('int_hubspot__contact_merge_adjust') }} 
-        {% else %} 
-            {{ var('contact') }} 
-        {% endif %}
+    from {{ ref('int_hubspot__contact_merge_adjust') }} 
 
 ), events_joined as (
 
