@@ -29,7 +29,7 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
 
 ), contact_merge_audit as (
     select
-        contact.contact_id,
+        contacts.contact_id,
         {% if target.type == 'bigquery' %}
         split(merges, ':')[offset(0)]
         {% elif target.type == 'snowflake' %}
@@ -43,7 +43,7 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
         split_part(merges, ':', 1)
         {%- endif %} as vid_to_merge
 
-    from contact
+    from contacts
     cross join 
     {% if target.type == 'bigquery' %}
         unnest(cast(split(calculated_merged_vids, ";") as array<string>)) as merges
@@ -71,7 +71,7 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
     from contacts
     
     left join contact_merge_audit
-        on contacts.contact_id = contact_merge_audit.vid_to_merge
+        on contacts.contact_id = cast(contact_merge_audit.vid_to_merge as {{ dbt.type_int() }})
     
     where contact_merge_audit.vid_to_merge is null
 )
