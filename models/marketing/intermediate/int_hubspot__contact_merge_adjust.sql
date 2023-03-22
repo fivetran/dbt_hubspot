@@ -48,10 +48,10 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
     {% if target.type == 'bigquery' %}
         unnest(cast(split(calculated_merged_vids, ";") as array<string>)) as merges
 
-    {% elif targety.type == 'snowflake' %}
+    {% elif target.type == 'snowflake' %}
         table(flatten(STRTOK_TO_ARRAY(calculated_merged_vids, ';'))) as merges
 
-    {% elif targety.type == 'redshift' %}
+    {% elif target.type == 'redshift' %}
         numbers 
     where numbers.generated_number < json_array_length(json_serialize(split_to_array(calculated_merged_vids, ';')), true)
         or (numbers.generated_number + json_array_length(json_serialize(split_to_array(calculated_merged_vids, ';')), true) = 0)
