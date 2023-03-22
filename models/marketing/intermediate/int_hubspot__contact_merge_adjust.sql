@@ -60,8 +60,8 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
         unnest(string_to_array(calculated_merged_vids, ';')) as merges
     
     {% else %} -- databricks/spark
-        (select contact_id, explode(split(calculated_merged_vids, ';')) as merges) as merges_subquery 
-        where contact.contact_id = merges_subquery.contact_id
+        (select contact_id, explode(split(calculated_merged_vids, ';')) as merges from contacts) as merges_subquery 
+        where contacts.contact_id = merges_subquery.contact_id
     {% endif %}
 
 {% endif %}
