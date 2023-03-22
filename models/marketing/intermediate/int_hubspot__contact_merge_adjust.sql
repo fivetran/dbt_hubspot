@@ -35,7 +35,7 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
         {% elif target.type == 'snowflake' %}
         split_part(merges.value, ':', 0)
         {% elif target.type == 'redshift' %}
-        split_part(json_extract_array_element_text(json_serialize(split_to_array(calculated_merged_vids, ';')), cast(numbers.generated_number as {{ dbt.type_int() }}), true) ':', 1)
+        split_part(json_extract_array_element_text(json_serialize(split_to_array(calculated_merged_vids, ';')), cast(numbers.generated_number as {{ dbt.type_int() }}), true), ':', 1)
         {% elif target.type == 'postgres' %}
         split_part(merges, ':', 1)
         {% else %} 
