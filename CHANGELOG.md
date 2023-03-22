@@ -1,4 +1,17 @@
-# dbt_hubspot v0.9.0 [todo]
+# dbt_hubspot v0.8.3 or v0.9.0 - breaking? 
+
+## 🎉 Features
+[PR #100](https://github.com/fivetran/dbt_hubspot/pull/100) applies the following changes:
+- Updates logic around the recently deprecated `CONTACT_MERGE_AUDIT` table.
+  - In [November 2022](https://fivetran.com/docs/applications/hubspot/changelog#november2022), the Fivetran Hubspot connector switched to v3 of the Hubspot CRM API, which deprecated the `CONTACT_MERGE_AUDIT` table and stored merged contacts in the `property_hs_calculated_merged_vids` column in the `CONTACT` table. **This has not been rolled out to BigQuery warehouses yet.**
+  - The package now leverages the new `property_hs_calculated_merged_vids` field to filter out merged contacts. This is the default behavior for all destinations except BigQuery.
+  - The package will only reference the old `CONTACT_MERGE_AUDIT` table if `hubspot_contact_merge_audit_enabled` is explicitly set to `true`, or if you are running the package on a BigQuery destination.
+    - If you are on BigQuery, but would not like to reference `CONTACT_MERGE_AUDIT`, set `hubspot_contact_merge_audit_enabled` to false. This will result in no merging of contacts (until your connector is rolled onto v3 of the Hubspot CRM API).
+  - The `int_hubspot__contact_merge_adjust` model (in which the merging occurs) is now materialized as a table by default. This used to be ephemeral, but the reworked merge logic requires this model to be either a table or view.
+  - Updates seed data to test new merging paradigm.
+
+See the source package [CHANEGLOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for updates made to the staging layer in <v0.9.0 or v0.8.1>
+
 # dbt_hubspot v0.8.2
 ## Bug Fixes
 - Following the release of `v0.8.0`, the end model uniqueness tests were not updated to account for the added flexibility of the inclusion of deleted records. As such the respective end model tests have been adjusted to test uniqueness only on non-deleted records. ([#94](https://github.com/fivetran/dbt_hubspot/pull/94))
