@@ -30,7 +30,8 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
 ), contact_merge_audit as (
     select
         contacts.contact_id,
-        {% if target.type == 'bigquery' %}
+        {{ dbt.split_part(string_text='merges', delimiter_text="':'", part_number=1) }} vid_to_merge
+        {# {% if target.type == 'bigquery' %}
         split(merges, ':')[offset(0)]
         {% elif target.type == 'snowflake' %}
         split_part(merges.value, ':', 0)
@@ -41,7 +42,7 @@ https://github.com/fivetran/dbt_iterable/issues/new/choose
         {% else %} 
         -- databricks/spark and postgres
         split_part(merges, ':', 1)
-        {%- endif %} as vid_to_merge
+        {%- endif %} as vid_to_merge #}
 
     from contacts
     cross join 
