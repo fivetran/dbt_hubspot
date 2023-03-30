@@ -15,7 +15,7 @@ This release introduces breaking changes around how contacts are merged in order
 [PR #100](https://github.com/fivetran/dbt_hubspot/pull/100) applies the following changes:
 - Updates seed data to test new merging paradigm.
 
-See the source package [CHANEGLOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for updates made to the staging layer in `dbt_hubspot_source v0.9.0`.
+See the source package [CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for updates made to the staging layer in `dbt_hubspot_source v0.9.0`.
 
 # dbt_hubspot v0.8.2
 ## Bug Fixes
