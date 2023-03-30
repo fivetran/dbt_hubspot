@@ -63,7 +63,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.7.0", "<0.8.0"]
+    version: [">=0.9.0", "<0.10.0"]
 
 ```
 ## Step 3: Define database and schema variables
@@ -100,7 +100,9 @@ vars:
   hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
 
-  hubspot_contact_merge_audit_enabled: true               # Enables contact merge auditing to be applied to final models (removes any merged contacts that are still persisting in the contact table)
+  hubspot_contact_merge_audit_enabled: true               # Enables the use of the CONTACT_MERGE_AUDIT table (deprecated by Hubspot v3 API) for removing merged contacts in the final models.
+                                                          # If false, ~~~contacts will still be merged~~~, but using the CONTACT.property_hs_calculated_merged_vids field (introduced in v3 of the Hubspot CRM API)
+                                                          # Default = false
 
   # Sales
 
@@ -226,7 +228,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/hubspot_source
-      version: [">=0.7.0", "<0.8.0"]
+      version: [">=0.9.0", "<0.10.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]

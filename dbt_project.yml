@@ -1,5 +1,5 @@
 name: 'hubspot'
-version: '0.8.2'
+version: '0.9.0'
 config-version: 2
 require-dbt-version: [">=1.3.0", "<2.0.0"]
 vars:
@@ -50,6 +50,8 @@ models:
     marketing:
       intermediate:
         +materialized: ephemeral
+        int_hubspot__contact_merge_adjust:
+          +materialized: table
     sales:
       intermediate:
         +materialized: ephemeral

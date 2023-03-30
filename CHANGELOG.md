@@ -1,3 +1,22 @@
+# dbt_hubspot v0.9.0
+
+## 🚨 Breaking Changes 🚨
+In [November 2022](https://fivetran.com/docs/applications/hubspot/changelog#november2022), the Fivetran Hubspot connector switched to v3 of the Hubspot CRM API, which deprecated the `CONTACT_MERGE_AUDIT` table and stored merged contacts in a field in the `CONTACT` table. **This has not been rolled out to BigQuery warehouses yet.** BigQuery connectors with the `CONTACT_MERGE_AUDIT` table enabled will continue to sync this table until the new `CONTACT.property_hs_calculated_merged_vids` field and API version becomes available to them.
+
+This release introduces breaking changes around how contacts are merged in order to align with the above connector changes. It is, however, backwards-compatible.
+
+[PR #100](https://github.com/fivetran/dbt_hubspot/pull/100) applies the following changes:
+- Updates logic around the recently deprecated `CONTACT_MERGE_AUDIT` table.
+  - The package now leverages the new `property_hs_calculated_merged_vids` field to filter out merged contacts. This is the default behavior for all destinations, _including BigQuery_ (the package will run successfully but not actually merge any contacts). This is achieved by the package's new `merge_contacts()` macro.
+  - **Backwards-compatibility:** the package will only reference the old `CONTACT_MERGE_AUDIT` table to merge contacts if `hubspot_contact_merge_audit_enabled` is explicitly set to `true` in your root `dbt_project.yml` file.
+  - The `int_hubspot__contact_merge_adjust` model (where the package performs contact merging) is now materialized as a table by default. This used to be ephemeral, but the reworked merge logic requires this model to be either a table or view.
+
+## Under the Hood
+[PR #100](https://github.com/fivetran/dbt_hubspot/pull/100) applies the following changes:
+- Updates seed data to test new merging paradigm.
+
+See the source package [CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for updates made to the staging layer in `dbt_hubspot_source v0.9.0`.
+
 # dbt_hubspot v0.8.2
 ## Bug Fixes
 - Following the release of `v0.8.0`, the end model uniqueness tests were not updated to account for the added flexibility of the inclusion of deleted records. As such the respective end model tests have been adjusted to test uniqueness only on non-deleted records. ([#94](https://github.com/fivetran/dbt_hubspot/pull/94))
