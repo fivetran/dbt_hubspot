@@ -22,5 +22,5 @@ dbt test --target "$db"
 dbt run --vars '{hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target "$db" --full-refresh
 dbt run --vars '{hubspot_marketing_enabled: true, hubspot_contact_merge_audit_enabled: true, hubspot_sales_enabled: false}' --target "$db" --full-refresh
 dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: true}' --target "$db" --full-refresh
-dbt run --vars '{hubspot_marketing_enabled: false, hubspot_sales_enabled: false}' --target "$db" --full-refresh
+dbt run --vars '{hubspot__pass_through_all_columns: true, hubspot_service_enabled: true, hubspot_using_filtered_events: false}' --target "$db"
 dbt test --target "$db"

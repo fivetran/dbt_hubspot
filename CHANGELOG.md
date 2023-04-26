@@ -1,3 +1,13 @@
+# dbt_hubspot v0.9.1
+## Feature Updates
+- A new variable was added `hubspot_using_filtered_events` to allow package users to remove filtered email events from the `stg_hubspot__email_event` staging model as well as the relevant downstream reporting models. This is crucial for HubSpot users who greatly take advantage of marking events as filtered in order to provide accurate reporting. 
+  - The `hubspot_using_filtered_events` variable is `true` by default. Set the variable to `false` to filter out specified email events in your staging and downstream models.
+
+## Under the Hood
+- The `email_event_data.csv` seed file was updated to include events that are listed as `true` for filtered_events. This is to effectively test the above mentioned feature update. 
+- Included `hubspot_using_filtered_events: false` as a variable declared in the final `run_models.sh` step to ensure our integration tests gain coverage over this new feature and variable. 
+
+See the source package [CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for updates made to the staging layer in `dbt_hubspot_source v0.9.1`.
 # dbt_hubspot v0.9.0
 
 ## 🚨 Breaking Changes 🚨

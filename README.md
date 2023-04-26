@@ -191,6 +191,12 @@ vars:
     - name:          "ticket_calculated_field"
       transform_sql: "total_field / other_total_field"
 ```
+### Removing filtered email events
+When leveraging email events, HubSpot customers may take advantage of filtering out specified email events. These filtered email events are present within the `stg_hubspot__email_events` model and are identified by the `is_filtered_event` boolean field. By default, these events are included in the staging and downstream models generated from this package. However, if you wish to remove these filtered events you may do so by setting the `hubspot_using_filtered_events` variable to false. See below for exact configurations you may provide in your `dbt_project.yml` file:
+```yml
+vars:
+  hubspot_using_filtered_events: false # True by default
+```
 
 ### Changing the Build Schema
 By default this package will build the HubSpot staging models within a schema titled (<target_schema> + `_stg_hubspot`) and HubSpot final models within a schema titled (<target_schema> + `hubspot`) in your target database. If this is not where you would like your modeled HubSpot data to be written to, add the following configuration to your root `dbt_project.yml` file:
