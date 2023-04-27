@@ -6,12 +6,13 @@ with contacts as (
 
     select *
     from {{ ref('int_hubspot__contact_merge_adjust') }} 
-    
 {% if emails_enabled %}
 
 ), email_sends as (
 
     select *
+    {{ fill_email_metrics('hubspot__email_sends') }}
+
     from {{ ref('hubspot__email_sends') }}
 
 ), email_metrics as (

@@ -3,6 +3,7 @@
 with email_sends as (
 
     select *
+    {{ fill_email_metrics('hubspot__email_sends') }}
     from {{ ref('hubspot__email_sends') }}
 
 ), contact_list_member as (
