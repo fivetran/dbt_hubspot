@@ -1,3 +1,12 @@
+# dbt_hubspot v0.9.1
+## 🪲 Bug Fixes
+[PR #105](https://github.com/fivetran/dbt_hubspot/pull/105) applies the following changes:
+- Introduced new macro `get_email_metrics` to prevent failures that may occur when certain tables are disabled or enabled. This macro removes any metrics that are unavailable from the `email_metrics` list, ensuring that the macro runs smoothly. It's worth noting that you can still manually set the email_metrics list as described in the README's [(Optional) Step 5: Additional configurations](https://github.com/fivetran/dbt_hubspot/#optional-step-5-additional-configurations).
+## 🚘 Under the Hood
+- Updated the following models to utilize the new macro:
+  - hubspot__contacts
+  - hubspot__email_campaigns
+
 # dbt_hubspot v0.9.0
 
 ## 🚨 Breaking Changes 🚨

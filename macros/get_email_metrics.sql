@@ -9,12 +9,6 @@
 {% endif %}
 
 {% set base_cols = adapter.get_columns_in_relation(ref(base_ref))|map(attribute='name')|map('lower')|list %}
-{# Get cols of base table #}
-{# {% if execute %}
-    {% set base_cols = adapter.get_columns_in_relation(ref(base_ref))|map(attribute='name')|map('lower')|list %}
-{% else %}
-    {% set base_cols = email_metrics %}
-{% endif %} #}
 
 {# Remove metrics not in base #}
 {% for metric in email_metrics %}
