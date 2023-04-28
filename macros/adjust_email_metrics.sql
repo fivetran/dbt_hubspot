@@ -5,7 +5,7 @@
 {% set default_metrics = ['bounces', 'clicks', 'deferrals', 'deliveries', 'drops', 'forwards', 'opens', 'prints', 'spam_reports', 'unsubscribes'] %}
 {% set email_metrics = var(var_name, default_metrics)|map('lower') %}
 
-{# Only keep metrics from the base ref #}
+{# Only keep metrics found in the base ref #}
 {% set adjusted_cols = email_metrics|select('in', base_cols)|list %}
 
 {{ return(adjusted_cols) }}
