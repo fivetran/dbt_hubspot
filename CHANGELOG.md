@@ -5,6 +5,7 @@
 ## 🚘 Under the Hood
 - Updated the following models to utilize the new macro:
   - hubspot__contacts
+  - hubspot__contact_lists
   - hubspot__email_campaigns
 
 # dbt_hubspot v0.9.0

@@ -14,7 +14,7 @@ with contacts as (
     from {{ ref('hubspot__email_sends') }}
 
 ), email_metrics as (
-    {% set email_metrics = get_email_metrics('hubspot__email_sends', 'email_metrics') %}
+    {% set email_metrics = adjust_email_metrics('hubspot__email_sends', 'email_metrics') %}
     select 
         recipient_email_address,
         {% for metric in email_metrics %}

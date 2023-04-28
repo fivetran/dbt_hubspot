@@ -14,10 +14,10 @@ with contact_lists as (
     from {{ ref('int_hubspot__email_metrics__by_contact_list') }}
 
 ), joined as (
-
+    {% set email_metrics = adjust_email_metrics('hubspot__email_sends', 'email_metrics') %}
     select 
         contact_lists.*,
-        {% for metric in var('email_metrics') %}
+        {% for metric in email_metrics %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},
         coalesce(email_metrics.total_unique_{{ metric }}, 0) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
