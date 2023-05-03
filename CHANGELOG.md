@@ -1,15 +1,15 @@
 # dbt_hubspot v0.9.1
 
 ## 🎉 Feature Updates
-- A new variable was added `hubspot_using_filtered_events` to allow package users to remove filtered email events from the `stg_hubspot__email_event` staging model as well as the relevant downstream reporting models. This is crucial for HubSpot users who greatly take advantage of marking events as filtered in order to provide accurate reporting. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
-  - The `hubspot_using_filtered_events` variable is `true` by default. Set the variable to `false` to filter out specified email events in your staging and downstream models. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
+- A new variable was added `hubspot_using_all_email_events` to allow package users to remove filtered email events from the `stg_hubspot__email_event` staging model as well as the relevant downstream reporting models. This is crucial for HubSpot users who greatly take advantage of marking events as filtered in order to provide accurate reporting. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
+  - The `hubspot_using_all_email_events` variable is `true` by default. Set the variable to `false` to filter out specified email events in your staging and downstream models. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
 
 ## 🪲 Bug Fixes
 - Introduced new macro `adjust_email_metrics` to prevent failures that may occur when certain tables are disabled or enabled. This macro removes any metrics that are unavailable from the default `email_metrics` list, ensuring that the models runs smoothly. It's worth noting that you can still manually set the email_metrics list as described in the README's [(Optional) Step 5: Additional configurations](https://github.com/fivetran/dbt_hubspot/#optional-step-5-additional-configurations). ([#105](https://github.com/fivetran/dbt_hubspot/pull/105))
 
 ## 🚘 Under the Hood
 - The `email_event_data.csv` seed file was updated to include events that are listed as `true` for filtered_events. This is to effectively test the above mentioned feature update. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
-- Included `hubspot_using_filtered_events: false` as a variable declared in the final `run_models.sh` step to ensure our integration tests gain coverage over this new feature and variable. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
+- Included `hubspot_using_all_email_events: false` as a variable declared in the final `run_models.sh` step to ensure our integration tests gain coverage over this new feature and variable. ([#104](https://github.com/fivetran/dbt_hubspot/pull/104))
   - See the source package [CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for updates made to the staging layer in `dbt_hubspot_source v0.9.1`.
 - Updated the following models to utilize the `adjust_email_metrics` macro ([#105](https://github.com/fivetran/dbt_hubspot/pull/105)):
   - hubspot__contacts
