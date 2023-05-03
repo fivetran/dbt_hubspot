@@ -3,7 +3,7 @@ version: '0.9.1'
 profile: 'integration_tests'
 config-version: 2
 vars:
-  hubspot_schema: hubspot_integration_tests_5
+  hubspot_schema: hubspot_integration_tests_6
   hubspot_source:
     hubspot_service_enabled: true
     hubspot_company_property_history_identifier: "company_property_history_data"
