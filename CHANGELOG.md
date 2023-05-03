@@ -1,9 +1,8 @@
-# dbt_hubspot v0.UPDATE.UPDATE
+# dbt_hubspot v0.9.1
 
  ## Under the Hood:
-
-- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
-- Updated the pull request [templates](/.github).
+- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job. ([#103](https://github.com/fivetran/dbt_hubspot/pull/103))
+- Updated the pull request [templates](/.github). ([#103](https://github.com/fivetran/dbt_hubspot/pull/103))
 # dbt_hubspot v0.9.0
 
 ## 🚨 Breaking Changes 🚨
