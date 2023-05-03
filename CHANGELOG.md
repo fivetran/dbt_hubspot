@@ -7,6 +7,7 @@
   - hubspot__contacts
   - hubspot__contact_lists
   - hubspot__email_campaigns
+  - int_hubspot__email_metrics__by_contact_list
 
 # dbt_hubspot v0.9.0
 
