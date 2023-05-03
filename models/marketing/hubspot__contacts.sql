@@ -6,7 +6,6 @@ with contacts as (
 
     select *
     from {{ ref('int_hubspot__contact_merge_adjust') }} 
-    
 {% if emails_enabled %}
 
 ), email_sends as (
@@ -15,10 +14,10 @@ with contacts as (
     from {{ ref('hubspot__email_sends') }}
 
 ), email_metrics as (
-
+    {% set email_metrics = adjust_email_metrics('hubspot__email_sends', 'email_metrics') %}
     select 
         recipient_email_address,
-        {% for metric in var('email_metrics') %}
+        {% for metric in email_metrics %}
         sum({{ metric }}) as total_{{ metric }},
         count(distinct case when {{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
@@ -30,7 +29,7 @@ with contacts as (
 
     select 
         contacts.*,
-        {% for metric in var('email_metrics') %}
+        {% for metric in email_metrics %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},
         coalesce(email_metrics.total_unique_{{ metric }}, 0) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}

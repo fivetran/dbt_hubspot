@@ -21,10 +21,10 @@ with email_sends as (
     where contact_list_member.contact_list_id is not null
 
 ), email_metrics as (
-
+    {% set email_metrics = adjust_email_metrics('hubspot__email_sends', 'email_metrics') %}
     select 
         contact_list_id,
-        {% for metric in var('email_metrics') %}
+        {% for metric in email_metrics %}
         sum({{ metric }}) as total_{{ metric }},
         count(distinct case when {{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
