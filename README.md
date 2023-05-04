@@ -63,9 +63,19 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.9.0", "<0.10.0"]
+    version: [">=0.9.0", "<0.10.0"] # we recommend using ranges to capture non-breaking changes automatically
 
 ```
+Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
+
+### Databricks dispatch configuration
+If you are using a Databricks destination with this package, you must add the following (or a variation of the following) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
+```yml
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+```
+
 ## Step 3: Define database and schema variables
 By default, this package runs using your destination and the `hubspot` schema. If this is not where your hubspot data is (for example, if your hubspot schema is named `hubspot_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
@@ -190,6 +200,12 @@ vars:
   hubspot__ticket_calculated_fields:
     - name:          "ticket_calculated_field"
       transform_sql: "total_field / other_total_field"
+```
+### Filtering email events
+When leveraging email events, HubSpot customers may take advantage of filtering out specified email events. These filtered email events are present within the `stg_hubspot__email_events` model and are identified by the `is_filtered_event` boolean field. By default, these events are included in the staging and downstream models generated from this package. However, if you wish to remove these filtered events you may do so by setting the `hubspot_using_all_email_events` variable to false. See below for exact configurations you may provide in your `dbt_project.yml` file:
+```yml
+vars:
+  hubspot_using_all_email_events: false # True by default
 ```
 
 ### Changing the Build Schema
