@@ -1,3 +1,8 @@
+# dbt_hubspot v0.9.2
+
+## 🚘 Under the Hood
+- Modified the `unnest` logic in `merge_contacts` for Redshift users.
+
 # dbt_hubspot v0.9.1
 
 ## 🎉 Feature Updates
