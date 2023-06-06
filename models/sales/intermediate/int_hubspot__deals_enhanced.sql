@@ -31,8 +31,6 @@ with deals as (
         pipelines.deal_pipeline_created_at,
         pipelines.deal_pipeline_updated_at,
         pipeline_stages.pipeline_stage_label,
-        pipeline_stages.deal_pipeline_stage_created_at,
-        pipeline_stages.deal_pipeline_stage_updated_at,
         owners.email_address as owner_email_address,
         owners.full_name as owner_full_name
     from deals    
