@@ -1,3 +1,6 @@
+# dbt_hubspot v0.10.0
+## 🚨 Breaking Changes 🚨
+- These changes are made breaking due to changes in the source.
 # dbt_hubspot v0.9.1
 
 ## 🎉 Feature Updates

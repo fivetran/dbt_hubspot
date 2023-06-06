@@ -51,6 +51,7 @@ vars:
     contact_list: "{{ fivetran_utils.seed_data_helper('contact_list_data', ['postgres']) }}"
     email_event_sent: "{{ fivetran_utils.seed_data_helper('email_event_sent_data', ['snowflake','postgres']) }}"
     email_event_dropped: "{{ fivetran_utils.seed_data_helper('email_event_dropped_data', ['snowflake','postgres']) }}"
+
 seeds:
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
@@ -60,17 +61,21 @@ seeds:
     company_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    deal_stage_data:
-      +column_types:
-        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    deal_contact_data:
-      +column_types:
-        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_closedate: timestamp
+        property_createdate: timestamp
+        closed_at: timestamp
+    deal_contact_data:
+      +column_types:
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    deal_stage_data:
+      +column_types:
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_property_history_data:
       +column_types:
         company_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
