@@ -130,7 +130,8 @@ vars:
   hubspot_engagement_meeting_enabled: false
   hubspot_engagement_note_enabled: false
   hubspot_engagement_task_enabled: false
-
+  hubspot_owner_enabled: false
+  
   # Service
   hubspot_service_enabled: true                           # Enables all service models
   hubspot_ticket_deal_enabled: true
