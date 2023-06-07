@@ -86,7 +86,7 @@ vars:
 ```
 
 ## Step 4: Disable models for non-existent sources
-When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. In order to disable the relevant functionality in the package, you will need to add the relevant variables. By default, all variables are assumed to be `true` (with exception of `hubspot_service_enabled` and `hubspot_contact_merge_audit_enabled`). You only need to add variables within your root `dbt_project.yml` for the tables you would like to disable or enable respectively:
+When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. In order to disable the relevant functionality in the package, you will need to add the relevant variables. By default, all variables are assumed to be `true` (with exception of `hubspot_service_enabled`, `hubspot_ticket_deal_enabled`, and `hubspot_contact_merge_audit_enabled`). You only need to add variables within your root `dbt_project.yml` for the tables you would like to disable or enable respectively:
 
 ```yml
 vars:
@@ -133,6 +133,7 @@ vars:
 
   # Service
   hubspot_service_enabled: true                           # Enables all service models
+  hubspot_ticket_deal_enabled: true
 ```
 ## (Optional) Step 5: Additional configurations
 <details><summary>Expand for configurations</summary>
