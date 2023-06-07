@@ -2,7 +2,7 @@ packages:
   # - package: fivetran/hubspot_source
   #   version: [">=0.10.0", "<0.11.0"]
   - git: https://github.com/fivetran/dbt_hubspot_source.git
-    revision: feauture/add-typeid
+    revision: feature/add-typeid
     warn-unpinned: false
 
 
