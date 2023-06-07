@@ -14,6 +14,10 @@ These changes are made breaking due to changes in the source.
     - `deal_pipeline_stage_created_at`
     - `deal_pipeline_stage_updated_at`
 - Documentation has also been updated with these new columns. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
+
+## 🚘 Under the Hood
+- Updated seed data for testing newly added columns. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
+
 # dbt_hubspot v0.9.1
 
 ## 🎉 Feature Updates
