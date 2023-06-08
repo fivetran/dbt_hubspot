@@ -23,7 +23,9 @@ These changes are made breaking due to changes in the source.
 - Updated seed data for testing newly added columns. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
 
 ## Contributors
-- kcraig-ats ([#110](https://github.com/fivetran/dbt_hubspot/pull/110))
+- @kcraig-ats ([#110](https://github.com/fivetran/dbt_hubspot/pull/110))
+
+See upstream `hubspot_source` release notes [here](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md).
 
 # dbt_hubspot v0.9.1
 
