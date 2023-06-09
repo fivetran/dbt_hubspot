@@ -16,7 +16,7 @@ These changes are made breaking due to changes in the source.
 - Documentation has also been updated with these new columns. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
 
 ## 🎉 Feature Updates
-- Updated README to include the variables `hubspot_ticket_deal_enabled` and `hubspot_owner_enabled`.
+- Updated README to include the variables `hubspot_ticket_deal_enabled` and `hubspot_owner_enabled`. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
 
 ## 🚘 Under the Hood
 - Modified the `unnest` logic in `merge_contacts` for **Redshift** users. ([#110](https://github.com/fivetran/dbt_hubspot/pull/110))
