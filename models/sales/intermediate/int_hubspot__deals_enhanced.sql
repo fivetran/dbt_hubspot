@@ -28,6 +28,8 @@ with deals as (
         pipelines.pipeline_label,
         pipelines.is_active as is_pipeline_active,
         coalesce(pipeline_stages.is_deal_pipeline_stage_deleted, false) as is_deal_pipeline_stage_deleted,
+        pipelines.deal_pipeline_created_at,
+        pipelines.deal_pipeline_updated_at,
         pipeline_stages.pipeline_stage_label,
         owners.email_address as owner_email_address,
         owners.full_name as owner_full_name

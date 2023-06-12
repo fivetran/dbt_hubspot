@@ -1,3 +1,32 @@
+# dbt_hubspot v0.10.0
+## 🚨 Breaking Changes 🚨
+These changes are made breaking due to changes in the source. 
+- Columns `updated_at` and `created_at` were added to the following sources and their corresponding staging models in the [source package](https://github.com/fivetran/dbt_hubspot_source):
+  - `DEAL_PIPELINE`
+  - `DEAL_PIPELINE_STAGE`
+  - `TICKET_PIPELINE`
+  - `TICKET_PIPELINE_STAGE`
+- As a result, the following columns have been added ([#111](https://github.com/fivetran/dbt_hubspot/pull/111)): 
+  - Model `hubspot__deals`:
+    - `deal_pipeline_created_at`
+    - `deal_pipeline_updated_at`
+  - Model `hubspot__deal_stages`:
+    - `deal_pipeline_stage_created_at`
+    - `deal_pipeline_stage_updated_at`
+- Documentation has also been updated with these new columns. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
+
+## 🎉 Feature Updates
+- Updated README to include the variables `hubspot_ticket_deal_enabled` and `hubspot_owner_enabled`. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
+
+## 🚘 Under the Hood
+- Modified the `unnest` logic in the `merge_contacts` macro for **Redshift** users to reduce runtime of the `int_hubspot__contact_merge_adjust` model. ([#110](https://github.com/fivetran/dbt_hubspot/pull/110))
+- Updated seed data for testing newly added columns. ([#111](https://github.com/fivetran/dbt_hubspot/pull/111))
+
+## Contributors
+- @kcraig-ats ([#110](https://github.com/fivetran/dbt_hubspot/pull/110))
+
+See upstream `hubspot_source` release notes [here](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md).
+
 # dbt_hubspot v0.9.1
 
 ## 🎉 Feature Updates
