@@ -1,3 +1,8 @@
+# dbt_hubspot v0.10.1
+
+## 🪲 Bug Fixes
+Explicitly casts join fields (`engagement_id` and `deal_id`) in `hubspot__deals` as the appropriate data types to avoid potential errors in joining. [PR #113](https://github.com/fivetran/dbt_hubspot/pull/113)
+
 # dbt_hubspot v0.10.0
 ## 🚨 Breaking Changes 🚨
 These changes are made breaking due to changes in the source. 
