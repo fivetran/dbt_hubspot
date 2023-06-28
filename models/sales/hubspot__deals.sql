@@ -24,7 +24,7 @@ with deals_enhanced as (
         engagement_deals.deal_id
     from engagements
     inner join engagement_deals
-        using (engagement_id)
+        on cast(engagements.engagement_id as {{ dbt.type_bigint() }}) = cast(engagement_deals.engagement_id as {{ dbt.type_bigint() }} )
 
 ), engagement_deal_agg as (
 
@@ -39,7 +39,7 @@ with deals_enhanced as (
         {% endfor %}
     from deals_enhanced
     left join engagement_deal_agg
-        using (deal_id)
+        on cast(deals_enhanced.deal_id as {{ dbt.type_bigint() }}) = cast(engagement_deal_agg.deal_id as {{ dbt.type_bigint() }} )
 
 )
 
