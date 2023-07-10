@@ -6,15 +6,12 @@ This change is made breaking in part to updates applied to the upstream dbt_hubs
 ```txt
   - `ENGAGEMENT`
     - `ENGAGEMENT_CALL`
-    - `ENGAGEMENT_COMMUNICATION`
     - `ENGAGEMENT_COMPANY`
     - `ENGAGEMENT_CONTACT`
     - `ENGAGEMENT_DEAL`
     - `ENGAGEMENT_EMAIL`
     - `ENGAGEMENT_MEETING`
     - `ENGAGEMENT_NOTE`
-    - `ENGAGEMENT_POSTAL_MAIL`
-    - `ENGAGEMENT_PROPERTY_HISTORY`
     - `ENGAGEMENT_TASK`
   - `TICKET`
     - `TICKET_COMPANY`
