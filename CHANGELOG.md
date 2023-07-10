@@ -1,3 +1,50 @@
+# dbt_hubspot v0.11.0
+## 🚨 Breaking Changes 🚨
+This change is made breaking in part to updates applied to the upstream dbt_hubspot_source package following upgrades to ensure compatibility with the HubSpot v3 API updates. Please see below for the relevant upstream changes:
+
+- Following the [May 2023 connector update](https://fivetran.com/docs/applications/hubspot/changelog#may2023) the HubSpot connector now syncs the below parent and child tables from the new v3 API. As a result the dependent fields and field names from the downstream staging models have changed depending on the fields available in your HubSpot data. Now the respective staging models will sync the required fields for the dbt_hubspot downstream transformations and **all** of your `property_hs_*` fields. Please be aware that the `property_hs_*` will be truncated from the field name in the staging and downstream models. The impacted sources (and relevant staging models) are below:
+```txt
+  - `ENGAGEMENT`
+    - `ENGAGEMENT_CALL`
+    - `ENGAGEMENT_COMMUNICATION`
+    - `ENGAGEMENT_COMPANY`
+    - `ENGAGEMENT_CONTACT`
+    - `ENGAGEMENT_DEAL`
+    - `ENGAGEMENT_EMAIL`
+    - `ENGAGEMENT_MEETING`
+    - `ENGAGEMENT_NOTE`
+    - `ENGAGEMENT_POSTAL_MAIL`
+    - `ENGAGEMENT_PROPERTY_HISTORY`
+    - `ENGAGEMENT_TASK`
+  - `TICKET`
+    - `TICKET_COMPANY`
+    - `TICKET_CONTACT`
+    - `TICKET_DEAL`
+    - `TICKET_ENGAGEMENT`
+    - `TICKET_PROPERTY_HISTORY`
+```
+  - Please note that while these changes are breaking, the package has been updated to ensure backwards compatibility with the pre HubSpot v3 API updates. As a result, you may see some `null` fields which are artifacts of the pre v3 API HubSpot version. Be sure to inspect the relevant field descriptions for an understanding of which fields remain for backwards compatibility purposes. These fields will be removed once all HubSpot connectors are upgraded to the v3 API.
+
+- The `engagements_joined` macro has been adjusted to account for the HubSpot v3 API changes. In particular, the fields that used to only be available in the `engagements` source are now available in the individual `engagement_[type]` sources. As such, coalesce statements were added to ensure the correct populated fields are used following the join. Further, to avoid ambiguous columns a `dbt-utils.star` was added to remove the explicitly declared columns within the coalesce statements.
+  - The coalesce is only included for backwards compatibility. This will be removed in a future release when all HubSpot connectors are on the latest API version.
+
+## Under the Hood
+- The `base_model` argument used for the `engagements_joined` macro has been updated to be an explicit `ref` as opposed to the previously used `var` within the below models:
+  - `hubspot__engagement_calls`
+  - `hubspot__engagement_emails`
+  - `hubspot__engagement_meetings`
+  - `hubspot__engagement_notes`
+  - `hubspot__engagement_tasks`
+    - This update was applied as the `var` result was producing inconsistent results during compile and runtime when leveraging the `dbt-utils.star` macro. However, the explicit `ref` always provided consistent results. 
+
+## Documentation Updates
+- As new fields were added in the v3 API updates, and old fields were removed, the documentation was updated to reflect the v3 API consistent fields. Please take note if you are still using the pre v3 API, you will find the following end models no longer have complete field documentation coverage:
+  - `hubspot__engagement_calls`
+  - `hubspot__engagement_emails`
+  - `hubspot__engagement_meetings`
+  - `hubspot__engagement_notes`
+  - `hubspot__engagement_tasks`
+
 # dbt_hubspot v0.10.0
 ## 🚨 Breaking Changes 🚨
 These changes are made breaking due to changes in the source. 

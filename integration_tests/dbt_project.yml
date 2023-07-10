@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.10.0'
+version: '0.11.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -100,6 +100,7 @@ seeds:
     engagement_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        created_at: timestamp
     engagement_meeting_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
