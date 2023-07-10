@@ -42,6 +42,10 @@ This change is made breaking in part to updates applied to the upstream [dbt_hub
   - `hubspot__engagement_meetings`
   - `hubspot__engagement_notes`
   - `hubspot__engagement_tasks`
+# dbt_hubspot v0.10.1
+
+## 🪲 Bug Fixes
+Explicitly casts join fields (`engagement_id` and `deal_id`) in `hubspot__deals` as the appropriate data types to avoid potential errors in joining. [PR #113](https://github.com/fivetran/dbt_hubspot/pull/113)
 
 # dbt_hubspot v0.10.0
 ## 🚨 Breaking Changes 🚨
