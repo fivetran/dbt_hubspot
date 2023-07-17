@@ -17,7 +17,7 @@ with base as (
         {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %} engagements.contact_ids, {% endif %}
         {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %} engagements.deal_ids, {% endif %}
         {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %} engagements.company_ids, {% endif %}
-        coalesce(engagements.is_active, base._fivetran_deleted) as is_active, --Still need to confirm this mapping.
+        coalesce(engagements.is_active, base._fivetran_deleted) as is_active,
         coalesce(engagements.created_timestamp, base.created_timestamp) as created_timestamp,
         coalesce(engagements.occurred_timestamp, base.occurred_timestamp) as occurred_timestamp,
         coalesce(engagements.owner_id, base.owner_id) as owner_id
