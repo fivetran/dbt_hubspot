@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.10.1'
+version: '0.11.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -85,6 +85,9 @@ seeds:
     engagement_call_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
     engagement_company_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -100,21 +103,32 @@ seeds:
     engagement_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        created_at: timestamp
     engagement_meeting_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
     engagement_email_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: timestamp
-        email_send_event_id_created: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
     engagement_task_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        completion_date: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
+        property_hs_object_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
     engagement_note_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
     deal_pipeline_data:
       +column_types:
         pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
