@@ -1,3 +1,6 @@
+# dbt_hubspot v0.12.0
+- Updates the [dbt-expectations](https://github.com/calogica/dbt-expectations/releases) and [dbt-date](https://github.com/calogica/dbt-date/releases) dependencies to the latest versions.
+
 # dbt_hubspot v0.11.0
 [PR #114](https://github.com/fivetran/dbt_hubspot/pull/114) includes the following updates:
 ## 🚨 Breaking Changes 🚨
