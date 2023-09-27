@@ -1,3 +1,23 @@
+# dbt_hubspot v0.12.0
+
+## 🚨 Breaking Changes 🚨
+- This release includes breaking changes as a result of upstream changes within the `v0.12.0` release of the dbt_hubspot_source package. Please see below for the relevant breaking change release notes from the source package. ([PR #120](https://github.com/fivetran/dbt_hubspot/pull/120))
+- The following models in the dbt_hubspot_source package now use a custom macro to remove the property_hs_ prefix in staging columns, while also preventing duplicates. If de-prefixed columns match existing ones (e.g., `property_hs_meeting_outcome` vs. `meeting_outcome`), the macro favors the `property_hs_`field, aligning with the latest HubSpot API update. ([PR #115](https://github.com/fivetran/dbt_hubspot_source/pull/115))
+  - `stg_hubspot__engagement_call`
+  - `stg_hubspot__engagement_company`
+  - `stg_hubspot__engagement_contact`
+  - `stg_hubspot__engagement_deal`
+  - `stg_hubspot__engagement_email`
+  - `stg_hubspot__engagement_meeting`
+  - `stg_hubspot__engagement_note`
+  - `stg_hubspot__engagement_task`
+  - `stg_hubspot__ticket`
+  - `stg_hubspot__ticket_company`
+  - `stg_hubspot__ticket_contact`
+  - `stg_hubspot__ticket_deal`
+  - `stg_hubspot__ticket_engagement`
+  - `stg_hubspot__ticket_property_history`
+
 # dbt_hubspot v0.11.0
 [PR #114](https://github.com/fivetran/dbt_hubspot/pull/114) includes the following updates:
 ## 🚨 Breaking Changes 🚨
