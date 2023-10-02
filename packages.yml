@@ -1,10 +1,6 @@
 packages:
-  # - package: fivetran/hubspot_source
-  #   version: [">=0.12.0", "<0.13.0"]
-
-  - git: https://github.com/fivetran/dbt_hubspot_source.git
-    revision: bugfix/duplicate-columns
-    warn-unpinned: false 
+  - package: fivetran/hubspot_source
+    version: [">=0.12.0", "<0.13.0"]
 
   - package: calogica/dbt_expectations
     version: [">=0.8.0", "<0.9.0"]
