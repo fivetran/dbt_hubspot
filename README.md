@@ -246,7 +246,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/hubspot_source
-      version: [">=0.11.0", "<0.12.0"]
+      version: [">=0.12.0", "<0.13.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
