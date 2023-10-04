@@ -256,12 +256,6 @@ packages:
 
     - package: dbt-labs/spark_utils
       version: [">=0.3.0", "<0.4.0"]
-
-    - package: calogica/dbt_expectations
-      version: [">=0.10.0", "<0.11.0"]
-
-    - package: calogica/dbt_date
-      version: [">=0.9.0", "<0.10.0"]
 ```
 # 🙌 How is this package maintained and can I contribute?
 ## Package Maintenance
