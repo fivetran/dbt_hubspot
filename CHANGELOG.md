@@ -1,9 +1,12 @@
 # dbt_hubspot v0.13.0
+## 🚨 Breaking Changes 🚨
+- This release will be a breaking change due to the removal of below dependencies.
 ## Dependency Updates
 - Removes the dependencies on [dbt-expectations](https://github.com/calogica/dbt-expectations/releases) and [dbt-date](https://github.com/calogica/dbt-date/releases). ([PR #118](https://github.com/fivetran/dbt_hubspot/pull/118))
 
 ## Under the Hood
 - Specifically we removed the `dbt_expectations.expect_column_values_to_be_unique` test that was used to validate uniqueness under given conditions for the primary keys among the end models. We will be working to replace this with a similar test. ([PR #118](https://github.com/fivetran/dbt_hubspot/pull/118))
+
 # dbt_hubspot v0.12.0
 
 ## 🚨 Breaking Changes 🚨
