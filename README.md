@@ -63,7 +63,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.12.0", "<0.13.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.13.0", "<0.14.0"] # we recommend using ranges to capture non-breaking changes automatically
 
 ```
 Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
@@ -256,12 +256,6 @@ packages:
 
     - package: dbt-labs/spark_utils
       version: [">=0.3.0", "<0.4.0"]
-
-    - package: calogica/dbt_expectations
-      version: [">=0.8.0", "<0.9.0"]
-
-    - package: calogica/dbt_date
-      version: [">=0.7.0", "<0.8.0"]
 ```
 # 🙌 How is this package maintained and can I contribute?
 ## Package Maintenance

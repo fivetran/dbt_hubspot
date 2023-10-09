@@ -18,8 +18,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - dbt_expectations.expect_column_values_to_be_unique:
-              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
       - name: from_email
         description: The 'from' field of the email message.
@@ -155,8 +153,6 @@ models:
       - name: contact_id
         description: The ID of the contact.
         tests:
-          - dbt_expectations.expect_column_values_to_be_unique:
-              row_condition: "not coalesce(is_contact_deleted, false)"
           - not_null
       - name: contact_company
         description: The name of the contact's company
@@ -240,8 +236,6 @@ models:
       - name: contact_list_id
         description: The ID of the contact list.
         tests:
-          - dbt_expectations.expect_column_values_to_be_unique:
-              row_condition: "not coalesce(is_contact_list_deleted, false)"
           - not_null
       - name: contact_list_name
         description: The name of the contact list.
