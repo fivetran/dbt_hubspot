@@ -1,7 +1,7 @@
 {{ config(materialized='table', enabled=var('hubspot_service_enabled', False)) }}
 
-{%- set ticket_columns = adapter.get_columns_in_relation(ref('int_hubspot__pivot_daily_ticket_history'))|lower -%}
-{{ log(ticket_columns.flatten(), info=true)}}
+{%- set ticket_columns = adapter.get_columns_in_relation(ref('int_hubspot__pivot_daily_ticket_history')) -%}
+
 with change_data as (
 
     select *
@@ -14,9 +14,8 @@ with change_data as (
         ticket_id,
         id
 
-        {% for col in ticket_columns if col.name not in ['date_day','ticket_id','id'] %} 
-
-        , {{ col.name }}
+        {% for col in ticket_columns if col.name|lower not in ['date_day','ticket_id','id'] %} 
+        , {{ col.name }} as {{ col.name|lower }}
         -- create a batch/partition once a new value is provided
         , sum( case when {{ col.name }} is null then 0 else 1 end) over (partition by ticket_id 
             order by date_day rows unbounded preceding) as {{ col.name }}_field_partition

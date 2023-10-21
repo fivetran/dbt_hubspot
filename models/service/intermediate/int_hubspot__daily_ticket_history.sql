@@ -23,7 +23,7 @@ with history as (
     {%- endfor -%} )
 
     {% if is_incremental() %}
-    and vaid_from >= (select max(date_day) from {{ this }} )
+    and change_timestamp >= (select cast(max(date_day) as {{ dbt.type_timestamp() }}) from {{ this }} )
     {% endif %}
 
 ), windows as (
@@ -60,7 +60,7 @@ with history as (
         date_day,
         ticket_id,
         field_name,
-        new_value,
+        case when new_value is null then 'is_null' else new_value end as new_value,
         change_source,
         change_source_id,
         valid_from,
