@@ -1,0 +1,11 @@
+version: 2
+
+models:
+
+  - name: hubspot__daily_ticket_history
+    description: Each record represents a ticket's day in Hubspot, from when it was opened to when it was closed.
+    columns:
+      - name: id 
+        tests:
+          - unique
+          - not_null

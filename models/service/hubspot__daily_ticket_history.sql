@@ -17,8 +17,8 @@ with change_data as (
     select *
     from {{ ref('int_hubspot__scd_daily_ticket_history') }}
 
-    {% if is_incremental() %}
-    where valid_from >= (select max(date_day) from {{ this }})
+{% if is_incremental() %}
+    where date_day >= (select max(date_day) from {{ this }})
 
 -- If no issue fields have been updated since the last incremental run, the pivoted_daily_history CTE will return no record/rows.
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist 
@@ -30,12 +30,22 @@ with change_data as (
         *
     from {{ this }}
     where date_day = (select max(date_day) from {{ this }} )
-    {% endif %}
+{% endif %}
 
 ), calendar as (
 
     select *
     from {{ ref('int_hubspot__ticket_calendar_spine') }}
+
+), pipeline as (
+
+    select *
+    from {{ var('ticket_pipeline')}}
+
+), pipeline_stage as (
+
+    select *
+    from {{ var('ticket_pipeline_stage')}}
 
 ), joined as (
 
@@ -69,14 +79,16 @@ with change_data as (
     select 
         date_day,
         ticket_id
-        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %}        
+        
+        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %}
+        , {{ col.name }}
         -- create a batch/partition once a new value is provided
         , sum(case when joined.{{ col.name }} is null then 0 else 1 end) over (
                 partition by ticket_id
                 order by date_day rows unbounded preceding) as {{ col.name }}_partition
         {% endfor %}
 
-        from joined
+    from joined
 
 ), fill_values as (
 
@@ -97,7 +109,10 @@ with change_data as (
 
     select 
         date_day,
-        ticket_id 
+        ticket_id,
+        pipeline_stage.ticket_state,
+        pipeline.pipeline_label as hs_pipeline_label,
+        pipeline_stage.pipeline_stage_label as hs_pipeline_stage_label
 
         {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %} 
         -- we de-nulled the true null values earlier in order to differentiate them from nulls that just needed to be backfilled
@@ -106,14 +121,20 @@ with change_data as (
 
     from fill_values
 
-), surrogate_key as (
+    left join pipeline 
+        on cast(fill_values.hs_pipeline as {{ dbt.type_int() }}) = pipeline.ticket_pipeline_id
+    left join pipeline_stage 
+        on cast(fill_values.hs_pipeline_stage as {{ dbt.type_int() }}) = pipeline_stage.ticket_pipeline_stage_id
+        and pipeline.ticket_pipeline_id = pipeline_stage.ticket_pipeline_id
+
+), surrogate as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['date_day','id']) }} as ticket_day_id,
+        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id']) }} as id,
         *
 
     from fix_null_values
 )
 
 select *
-from surrogate_key
+from surrogate

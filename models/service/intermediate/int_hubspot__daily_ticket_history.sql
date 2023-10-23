@@ -9,7 +9,7 @@
         file_format = 'delta'
     )
 }}
-{# {{ config(enabled=false) }} #}
+
 with history as (
 
     select *

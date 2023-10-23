@@ -27,10 +27,9 @@ with daily_history as (
         date_day, 
         ticket_id
 
+        -- should we remove the `hs_` prefix? could introduce some duplicates if people already have something like `hs_owner` and `owner`
         {% for col in ticket_columns -%}
         , max(case when lower(field_name) = '{{ col|lower }}' then new_value end) as {{ dbt_utils.slugify(col) | replace(' ', '_') | lower }}
-        , max(case when lower(field_name) = '{{ col|lower }}' then change_source end) as {{ (dbt_utils.slugify(col) | replace(' ', '_') | lower) ~ '_change_source' }}
-        , max(case when lower(field_name) = '{{ col|lower }}' then change_source_id end) as {{ (dbt_utils.slugify(col) | replace(' ', '_') | lower) ~ '_change_source_id' }}
         {% endfor -%}
 
     from daily_history
@@ -46,4 +45,4 @@ with daily_history as (
 )
 
 select *
-from daily_history
+from surrogate
