@@ -1,4 +1,7 @@
 packages:
   # - package: fivetran/hubspot_source
   #   version: [">=0.12.0", "<0.13.0"]
-- local: ../Marketing/Hubspot/dbt_hubspot_source
+# - local: ../Marketing/Hubspot/dbt_hubspot_source
+  - git: https://github.com/fivetran/dbt_hubspot_source.git
+    revision: feature/add-ticket-end-models
+    warn-unpinned: false
