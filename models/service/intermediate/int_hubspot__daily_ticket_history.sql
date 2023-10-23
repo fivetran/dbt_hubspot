@@ -32,11 +32,14 @@ with history as (
         cast({{ dbt.date_trunc('day', 'change_timestamp') }} as date) as date_day,
         ticket_id,
         field_name,
+        new_value,
         change_source,
         change_source_id,
         change_timestamp as valid_from,
-        new_value,
-        lead(change_timestamp) over (partition by ticket_id, field_name order by change_timestamp) as valid_to
+        _fivetran_end as valid_to
+        -- if it is currently active fivetran_end = 9999-12-31 23:59:59
+        {# case when _fivetran_end > '9999-01-01' then null else _fivetran_end end as valid_to #}
+
     from history
 
 ), order_daily_changes as (
@@ -46,12 +49,7 @@ with history as (
         row_number() over (
             partition by date_day, ticket_id, field_name
             order by valid_from desc
-            ) as row_num,
-        row_number() over (
-            partition by date_day, ticket_id, field_name
-            order by valid_from asc
-            ) as nth_change
-
+            ) as row_num
     from windows
 
 ), extract_latest as (
@@ -64,8 +62,7 @@ with history as (
         change_source,
         change_source_id,
         valid_from,
-        valid_to,
-        nth_change as number_of_changes
+        valid_to
 
     from order_daily_changes
     where row_num = 1

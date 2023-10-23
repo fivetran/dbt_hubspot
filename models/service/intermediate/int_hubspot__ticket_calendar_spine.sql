@@ -53,7 +53,9 @@ with calendar as (
     from calendar 
     inner join ticket
         on cast(calendar.date_day as date) >= cast(ticket.created_at as date)
-        and cast(calendar.date_day as date) <= cast(ticket.open_until as date) -- add buffer? 
+        and cast(calendar.date_day as date) <= cast(ticket.open_until as date) 
+        -- should we add a buffer in case tickets are re-opened after being closed? 
+        -- ala https://github.com/fivetran/dbt_zendesk/blob/main/models/ticket_history/int_zendesk__field_calendar_spine.sql#L36
 
 ), surrogate as (
 
