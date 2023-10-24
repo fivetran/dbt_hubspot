@@ -1,3 +1,11 @@
+# dbt_hubspot v0.14.0
+
+## 🚨 Breaking Changes 🚨
+- The `created_at` field in the `hubspot__contacts` model has been renamed to `created_date` to be consistent with the source data and avoid duplicate columns when persisting all `property_*` fields at the source package.
+
+## Under the Hood
+- Updates to the seed files and seed file configurations for the package integration tests to ensure updates are properly tested.
+
 # dbt_hubspot v0.13.0
 ## 🚨 Breaking Changes 🚨
 - This release will be a breaking change due to the removal of below dependencies.
