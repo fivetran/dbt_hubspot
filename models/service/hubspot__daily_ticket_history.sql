@@ -37,6 +37,10 @@ with change_data as (
     select *
     from {{ ref('int_hubspot__ticket_calendar_spine') }}
 
+    {% if is_incremental() %}
+    where date_day >= (select max(date_day) from {{ this }})
+    {% endif %}
+
 ), pipeline as (
 
     select *

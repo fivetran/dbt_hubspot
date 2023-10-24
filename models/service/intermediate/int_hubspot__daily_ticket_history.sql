@@ -15,7 +15,7 @@ with history as (
     select *
     from {{ var('ticket_property_history') }}
 
-    -- find a more elegant way in jinja to concat lists when one may be empty 
+    -- should we include an option pivot out ALL properties? in the same vein as our passthrough-all-columns var
     where lower(field_name) in 
         ('hs_pipeline', 'hs_pipeline_stage'
     {% for col in var('hubspot__ticket_field_history_columns', []) %}
