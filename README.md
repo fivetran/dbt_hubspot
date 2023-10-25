@@ -141,8 +141,8 @@ vars:
   hubspot_owner_enabled: false
   
   # Service
-  hubspot_service_enabled: true                           # Enables all service models
-  hubspot_ticket_deal_enabled: true
+  hubspot_service_enabled: true                           # Enables all service models. Default = false
+  hubspot_ticket_deal_enabled: true                       # Default = false
 ```
 ## (Optional) Step 5: Additional configurations
 <details><summary>Expand for configurations</summary>

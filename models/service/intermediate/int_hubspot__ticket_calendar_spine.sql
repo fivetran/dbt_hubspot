@@ -44,6 +44,7 @@ with calendar as (
         *,
         cast( {{ dbt.date_trunc('day', "case when closed_at is null then " ~ dbt.current_timestamp_backcompat() ~ " else closed_at end") }} as date) as open_until
     from {{ var('ticket') }}
+    where not coalesce(is_ticket_deleted, false)
 
 ), joined as (
 
@@ -53,9 +54,9 @@ with calendar as (
     from calendar 
     inner join ticket
         on cast(calendar.date_day as date) >= cast(ticket.created_at as date)
-        and cast(calendar.date_day as date) <= cast(ticket.open_until as date) 
-        -- should we add a buffer in case tickets are re-opened after being closed? 
-        -- ala https://github.com/fivetran/dbt_zendesk/blob/main/models/ticket_history/int_zendesk__field_calendar_spine.sql#L36
+        {# and cast(calendar.date_day as date) <= cast(ticket.open_until as date)  #}
+        -- use this variable to extend the ticket's history past its close date (for reporting/data viz purposes :-)
+        and cast(calendar.date_day as date) <= {{ dbt.dateadd('day', var('ticket_history_extension_days', 0), 'ticket.open_until') }}
 
 ), surrogate as (
 

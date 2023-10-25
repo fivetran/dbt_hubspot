@@ -43,9 +43,8 @@ with ticket as (
     select
         ticket_id,
         -- should we use string_agg? i opted for array bc that's what we used msotly in this package, but we'd need to adjust the array_agg macro in fivetran_utils to ignore nulls 
-        -- or i can add an ifnull(deal_id, empty string '')
-        {{ fivetran_utils.array_agg("deal_id") }} as deal_ids,
-        {{ fivetran_utils.array_agg("deal_name") }} as deal_names
+        {{ fivetran_utils.array_agg("case when deal_id is null then '' else cast(deal_id as " ~ dbt.type_string() ~ ") end") }} as deal_ids,
+        {{ fivetran_utils.array_agg("case when deal_name is null then '' else deal_name end") }} as deal_names
 
     from join_deals
     group by 1
@@ -78,8 +77,8 @@ with ticket as (
 
     select
         ticket_id,
-        {{ fivetran_utils.array_agg("company_id") }} as company_ids,
-        {{ fivetran_utils.array_agg("company_name") }} as company_names
+        {{ fivetran_utils.array_agg("case when company_id is null then '' else cast(company_id as " ~ dbt.type_string() ~ ") end") }} as company_ids,
+        {{ fivetran_utils.array_agg("case when company_name is null then '' else company_name end") }} as company_names
 
     from join_companies
     group by 1
@@ -112,8 +111,8 @@ with ticket as (
 
     select
         ticket_id,
-        {{ fivetran_utils.array_agg("contact_id") }} as contact_ids,
-        {{ fivetran_utils.array_agg("email") }} as contact_emails
+        {{ fivetran_utils.array_agg("case when contact_id is null then '' else cast(contact_id as " ~ dbt.type_string() ~ ") end") }} as contact_ids,
+        {{ fivetran_utils.array_agg("case when email is null then '' else email end") }} as contact_emails
 
     from join_contacts
     group by 1

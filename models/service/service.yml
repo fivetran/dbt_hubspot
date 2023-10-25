@@ -3,9 +3,16 @@ version: 2
 models:
 
   - name: hubspot__daily_ticket_history
-    description: Each record represents a ticket's day in Hubspot, from when it was opened to when it was closed.
+    description: Each record represents a ticket's day in Hubspot, from when it was opened to when it was closed. Enabled by setting `hubspot_service_enabled` to `True`.
     columns:
       - name: id 
+        tests:
+          - unique
+          - not_null
+  - name: hubspot__tickets
+    description: Each record represents a ticket in Hubspot. Enabled by setting `hubspot_service_enabled` to `True`.
+    columns:
+      - name: ticket_id 
         tests:
           - unique
           - not_null
