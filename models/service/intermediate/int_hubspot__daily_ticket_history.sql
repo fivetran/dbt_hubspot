@@ -38,7 +38,6 @@ with history as (
         change_timestamp as valid_from,
         _fivetran_end as valid_to
         -- if it is currently active fivetran_end = 9999-12-31 23:59:59
-        {# case when _fivetran_end > '9999-01-01' then null else _fivetran_end end as valid_to #}
 
     from history
 
