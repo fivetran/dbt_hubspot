@@ -54,7 +54,6 @@ with calendar as (
     from calendar 
     inner join ticket
         on cast(calendar.date_day as date) >= cast(ticket.created_at as date)
-        {# and cast(calendar.date_day as date) <= cast(ticket.open_until as date)  #}
         -- use this variable to extend the ticket's history past its close date (for reporting/data viz purposes :-)
         and cast(calendar.date_day as date) <= {{ dbt.dateadd('day', var('ticket_history_extension_days', 0), 'ticket.open_until') }}
 
