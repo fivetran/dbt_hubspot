@@ -15,7 +15,7 @@ with ticket as (
     select *
     from {{ var('ticket_pipeline_stage') }}
 
-{% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled','hubspot_ticket_deal_enabled']) %}
+{% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}
 ), ticket_deal as (
 
     select *
@@ -51,7 +51,7 @@ with ticket as (
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled']) %}
+{% if var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) %}
 ), ticket_company as (
 
     select *
@@ -85,7 +85,7 @@ with ticket as (
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled']) %}
+{% if var('hubspot_marketing_enabled', true) and var('hubspot_contact_enabled', true) %}
 ), ticket_contact as (
 
     select *
@@ -119,7 +119,7 @@ with ticket as (
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_owner_enabled']) %}
+{% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
 ), owner as (
 
     select *
@@ -127,7 +127,7 @@ with ticket as (
 
 {% endif%}
 
-{% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled']) %}
+{% if var('hubspot_sales_enabled', true) and var('hubspot_engagement_enabled', true) %}
 ), engagement as (
 
     select *
@@ -165,27 +165,27 @@ with ticket as (
         ticket_pipeline.is_ticket_pipeline_deleted,
         ticket_pipeline_stage.is_ticket_pipeline_stage_deleted
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_owner_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
         , owner.email_address as owner_email
         , owner.full_name as owner_full_name
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled','hubspot_ticket_deal_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}
         , agg_deals.deal_ids
         , agg_deals.deal_names
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled']) %}
+    {% if var('hubspot_marketing_enabled', true) and var('hubspot_contact_enabled', true) %}
         , agg_contacts.contact_ids
         , agg_contacts.contact_emails
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) %}
         , agg_companies.company_ids
         , agg_companies.company_names
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_engagement_enabled', true) %}
         {% for metric in engagement_metrics() %}
         , coalesce(agg_engagements.{{ metric }},0) as {{ metric }}
         {% endfor %}
@@ -200,27 +200,27 @@ with ticket as (
         on ticket.ticket_pipeline_stage_id = ticket_pipeline_stage.ticket_pipeline_stage_id
         and ticket_pipeline.ticket_pipeline_id = ticket_pipeline_stage.ticket_pipeline_id
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_owner_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
     left join owner 
         on ticket.owner_id = owner.owner_id
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled','hubspot_ticket_deal_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}
     left join agg_deals 
         on ticket.ticket_id = agg_deals.ticket_id
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled']) %}
+    {% if var('hubspot_marketing_enabled', true) and var('hubspot_contact_enabled', true) %}
     left join agg_contacts
         on ticket.ticket_id = agg_contacts.ticket_id 
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) %}
     left join agg_companies
         on ticket.ticket_id = agg_companies.ticket_id 
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled']) %}
+    {% if var('hubspot_sales_enabled', true) and var('hubspot_engagement_enabled', true) %}
     left join agg_engagements
         on ticket.ticket_id = agg_engagements.ticket_id
     {% endif %}
