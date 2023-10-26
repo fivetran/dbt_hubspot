@@ -10,7 +10,7 @@
     )
 }}
 
-{% set ticket_columns = (['hs_pipeline', 'hs_pipeline_stage'] + var('hubspot__ticket_field_history_columns', []))|unique|list %}
+{% set ticket_columns = (['hs_pipeline', 'hs_pipeline_stage'] + var('hubspot__ticket_property_history_columns', []))|unique|list %}
 
 with daily_history as (
 

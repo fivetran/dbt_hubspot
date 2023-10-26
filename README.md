@@ -35,6 +35,8 @@ The following table provides a detailed list of all models materialized within t
 | [hubspot__deals](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals)            | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.                         |
 | [hubspot__deal_stages](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages)            | Each record represents a deal stage in Hubspot, enriched with metrics deal activities.                         |
 | [hubspot__deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_history)    | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.                  |
+| [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)    | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.                  |
+| [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history)    | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.               |
 | [hubspot__email_campaigns](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_campaigns) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.                    |
 | [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce)   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.           |
 | [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends)     | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity. |
@@ -141,11 +143,10 @@ vars:
   hubspot_owner_enabled: false
   
   # Service
-  hubspot_service_enabled: true                           # Enables all service models. Default = false
+  hubspot_service_enabled: true                           # Enables all service/ticket models. Default = false
   hubspot_ticket_deal_enabled: true                       # Default = false
 ```
 ## (Optional) Step 5: Additional configurations
-<details><summary>Expand for configurations</summary>
 
 ### Configure email metrics
 This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet within your root `dbt_project.yml` and remove any fields you want to be ignored in the final model.
@@ -218,6 +219,33 @@ vars:
   hubspot_using_all_email_events: false # True by default
 ```
 
+### Daily ticket history
+The `hubspot__daily_ticket_history` model is disabled by default, but will materialize if `hubspot_service_enabled` is set to `true`. See additional configurations for this model below.
+
+#### **Tracking ticket properties**
+By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. However, any property from the source `TICKET_PROPERTY_HISTORY` table can be tracked and pivoted out into columns. To add other properties to this end model, add the following configuration to your `dbt_project.yml` file:
+
+```yml
+vars:
+  hubspot__ticket_property_history_columns:
+    - the
+    - list
+    - of 
+    - property
+    - names
+```
+
+#### **Extending ticket history past closing date**
+This package will create a row in `hubspot__daily_ticket_history` for each day that a ticket is open, starting at its creation date. A Hubspot ticket can be altered after being closed, so its properties can change after this date.
+
+By default, the package will track a ticket up to its closing date (or the current date if still open). To capture post-closure changes, you may want to extend a ticket's history past the close date. To do so, add the following configuration to your root dbt_project.yml file:
+
+```yml
+vars:
+  hubspot:
+    ticket_history_extension_days: integer_number_of_days # default = 0
+```
+
 ### Changing the Build Schema
 By default this package will build the HubSpot staging models within a schema titled (<target_schema> + `_stg_hubspot`) and HubSpot final models within a schema titled (<target_schema> + `hubspot`) in your target database. If this is not where you would like your modeled HubSpot data to be written to, add the following configuration to your root `dbt_project.yml` file:
 
@@ -238,7 +266,6 @@ If an individual source table has a different name than the package expects, add
 vars:
     hubspot_<default_source_table_name>_identifier: your_table_name
 ```
-</details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>

@@ -1,3 +1,11 @@
+# dbt_hubspot v0.14.0
+
+## New Model Alert 😮
+Introducing Service end models! These are disabled by default but can be enabled by setting `hubspot_service_enabled` to `true` ([PR #123](https://github.com/fivetran/dbt_hubspot/pull/123)):
+  - `hubspot__tickets` (DAG link)
+  - `hubspot__daily_ticket_history` (DAG link)
+    - See additional configs in README (link)
+
 # dbt_hubspot v0.13.0
 ## 🚨 Breaking Changes 🚨
 - This release will be a breaking change due to the removal of below dependencies.

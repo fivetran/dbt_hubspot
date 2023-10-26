@@ -18,7 +18,7 @@ with history as (
     -- should we include an option pivot out ALL properties? in the same vein as our passthrough-all-columns var
     where lower(field_name) in 
         ('hs_pipeline', 'hs_pipeline_stage'
-    {% for col in var('hubspot__ticket_field_history_columns', []) %}
+    {% for col in var('hubspot__ticket_property_history_columns', []) %}
         , '{{ col }}'
     {%- endfor -%} )
 
