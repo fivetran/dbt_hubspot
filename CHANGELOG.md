@@ -1,10 +1,20 @@
 # dbt_hubspot v0.14.0
 
 ## 🚨 Breaking Changes 🚨
-- The `created_at` field in the `hubspot__contacts` model has been renamed to `created_date` to be consistent with the source data and avoid duplicate columns when persisting all `property_*` fields at the source package.
+- Within the source package the `created_at` and `closed_at` fields in the below mentioned staging models have been renamed to `created_date` and `closed_date` respectively to be consistent with the source data. Additionally, this will ensure there are no duplicate column errors when passing through all `property_*` columns, which could potentially conflict with `property_created_at` or `property_closed_at`. ([PR #119](https://github.com/fivetran/dbt_hubspot_source/pull/119))
+  - `stg_hubspot__company`
+  - `stg_hubspot__contact`
+  - `stg_hubspot__deal`
+  - `stg_hubspot__ticket` 
+
+## Features
+- Addition of the following variables to allow the disabling of the `*_property_history` models if they are not being leveraged. All variables are `true` by default. ([PR #122](https://github.com/fivetran/dbt_hubspot/pull/122))
+  - `hubspot_company_property_history_enabled`
+  - `hubspot_contact_property_history_enabled`
+  - `hubspot_deal_property_history_enabled`
 
 ## Under the Hood
-- Updates to the seed files and seed file configurations for the package integration tests to ensure updates are properly tested.
+- Updates to the seed files and seed file configurations for the package integration tests to ensure updates are properly tested. ([PR #122](https://github.com/fivetran/dbt_hubspot/pull/122))
 
 # dbt_hubspot v0.13.0
 ## 🚨 Breaking Changes 🚨
