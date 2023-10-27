@@ -2,9 +2,9 @@
 
 ## New Model Alert 😮
 Introducing Service end models! These are disabled by default but can be enabled by setting `hubspot_service_enabled` to `true` ([PR #123](https://github.com/fivetran/dbt_hubspot/pull/123)):
-  - `hubspot__tickets` (todo - DAG link)
-  - `hubspot__daily_ticket_history` (todo - DAG link)
-    - See additional configurations in [README](https://github.com/fivetran/dbt_hubspot/tree/main#daily-ticket-history)
+  - `hubspot__tickets` - [Docs](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)
+  - `hubspot__daily_ticket_history` - [Docs](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history)
+    - See additional configurations for the history model in [README](https://github.com/fivetran/dbt_hubspot/tree/main#daily-ticket-history)
 
 # dbt_hubspot v0.13.0
 ## 🚨 Breaking Changes 🚨
