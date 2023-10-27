@@ -1,4 +1,3 @@
--- depends_on: {{ source('hubspot', 'ticket') }}
 {{
     config(
         enabled=var('hubspot_service_enabled', False),

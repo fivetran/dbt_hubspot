@@ -4,7 +4,7 @@
         materialized='incremental',
         partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks'] else ['date_day'],
-        unique_key='id',
+        unique_key='ticket_day_id',
         incremental_strategy = 'insert_overwrite' if target.type not in ('snowflake', 'postgres', 'redshift') else 'delete+insert',
         file_format = 'parquet'
     )
@@ -134,7 +134,7 @@ with change_data as (
 ), surrogate as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id']) }} as id,
+        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id']) }} as ticket_day_id,
         *
 
     from fix_null_values

@@ -32,7 +32,6 @@ with ticket as (
         ticket_deal.ticket_id,
         ticket_deal.deal_id,
         deal.deal_name
-        -- would grab `deal.amount` but the currency could be different per deal 
 
     from ticket_deal
     left join deal 
@@ -42,7 +41,6 @@ with ticket as (
 
     select
         ticket_id,
-        -- should we use string_agg? i opted for array bc that's what we used msotly in this package, but we'd need to adjust the array_agg macro in fivetran_utils to ignore nulls 
         {{ fivetran_utils.array_agg("case when deal_id is null then '' else cast(deal_id as " ~ dbt.type_string() ~ ") end") }} as deal_ids,
         {{ fivetran_utils.array_agg("case when deal_name is null then '' else deal_name end") }} as deal_names
 
