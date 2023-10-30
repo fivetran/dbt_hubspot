@@ -11,9 +11,9 @@ models:
         description: A brief description of the deal.
       - name: amount
         description: The total value of the deal in the deal's currency.
-      - name: closed_at
+      - name: closed_date
         description: The day the deal is expected to close, or was closed.
-      - name: created_at
+      - name: created_date
         description: The date the deal was created. This property is set automatically by HubSpot.
       - name: deal_id
         description: The ID of the deal
