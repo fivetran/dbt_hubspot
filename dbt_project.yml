@@ -1,5 +1,5 @@
 name: 'hubspot'
-version: '0.13.0'
+version: '0.14.0'
 
 config-version: 2
 require-dbt-version: [">=1.3.0", "<2.0.0"]
@@ -42,6 +42,16 @@ vars:
     engagement_meeting: "{{ ref('stg_hubspot__engagement_meeting') }}"
     engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
+    
+    ticket_company: "{{ ref('stg_hubspot__ticket_company') }}"
+    ticket_contact: "{{ ref('stg_hubspot__ticket_contact') }}"
+    ticket_deal: "{{ ref('stg_hubspot__ticket_deal') }}"
+    ticket_engagement: "{{ ref('stg_hubspot__ticket_engagement') }}"
+    ticket_pipeline: "{{ ref('stg_hubspot__ticket_pipeline') }}"
+    ticket_pipeline_stage: "{{ ref('stg_hubspot__ticket_pipeline_stage') }}"
+    ticket_property_history: "{{ ref('stg_hubspot__ticket_property_history') }}"
+    ticket: "{{ ref('stg_hubspot__ticket') }}"
+    
     hubspot_contact_merge_audit_enabled: false
 models:
   hubspot:

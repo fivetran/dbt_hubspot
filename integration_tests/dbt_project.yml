@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.13.0'
+version: '0.14.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -49,9 +49,10 @@ vars:
     hubspot_ticket_pipeline_stage_identifier: "ticket_pipeline_stage_data"
     hubspot_ticket_property_history_identifier: "ticket_property_history_data"
     hubspot_ticket_identifier: "ticket_data"
-    contact_list: "{{ fivetran_utils.seed_data_helper('contact_list_data', ['postgres']) }}"
-    email_event_sent: "{{ fivetran_utils.seed_data_helper('email_event_sent_data', ['snowflake','postgres']) }}"
-    email_event_dropped: "{{ fivetran_utils.seed_data_helper('email_event_dropped_data', ['snowflake','postgres']) }}"
+    hubspot_contact_list_identifier: "contact_list_data"
+    hubspot_email_event_sent_identifier: "email_event_sent_data"
+    hubspot_email_event_dropped_identifier: "email_event_dropped_data"
+
 seeds:
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
@@ -136,20 +137,25 @@ seeds:
       +column_types:
         stage_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     email_event_sent_data_snowflake:
+      +alias: email_event_sent_data
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
     email_event_sent_data_postgres:
+      +alias: email_event_sent_data
       +enabled: "{{ true if target.type == 'postgres' else false }}"
     email_event_sent_data:
       +enabled: "{{ true if target.type not in ('snowflake', 'postgres') else false }}"
     email_event_dropped_data_snowflake:
+      +alias: email_event_dropped_data
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
     email_event_dropped_data_postgres:
+      +alias: email_event_dropped_data
       +enabled: "{{ true if target.type == 'postgres' else false }}"
     email_event_dropped_data:
       +enabled: "{{ true if target.type not in ('snowflake', 'postgres') else false }}"
     contact_list_data:
       +enabled: "{{ true if target.type != 'postgres' else false }}"
     contact_list_data_postgres:
+      +alias: contact_list_data
       +enabled: "{{ true if target.type == 'postgres' else false }}"
     email_event_data: 
       +column_types:
@@ -158,6 +164,9 @@ seeds:
         created: timestamp
         obsoleted_by_created: timestamp
         sent_by_created: timestamp
+    ticket_property_history_data:
+      +column_types:
+        timestamp_instant: timestamp
 
 dispatch:
   - macro_namespace: dbt_utils
