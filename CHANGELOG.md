@@ -11,6 +11,12 @@
   - `stg_hubspot__ticket`
     - Impacts `hubspot__tickets`
 
+## New Model Alert 😮
+Introducing Service end models! These are disabled by default but can be enabled by setting `hubspot_service_enabled` to `true` ([PR #123](https://github.com/fivetran/dbt_hubspot/pull/123)):
+  - `hubspot__tickets` - [Docs](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)
+  - `hubspot__daily_ticket_history` - [Docs](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history)
+    - See additional configurations for the history model in [README](https://github.com/fivetran/dbt_hubspot/tree/main#daily-ticket-history)
+
 ## Features
 - Addition of the following variables to allow the disabling of the `*_property_history` models if they are not being leveraged. All variables are `true` by default. ([PR #122](https://github.com/fivetran/dbt_hubspot/pull/122))
   - `hubspot_company_property_history_enabled`

@@ -164,6 +164,9 @@ seeds:
         created: timestamp
         obsoleted_by_created: timestamp
         sent_by_created: timestamp
+    ticket_property_history_data:
+      +column_types:
+        timestamp_instant: timestamp
 
 dispatch:
   - macro_namespace: dbt_utils
