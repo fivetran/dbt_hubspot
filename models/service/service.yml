@@ -11,7 +11,7 @@ models:
       The start of a ticket's history is its creation date, and its end is by default the close date (or the current date if still open).
       The history of ticket can be extended past its close date by configuring the `ticket_history_extension_days` variable. 
     columns:
-      - name: id 
+      - name: ticket_day_id 
         description: Unique surrogate key hashed on `date_day` and `ticket_id`.
         tests:
           - unique
@@ -39,6 +39,7 @@ models:
       Custom calculated ticket fields can be added by configuring the `hubspot__ticket_calculated_fields` variable.
     columns:
       - name: ticket_id 
+        description: Unique id of a ticket in Hubspot.
         tests:
           - unique
           - not_null
@@ -46,9 +47,9 @@ models:
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
-      - name: closed_at
+      - name: closed_date
         description: The date the ticket was closed.
-      - name: created_at
+      - name: created_date
         description: The date the ticket was created.
       - name: first_agent_reply_at
         description: the date for the first agent reply on the ticket.
@@ -88,6 +89,10 @@ models:
         description: Array of `DEAL` ids associated with the ticket.
       - name: deal_names
         description: Array of `DEAL` names associated with the ticket.
+      - name: company_ids
+        description: Array of `COMPANY` ids associated with the ticket.
+      - name: company_names
+        description: Array of `COMPANY` names associated with the ticket.
       - name: contact_ids
         description: Array of `CONTACT` ids associated with the ticket.
       - name: contact_emails
