@@ -41,7 +41,7 @@ with calendar as (
 
     select 
         *,
-        cast( {{ dbt.date_trunc('day', "case when closed_at is null then " ~ dbt.current_timestamp_backcompat() ~ " else closed_at end") }} as date) as open_until
+        cast( {{ dbt.date_trunc('day', "case when closed_date is null then " ~ dbt.current_timestamp_backcompat() ~ " else closed_date end") }} as date) as open_until
     from {{ var('ticket') }}
     where not coalesce(is_ticket_deleted, false)
 
@@ -52,7 +52,7 @@ with calendar as (
         ticket.ticket_id
     from calendar 
     inner join ticket
-        on cast(calendar.date_day as date) >= cast(ticket.created_at as date)
+        on cast(calendar.date_day as date) >= cast(ticket.created_date as date)
         -- use this variable to extend the ticket's history past its close date (for reporting/data viz purposes :-)
         and cast(calendar.date_day as date) <= {{ dbt.dateadd('day', var('ticket_history_extension_days', 0), 'ticket.open_until') }}
 
