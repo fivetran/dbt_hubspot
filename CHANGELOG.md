@@ -1,3 +1,13 @@
+# dbt_hubspot v0.15.0
+
+([PR #119](https://github.com/fivetran/dbt_hubspot_source/pull/119)) includes the following updates:
+
+## 🚨 Breaking Changes 🚨
+- This PR is made breaking due to breaking changes in the source. 
+
+## Bug fixes
+- `hubspot__contacts`
+
 # dbt_hubspot v0.14.0
 
 ## 🚨 Breaking Changes 🚨
