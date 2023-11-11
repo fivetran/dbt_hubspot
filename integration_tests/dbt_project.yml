@@ -41,6 +41,8 @@ vars:
     hubspot_engagement_note_identifier: "engagement_note_data"
     hubspot_engagement_task_identifier: "engagement_task_data"
     hubspot_owner_identifier: "owner_data"
+    hubspot_property_identifier: "property_data"
+    hubspot_property_option_identifier: "property_option_data"
     hubspot_ticket_company_identifier: "ticket_company_data"
     hubspot_ticket_contact_identifier: "ticket_contact_data"
     hubspot_ticket_deal_identifier: "ticket_deal_data"
