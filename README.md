@@ -182,7 +182,6 @@ vars:
   hubspot__contact_pass_through_columns:
     - name:           "wow_i_can_add_all_my_custom_fields"
       alias:          "best_field"
-      use_property_label: true
   hubspot__company_pass_through_columns:
     - name:           "this_is_radical"
       alias:          "radical_field"
@@ -201,15 +200,20 @@ vars:
 ```
 ### Adding property label
 For `property_hs_*` columns, you can enable the corresponding, human-readable `property_option`.`label` to be included in the staging models. 
-- **Note** you cannot bring in labels if using `hubspot__pass_through_all_columns: true`.` 
-- To enable labels for a given property, set the property attribute `use_property_label: true`, using the below format.
+
+#### Important! 
+- You must have sources `property` and `property_option` enabled to enable labels. By default, these sources are enabled.  
+- You CANNOT enable labels if using `hubspot__pass_through_all_columns: true`.` 
+- As you add more label columns, your run time will increase due to the underlying logic requirements.
+
+To enable labels for a given property, set the property attribute `add_property_label: true`, using the below format.
 
 ```yml
 vars:
   hubspot__ticket_pass_through_columns:
     - name: "property_hs_fieldname"
       alias: "fieldname"
-      use_property_label: true
+      add_property_label: true
 ```
   Alternatively, you can enable labels for all passthrough properties by using variable `hubspot__enable_all_property_labels: true`, formatted like the below example. 
 
