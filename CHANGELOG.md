@@ -13,7 +13,7 @@
 
 ## Bug fixes
 - Updated variables used to determine if engagements are enabled in `hubspot__contacts` to also check variable `hubspot_engagement_contact_enabled`.
-- See the [dbt_hubspot_source CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for more details on fixes included in the source package.. 
+- See the [dbt_hubspot_source CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for more details on fixes included in the source package.
 
 # dbt_hubspot v0.14.0
 
