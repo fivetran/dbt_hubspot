@@ -2,26 +2,25 @@
 
 ([PR #127](https://github.com/fivetran/dbt_hubspot/pull/127)) includes the following updates:
 
-## 🚨 Breaking Changes 🚨
-- This change is made breaking due to changes in the source package. See the [source package CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for more details. 
+## Bug fixes
+- Updated variables used to determine if engagements are enabled in `hubspot__contacts` to also check variable `hubspot_engagement_contact_enabled`.
 
 ## Features
-- When including a passthrough `property_hs_*` column, you now have the option to include the corresponding, human-readable label in the staging models. 
-  - See the [Adding property label section](https://github.com/fivetran/dbt_hubspot#adding-property-label) of the README for instructions on how to enable this feature! 
-  - This update applies to models:
-    - `hubspot__company`
-    - `hubspot__contact`
-    - `hubspot__deal`
-    - `hubspot__ticket` 
+- The following changes stem from changes made in the source package. See the [source package CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for more details. 
 
 - Added the following staging models, along with documentation and tests:
   - `stg_hubspot__property`
   - `stg_hubspot__property_option`
   - These tables can be disabled by setting `hubspot_property_enabled': False` in your dbt_project.yml vars. See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot_#step-4-disable-models-for-non-existent-sources) for more details. 
 
-## Bug fixes
-- Updated variables used to determine if engagements are enabled in `hubspot__contacts` to also check variable `hubspot_engagement_contact_enabled`.
-- See the [dbt_hubspot_source CHANGELOG](https://github.com/fivetran/dbt_hubspot_source/blob/main/CHANGELOG.md) for more details on fixes included in the source package.
+- When including a passthrough `property_hs_*` column, you now have the option to include the corresponding, human-readable label in the staging models. 
+  - The above-mentioned `property` tables are required for this feature. If you do not have them and have to disable them, unfortunately you will not be able to use this feature.
+  - See the [Adding property label section](https://github.com/fivetran/dbt_hubspot#adding-property-label) of the README for instructions on how to enable this feature! 
+  - This update applies to models:
+    - `hubspot__company`
+    - `hubspot__contact`
+    - `hubspot__deal`
+    - `hubspot__ticket` 
 
 # dbt_hubspot v0.14.0
 
