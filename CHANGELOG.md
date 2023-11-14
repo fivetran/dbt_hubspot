@@ -1,6 +1,6 @@
 # dbt_hubspot v0.15.0
 
-([PR #127](https://github.com/fivetran/dbt_hubspot/pull/127)) includes the following updates:
+[PR #127](https://github.com/fivetran/dbt_hubspot/pull/127) includes the following updates:
 
 ## Bug fixes
 - Updated variables used to determine if engagements are enabled in `hubspot__contacts` to also check variable `hubspot_engagement_contact_enabled`.
