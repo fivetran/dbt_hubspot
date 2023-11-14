@@ -144,6 +144,7 @@ vars:
   hubspot_engagement_note_enabled: false
   hubspot_engagement_task_enabled: false
   hubspot_owner_enabled: false
+  hubspot_property_enabled: false                         # Disables property and property_option tables
   
   # Service
   hubspot_service_enabled: true                           # Enables all service/ticket models. Default = false
@@ -204,7 +205,7 @@ For `property_hs_*` columns, you can enable the corresponding, human-readable `p
 #### Important! 
 - You must have sources `property` and `property_option` enabled to enable labels. By default, these sources are enabled.  
 - You CANNOT enable labels if using `hubspot__pass_through_all_columns: true`.` 
-- As you add more label columns, your run time will increase due to the underlying logic requirements.
+- We recommend being selective with the label columns you add. As you add more label columns, your run time will increase due to the underlying logic requirements.
 
 To enable labels for a given property, set the property attribute `add_property_label: true`, using the below format.
 
