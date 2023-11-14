@@ -13,7 +13,7 @@
   - `stg_hubspot__property_option`
   - These tables can be disabled by setting `hubspot_property_enabled: False` in your dbt_project.yml vars. See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot#step-4-disable-models-for-non-existent-sources) for more details. 
 
-- When including a passthrough `property_hs_*` column, you now have the option to include the corresponding, human-readable label in the staging models. 
+- When including a passthrough `property_hs_*` column, you now have the option to include the corresponding, human-readable labels. 
   - The above-mentioned `property` tables are required for this feature. If you do not have them and have to disable them, unfortunately you will not be able to use this feature.
   - See the [Adding property label section](https://github.com/fivetran/dbt_hubspot#adding-property-label) of the README for more details on how to enable this feature! 
   - We recommend being selective with the label columns you add. As you add more label columns, your run time will increase due to the underlying logic requirements.
