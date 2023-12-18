@@ -1,3 +1,12 @@
+# dbt_hubspot v0.15.1
+[PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:
+
+## Bug Fixes
+- Updated model `int_hubspot__deals_enhanced` so that fields from the `owner` source are not included when `hubspot_owner_enabled` is set to false. 
+
+## Under the Hood
+- Included auto-releaser GitHub Actions workflow to automate future releases.
+
 # dbt_hubspot v0.15.0
 
 [PR #127](https://github.com/fivetran/dbt_hubspot/pull/127) includes the following updates:

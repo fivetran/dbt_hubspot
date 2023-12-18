@@ -15,10 +15,12 @@ with deals as (
     select *
     from {{ var('deal_pipeline_stage') }}
 
+{% if var('hubspot_owner_enabled', true) %}
 ), owners as (
 
     select *
     from {{ var('owner') }}
+{% endif %}
 
 ), deal_fields_joined as (
 
@@ -30,16 +32,23 @@ with deals as (
         coalesce(pipeline_stages.is_deal_pipeline_stage_deleted, false) as is_deal_pipeline_stage_deleted,
         pipelines.deal_pipeline_created_at,
         pipelines.deal_pipeline_updated_at,
-        pipeline_stages.pipeline_stage_label,
-        owners.email_address as owner_email_address,
-        owners.full_name as owner_full_name
+        pipeline_stages.pipeline_stage_label
+
+        {% if var('hubspot_owner_enabled', true) %}
+        , owners.email_address as owner_email_address
+        , owners.full_name as owner_full_name
+        {% endif %}
+
     from deals    
     left join pipelines 
         on deals.deal_pipeline_id = pipelines.deal_pipeline_id
     left join pipeline_stages 
         on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
+
+    {% if var('hubspot_owner_enabled', true) %}
     left join owners 
         on deals.owner_id = owners.owner_id
+    {% endif %}
 )
 
 select *
