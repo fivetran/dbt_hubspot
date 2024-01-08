@@ -65,7 +65,7 @@ models:
         description: A timestamp representing when the deal_pipeline was updated.
 
   - name: hubspot__deal_stages
-    description: Each record represents a stage within a deal in Hubspot
+    description: Each record represents when a deal stage changes in Hubspot, enriched with metrics about deal activities
     columns:
       - name: deal_stage_id
         description: The unique deal stage identifier.
