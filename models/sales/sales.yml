@@ -4,6 +4,11 @@ models:
 
   - name: hubspot__deals
     description: Each record represents a deal in Hubspot.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - deal_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -17,8 +22,6 @@ models:
         description: The date the deal was created. This property is set automatically by HubSpot.
       - name: deal_id
         description: The ID of the deal
-        tests:
-          - unique
       - name: deal_name
         description: The name you have given this deal.
       - name: is_deal_deleted
@@ -63,14 +66,19 @@ models:
         description: A timestamp representing when the deal_pipeline was created.
       - name: deal_pipeline_updated_at
         description: A timestamp representing when the deal_pipeline was updated.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__deal_stages
     description: Each record represents when a deal stage changes in Hubspot, enriched with metrics about deal activities
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - deal_stage_id
+            - source_relation
     columns:
       - name: deal_stage_id
         description: The unique deal stage identifier.
-        tests:
-          - unique
       - name: is_deal_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
       - name: is_deal_pipeline_stage_deleted
@@ -117,6 +125,8 @@ models:
         description: A timestamp representing when the deal_pipeline_stage was created.
       - name: deal_pipeline_stage_updated_at
         description: A timestamp representing when the deal_pipeline_stage was updated.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
@@ -143,9 +153,16 @@ models:
         description: "{{ doc('count_engagement_incoming_emails') }}"
       - name: count_engagement_forwarded_emails
         description: "{{ doc('count_engagement_forwarded_emails') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__engagements
     description: Each record represents an engagement 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - engagement_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -157,7 +174,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
       - name: is_active
@@ -176,3 +192,5 @@ models:
         description: List of deals related to the engagement.
       - name: company_ids
         description: List of companies related to the engagement.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"

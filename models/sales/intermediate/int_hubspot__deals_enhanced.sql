@@ -42,8 +42,10 @@ with deals as (
     from deals    
     left join pipelines 
         on deals.deal_pipeline_id = pipelines.deal_pipeline_id
+        and deals.source_relation = pipelines.source_relation
     left join pipeline_stages 
         on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
+        and deals.source_relation = pipeline_stages.source_relation
 
     {% if var('hubspot_owner_enabled', true) %}
     left join owners 

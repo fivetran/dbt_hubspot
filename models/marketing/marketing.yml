@@ -73,9 +73,16 @@ models:
         description: Whether the email was spam reported.
       - name: was_unsubcribed
         description: Whether the email was unsubcribed.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__email_campaigns
     description: Each record represents an email campaign in Hubspot.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - email_campaign_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -88,7 +95,6 @@ models:
       - name: email_campaign_id
         description: The ID of the email campaign.
         tests:
-          - unique
           - not_null
       - name: email_campaign_name
         description: The name of the email campaign.
@@ -142,6 +148,8 @@ models:
         description: "{{ doc('unique_spam_reports') }}"
       - name: total_unique_unsubscribes
         description: "{{ doc('unique_unsubscribes') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__contacts
     description: Each record represents a contact in Hubspot.
@@ -227,6 +235,8 @@ models:
           List of mappings representing contact IDs that have been merged into the contact at hand.
           Format: <merged_contact_id>:<merged_at_in_epoch_time>;<second_merged_contact_id>:<merged_at_in_epoch_time>
           This field has replaced the `CONTACT_MERGE_AUDIT` table, which was deprecated by the Hubspot v3 CRM API.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__contact_lists
     description: Each record represents a contact list in Hubspot.
@@ -303,3 +313,5 @@ models:
         description: "{{ doc('unique_spam_reports') }}"
       - name: total_unique_unsubscribes
         description: "{{ doc('unique_unsubscribes') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"

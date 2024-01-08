@@ -9,13 +9,13 @@
         file_format = 'parquet'
     )
 }}
-
+-- depends_on: {{ ref('stg_hubspot__ticket') }}
 with calendar as (
 
     {% if execute %}
     {% set first_date_query %}
     -- start at the first created ticket
-        select  min( property_createdate ) as min_date from {{ source('hubspot','ticket') }}
+        select  min( property_createdate ) as min_date from {{ var('ticket') }}
     {% endset %}
     {% set first_date = run_query(first_date_query).columns[0][0]|string %}
     
@@ -49,18 +49,21 @@ with calendar as (
 
     select 
         cast(calendar.date_day as date) as date_day,
-        ticket.ticket_id
+        ticket.ticket_id,
+        ticket.source_relation
     from calendar 
     inner join ticket
         on cast(calendar.date_day as date) >= cast(ticket.created_date as date)
         -- use this variable to extend the ticket's history past its close date (for reporting/data viz purposes :-)
         and cast(calendar.date_day as date) <= {{ dbt.dateadd('day', var('ticket_history_extension_days', 0), 'ticket.open_until') }}
+        -- not including source_relation in this join because calendar is a dataset we created and therefore does not have a source_relation attached
+        -- thus we are purposely causing fanout
 
 ), surrogate as (
 
     select
         *,
-        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id','source_relation']) }} as id
     from joined
 
 )

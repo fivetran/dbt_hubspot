@@ -31,6 +31,7 @@ with history as (
     select
         cast({{ dbt.date_trunc('day', 'change_timestamp') }} as date) as date_day,
         ticket_id,
+        source_relation,
         field_name,
         new_value,
         change_source,
@@ -45,7 +46,7 @@ with history as (
     select 
         *,
         row_number() over (
-            partition by date_day, ticket_id, field_name
+            partition by date_day, ticket_id, field_name, source_relation
             order by valid_from desc
             ) as row_num
     from windows
@@ -55,6 +56,7 @@ with history as (
     select 
         date_day,
         ticket_id,
+        source_relation,
         field_name,
         case when new_value is null then 'is_null' else new_value end as new_value,
         change_source,
@@ -69,7 +71,7 @@ with history as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['field_name','ticket_id','date_day']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['field_name','ticket_id','date_day','source_relation']) }} as id
     from extract_latest
 
 )

@@ -9,6 +9,7 @@ with events as (
 
     select
         sent_by_event_id as email_send_id,
+        source_relation,
         count(case when event_type = 'OPEN' then sent_by_event_id end) as opens,
         count(case when event_type = 'SENT' then sent_by_event_id end) as sends,
         count(case when event_type = 'DELIVERED' then sent_by_event_id end) as deliveries,
@@ -21,7 +22,7 @@ with events as (
         count(case when event_type = 'PRINT' then sent_by_event_id end) as prints
     from events
     where sent_by_event_id is not null
-    group by 1
+    group by 1,2
 
 )
 

@@ -21,10 +21,12 @@ with deals_enhanced as (
 
     select
         engagements.engagement_type,
-        engagement_deals.deal_id
+        engagement_deals.deal_id,
+        engagements.source_relation
     from engagements
     inner join engagement_deals
         on cast(engagements.engagement_id as {{ dbt.type_bigint() }}) = cast(engagement_deals.engagement_id as {{ dbt.type_bigint() }} )
+        and engagements.source_relation = engagement_deals.source_relation
 
 ), engagement_deal_agg as (
 

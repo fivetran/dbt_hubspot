@@ -45,6 +45,9 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
           
   - name: hubspot__email_event_clicks
     description: Each record represents a CLICK email event.
@@ -96,6 +99,9 @@ models:
       - name: contact_id
         description: The ID of the related contact.
           
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
+
   - name: hubspot__email_event_deferred
     description: Each record represents a DEFERRED email event.
     columns:
@@ -133,7 +139,10 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
- 
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
+
   - name: hubspot__email_event_delivered
     description: Each record represents a DELIVERED email event.
     columns:
@@ -171,7 +180,10 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
-   
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
+
   - name: hubspot__email_event_dropped
     description: Each record represents a DROPPED email event.
     columns:
@@ -224,6 +236,9 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
  
   - name: hubspot__email_event_forward
     description: Each record represents a FORWARD email event.
@@ -268,6 +283,9 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
 
   - name: hubspot__email_event_opens
     description: Each record represents a OPEN email event.
@@ -316,6 +334,9 @@ models:
       - name: contact_id
         description: The ID of the related contact.
 
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
+
   - name: hubspot__email_event_print
     description: Each record represents a PRINT email event.
     columns:
@@ -359,6 +380,9 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
 
   - name: hubspot__email_event_sent
     description: Each record represents a SENT email event.
@@ -407,6 +431,9 @@ models:
       - name: contact_id
         description: The ID of the related contact.
 
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
+
   - name: hubspot__email_event_spam_report
     description: Each record represents a SPAM_REPORT email event.
     columns:
@@ -444,6 +471,9 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"
 
   - name: hubspot__email_event_status_change
     description: Each record represents a STATUS_CHANGE email event in Hubspot.
@@ -498,3 +528,6 @@ models:
 
       - name: contact_id
         description: The ID of the related contact.
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"

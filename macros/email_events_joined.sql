@@ -26,7 +26,8 @@ with base as (
         events.sent_by_event_id as email_send_id
     from base
     left join events
-        using (event_id)
+        on base.event_id = events.event_id 
+        and base.source_relation = events.source_relation
 
 ), contacts_joined as (
 
@@ -37,6 +38,7 @@ with base as (
     from events_joined
     left join contacts
         on events_joined.recipient_email_address = contacts.email
+        and events_joined.source_relation = contacts.source_relation
 
 )
 

@@ -17,13 +17,14 @@ with contacts as (
     {% set email_metrics = adjust_email_metrics('hubspot__email_sends', 'email_metrics') %}
     select 
         recipient_email_address,
+        source_relation,
         {% for metric in email_metrics %}
         sum({{ metric }}) as total_{{ metric }},
         count(distinct case when {{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
     from email_sends
-    group by 1
+    group by 1,2
 
 ), email_joined as (
 
@@ -37,6 +38,7 @@ with contacts as (
     from contacts
     left join email_metrics
         on contacts.email = email_metrics.recipient_email_address
+        on contacts.source_relation = email_metrics.source_relation
 
 {% endif %}
 
@@ -58,7 +60,8 @@ with contacts as (
         {% endfor %}
     from {{ cte_ref }}
     left join engagements
-        using (contact_id)
+        on engagements.contact_id = {{ cte_ref }}.contact_id 
+        and engagements.source_relation = {{ cte_ref }}.source_relation
 
 )
 

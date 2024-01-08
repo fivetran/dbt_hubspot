@@ -24,6 +24,7 @@ with base as (
     from base
     left join engagements
         on base.engagement_id = engagements.engagement_id
+        and base.source_relation = engagements.source_relation
 
 )
 

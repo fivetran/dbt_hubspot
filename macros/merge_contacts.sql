@@ -8,7 +8,8 @@
 {# bigquery  #}
     select
         contacts.contact_id,
-        split(merges, ':')[offset(0)] as vid_to_merge
+        split(merges, ':')[offset(0)] as vid_to_merge,
+        contacts.source_relation
 
     from contacts
     cross join 
@@ -19,7 +20,8 @@
 {% macro snowflake__merge_contacts() %}
     select
         contacts.contact_id,
-        split_part(merges.value, ':', 0) as vid_to_merge
+        split_part(merges.value, ':', 0) as vid_to_merge,
+        contacts.source_relation
     
     from contacts
     cross join 
@@ -30,11 +32,14 @@
 {% macro redshift__merge_contacts() %}
 	select
         unnest_vid_array.contact_id,
-        split_part(cast(vid_to_merge as {{ dbt.type_string() }}) ,':',1) as vid_to_merge
+        split_part(cast(vid_to_merge as {{ dbt.type_string() }}) ,':',1) as vid_to_merge,
+        source_relation
+
     from (
         select 
             contacts.contact_id,
-            split_to_array(calculated_merged_vids, ';') as super_calculated_merged_vids
+            split_to_array(calculated_merged_vids, ';') as super_calculated_merged_vids,
+            contacts.source_relation
         from contacts
     ) as unnest_vid_array, unnest_vid_array.super_calculated_merged_vids as vid_to_merge
 
@@ -43,7 +48,8 @@
 {% macro postgres__merge_contacts() %}
     select
         contacts.contact_id,
-        split_part(merges, ':', 1) as vid_to_merge
+        split_part(merges, ':', 1) as vid_to_merge,
+        contacts.source_relation
 
     from contacts
     cross join 
@@ -55,7 +61,9 @@
 {# databricks and spark #}
     select
         contacts.contact_id,
-        split_part(merges, ':', 1) as vid_to_merge
+        split_part(merges, ':', 1) as vid_to_merge,
+        contacts.source_relation
+
     from contacts
     cross join (
         select 

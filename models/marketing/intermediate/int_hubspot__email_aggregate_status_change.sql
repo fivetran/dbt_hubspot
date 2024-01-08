@@ -11,10 +11,11 @@ with base as (
     select
         email_campaign_id,
         email_send_id,
+        source_relation,
         count(case when subscription_status = 'UNSUBSCRIBED' then 1 end) as unsubscribes
     from base
     where email_send_id is not null
-    group by 1,2
+    group by 1,2,3
 
 )
 

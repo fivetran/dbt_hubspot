@@ -2,26 +2,42 @@ version: 2
 
 models:
   - name: int_hubspot__email_aggregate_status_change
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - email_send_id
+            - source_relation
     columns:
       - name: email_send_id
         tests:
-          - unique
           - not_null
   - name: int_hubspot__email_metrics__by_contact_list
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_list_id
+            - source_relation
     columns:
       - name: contact_list_id
         tests:
-          - unique
           - not_null
   - name: int_hubspot__email_event_aggregates
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - email_send_id
+            - source_relation
     columns:
       - name: email_send_id
         tests:
-          - unique
           - not_null
   - name: int_hubspot__engagement_metrics__by_contact
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_id
+            - source_relation
     columns:
       - name: contact_id
         tests:
-          - unique
           - not_null
