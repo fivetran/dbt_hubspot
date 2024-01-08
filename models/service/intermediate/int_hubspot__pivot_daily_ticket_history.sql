@@ -35,7 +35,7 @@ with daily_history as (
 
     from daily_history
 
-    group by 1,2
+    group by 1,2,3
 
 ), surrogate as (
 

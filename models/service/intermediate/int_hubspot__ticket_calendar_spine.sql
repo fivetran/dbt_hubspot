@@ -15,7 +15,7 @@ with calendar as (
     {% if execute %}
     {% set first_date_query %}
     -- start at the first created ticket
-        select  min( property_createdate ) as min_date from {{ var('ticket') }}
+        select  min( created_date ) as min_date from {{ var('ticket') }}
     {% endset %}
     {% set first_date = run_query(first_date_query).columns[0][0]|string %}
     

@@ -38,7 +38,7 @@ with contacts as (
     from contacts
     left join email_metrics
         on contacts.email = email_metrics.recipient_email_address
-        on contacts.source_relation = email_metrics.source_relation
+        and contacts.source_relation = email_metrics.source_relation
 
 {% endif %}
 

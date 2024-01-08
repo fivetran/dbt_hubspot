@@ -119,7 +119,7 @@ with change_data as (
     select 
         date_day,
         ticket_id,
-        source_relation,
+        fill_values.source_relation,
         pipeline_stage.ticket_state,
         pipeline.pipeline_label as hs_pipeline_label,
         pipeline_stage.pipeline_stage_label as hs_pipeline_stage_label

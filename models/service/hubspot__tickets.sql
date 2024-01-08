@@ -68,7 +68,8 @@ with ticket as (
     select
         ticket_company.ticket_id,
         ticket_company.company_id,
-        company.company_name
+        company.company_name,
+        ticket_company.source_relation
 
     from ticket_company
     left join company 
