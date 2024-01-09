@@ -215,6 +215,7 @@ with ticket as (
     {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
     left join owner 
         on ticket.owner_id = owner.owner_id
+        and ticket.source_relation = owner.source_relation
     {% endif %}
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}

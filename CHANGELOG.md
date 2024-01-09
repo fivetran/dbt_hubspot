@@ -1,3 +1,9 @@
+# dbt_hubspot v0.16.0
+
+Unioning...
+
+Added documentation around disabling source freshness tests...
+
 # dbt_hubspot v0.15.1
 [PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:
 

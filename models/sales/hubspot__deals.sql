@@ -42,7 +42,7 @@ with deals_enhanced as (
     from deals_enhanced
     left join engagement_deal_agg
         on cast(deals_enhanced.deal_id as {{ dbt.type_bigint() }}) = cast(engagement_deal_agg.deal_id as {{ dbt.type_bigint() }} )
-
+        and deals_enhanced.source_relation = engagement_deal_agg.source_relation
 )
 
 select *

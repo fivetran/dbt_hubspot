@@ -50,6 +50,7 @@ with deals as (
     {% if var('hubspot_owner_enabled', true) %}
     left join owners 
         on deals.owner_id = owners.owner_id
+        and deals.source_relation = owners.source_relation
     {% endif %}
 )
 
