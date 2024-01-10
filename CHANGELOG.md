@@ -1,8 +1,14 @@
 # dbt_hubspot v0.16.0
 
-Unioning...
+## 🎉 Feature Update 🎉 
+- This release supports running the package on multiple Hubspot sources at once! See the [README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature ([PR #133](https://github.com/fivetran/dbt_hubspot/pull/133)).
 
-Added documentation around disabling source freshness tests...
+## 📝 Documentation 📝
+- Included documentation around dbt-core versions and disabling source freshness tests. Previously, we included [this](https://github.com/fivetran/dbt_hubspot_source?tab=readme-ov-file#dbt-core-version-requirement-for-disabling-freshness-tests) in the source package README but had missed the transform README ([PR #133](https://github.com/fivetran/dbt_hubspot/pull/133)).
+- Tweaked the description of `hubspot__deal_changes` to better reflect the grain of the model ([PR #132](https://github.com/fivetran/dbt_hubspot/pull/132)).
+
+## 🛠️ Under the Hood 🛠️
+- Updated the maintainer PR template to resemble the most up to date format.
 
 # dbt_hubspot v0.15.1
 [PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:
