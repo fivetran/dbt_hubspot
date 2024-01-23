@@ -4,6 +4,7 @@ version: '0.15.1'
 profile: 'integration_tests'
 config-version: 2
 vars:
+  hubspot__pass_through_all_columns: true # TODO: move to buildkite step before merging
   hubspot_schema: hubspot_integration_tests_8
   hubspot_source:
     hubspot_service_enabled: true
