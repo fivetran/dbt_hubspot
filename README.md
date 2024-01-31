@@ -87,7 +87,7 @@ dispatch:
 ```
 
 ## Step 3: Define database and schema variables
-### Option 1: Single connector
+### Option 1: Single connector 💃
 By default, this package runs using your destination and the `hubspot` schema. If this is not where your hubspot data is (for example, if your hubspot schema is named `hubspot_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
@@ -97,7 +97,7 @@ vars:
 ```
 > **Note**: If you are running the package on one source connector, each model will have a `source_relation` column that is just an empty string.
 
-### Option 2: Union multiple connectors
+### Option 2: Union multiple connectors 👯
 If you have multiple Hubspot connectors in Fivetran and would like to use this package on all of them simultaneously, we have provided functionality to do so. The package will union all of the data together and pass the unioned table into the transformations. You will be able to see which source it came from in the `source_relation` column of each model. To use this functionality, you will need to set either the `hubspot_union_schemas` OR `hubspot_union_databases` variables (cannot do both, though a more flexible approach is in the works...) in your root `dbt_project.yml` file:
 
 ```yml
@@ -1449,6 +1449,7 @@ vars:
 If you are not using a source table that involves freshness tests, please be aware that the feature to disable freshness was only introduced in dbt-core 1.1.0. Therefore ensure the dbt version you're using is v1.1.0 or greater for this config to work.
 
 ## (Optional) Step 5: Additional configurations
+<details open><summary>Expand/collapse configurations</summary>
 
 ### Configure email metrics
 This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet within your root `dbt_project.yml` and remove any fields you want to be ignored in the final model.
@@ -1597,6 +1598,7 @@ If an individual source table has a different name than the package expects, add
 vars:
     hubspot_<default_source_table_name>_identifier: your_table_name
 ```
+</details>
 
 ## (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
