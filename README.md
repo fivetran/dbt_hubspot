@@ -122,7 +122,7 @@ sources:
     database: <database_name> # one of var('hubspot_union_databases') if unioning databases, otherwise whatever DB your hubspot schemas all live in
     loader: Fivetran
     loaded_at_field: _fivetran_synced
-    tables: # copy and paste from models/src_hubspot.yml 
+    tables: # copy and paste from hubspot_source/models/src_hubspot.yml 
 ```
 
 > **Note**: If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), you may still include them here, as long as you have set the right variables to `False`. Otherwise, you may remove them from your source definition.
