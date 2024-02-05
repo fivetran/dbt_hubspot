@@ -1445,9 +1445,6 @@ vars:
   hubspot_ticket_deal_enabled: true                       # Default = false
 ```
 
-### Dbt-core Version Requirement for disabling freshness tests
-If you are not using a source table that involves freshness tests, please be aware that the feature to disable freshness was only introduced in dbt-core 1.1.0. Therefore ensure the dbt version you're using is v1.1.0 or greater for this config to work.
-
 ## (Optional) Step 5: Additional configurations
 <details open><summary>Expand/collapse configurations</summary>
 

@@ -3,12 +3,15 @@
 ## 🎉 Feature Update 🎉 
 - This release supports running the package on multiple Hubspot sources at once! See the [README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature ([PR #133](https://github.com/fivetran/dbt_hubspot/pull/133)).
 
+> Please note: For users running the `hubspot__daily_ticket_history` model, this is a **🚨Breaking Change🚨** in that we have a added a new field, `source_relation`, that points to the source connector from which the record originated. This field is added to all _all_ end models but will require a `dbt run --full-refresh` for `+hubspot__daily_ticket_history` specifically.
+
 ## 📝 Documentation 📝
-- Included documentation around dbt-core versions and disabling source freshness tests. Previously, we included [this](https://github.com/fivetran/dbt_hubspot_source?tab=readme-ov-file#dbt-core-version-requirement-for-disabling-freshness-tests) in the source package README but had missed the transform README ([PR #133](https://github.com/fivetran/dbt_hubspot/pull/133)).
+- Included documentation around dbt Core™ versions and disabling source freshness tests. Previously, we included [this](https://github.com/fivetran/dbt_hubspot_source?tab=readme-ov-file#dbt-core-version-requirement-for-disabling-freshness-tests) in the source package README but had missed the transform README ([PR #133](https://github.com/fivetran/dbt_hubspot/pull/133)).
 - Tweaked the description of `hubspot__deal_changes` to better reflect the grain of the model ([PR #132](https://github.com/fivetran/dbt_hubspot/pull/132)).
 
 ## 🛠️ Under the Hood 🛠️
 - Updated the maintainer PR template to resemble the most up to date format.
+- Removed GitHub workflow that checks if docs are re-built prior to merges to `main`. We will opt for a more seamless automation later this year.
 
 # dbt_hubspot v0.15.1
 [PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:
