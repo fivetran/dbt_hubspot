@@ -10,6 +10,7 @@ models:
             - contact_id
             - field_name
             - valid_to
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -36,7 +37,10 @@ models:
         description: '{{ doc("history_value") }}'
 
       - name: id
-        description: The ID of the change.
+        description: The ID of the change. Surrogate key hashed on `contact_id`, `field_name`, `valid_from`, and `source_relation`.
         tests:
           - unique
           - not_null
+
+      - name: source_relation
+        description: " {{ doc('source_relation') }}"

@@ -24,7 +24,9 @@ with sends as (
         coalesce(metrics.prints,0) as prints,
         coalesce(metrics.spam_reports,0) as spam_reports
     from sends
-    left join metrics using (email_send_id)
+    left join metrics
+        on sends.email_send_id = metrics.email_send_id
+        and sends.source_relation = metrics.source_relation
 
 ), booleans as (
 
@@ -54,7 +56,9 @@ with sends as (
         coalesce(unsubscribes.unsubscribes,0) as unsubscribes,
         coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed
     from booleans
-    left join unsubscribes using (email_send_id)
+    left join unsubscribes
+        on booleans.email_send_id = unsubscribes.email_send_id
+        and booleans.source_relation = unsubscribes.source_relation
 
 )
 

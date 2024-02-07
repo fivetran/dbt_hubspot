@@ -4,6 +4,11 @@ models:
 
   - name: hubspot__engagement_calls
     description: Each record represents a CALL engagement event.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - engagement_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -12,7 +17,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
 
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.
@@ -34,9 +38,17 @@ models:
 
       - name: company_ids
         description: List of companies related to the engagement.
-          
+
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
   - name: hubspot__engagement_emails
     description: Each record represents an EMAIL engagement event.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - engagement_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -45,7 +57,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
 
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.
@@ -67,9 +78,17 @@ models:
 
       - name: company_ids
         description: List of companies related to the engagement.
+
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__engagement_meetings
     description: Each record represents a MEETING engagement event.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - engagement_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -78,7 +97,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
 
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.
@@ -101,8 +119,16 @@ models:
       - name: company_ids
         description: List of companies related to the engagement.
 
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
   - name: hubspot__engagement_notes
     description: Each record represents a NOTE engagement event.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - engagement_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -111,7 +137,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
 
       - name: note
         description: The body of the note. The body has a limit of 65536 characters.
@@ -137,8 +162,16 @@ models:
       - name: company_ids
         description: List of companies related to the engagement.
 
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
   - name: hubspot__engagement_tasks
     description: Each record represents a TASK engagement event.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - engagement_id
+            - source_relation
     columns:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -147,7 +180,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
 
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.
@@ -169,3 +201,6 @@ models:
 
       - name: company_ids
         description: List of companies related to the engagement.
+
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"

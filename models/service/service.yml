@@ -12,7 +12,7 @@ models:
       The history of ticket can be extended past its close date by configuring the `ticket_history_extension_days` variable. 
     columns:
       - name: ticket_day_id 
-        description: Unique surrogate key hashed on `date_day` and `ticket_id`.
+        description: Unique surrogate key hashed on `date_day`, `ticket_id`, and `source_relation`.
         tests:
           - unique
           - not_null
@@ -30,6 +30,8 @@ models:
         description: ID of the ticket pipeline.
       - name: hs_pipeline_stage
         description: ID of the ticket pipeline stage.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
 
   - name: hubspot__tickets
     description: >
@@ -37,11 +39,15 @@ models:
 
       Custom columns from `TICKET` can be included by configuring the `hubspot__ticket_pass_through_columns` variable.
       Custom calculated ticket fields can be added by configuring the `hubspot__ticket_calculated_fields` variable.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - ticket_id
+            - source_relation
     columns:
       - name: ticket_id 
         description: Unique id of a ticket in Hubspot.
         tests:
-          - unique
           - not_null
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'
@@ -111,3 +117,5 @@ models:
         description: "{{ doc('count_engagement_incoming_emails') }}"
       - name: count_engagement_forwarded_emails
         description: "{{ doc('count_engagement_forwarded_emails') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"

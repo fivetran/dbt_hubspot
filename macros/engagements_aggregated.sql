@@ -2,6 +2,7 @@
 
     select
         {{ primary_key }},
+        source_relation,
         count(case when engagement_type = 'NOTE' then {{ primary_key }} end) as count_engagement_notes,
         count(case when engagement_type = 'TASK' then {{ primary_key }} end) as count_engagement_tasks,
         count(case when engagement_type = 'CALL' then {{ primary_key }} end) as count_engagement_calls,
@@ -10,7 +11,7 @@
         count(case when engagement_type = 'INCOMING_EMAIL' then {{ primary_key }} end) as count_engagement_incoming_emails,
         count(case when engagement_type = 'FORWARDED_EMAIL' then {{ primary_key }} end) as count_engagement_forwarded_emails
     from {{ from_ref }}
-    group by 1
+    group by 1,2
 
 {% endmacro %}
 

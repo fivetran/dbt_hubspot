@@ -24,7 +24,8 @@ with contact_lists as (
         {% endfor %}
     from contact_lists
     left join email_metrics
-        using (contact_list_id)
+        on contact_lists.contact_list_id = email_metrics.contact_list_id
+        and contact_lists.source_relation = email_metrics.source_relation
 
 )
 

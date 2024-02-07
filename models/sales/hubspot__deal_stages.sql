@@ -25,6 +25,7 @@ with deals_enhanced as (
     select
         deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id order by deal_stage.date_entered asc) as deal_stage_id,
         deals_enhanced.deal_id,
+        deal_stage.source_relation,
         deals_enhanced.deal_name,
         deal_stage._fivetran_start as date_stage_entered,
         deal_stage._fivetran_end as date_stage_exited,
@@ -51,12 +52,15 @@ with deals_enhanced as (
 
     left join pipeline_stage
         on deal_stage.deal_stage_name = pipeline_stage.deal_pipeline_stage_id
+        and deal_stage.source_relation = pipeline_stage.source_relation
     
     left join pipeline
         on pipeline_stage.deal_pipeline_id = pipeline.deal_pipeline_id
+        and deal_stage.source_relation = pipeline.source_relation
 
     left join deals_enhanced
         on deal_stage.deal_id = deals_enhanced.deal_id
+        and deal_stage.source_relation = deals_enhanced.source_relation
 )
 
 select * 

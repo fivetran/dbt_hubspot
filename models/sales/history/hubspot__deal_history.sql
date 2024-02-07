@@ -9,19 +9,20 @@ with history as (
 
     select
         deal_id,
+        source_relation,
         field_name,
         change_source,
         change_source_id,
         change_timestamp as valid_from,
         new_value,
-        lead(change_timestamp) over (partition by deal_id, field_name order by change_timestamp) as valid_to
+        lead(change_timestamp) over (partition by deal_id, field_name, source_relation order by change_timestamp) as valid_to
     from history
 
 ), surrogate as (
 
     select 
         windows.*,
-        {{ dbt_utils.generate_surrogate_key(['field_name','deal_id','valid_from']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['field_name','deal_id','valid_from','source_relation']) }} as id
     from windows
 
 )

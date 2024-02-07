@@ -12,12 +12,13 @@ with change_data as (
     select 
         date_day, 
         ticket_id,
-        id
+        id,
+        source_relation
 
-        {% for col in ticket_columns if col.name|lower not in ['date_day','ticket_id','id'] %} 
+        {% for col in ticket_columns if col.name|lower not in ['date_day','ticket_id','id','source_relation'] %} 
         , {{ col.name }} as {{ col.name|lower }}
         -- create a batch/partition once a new value is provided
-        , sum( case when {{ col.name }} is null then 0 else 1 end) over (partition by ticket_id 
+        , sum( case when {{ col.name }} is null then 0 else 1 end) over (partition by ticket_id, source_relation
             order by date_day rows unbounded preceding) as {{ col.name }}_field_partition
 
         {% endfor %}
@@ -31,13 +32,14 @@ with change_data as (
     select 
         date_day, 
         ticket_id,
-        id
+        id,
+        source_relation
         
-        {% for col in ticket_columns if col.name|lower not in ['date_day','ticket_id','id'] %} 
+        {% for col in ticket_columns if col.name|lower not in ['date_day','ticket_id','id','source_relation'] %} 
 
         -- grab the value that started this batch/partition
         , first_value( {{ col.name }} ) over (
-            partition by ticket_id, {{ col.name }}_field_partition 
+            partition by ticket_id, {{ col.name }}_field_partition, source_relation
             order by date_day asc rows between unbounded preceding and current row) as {{ col.name }}
 
         {% endfor %}

@@ -14,10 +14,13 @@ with engagements as (
 
     select
         engagements.engagement_type,
-        engagement_contacts.contact_id
+        engagement_contacts.contact_id,
+        engagements.source_relation
+        
     from engagements
     inner join engagement_contacts
-        using (engagement_id)
+        on engagements.engagement_id = engagement_contacts.engagement_id
+        and engagements.source_relation = engagement_contacts.source_relation
 
 ), engagement_contacts_agg as (
 

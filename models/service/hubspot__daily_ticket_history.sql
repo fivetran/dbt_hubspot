@@ -55,14 +55,15 @@ with change_data as (
 
     select 
         calendar.date_day,
-        calendar.ticket_id
+        calendar.ticket_id,
+        calendar.source_relation
         {% if is_incremental() %}    
-            {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %} 
+            {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id','source_relation'] %} 
             , coalesce(change_data.{{ col.name }}, most_recent_data.{{ col.name }}) as {{ col.name }}
             {% endfor %}
         
         {% else %}
-            {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %} 
+            {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id','source_relation'] %} 
             , {{ col.name }}
             {% endfor %}
         {% endif %}
@@ -71,24 +72,27 @@ with change_data as (
     left join change_data
         on calendar.ticket_id = change_data.ticket_id
         and calendar.date_day = change_data.date_day
+        and calendar.source_relation = change_data.source_relation
     
     {% if is_incremental() %}
     left join most_recent_data
         on calendar.ticket_id = most_recent_data.ticket_id
         and calendar.date_day = most_recent_data.date_day
+        and calendar.source_relation = most_recent_data.source_relation
     {% endif %}
 
 ), set_values as (
 
     select 
         date_day,
-        ticket_id
+        ticket_id,
+        source_relation
         
-        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %}
+        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id','source_relation'] %}
         , {{ col.name }}
         -- create a batch/partition once a new value is provided
         , sum(case when joined.{{ col.name }} is null then 0 else 1 end) over (
-                partition by ticket_id
+                partition by ticket_id, source_relation
                 order by date_day rows unbounded preceding) as {{ col.name }}_partition
         {% endfor %}
 
@@ -98,12 +102,13 @@ with change_data as (
 
     select 
         date_day,
-        ticket_id
+        ticket_id,
+        source_relation
 
-        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %}
+        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id','source_relation'] %}
         -- grab the value that started this batch/partition
         , first_value( {{ col.name }} ) over (
-            partition by ticket_id, {{ col.name }}_partition 
+            partition by ticket_id, {{ col.name }}_partition, source_relation
             order by date_day asc rows between unbounded preceding and current row) as {{ col.name }}
         {% endfor %}
 
@@ -114,11 +119,12 @@ with change_data as (
     select 
         date_day,
         ticket_id,
+        fill_values.source_relation,
         pipeline_stage.ticket_state,
         pipeline.pipeline_label as hs_pipeline_label,
         pipeline_stage.pipeline_stage_label as hs_pipeline_stage_label
 
-        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id'] %} 
+        {% for col in change_data_columns if col.name|lower not in ['ticket_id','date_day','id','source_relation'] %} 
         -- we de-nulled the true null values earlier in order to differentiate them from nulls that just needed to be backfilled
         , case when  cast( {{ col.name }} as {{ dbt.type_string() }} ) = 'is_null' then null else {{ col.name }} end as {{ col.name }}
         {% endfor %}
@@ -127,14 +133,16 @@ with change_data as (
 
     left join pipeline 
         on cast(fill_values.hs_pipeline as {{ dbt.type_int() }}) = pipeline.ticket_pipeline_id
+        and fill_values.source_relation = pipeline.source_relation
     left join pipeline_stage 
         on cast(fill_values.hs_pipeline_stage as {{ dbt.type_int() }}) = pipeline_stage.ticket_pipeline_stage_id
         and pipeline.ticket_pipeline_id = pipeline_stage.ticket_pipeline_id
+        and fill_values.source_relation = pipeline_stage.source_relation
 
 ), surrogate as (
 
     select
-        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id']) }} as ticket_day_id,
+        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id','source_relation']) }} as ticket_day_id,
         *
 
     from fix_null_values

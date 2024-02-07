@@ -25,7 +25,8 @@ with daily_history as (
 
     select 
         date_day, 
-        ticket_id
+        ticket_id,
+        source_relation
 
         -- should we remove the `hs_` prefix? could introduce some duplicates if people already have something like `hs_owner` and `owner`
         {% for col in ticket_columns -%}
@@ -34,13 +35,13 @@ with daily_history as (
 
     from daily_history
 
-    group by 1,2
+    group by 1,2,3
 
 ), surrogate as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['date_day', 'ticket_id']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['date_day', 'ticket_id', 'source_relation']) }} as id
     from pivot_out
 )
 

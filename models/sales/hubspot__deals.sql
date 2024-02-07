@@ -21,10 +21,12 @@ with deals_enhanced as (
 
     select
         engagements.engagement_type,
-        engagement_deals.deal_id
+        engagement_deals.deal_id,
+        engagements.source_relation
     from engagements
     inner join engagement_deals
         on cast(engagements.engagement_id as {{ dbt.type_bigint() }}) = cast(engagement_deals.engagement_id as {{ dbt.type_bigint() }} )
+        and engagements.source_relation = engagement_deals.source_relation
 
 ), engagement_deal_agg as (
 
@@ -40,7 +42,7 @@ with deals_enhanced as (
     from deals_enhanced
     left join engagement_deal_agg
         on cast(deals_enhanced.deal_id as {{ dbt.type_bigint() }}) = cast(engagement_deal_agg.deal_id as {{ dbt.type_bigint() }} )
-
+        and deals_enhanced.source_relation = engagement_deal_agg.source_relation
 )
 
 select *
