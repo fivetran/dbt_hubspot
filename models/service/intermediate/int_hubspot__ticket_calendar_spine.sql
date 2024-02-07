@@ -12,15 +12,10 @@
 -- depends_on: {{ ref('stg_hubspot__ticket') }}
 with calendar as (
 
-    {% if execute %}
+    {% if execute and flags.WHICH in ('run', 'build') %}
     {% set first_date_query %}
     -- start at the first created ticket
-        {% if var('hubspot_union_schemas', []) == [] and var('hubspot_union_databases', []) == [] %}
-            select min( property_createdate ) as min_date from {{ source('hubspot','ticket') }}
-        {% else %}
-        -- if you are unioning multiple connectors, you may not be able to `dbt compile` before `dbt run`ing on a new schema.
-            select  min( created_date ) as min_date from {{ var('ticket') }}
-        {% endif %}
+        select  min( created_date ) as min_date from {{ var('ticket') }}
     {% endset %}
     {% set first_date = run_query(first_date_query).columns[0][0]|string %}
     
