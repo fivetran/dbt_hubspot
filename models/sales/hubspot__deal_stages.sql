@@ -26,6 +26,7 @@ with deals_enhanced as (
         deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id order by deal_stage.date_entered asc) as deal_stage_id,
         deals_enhanced.deal_id,
         deals_enhanced.deal_name,
+        deals_enhanced.merged_deal_ids,
         deal_stage._fivetran_start as date_stage_entered,
         deal_stage._fivetran_end as date_stage_exited,
         deal_stage._fivetran_active as is_stage_active,
