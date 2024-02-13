@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.15.1'
+version: '0.15.2'
 
 profile: 'integration_tests'
 config-version: 2
@@ -58,6 +58,7 @@ vars:
     hubspot_contact_list_identifier: "contact_list_data"
     hubspot_email_event_sent_identifier: "email_event_sent_data"
     hubspot_email_event_dropped_identifier: "email_event_dropped_data"
+    hubspot_merged_deal_identifier: "merged_deal_data"
 
 seeds:
   hubspot_integration_tests:
