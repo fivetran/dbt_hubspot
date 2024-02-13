@@ -177,6 +177,7 @@ seeds:
     merged_deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
   - macro_namespace: dbt_utils
