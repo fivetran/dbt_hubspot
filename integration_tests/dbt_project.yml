@@ -174,6 +174,9 @@ seeds:
     ticket_property_history_data:
       +column_types:
         timestamp_instant: timestamp
+    merged_deal_data:
+      +column_types:
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
   - macro_namespace: dbt_utils
