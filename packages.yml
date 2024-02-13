@@ -2,4 +2,6 @@ packages:
   # - package: fivetran/hubspot_source
   #   version: [">=0.14.0", "<0.15.0"]
 
-  - local: ../dbt_hubspot_source
+    - git: https://github.com/fivetran/dbt_hubspot_source.git
+      revision: merged_deals
+      warn-unpinned: false
