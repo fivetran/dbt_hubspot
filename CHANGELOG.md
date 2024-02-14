@@ -1,3 +1,12 @@
+# dbt_hubspot v0.15.2
+[PR #135](https://github.com/fivetran/dbt_hubspot/pull/135) includes the following updates:
+
+## Features
+- Updates the `hubspot__deal_stages` and `hubspot__deals` models to remove stale deals that have been merged since into other deals. In addition we've introduced a new field `merged_deal_ids` that lists all historic merged deals for each deal.
+
+## Under the Hood
+- Added tests for uniqueness for relevant keys on the condition they have not been deleted.
+
 # dbt_hubspot v0.15.1
 [PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:
 
