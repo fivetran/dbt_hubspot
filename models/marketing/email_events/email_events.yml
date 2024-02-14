@@ -21,6 +21,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -65,6 +68,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -112,6 +118,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -147,6 +156,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -200,6 +212,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: from_email
         description: The 'from' field of the email message.
@@ -241,6 +256,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -288,6 +306,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -332,6 +353,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -382,6 +406,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: from_email
         description: The 'from' field of the email message.
@@ -420,6 +447,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: ip_address
         description: '{{ doc("email_event_ip_address") }}'
@@ -461,6 +491,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
 
       - name: is_bounced
         description: | 
