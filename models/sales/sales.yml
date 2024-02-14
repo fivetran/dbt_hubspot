@@ -19,6 +19,9 @@ models:
         description: The ID of the deal
         tests:
           - unique
+          - unique:
+              config:
+                where: "not coalesce(is_deal_deleted, false)"
       - name: deal_name
         description: The name you have given this deal.
       - name: is_deal_deleted
@@ -71,6 +74,9 @@ models:
         description: The unique deal stage identifier.
         tests:
           - unique
+          - unique:
+              config:
+                where: "not coalesce(is_deal_pipeline_stage_deleted, false)"
       - name: is_deal_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
       - name: is_deal_pipeline_stage_deleted
@@ -125,6 +131,9 @@ models:
         description: The ID of the company.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_company_deleted, false)"
       - name: portal_id
         description: '{{ doc("portal_id") }}'
       - name: is_company_deleted

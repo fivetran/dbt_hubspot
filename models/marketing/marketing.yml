@@ -19,6 +19,9 @@ models:
         description: The ID of the event.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
       - name: from_email
         description: The 'from' field of the email message.
       - name: reply_to_email
@@ -154,6 +157,9 @@ models:
         description: The ID of the contact.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
       - name: contact_company
         description: The name of the contact's company
       - name: first_name
@@ -237,6 +243,9 @@ models:
         description: The ID of the contact list.
         tests:
           - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_list_deleted, false)"
       - name: contact_list_name
         description: The name of the contact list.
       - name: is_contact_list_deleted
