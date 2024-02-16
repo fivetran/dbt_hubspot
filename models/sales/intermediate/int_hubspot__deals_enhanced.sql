@@ -5,6 +5,7 @@ with deals as (
     select *
     from {{ var('deal') }}
 
+{% if var('hubspot_merged_deal_enabled', true) %}
 ), merged_deals as (
 
     select *
@@ -16,9 +17,9 @@ with deals as (
         deal_id,
         {{ fivetran_utils.array_agg("merged_deal_id") }} as merged_deal_ids
     
-    from {{ var('merged_deal')}}
+    from merged_deals
     group by 1
-
+{% endif %}
 ), pipelines as (
 
     select *
@@ -40,7 +41,11 @@ with deals as (
 
     select 
         deals.*,
+
+        {% if var('hubspot_merged_deal_enabled', true) %}
         aggregate_merged_deals.merged_deal_ids,
+        {% endif %}
+
         coalesce(pipelines.is_deal_pipeline_deleted, false) as is_deal_pipeline_deleted,
         pipelines.pipeline_label,
         pipelines.is_active as is_pipeline_active,
@@ -59,18 +64,21 @@ with deals as (
         on deals.deal_pipeline_id = pipelines.deal_pipeline_id
     left join pipeline_stages 
         on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
+
+    {% if var('hubspot_merged_deal_enabled', true) %}
     left join aggregate_merged_deals
         on deals.deal_id = aggregate_merged_deals.deal_id
-    left join merged_deals
-        on deals.deal_id = merged_deals.merged_deal_id
+    {% endif %}
 
     {% if var('hubspot_owner_enabled', true) %}
     left join owners 
         on deals.owner_id = owners.owner_id
     {% endif %}
 
-    where merged_deals.merged_deal_id is null -- remove deals that have been merged
-)
+    {% if var('hubspot_merged_deal_enabled', true) %}
+    where deals.deal_id not in (select merged_deal_id from merged_deals) -- remove deals that have been merged
+    {% endif %}
+)   
 
 select *
 from deal_fields_joined
