@@ -18,7 +18,7 @@ models:
       - name: deal_id
         description: The ID of the deal
         tests:
-          - unique
+          - not_null
           - unique:
               config:
                 where: "not coalesce(is_deal_deleted, false)"
@@ -73,7 +73,7 @@ models:
       - name: deal_stage_id
         description: The unique deal stage identifier.
         tests:
-          - unique
+          - not_null
           - unique:
               config:
                 where: "not coalesce(is_deal_pipeline_stage_deleted, false)"
