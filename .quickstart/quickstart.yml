@@ -4,25 +4,6 @@ schema_key: hubspot_schema
 dbt_versions: ">=1.3.0 <2.0.0"
 
 table_variables:
-  hubspot_marketing_enabled:
-    - contact_merge_audit
-    - contact
-    - contact_list
-    - contact_list_member
-    - contact_property_history
-    - email_campaign
-    - email_event
-    - email_event_bounce
-    - email_event_click
-    - email_event_deferred
-    - email_event_delivered
-    - email_event_dropped
-    - email_event_forward
-    - email_event_open
-    - email_event_print
-    - email_event_sent
-    - email_event_spam_report
-    - email_event_status_change
   hubspot_contact_enabled:
     - contact
   hubspot_contact_list_enabled:
@@ -36,17 +17,6 @@ table_variables:
   hubspot_email_event_enabled:
     - email_campaign
     - email_event
-    - email_event_bounce
-    - email_event_click
-    - email_event_deferred
-    - email_event_delivered
-    - email_event_dropped
-    - email_event_forward
-    - email_event_open
-    - email_event_print
-    - email_event_sent
-    - email_event_spam_report
-    - email_event_status_change
   hubspot_email_event_bounce_enabled:
     - email_event_bounce
   hubspot_email_event_click_enabled:
@@ -71,38 +41,15 @@ table_variables:
     - email_event_status_change
   hubspot_contact_merge_audit_enabled:
     - contact_merge_audit
-  hubspot_sales_enabled:
-    - company
-    - company_property_history
-    - deal
-    - deal_stage
-    - deal_company
-    - deal_contact
-    - deal_pipeline
-    - deal_pipeline_stage
-    - deal_property_history
-    - engagement
-    - engagement_call
-    - engagement_company
-    - engagement_contact
-    - engagement_deal
-    - engagement_email
-    - engagement_meeting
-    - engagement_note
-    - engagement_task
   hubspot_company_enabled:
     - company
-    - company_property_history
   hubspot_company_property_history_enabled:
     - company_property_history
   hubspot_deal_enabled:
     - deal
     - deal_stage
-    - deal_company
-    - deal_contact
     - deal_pipeline
     - deal_pipeline_stage
-    - deal_property_history
   hubspot_deal_company_enabled:
     - deal_company
   hubspot_deal_contact_enabled:
@@ -111,14 +58,6 @@ table_variables:
     - deal_property_history
   hubspot_engagement_enabled:
     - engagement
-    - engagement_call
-    - engagement_company
-    - engagement_contact
-    - engagement_deal
-    - engagement_email
-    - engagement_meeting
-    - engagement_note
-    - engagement_task
   hubspot_engagement_contact_enabled:
     - engagement_contact
   hubspot_engagement_company_enabled:
