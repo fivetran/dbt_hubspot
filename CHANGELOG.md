@@ -5,6 +5,13 @@
 - Updates the `hubspot__deal_stages` and `hubspot__deals` models to remove stale deals that have been merged since into other deals. In addition we've introduced a new field `merged_deal_ids` that lists all historic merged deals for each deal. 
   - **Please note** you must have the underlying `merged_deals` table and enable the following variables in your dbt_project.yml: `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_merged_deal_enabled`. See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot#step-4-disable-models-for-non-existent-sources) for more details. 
 
+## Variable Bug Fixes
+- The following adjustments have been made concerning the `hubspot_contact_enabled` variable:
+  - The `email_events_joined()` macro now includes conditional logic to include contact information only if the `hubspot_contact_enabled` variable is defined as `true`.
+  - The `int_hubspot__email_metrics__by_contact_list` model is now dependent on the `hubspot_contact_enabled` variable being defined as `true`.
+  - The `hubspot__contact_lists` model now takes into consideration the `hubspot_contact_enabled` variable being defined as `true` before joining in email metric information to the contact lists data.
+- Modified the config enabled logic within the `hubspot__email_sends` model to be dependent on the `hubspot_email_event_sent_enabled` variable being `true` in addition to the `hubspot_marketing_enabled` and `hubspot_email_event_enabled` variables.
+
 ## Under the Hood
 - Added tests for uniqueness for relevant keys on the condition they have not been deleted.
 
