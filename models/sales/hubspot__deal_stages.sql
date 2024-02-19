@@ -27,7 +27,7 @@ with deals_enhanced as (
         deals_enhanced.deal_id,
         deals_enhanced.deal_name,
 
-        {% if var('hubspot_merged_deal_enabled', true) %}
+        {% if var('hubspot_merged_deal_enabled', false) %}
         deals_enhanced.merged_deal_ids,
         {% endif %}
         
