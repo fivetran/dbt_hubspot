@@ -16,7 +16,7 @@
 - Modified the config enabled logic within the `hubspot__email_sends` model to be dependent on the `hubspot_email_event_sent_enabled` variable being `true` in addition to the `hubspot_marketing_enabled` and `hubspot_email_event_enabled` variables.
 
 ## Under the Hood
-- Added tests for uniqueness for relevant keys on the condition they have not been deleted.
+- Added quickstart.yml for Quickstart customers.
 
 # dbt_hubspot v0.15.1
 [PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:

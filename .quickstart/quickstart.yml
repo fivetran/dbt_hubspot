@@ -50,6 +50,8 @@ table_variables:
     - deal_stage
     - deal_pipeline
     - deal_pipeline_stage
+  hubspot_merged_deal_enabled:
+    - merged_deal
   hubspot_deal_company_enabled:
     - deal_company
   hubspot_deal_contact_enabled:
