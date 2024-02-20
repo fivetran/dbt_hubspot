@@ -1,9 +1,12 @@
-# dbt_hubspot v0.15.2
+# dbt_hubspot v0.16.0
 [PR #135](https://github.com/fivetran/dbt_hubspot/pull/135) includes the following updates:
+
+## 🚨 Breaking Changes 🚨
+- Added unique tests on `event_id` for event-based models, `contact_id` for `hubspot__contacts`, and `contact_list_id` for `hubspot__contact_lists`, on the condition the titular fields have not been deleted. We would advise running through these to ensure they work successfully.
 
 ## Features
 - Updates the `hubspot__deal_stages` and `hubspot__deals` models to remove stale deals that have been merged since into other deals. In addition we've introduced a new field `merged_deal_ids` that lists all historic merged deals for each deal. 
-  - **Please note** you must have the underlying `merged_deals` table and enable the following variables in your dbt_project.yml: `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_merged_deal_enabled`. See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot#step-4-disable-models-for-non-existent-sources) for more details. 
+   - **Please note** you must have the underlying `merged_deals` table to take advantage of the above mentioned merged deal update. This may be enabled by setting `hubspot_merged_deal_enabled` to True (by default this will be False). Also, `hubspot_sales_enabled` and `hubspot_deal_enabled` must not be set to False (by default these are True). See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot#step-4-disable-models-for-non-existent-sources) for more details. 
 
 ## Variable Bug Fixes
 - The following adjustments have been made concerning the `hubspot_contact_enabled` variable:
