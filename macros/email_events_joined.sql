@@ -10,10 +10,12 @@ with base as (
     select *
     from {{ var('email_event') }}
 
+{% if var('hubspot_contact_enabled', true) %}
 ), contacts as (
 
     select *
     from {{ ref('int_hubspot__contact_merge_adjust') }} 
+{% endif %}
 
 ), events_joined as (
 
@@ -28,6 +30,7 @@ with base as (
     left join events
         using (event_id)
 
+{% if var('hubspot_contact_enabled', true) %}
 ), contacts_joined as (
 
     select 
@@ -43,4 +46,11 @@ with base as (
 select *
 from contacts_joined
 
+{% else %}
+)
+
+select *
+from events_joined
+
+{% endif %}
 {% endmacro %}

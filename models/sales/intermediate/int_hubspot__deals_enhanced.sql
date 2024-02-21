@@ -5,6 +5,21 @@ with deals as (
     select *
     from {{ var('deal') }}
 
+{% if var('hubspot_merged_deal_enabled', false) %}
+), merged_deals as (
+
+    select *
+    from {{ var('merged_deal')}}
+
+), aggregate_merged_deals as (
+
+    select
+        deal_id,
+        {{ fivetran_utils.array_agg("merged_deal_id") }} as merged_deal_ids
+    from merged_deals
+    group by 1
+{% endif %}
+
 ), pipelines as (
 
     select *
@@ -26,6 +41,11 @@ with deals as (
 
     select 
         deals.*,
+
+        {% if var('hubspot_merged_deal_enabled', false) %}
+        aggregate_merged_deals.merged_deal_ids,
+        {% endif %}
+
         coalesce(pipelines.is_deal_pipeline_deleted, false) as is_deal_pipeline_deleted,
         pipelines.pipeline_label,
         pipelines.is_active as is_pipeline_active,
@@ -49,7 +69,16 @@ with deals as (
     left join owners 
         on deals.owner_id = owners.owner_id
     {% endif %}
-)
+
+    {% if var('hubspot_merged_deal_enabled', false) %}
+    left join aggregate_merged_deals
+        on deals.deal_id = aggregate_merged_deals.deal_id
+
+    left join merged_deals
+        on deals.deal_id = merged_deals.merged_deal_id
+    where merged_deals.merged_deal_id is null
+    {% endif %}
+)   
 
 select *
 from deal_fields_joined

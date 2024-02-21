@@ -1,0 +1,100 @@
+database_key: hubspot_database
+schema_key: hubspot_schema
+
+dbt_versions: ">=1.3.0 <2.0.0"
+
+table_variables:
+  hubspot_contact_enabled:
+    - contact
+  hubspot_contact_list_enabled:
+    - contact_list
+  hubspot_contact_list_member_enabled:
+    - contact_list_member
+  hubspot_contact_property_enabled:
+    - contact_property_history
+  hubspot_contact_property_history_enabled:
+    - contact_property_history
+  hubspot_email_event_enabled:
+    - email_campaign
+    - email_event
+  hubspot_email_event_bounce_enabled:
+    - email_event_bounce
+  hubspot_email_event_click_enabled:
+    - email_event_click
+  hubspot_email_event_deferred_enabled:
+    - email_event_deferred
+  hubspot_email_event_delivered_enabled:
+    - email_event_delivered
+  hubspot_email_event_dropped_enabled:
+    - email_event_dropped
+  hubspot_email_event_forward_enabled:
+    - email_event_forward
+  hubspot_email_event_open_enabled:
+    - email_event_open
+  hubspot_email_event_print_enabled:
+    - email_event_print
+  hubspot_email_event_sent_enabled:
+    - email_event_sent
+  hubspot_email_event_spam_report_enabled:
+    - email_event_spam_report
+  hubspot_email_event_status_change_enabled:
+    - email_event_status_change
+  hubspot_contact_merge_audit_enabled:
+    - contact_merge_audit
+  hubspot_company_enabled:
+    - company
+  hubspot_company_property_history_enabled:
+    - company_property_history
+  hubspot_deal_enabled:
+    - deal
+    - deal_stage
+    - deal_pipeline
+    - deal_pipeline_stage
+  hubspot_merged_deal_enabled:
+    - merged_deal
+  hubspot_deal_company_enabled:
+    - deal_company
+  hubspot_deal_contact_enabled:
+    - deal_contact
+  hubspot_deal_property_history_enabled:
+    - deal_property_history
+  hubspot_engagement_enabled:
+    - engagement
+  hubspot_engagement_contact_enabled:
+    - engagement_contact
+  hubspot_engagement_company_enabled:
+    - engagement_company
+  hubspot_engagement_deal_enabled:
+    - engagement_deal
+  hubspot_engagement_call_enabled:
+    - engagement_call
+  hubspot_engagement_email_enabled:
+    - engagement_email
+  hubspot_engagement_meeting_enabled:
+    - engagement_meeting
+  hubspot_engagement_note_enabled:
+    - engagement_note
+  hubspot_engagement_task_enabled:
+    - engagement_task
+  hubspot_owner_enabled:
+    - owner
+  hubspot_property_enabled:
+    - property
+  hubspot_property_enabled:
+    - property_option
+  hubspot_service_enabled: 
+    - ticket_company
+    - ticket_contact
+    - ticket_engagement
+    - ticket_pipeline_stage
+    - ticket_pipeline
+    - ticket_property_history
+    - ticket
+  hubspot_ticket_deal_enabled:
+    - ticket_deal
+
+destination_configurations:
+  databricks:
+    dispatch:
+      - macro_namespace: dbt_utils
+        search_order: [ 'spark_utils', 'dbt_utils' ]
