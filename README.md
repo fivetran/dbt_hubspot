@@ -131,7 +131,7 @@ vars:
   hubspot_company_enabled: false
   hubspot_company_property_history_enabled: false         # Disables the company property history models
   hubspot_deal_enabled: false
-  hubspot_merged_deal_enabled: true                       # Enables the merged_deal table, which will be used to filter out merged deals from the final deal models. Note that `hubspot_sales_enabled` and `hubspot_deal_enabled` must not be set to False.
+  hubspot_merged_deal_enabled: true                       # Enables the merged_deal table, which will be used to filter out merged deals from the final deal models. False by default. Note that `hubspot_sales_enabled` and `hubspot_deal_enabled` must not be set to False.
   hubspot_deal_company_enabled: false
   hubspot_deal_contact_enabled: false
   hubspot_deal_property_history_enabled: false            # Disables the deal property history models
