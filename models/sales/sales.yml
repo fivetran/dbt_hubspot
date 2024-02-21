@@ -24,6 +24,8 @@ models:
                 where: "not coalesce(is_deal_deleted, false)"
       - name: deal_name
         description: The name you have given this deal.
+      - name: merged_deal_ids
+        description: A list of deals that had previously been merged into this record.
       - name: is_deal_deleted
         description: '{{ doc("is_deleted") }}'
       - name: is_deal_pipeline_deleted
@@ -93,6 +95,8 @@ models:
         description: Boolean indicating whether the deal stage active.
       - name: deal_id
         description: The ID of the deal.
+      - name: merged_deal_ids
+        description: A list of deals that had previously been merged into this record.
       - name: pipeline_id
         description: The ID of the deal's pipeline.
       - name: pipeline_stage_id

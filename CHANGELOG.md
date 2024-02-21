@@ -2,7 +2,7 @@
 [PR #135](https://github.com/fivetran/dbt_hubspot/pull/135) includes the following updates:
 
 ## 🚨 Breaking Changes 🚨
-- Added unique tests on `event_id` for event-based models, `contact_id` for `hubspot__contacts`, and `contact_list_id` for `hubspot__contact_lists`, on the condition the titular fields have not been deleted. We would advise running through these to ensure they work successfully.
+- Added unique tests on `event_id` for event-based models, `contact_id` for `hubspot__contacts`, `contact_list_id` for `hubspot__contact_lists`, `deal_id` for `hubspot__deals`, `deal_stage_id` for `hubspot__deal_stages`, and `company_id` for `hubspot__companies`, on the condition the titular fields have not been deleted. We would advise running through these to ensure they work successfully.
 
 ## Features
 - Updates the `hubspot__deal_stages` and `hubspot__deals` models to remove stale deals that have been merged since into other deals. In addition we've introduced a new field `merged_deal_ids` that lists all historic merged deals for each deal. 
@@ -17,6 +17,7 @@
 
 ## Under the Hood
 - Added quickstart.yml for Quickstart customers.
+- Added `not_null` tests that were previously missing to `deal_id` for `hubspot__deals` and `deal_stage_id` for `hubspot__deal_stages`.
 
 # dbt_hubspot v0.15.1
 [PR #129](https://github.com/fivetran/dbt_hubspot/pull/129) includes the following updates:
