@@ -16,7 +16,6 @@ with deals as (
     select
         deal_id,
         {{ fivetran_utils.array_agg("merged_deal_id") }} as merged_deal_ids
-    
     from merged_deals
     group by 1
 {% endif %}
