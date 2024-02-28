@@ -1,5 +1,5 @@
 # dbt_hubspot v0.17.0
-[PR #](https://github.com/fivetran/dbt_hubspot/pull/) includes the following updates:
+[PR #137](https://github.com/fivetran/dbt_hubspot/pull/137) includes the following updates:
 
 ## 🚨 Breaking Changes: Variable Bug Fixes 🚨 
 - The following adjustments have been made concerning the `hubspot_email_event_sent_enabled` variable:
