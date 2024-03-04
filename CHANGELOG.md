@@ -7,7 +7,7 @@
   -`hubspot__contact` email metric fields
   -`hubspot__email_campaigns` model
   -`int_hubspot__email_metrics__by_contact_list` model
-> **Note**: This is a breaking change for users who have the `hubspot_email_event_sent_enabled` variable set to `false` as this update will change the above behaviors of the package. For all other users, this changes will not be breaking. 
+> **Note**: This is a breaking change for users who have the `hubspot_email_event_sent_enabled` variable set to `false` as this update will change the above behaviors of the package. For all other users, these changes will not be breaking. 
 
 # dbt_hubspot v0.16.0
 [PR #135](https://github.com/fivetran/dbt_hubspot/pull/135) includes the following updates:
