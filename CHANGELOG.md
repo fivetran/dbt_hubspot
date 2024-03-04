@@ -2,11 +2,11 @@
 [PR #137](https://github.com/fivetran/dbt_hubspot/pull/137) includes the following updates:
 
 ## 🚨 Breaking Changes: Variable Bug Fixes 🚨 
-- The following adjustments have been made concerning the `hubspot_email_event_sent_enabled` variable:
-  - The `hubspot__contact_lists` email metric fields are now dependent on the `hubspot_email_event_sent_enabled` variable being defined as `true`.
-  - The `hubspot__contact` email metric fields are now dependent on the `hubspot_email_event_sent_enabled` variable being defined as `true`.
-  - The `hubspot__email_campaigns` model is now dependent on the `hubspot_email_event_sent_enabled` variable being defined as `true`.
-  - The `int_hubspot__email_metrics__by_contact_list` model is now dependent on the `hubspot_email_event_sent_enabled` variable being defined as `true`.
+- The following are now dependent on the `hubspot_email_event_sent_enabled` variable being defined as `true`:
+  -`hubspot__contact_lists` email metric fields
+  -`hubspot__contact` email metric fields
+  -`hubspot__email_campaigns` model
+  -`int_hubspot__email_metrics__by_contact_list` model
 > **Note**: This is a breaking change for users who have the `hubspot_email_event_sent_enabled` variable set to `false` as this update will change the above behaviors of the package. For all other users, this changes will not be breaking. 
 
 # dbt_hubspot v0.16.0
