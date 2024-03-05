@@ -6,7 +6,7 @@ with contact_lists as (
     select *
     from {{ var('contact_list') }}
 
-{% if fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled','hubspot_contact_enabled']) %}
+{% if fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_contact_enabled','hubspot_email_event_sent_enabled']) %}
 
 ), email_metrics as (
 
