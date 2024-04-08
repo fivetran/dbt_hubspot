@@ -184,8 +184,10 @@ seeds:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     ticket_pipeline_stage_data:
+      +column_types:
         stage_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     ticket_pipeline_data:
+      +column_types:
         pipeline_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
