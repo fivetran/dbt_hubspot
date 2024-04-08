@@ -183,6 +183,10 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    ticket_pipeline_stage_data:
+        stage_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    ticket_pipeline_data:
+        pipeline_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
   - macro_namespace: dbt_utils
