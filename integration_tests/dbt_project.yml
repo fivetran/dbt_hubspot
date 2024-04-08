@@ -1,10 +1,11 @@
 name: 'hubspot_integration_tests'
-version: '0.17.0'
+version: '0.17.1'
 
 profile: 'integration_tests'
 config-version: 2
 vars:
-  hubspot_schema: hubspot_integration_tests_11
+  hubspot_schema: fivetran_platform_integration_tests
+  hubspot_contact_merge_audit_enabled: true
   hubspot_source:
     hubspot_service_enabled: true
     hubspot_sales_enabled: true # enable when generating docs
@@ -64,6 +65,9 @@ vars:
 seeds:
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+    contact_merge_audit_data:
+      +column_types:
+        vid_to_merge: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     owner_data:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
