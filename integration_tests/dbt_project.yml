@@ -4,7 +4,7 @@ version: '0.17.1'
 profile: 'integration_tests'
 config-version: 2
 vars:
-  hubspot_schema: hubspot_integration_tests_11
+  hubspot_schema: fivetran_platform_integration_tests
   # hubspot_contact_merge_audit_enabled: true
   hubspot_source:
     hubspot_service_enabled: true
@@ -183,12 +183,6 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    ticket_pipeline_stage_data:
-      +column_types:
-        stage_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    ticket_pipeline_data:
-      +column_types:
-        pipeline_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
   - macro_namespace: dbt_utils
