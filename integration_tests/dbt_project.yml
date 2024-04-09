@@ -4,7 +4,7 @@ version: '0.17.1'
 profile: 'integration_tests'
 config-version: 2
 vars:
-  hubspot_schema: fivetran_platform_integration_tests
+  hubspot_schema: hubspot_integration_tests_1
   # hubspot_contact_merge_audit_enabled: true
   hubspot_source:
     hubspot_service_enabled: true
