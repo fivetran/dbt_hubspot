@@ -19,7 +19,7 @@ with contacts as (
     from contacts
     
     left join contact_merge_audit
-        on contacts.contact_id = cast(contact_merge_audit.vid_to_merge as {{ dbt.type_bigint() }})
+        on cast(contacts.contact_id as {{ dbt.type_string() }}) = cast(contact_merge_audit.vid_to_merge as {{ dbt.type_string() }})
     
     where contact_merge_audit.vid_to_merge is null
 )

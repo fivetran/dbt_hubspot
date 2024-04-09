@@ -126,9 +126,9 @@ with change_data as (
     from fill_values
 
     left join pipeline 
-        on cast(fill_values.hs_pipeline as {{ dbt.type_bigint() }}) = pipeline.ticket_pipeline_id
+        on cast(fill_values.hs_pipeline as {{ dbt.type_int() }}) = pipeline.ticket_pipeline_id
     left join pipeline_stage 
-        on cast(fill_values.hs_pipeline_stage as {{ dbt.type_bigint() }}) = pipeline_stage.ticket_pipeline_stage_id
+        on cast(fill_values.hs_pipeline_stage as {{ dbt.type_int() }}) = pipeline_stage.ticket_pipeline_stage_id
         and pipeline.ticket_pipeline_id = pipeline_stage.ticket_pipeline_id
 
 ), surrogate as (

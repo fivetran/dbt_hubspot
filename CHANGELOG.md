@@ -1,3 +1,10 @@
+# dbt_hubspot v0.17.1
+[PR #140](https://github.com/fivetran/dbt_hubspot/pull/140) includes the following updates:
+
+## 
+- Updates casts of `vid_to_merge` as `{{ dbt.type_int() }}` to `{{ dbt.type_string() }}`. Casting only to `int` caused model failures resulting from integer fields that exceeded the range allowed in certain warehouses.
+
+
 # dbt_hubspot v0.17.0
 [PR #137](https://github.com/fivetran/dbt_hubspot/pull/137) includes the following updates:
 
