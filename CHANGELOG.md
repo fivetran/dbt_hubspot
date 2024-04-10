@@ -2,7 +2,9 @@
 [PR #140](https://github.com/fivetran/dbt_hubspot/pull/140) includes the following updates:
 
 ## Under the Hood
-- Updates casting of `vid_to_merge` as `{{ dbt.type_int() }}` to `{{ dbt.type_string() }}`. Casting only to `int` caused model failures resulting from integer fields that exceeded the range allowed in certain warehouses. In addition, for the case where the `contact_merge_audit` table is not present, the parsed `calculated_merged_vids` from the contact table are outputted as strings, therefore requiring the titular datatype cast in the join.
+- In `int_hubspot__contact_merge_adjust`, updates casting of `vid_to_merge` as `{{ dbt.type_int() }}` to `{{ dbt.type_string() }}` in the join of `contact_merge_audit` to `contacts`. Previously, casting only to `int` caused model failures resulting from integer fields that exceeded the range allowed in certain warehouses. In addition, for the case where the `contact_merge_audit` table is not present, the parsed `calculated_merged_vids` from the contact table are outputted as strings, therefore requiring the titular datatype cast in the join.
+
+For context, the [Nov 2022 release of the Hubspot connector](https://fivetran.com/docs/connectors/applications/hubspot/changelog#november2022) should not have the `contact_merge_audit` table as that was deprecated in place of storing `property_hs_calculated_merged_vids` in the `contact` table.
 
 
 # dbt_hubspot v0.17.0
