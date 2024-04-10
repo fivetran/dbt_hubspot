@@ -17,7 +17,6 @@ echo `pwd`
 cd integration_tests
 dbt deps
 dbt seed --target "$db" --full-refresh
-dbt compile --target "$db" --select hubspot # source does not compile at this time
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
 dbt run --target "$db" --vars '{hubspot_service_enabled: true}' --full-refresh
