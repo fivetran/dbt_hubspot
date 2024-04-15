@@ -4,7 +4,6 @@
 ## Bug Fixes
 - Included explicit datatype casts to `{{ dbt.type_string() }}` within the join of `contact_merge_audit.vid_to_merge` to `contacts.contact_id` in the `int_hubspot__contact_merge_adjust` model.
 
-For context, the [Nov 2022 release of the Hubspot connector](https://fivetran.com/docs/connectors/applications/hubspot/changelog#november2022) deprecated the `contact_merge_audit` table in place of storing `calculated_merged_vids` in the `contact` table. Therefore if you do not have the `contact_merge_audit` table, the `vid_to_merge` is derived from the `calculated_merged_vids` in the `contact` table. 
 
 # dbt_hubspot v0.17.0
 [PR #137](https://github.com/fivetran/dbt_hubspot/pull/137) includes the following updates:
