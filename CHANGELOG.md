@@ -1,3 +1,10 @@
+# dbt_hubspot v0.17.1
+[PR #140](https://github.com/fivetran/dbt_hubspot/pull/140) includes the following updates:
+
+## Bug Fixes
+- Included explicit datatype casts to `{{ dbt.type_string() }}` within the join of `contact_merge_audit.vid_to_merge` to `contacts.contact_id` in the `int_hubspot__contact_merge_adjust` model.
+  - This update was required to address a bug where the IDs in the join would overflow to bigint or be interpreted as strings. This change ensures the join fields have matching datatypes.
+
 # dbt_hubspot v0.17.0
 [PR #137](https://github.com/fivetran/dbt_hubspot/pull/137) includes the following updates:
 
