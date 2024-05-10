@@ -6,6 +6,7 @@
 
 ## 🚘 Under the Hood 🚘
 - Updated the `integration_tests/dbt_project.yml` variables to be global to ensure more effective testing of our seed data.
+- Updated `property_closed_date` and `property_createdate` datatypes in `ticket_data` to cast as timestamp to fix datetime data type issues in BigQuery tests.
 - Updated the maintainer PR template to resemble the most up to date format.
 
 # dbt_hubspot v0.17.1
