@@ -6,11 +6,11 @@ config-version: 2
 vars:
   hubspot_schema: hubspot_integration_tests_56
   hubspot_service_enabled: true
-  hubspot_sales_enabled: true # enable when generating docs
-  hubspot_marketing_enabled: true # enable when generating docs
-  hubspot_contact_merge_audit_enabled: true # enable when generating docs
-  hubspot_using_all_email_events: true # enable when generating docs
-  hubspot_merged_deal_enabled: true # enable when generating docs 
+  # hubspot_sales_enabled: true # enable when generating docs
+  # hubspot_marketing_enabled: true # enable when generating docs
+  # hubspot_contact_merge_audit_enabled: true # enable when generating docs
+  # hubspot_using_all_email_events: true # enable when generating docs
+  # hubspot_merged_deal_enabled: true # enable when generating docs 
   hubspot_email_event_enabled: true
   hubspot_contact_list_member_enabled: true
   hubspot_contact_enabled: true
