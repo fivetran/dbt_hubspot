@@ -6,6 +6,7 @@
 
 ## 🚘 Under the Hood 🚘
 - Updated the `integration_tests/dbt_project.yml` variables to be global to ensure more effective testing of our seed data.
+- Updated the maintainer PR template to resemble the most up to date format.
 
 # dbt_hubspot v0.17.1
 [PR #140](https://github.com/fivetran/dbt_hubspot/pull/140) includes the following updates:
