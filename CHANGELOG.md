@@ -1,3 +1,12 @@
+# dbt_hubspot v0.17.2
+[PR #142](https://github.com/fivetran/dbt_hubspot/pull/142) includes the following updates:
+
+## 🪲 Bug Fixes 🪛
+- Fixed the `fivetran_utils.enabled_vars` conditional by adding the `hubspot_contact_list_member_enabled` variable in `hubspot_contact_lists` to solve for compilation errors when the `contact_list` source table is not being used. If `hubspot_contact_list_member_enabled` is `true`, `int_hubspot__email_metrics__by_contact_list` is now brought in as a dependency, and ignored otherwise. 
+
+## 🚘 Under the Hood 🚘
+- Updated the `integration_tests/dbt_project.yml` variables to be global to ensure more effective testing of our seed data.
+
 # dbt_hubspot v0.17.1
 [PR #140](https://github.com/fivetran/dbt_hubspot/pull/140) includes the following updates:
 

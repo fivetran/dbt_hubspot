@@ -1,5 +1,3 @@
-{{ log(fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_list_member_enabled'])) }}
-
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_contact_list_member_enabled','hubspot_contact_enabled','hubspot_email_event_sent_enabled']), materialized='table') }}
 
 with email_sends as (
