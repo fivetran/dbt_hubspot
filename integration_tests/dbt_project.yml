@@ -4,7 +4,7 @@ version: '0.17.2'
 profile: 'integration_tests'
 config-version: 2
 vars:
-  hubspot_schema: hubspot_integration_tests_56
+  hubspot_schema: hubspot_integration_tests_57
   hubspot_service_enabled: true
   # hubspot_sales_enabled: true # enable when generating docs
   # hubspot_marketing_enabled: true # enable when generating docs
