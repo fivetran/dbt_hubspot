@@ -60,7 +60,7 @@ models:
     +schema: hubspot
     marketing:
       intermediate:
-        +materialized: table
+        +materialized: ephemeral
         int_hubspot__contact_merge_adjust:
           +materialized: table
     sales:
