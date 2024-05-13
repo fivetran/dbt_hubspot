@@ -20,9 +20,6 @@ dbt seed --target "$db" --full-refresh
 dbt compile --target "$db" --select hubspot # source does not compile at this time
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
-dbt run --target "$db" --vars '{hubspot_service_enabled: true}' --full-refresh
-dbt run --target "$db" --vars '{hubspot_service_enabled: true}'
-dbt test --target "$db"
 dbt run --vars '{hubspot_service_enabled: true, hubspot_marketing_enabled: true, hubspot_sales_enabled: false}' --target "$db" --full-refresh
 dbt run --vars '{hubspot_service_enabled: true, hubspot_marketing_enabled: true, hubspot_sales_enabled: false, hubspot_merged_deal_enabled: true}' --target "$db"
 dbt test --target "$db"
