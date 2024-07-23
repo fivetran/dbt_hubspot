@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.17.2'
+version: '0.18.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -189,3 +189,7 @@ seeds:
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']
+
+models:
+  hubspot:
+    +schema: "{{ 'hubspot_sqlw_tests' if target.name == 'databricks-sql' else 'hubspot' }}"
