@@ -13,6 +13,9 @@
 ## Under the Hood
 - The `is_databricks_sql_warehouse` has been added to return `true` if the Databricks runtime being used is an all-purpose cluster  **or** if any other Databricks non-supported destination is being used.
   - This update was applied as there have been other Databricks runtimes discovered (ie. an endpoint and external runtime) which do not support the `insert_overwrite` incremental strategy used. 
+- Added integration testing for Databricks SQL Warehouse.
+- Added a bot to mark issues and PRs as stale if there is no activity for over 180 days.
+
 # dbt_hubspot v0.17.2
 [PR #142](https://github.com/fivetran/dbt_hubspot/pull/142) includes the following updates:
 

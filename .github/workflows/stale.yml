@@ -1,0 +1,19 @@
+# For issues that have been open for awhile without activity, label
+# them as stale with a warning that they will be closed out. If
+# anyone comments to keep the issue open, it will automatically
+# remove the stale label and keep it open.
+
+# Runs once a day.
+
+name: "Close stale issues and PRs"
+on:
+  schedule:
+    - cron: "30 1 * * *"
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    uses: fivetran/dbt_package_automations/.github/workflows/stale-bot.yml@22a7ff2 #update to @main once it's merged in the central repo
