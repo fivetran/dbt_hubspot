@@ -9,7 +9,7 @@
         {% else %}
             {{ return(False) }}
         {% endif %}
-    {% elif target.type in ('bigquery','snowflake','postgres','redshift','sqlserver') %}
+    {% elif target.type in ('bigquery','snowflake','postgres','redshift') %}
         {{ return(True) }}
     {% else %}
         {{ return(False) }}

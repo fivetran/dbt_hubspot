@@ -317,7 +317,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/hubspot_source
-      version: [">=0.14.0", "<0.15.0"]
+      version: [">=0.15.0", "<0.16.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
