@@ -14,7 +14,7 @@
 - The `is_incremental_compatible` macro has been added to return `true` if the target warehouse supports our chosen incremental strategy.
   - This update was applied as there have been other Databricks runtimes discovered (ie. an endpoint and external runtime) which do not support the `insert_overwrite` incremental strategy used. 
 - Added integration testing for Databricks SQL Warehouse.
-- Added a bot to mark issues and PRs as stale if there is no activity for over 180 days.
+- Added consistency tests for `hubspot__daily_ticket_history`.
 
 # dbt_hubspot v0.17.2
 [PR #142](https://github.com/fivetran/dbt_hubspot/pull/142) includes the following updates:
