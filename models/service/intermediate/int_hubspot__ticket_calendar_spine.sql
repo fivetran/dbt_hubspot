@@ -1,7 +1,7 @@
 {{
     config(
         enabled=var('hubspot_service_enabled', False),
-        materialized='incremental' if is_incremental_compatible() else 'table',
+        materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
         partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks'] else ['date_day'],
         unique_key='id',
