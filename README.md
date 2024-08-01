@@ -60,12 +60,14 @@ dispatch:
 ```
 
 ### Database Incremental Strategies 
-Some of the models (`+hubspot__daily_ticket_history`) in this package are materialized incrementally. We have chosen `insert_overwrite` as the default strategy for **BigQuery** and **Databricks** databases, as it is only available for these dbt adapters. For **Snowflake**, **Redshift**, and **Postgres** databases, we have chosen `delete+insert` as the default strategy.
+Many of the models in this package are materialized incrementally, so we have configured our models to work with the different strategies available to each supported warehouse.
 
-`insert_overwrite` is our preferred incremental strategy because it will be able to properly handle updates to records that exist outside the immediate incremental window. That is, because it leverages partitions, `insert_overwrite` will appropriately update existing rows that have been changed upstream instead of inserting duplicates of them--all without requiring a full table scan.
+For **BigQuery** and **Databricks All Purpose Cluster runtime** destinations, we have chosen `insert_overwrite` as the default strategy, which benefits from the partitioning capability. 
+> For Databricks SQL Warehouse destinations, models are materialized as tables without support for incremental runs.
 
-`delete+insert` is our second-choice as it resembles `insert_overwrite` but lacks partitions. This strategy works most of the time and appropriately handles incremental loads that do not contain changes to past records. However, if a past record has been updated and is outside of the incremental window, `delete+insert` will insert a duplicate record. 😱
-> Because of this, we highly recommend that **Snowflake**, **Redshift**, and **Postgres** users periodically run a `--full-refresh` to ensure a high level of data quality and remove any possible duplicates.
+For **Snowflake**, **Redshift**, and **Postgres** databases, we have chosen `delete+insert` as the default strategy.  
+
+> Regardless of strategy, we recommend that users periodically run a `--full-refresh` to ensure a high level of data quality.
 
 ## Step 2: Install the package
 Include the following hubspot package version in your `packages.yml` file:
@@ -73,7 +75,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.17.0", "<0.18.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.18.0", "<0.19.0"] # we recommend using ranges to capture non-breaking changes automatically
 
 ```
 Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
@@ -315,7 +317,7 @@ This dbt package is dependent on the following dbt packages. Please be aware tha
 ```yml
 packages:
     - package: fivetran/hubspot_source
-      version: [">=0.14.0", "<0.15.0"]
+      version: [">=0.15.0", "<0.16.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]

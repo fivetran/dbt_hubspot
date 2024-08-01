@@ -1,8 +1,13 @@
 name: 'hubspot_integration_tests'
-version: '0.17.2'
+version: '0.18.0'
 
 profile: 'integration_tests'
 config-version: 2
+
+models:
+  +schema: "{{ 'hubspot_sqlw_tests' if target.name == 'databricks-sql' else 'hubspot' }}"
+  # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
+
 vars:
   hubspot_schema: hubspot_integration_tests_57
   hubspot_service_enabled: true

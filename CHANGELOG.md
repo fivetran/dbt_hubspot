@@ -1,3 +1,21 @@
+# dbt_hubspot v0.18.0
+
+[PR #144](https://github.com/fivetran/dbt_hubspot/pull/144) includes the following updates:
+
+## 🚨 Breaking Changes 🚨
+> ⚠️ Since the following changes result in the table format changing, we recommend running a `--full-refresh` after upgrading to this version to avoid possible incremental failures.
+
+- For Databricks All-Purpose clusters, incremental models will now be materialized using the delta table format (previously parquet).
+  - Delta tables are generally more performant than parquet and are also more widely available for Databricks users. This will also prevent compilation issues on customers' managed tables.
+
+- For Databricks SQL Warehouses, incremental materialization will not be used due to the incompatibility of the `insert_overwrite` strategy.
+
+## Under the Hood
+- The `is_incremental_compatible` macro has been added and will return `true` if the target warehouse supports our chosen incremental strategy.
+  - This update was applied as there have been other Databricks runtimes discovered (ie. an endpoint and external runtime) which do not support the `insert_overwrite` incremental strategy used. 
+- Added integration testing for Databricks SQL Warehouse.
+- Added consistency tests for `hubspot__daily_ticket_history`.
+
 # dbt_hubspot v0.17.2
 [PR #142](https://github.com/fivetran/dbt_hubspot/pull/142) includes the following updates:
 
