@@ -205,7 +205,7 @@ vars:
 #### Adding property label
 For `property_hs_*` columns, you can enable the corresponding, human-readable `property_option`.`label` to be included in the staging models.
 
-##### Important.
+##### Important
 - You must have sources `property` and `property_option` enabled to enable labels. By default, these sources are enabled.
 - You CANNOT enable labels if using `hubspot__pass_through_all_columns: true`.
 - We recommend being selective with the label columns you add. As you add more label columns, your run time will increase due to the underlying logic requirements.

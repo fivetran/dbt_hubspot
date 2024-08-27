@@ -99,5 +99,33 @@ destination_configurations:
       - macro_namespace: dbt_utils
         search_order: [ 'spark_utils', 'dbt_utils' ]
 public_models: [
-
+  "hubspot__email_event_bounce",
+  "hubspot__email_event_clicks",
+  "hubspot__email_event_deferred",
+  "hubspot__email_event_delivered",
+  "hubspot__email_event_dropped",
+  "hubspot__email_event_forward",
+  "hubspot__email_event_opens",
+  "hubspot__email_event_print",
+  "hubspot__email_event_sent",
+  "hubspot__email_event_spam_report",
+  "hubspot__email_event_status_change",
+  "hubspot__contact_history",
+  "hubspot__contact_lists",
+  "hubspot__contacts",
+  "hubspot__email_campaigns",
+  "hubspot__email_sends",
+  "hubspot__engagement_calls",
+  "hubspot__engagement_emails",
+  "hubspot__engagement_meetings",
+  "hubspot__engagement_notes",
+  "hubspot__engagement_tasks",
+  "hubspot__company_history",
+  "hubspot__deal_history",
+  "hubspot__companies",
+  "hubspot__deal_stages",
+  "hubspot__deals",
+  "hubspot__engagements",
+  "hubspot__daily_ticket_history",
+  "hubspot__tickets"
 ]
