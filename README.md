@@ -22,10 +22,10 @@
 - Generates a comprehensive data dictionary of your source and modeled HubSpot data through the [dbt docs site](https://fivetran.github.io/dbt_hubspot/).
 
 <!--section="hubspot_transformation_model"-->
-The following table provides a detailed list of all models materialized within this package by default.
+The following table provides a detailed list of all tables materialized within this package by default.
 > TIP: See more details about these models in the package's [dbt docs site](https://fivetran.github.io/dbt_hubspot/#!/overview?g_v=1).
 
-| **model**                | **description**                                                                                                      |
+| **Table**                | **Description**                                                                                                      |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
 | [hubspot__companies](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__companies)         | Each record represents a company in Hubspot, enriched with metrics about engagement activities.                      |
 | [hubspot__company_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_history) | Each record represents a change to a company in Hubspot, with `valid_to` and `valid_from` information.               |
