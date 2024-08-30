@@ -9,15 +9,15 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_58
+  hubspot_schema: hubspot_integration_tests_57
   hubspot_service_enabled: true
-  # hubspot_sales_enabled: true # enable when generating docs
-  # hubspot_marketing_enabled: true # enable when generating docs
-  # hubspot_contact_merge_audit_enabled: true # enable when generating docs
-  # hubspot_using_all_email_events: true # enable when generating docs
-  # hubspot_merged_deal_enabled: true # enable when generating docs 
+  hubspot_sales_enabled: true # enable when generating docs
+  hubspot_marketing_enabled: true # enable when generating docs
+  hubspot_contact_merge_audit_enabled: true # enable when generating docs
+  hubspot_using_all_email_events: true # enable when generating docs
+  hubspot_merged_deal_enabled: true # enable when generating docs 
 
-  # hubspot__standardized_marketing_model_enabled: true # enable when utilizing standardized marketing models
+  hubspot__standardized_marketing_model_enabled: true # enable when utilizing standardized marketing models + generating docs
 
   hubspot_company_property_history_identifier: "company_property_history_data"
   hubspot_company_identifier: "company_data"
