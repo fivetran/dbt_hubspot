@@ -1,3 +1,6 @@
+{{ config(enabled=(var('hubspot__standardized_marketing_model_enabled', False)
+    and fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_email_event_sent_enabled'])))
+}}
 
 with events as (
 
