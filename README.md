@@ -41,6 +41,14 @@ The following table provides a detailed list of all models materialized within t
 | [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce)   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.           |
 | [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends)     | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity. |
 | [hubspot__engagement_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__engagement_calls)    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.      |
+| [hubspot__marketing_campaigns_standardized]   |   This model constructs a comprehensive, denormalized analytical table that enables reporting on campaign metrics from your marketing platform. It’s designed to align with the schema of the `*_marketing_campaigns_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio.  To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.    |
+| [hubspot__marketing_contacts_standardized]    |   This model constructs a comprehensive, denormalized analytical table that enables reporting on contacts from your marketing platform. It’s designed to align with the schema of the `*_marketing_contacts_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.     |
+| [hubspot__marketing_events_standardized]      |   This model constructs a comprehensive, denormalized analytical table that enables reporting on events from your marketing platform. It’s designed to align with the schema of the `*_marketing_events_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.    |
+
+
+## Example Visualizations
+Curious what these models can do? Check out example visualizations from the [hubspot__marketing_campaigns_standardized](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__marketing_campaigns_standardized) model in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/), and see how you can use these models in your own reporting. Below is a screenshot of an example report—explore the app for more.
+
 <!--section-end-->
 
 # 🎯 How do I use the dbt package?
@@ -75,7 +83,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.18.0", "<0.19.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.19.0", "<0.20.0"] # we recommend using ranges to capture non-breaking changes automatically
 
 ```
 Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
@@ -154,6 +162,20 @@ vars:
   hubspot_ticket_deal_enabled: true                       # Default = false
 ```
 ## (Optional) Step 5: Additional configurations
+
+### Enabling Standardized Marketing Models
+This package contains the following standardized models:
+
+These models are designed to align with the schema of other models found in similar marketing packages like Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio to offering standardized reporting across various billing platforms.
+
+These models constructs comprehensive, denormalized analytical table that enables reporting on key campaign, contact, and event metrics from your marketing platform.
+
+ To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). For the time being, this model is disabled by default. If you would like to enable this model you will need to adjust the `hubspot__standardized_marketing_model_enabled` variable to be `true` within your `dbt_project.yml`:
+
+```yml
+vars:
+  hubspot__standardized_marketing_model_enabled: true # false by default.
+```
 
 ### Configure email metrics
 This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet within your root `dbt_project.yml` and remove any fields you want to be ignored in the final model.
