@@ -47,7 +47,7 @@ models:
       description: "{{ doc('opens') }}"
 
     - name: total_unsubscribes
-      description: "{{ doc('unsubscribes') }} This value is null for Hubspot."
+      description: "{{ doc('unsubscribes') }}"
 
     - name: total_unique_clicks
       description: "{{ doc('unique_clicks') }}"
@@ -135,7 +135,7 @@ models:
         description: "{{ doc('opens') }}"
       
       - name: total_unsubscribes
-        description: "{{ doc('unsubscribes') }} This value is null for Hubspot."
+        description: "{{ doc('unsubscribes') }}"
       
       - name: total_sends
         description: "{{ doc('count_engagement_emails') }}"
@@ -213,7 +213,7 @@ models:
         description: "{{ doc('spam_reports') }}"
 
       - name: total_unsubscribes
-        description: "{{ doc('unsubscribes') }} This value is null for Hubspot."
+        description: "{{ doc('unsubscribes') }}"
 
       - name: was_bounced
         description: Whether the email was bounced.
@@ -234,4 +234,4 @@ models:
         description: Whether the email was opened.
 
       - name: was_unsubscribed
-        description: Whether there was an email unsubscribe. This value is null for Hubspot.
+        description: Whether there was an email unsubscribe.

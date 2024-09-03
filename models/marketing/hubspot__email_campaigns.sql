@@ -20,6 +20,9 @@ with campaigns as (
         count(distinct case when email_sends.{{ metric }} > 0 then email_send_id end) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
+        {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+        , sum(unsubscribes) as total_unsubscribes
+        {% endif %}
     from email_sends
     group by 1
 
@@ -32,6 +35,11 @@ with campaigns as (
         coalesce(email_metrics.total_unique_{{ metric }}, 0) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
+        {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+        , coalesce(email_metrics.total_unsubscribes, 0) as total_unsubscribes
+        {% else %}
+        , cast(null as {{ dbt.type_int()}}) as total_unsubscribes
+        {% endif %}
     from campaigns
     left join email_metrics
         on campaigns.email_campaign_id = email_metrics.email_campaign_id

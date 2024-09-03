@@ -2,9 +2,6 @@
         and fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled']))) 
 }}
 
-{% set emails_enabled = fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
-{% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
-
 with contacts as (
 
     select *
@@ -38,7 +35,7 @@ standardized as (
         total_drops,
         total_forwards,
         total_opens,
-        cast(null as {{ dbt.type_int() }}) as total_unsubscribes,
+        total_unsubscribes,
         count_engagement_emails as total_sends, -- check this
         cast(null as {{ dbt.type_int() }}) as total_replies,   
         cast(null as {{ dbt.type_int() }}) as total_responses,    

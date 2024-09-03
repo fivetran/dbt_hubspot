@@ -1,6 +1,16 @@
 # dbt_hubspot v0.19.0
 [PR #146](https://github.com/fivetran/dbt_hubspot/pull/146) includes the following updates:
 
+## 🚨 Breaking Changes 🚨
+> New fields are being brought in and a field is changed, so we recommend a `--full-refresh` after upgrading.
+
+- Now brings in unsubscribed metrics into the following end models to ensure they compile in the new standardized marketing models (if they are not available, they are cast as nulls):
+  - `hubspot__contacts`: `total_unsubscribes`
+  - `hubspot__email_campaigns`: `total_unsubscribes`
+  - `hubspot__email_sends`: `unsubscribes`, `was_unsubscribed`
+- Corrected misspelling of `was_unsubscribed` in `hubspot__email_sends`. 
+- Removed `unsubscribes` from `default_metrics` in the `adjust_email_metrics` macro, as unsubscribes is not a default email event. 
+
 ## Feature Updates
 - Addition of the following standardized marketing models.
 

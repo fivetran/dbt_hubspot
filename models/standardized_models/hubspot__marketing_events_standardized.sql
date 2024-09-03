@@ -28,14 +28,14 @@ standardized as (
         forwards as total_forwards,
         opens as total_opens,
         spam_reports as total_spam_reports,
-        cast(null as {{ dbt.type_int() }}) as total_unsubscribes,
+        unsubscribes as total_unsubscribes,
         was_bounced,
         was_clicked,
         was_deferred,
         was_delivered,
         was_forwarded,
         was_opened,
-        cast(null as {{ dbt.type_boolean()}}) was_unsubscribed
+        was_unsubscribed 
     from events
 )
 

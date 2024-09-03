@@ -24,7 +24,7 @@ standardized as (
         total_deferrals,
         total_deliveries,
         total_opens,
-        cast(null as {{ dbt.type_int() }}) as total_unsubscribes,
+        total_unsubscribes,
         total_unique_clicks,
         total_unique_opens
     from campaigns
