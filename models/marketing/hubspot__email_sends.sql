@@ -52,7 +52,7 @@ with sends as (
     select 
         booleans.*,
         coalesce(unsubscribes.unsubscribes,0) as unsubscribes,
-        coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed
+        coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubscribed
     from booleans
     left join unsubscribes using (email_send_id)
 
@@ -65,7 +65,9 @@ from unsubscribes_joined
 
 )
 
-select *
+select *,
+    cast(null as {{ dbt.type_int()}}) as unsubscribes,
+    cast(null as {{ dbt.type_boolean()}}) as was_unsubscribed
 from booleans
 
 {% endif %}

@@ -1,0 +1,237 @@
+version: 2
+
+models: 
+  - name: hubspot__marketing_campaigns_standardized
+    description: This model constructs a comprehensive, denormalized analytical table that enables reporting on campaign metrics from your marketing platform. It’s designed to align with the schema of the `*_marketing_campaigns_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio.  To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.
+    columns:
+    - name: campaign_id
+      description: The ID of the email campaign.
+      tests:
+        - unique
+        - not_null
+
+    - name: campaign_name
+      description: The name of the email campaign.
+
+    - name: campaign_type
+      description: The email campaign type.
+
+    - name: campaign_sub_type
+      description: The email campaign sub-type.
+
+    - name: campaign_subject
+      description: The subject of the email campaign.
+
+    - name: secondary_id
+      description: A secondary identifier for the campaign, taking the app id or if it's not available, the content id.
+
+    - name: created_at
+      description: Time at which the campaign was created. This value is null for Hubspot. 
+
+    - name: updated_at
+      description: Time at which the campaign was updated. This value is null for Hubspot.
+
+    - name: total_bounces
+      description: "{{ doc('bounces') }}"
+
+    - name: total_clicks
+      description: "{{ doc('clicks') }}"
+
+    - name: total_deferrals
+      description: "{{ doc('deferrals') }}"
+
+    - name: total_deliveries
+      description: "{{ doc('deliveries') }}"
+
+    - name: total_opens
+      description: "{{ doc('opens') }}"
+
+    - name: total_unsubscribes
+      description: "{{ doc('unsubscribes') }}"
+
+    - name: total_unique_clicks
+      description: "{{ doc('unique_clicks') }}"
+
+    - name: total_unique_opens
+      description: "{{ doc('unique_opens') }}"
+
+
+  - name: hubspot__marketing_contacts_standardized
+    description: This model constructs a comprehensive, denormalized analytical table that enables reporting on contacts from your marketing platform. It’s designed to align with the schema of the `*_marketing_contacts_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.
+    columns:
+      - name: contact_id
+        description: The ID of the contact.
+        tests:
+          - not_null
+          - unique 
+      
+      - name: first_name
+        description: The contact's first name.
+      
+      - name: last_name
+        description: The contact's last name.
+      
+      - name: email
+        description: The email address of the contact.
+      
+      - name: contact_company
+        description: The name of the contact's company.
+      
+      - name: created_at
+        description: The date that the contact was created in your HubSpot account.
+
+      - name: contact_phone
+        description: The phone number of the contact. This value is null for Hubspot.
+
+      - name: updated_at
+        description: The last updated time of the contact. This value is null for Hubspot.
+
+      - name: contact_address
+        description: The address of the contact. This value is null for Hubspot.
+
+      - name: contact_city
+        description: The city of the contact. This value is null for Hubspot.
+
+      - name: contact_state
+        description: The state of the contact. This value is null for Hubspot.
+
+      - name: contact_country
+        description: The country of the contact. This value is null for Hubspot.
+
+      - name: contact_timezone
+        description: The time zone of the contact. This value is null for Hubspot.
+
+      - name: contact_language
+        description: The language of the contact. This value is null for Hubspot.
+
+      - name: first_event_at
+        description: When the first event for the contact occurred. This value is null for Hubspot.
+
+      - name: last_event_at
+        description: When the last event for the contact occurred. This value is null for Hubspot.
+
+      - name: contact_status
+        description: The status of the contact. This value is null for Hubspot.
+
+      - name: total_bounces
+        description: "{{ doc('bounces') }}"
+      
+      - name: total_clicks
+        description: "{{ doc('clicks') }}"
+      
+      - name: total_deferrals
+        description: "{{ doc('deferrals') }}"
+      
+      - name: total_deliveries
+        description: "{{ doc('deliveries') }}"
+      
+      - name: total_drops
+        description: "{{ doc('drops') }}"
+      
+      - name: total_forwards
+        description: "{{ doc('forwards') }}"
+      
+      - name: total_opens
+        description: "{{ doc('opens') }}"
+      
+      - name: total_unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+      
+      - name: total_sends
+        description: "{{ doc('count_engagement_emails') }}"
+
+      - name: total_replies
+        description: The total number of reply events. This value is null in Hubspot.
+
+      - name: total_responses
+        description: The total number of response events. This value is null in Hubspot.
+      
+      - name: total_unique_opens
+        description: "{{ doc('unique_opens') }}"
+      
+      - name: total_unique_clicks
+        description: "{{ doc('unique_clicks') }}"
+
+  - name: hubspot__marketing_events_standardized
+    description: This model constructs a comprehensive, denormalized analytical table that enables reporting on events from your marketing platform. It’s designed to align with the schema of the `*_marketing_events_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.
+    columns:
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - not_null
+          - unique
+
+      - name: activity_timestamp
+        description: The timestamp of the event. Will take the `email_send_timestamp` value from `hubspot_email_sends` if it exists, otherwise will take `created_timestamp`.
+
+      - name: email_send_timestamp
+        description: The timestamp of the SENT event related to this event.
+
+      - name: email_campaign_id
+        description: The ID of the related email campaign.
+
+      - name: email
+        description: The email address of the contact related to the event.
+
+      - name: contact_id
+        description: The ID of the related contact.
+
+      - name: event_type
+        description: The type of the event. In Hubspot, this value is always 'email send'. 
+
+      - name: event_value
+        description: The value of the event. In Hubspot, this value is always null.
+
+      - name: updated_at
+        description: The last time this event was updated. In Hubspot, this value is always null.
+
+      - name: email_subject
+        description: The subject line of the email message.
+
+      - name: total_bounces
+        description: "{{ doc('bounces') }}"
+
+      - name: total_clicks
+        description: "{{ doc('clicks') }}"
+
+      - name: total_deferrals
+        description: "{{ doc('deferrals') }}"
+
+      - name: total_deliveries
+        description: "{{ doc('deliveries') }}"
+
+      - name: total_drops
+        description: "{{ doc('drops') }}"
+
+      - name: total_forwards
+        description: "{{ doc('forwards') }}"
+
+      - name: total_opens
+        description: "{{ doc('opens') }}"
+
+      - name: total_spam_reports
+        description: "{{ doc('spam_reports') }}"
+
+      - name: total_unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+
+      - name: was_bounced
+        description: Whether the email was bounced.
+
+      - name: was_clicked
+        description: Whether the email was clicked.
+
+      - name: was_deferred
+        description: Whether the email was deferred.
+
+      - name: was_delivered
+        description: Whether the email was delivered.
+
+      - name: was_forwarded
+        description: Whether the email was forwarded.
+
+      - name: was_opened
+        description: Whether the email was opened.
+
+      - name: was_unsubscribed
+        description: Whether there was an email unsubscribe.

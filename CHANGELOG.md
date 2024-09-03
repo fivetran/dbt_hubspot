@@ -1,3 +1,33 @@
+# dbt_hubspot v0.19.0
+[PR #146](https://github.com/fivetran/dbt_hubspot/pull/146) includes the following updates:
+
+## 🚨 Breaking Changes 🚨
+> New fields are being brought in and a field is changed, so we recommend a `--full-refresh` after upgrading.
+
+- Now brings in unsubscribed metrics into the following end models to ensure they compile in the new standardized marketing models (if they are not available, they are cast as nulls):
+  - `hubspot__contacts`: `total_unsubscribes`
+  - `hubspot__email_campaigns`: `total_unsubscribes`
+  - `hubspot__email_sends`: `unsubscribes`, `was_unsubscribed`
+- Corrected misspelling of `was_unsubscribed` in `hubspot__email_sends`. 
+- Removed `unsubscribes` from `default_metrics` in the `adjust_email_metrics` macro, as unsubscribes is not a default email event. 
+
+## Feature Updates
+- Addition of the following standardized marketing models.
+
+| **model**                | **description**                                                                                                      |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| [hubspot__marketing_campaigns_standardized](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__marketing_campaigns_standardized)   |   This model constructs a comprehensive, denormalized analytical table that enables reporting on campaign metrics from your marketing platform. It’s designed to align with the schema of the `*_marketing_campaigns_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio.  To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.    |
+| [hubspot__marketing_contacts_standardized](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__marketing_contacts_standardized)   |   This model constructs a comprehensive, denormalized analytical table that enables reporting on contacts from your marketing platform. It’s designed to align with the schema of the `*_marketing_contacts_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.     |
+| [hubspot__marketing_events_standardized](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__marketing_events_standardized)        |   This model constructs a comprehensive, denormalized analytical table that enables reporting on events from your marketing platform. It’s designed to align with the schema of the `*_marketing_events_standardized` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.    |
+
+
+- These models construct comprehensive, denormalized analytical tables that enables reporting on campaigns, contacts, and events from your marketing platform. It’s designed to align with the schema of the `*__line_item_enhanced` model found in Hubspot, Marketo, Iterable, Klaviyo, Mailchimp, Qualtrics, Salesforce Marketing Cloud, and Twilio, offering standardized reporting across various marketing platforms. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Marketing Model Streamlit App](https://fivetran-marketing-model.streamlit.app/). Visit the app for more details.
+  -  This model is currently disabled by default. You may enable it by setting the `hubspot__standardized_marketing_model_enabled` as `true` in your `dbt_project.yml`.
+
+
+## Under the Hood:
+- Added consistency tests within `integration_tests` for the `hubspot__contacts`, `hubspot__email_campaigns` and `hubspot__email_sends` models.
+
 # dbt_hubspot v0.18.0
 
 [PR #144](https://github.com/fivetran/dbt_hubspot/pull/144) includes the following updates:
