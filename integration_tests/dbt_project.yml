@@ -9,7 +9,7 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_57
+  hubspot_schema: hubspot_integration_tests_58
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
     #   alias: "funky_field"
