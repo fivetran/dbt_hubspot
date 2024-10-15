@@ -80,8 +80,24 @@ seeds:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_data:
+      +enabled: "{{ true if target.type not in ('postgres','snowflake','databricks') else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    company_data_postgres:
+      +alias: company_data
+      +enabled: "{{ true if target.type == 'postgres' else false }}"
+      +column_types:
+        id: bigint
+    company_data_snowflake:
+      +alias: company_data
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+      +column_types:
+        id: bigint
+    company_data_databricks:
+      +alias: company_data
+      +enabled: "{{ true if target.type == 'databricks' else false }}"
+      +column_types:
+        id: bigint
     deal_stage_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
