@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.18.0'
+version: '0.19.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -10,8 +10,13 @@ models:
 
 vars:
   hubspot_schema: hubspot_integration_tests_57
+  # hubspot__company_pass_through_columns:
+    # - name: "property_hs_all-funky-a9384-syntax"
+    #   alias: "funky_field"
+  hubspot_sales_enabled: true # enable when generating docs
+  hubspot_company_enabled: true # enable when generating docs
   hubspot_service_enabled: true
-  # hubspot_sales_enabled: true # enable when generating docs
+  hubspot__pass_through_all_columns: true
   # hubspot_marketing_enabled: true # enable when generating docs
   # hubspot_contact_merge_audit_enabled: true # enable when generating docs
   # hubspot_using_all_email_events: true # enable when generating docs
