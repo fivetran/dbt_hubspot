@@ -1,17 +1,22 @@
 name: 'hubspot_integration_tests'
-version: '0.18.0'
+version: '0.19.0'
 
 profile: 'integration_tests'
 config-version: 2
 
 models:
-  +schema: "{{ 'hubspot_sqlw_tests' if target.name == 'databricks-sql' else 'hubspot' }}"
+  +schema: "{{ 'hubspot_sqlw_tests_2' if target.name == 'databricks-sql' else 'hubspot' }}"
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_57
-  hubspot_service_enabled: true
+  hubspot_schema: hubspot_integration_tests_58
+  # hubspot__pass_through_all_columns: true
+  # hubspot__company_pass_through_columns:
+    # - name: "property_hs_all-funky-a9384-syntax"
+    #   alias: "funky_field"
   # hubspot_sales_enabled: true # enable when generating docs
+  # hubspot_company_enabled: true # enable when generating docs
+  # hubspot_service_enabled: true # enable when generating docs
   # hubspot_marketing_enabled: true # enable when generating docs
   # hubspot_contact_merge_audit_enabled: true # enable when generating docs
   # hubspot_using_all_email_events: true # enable when generating docs
@@ -75,8 +80,24 @@ seeds:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_data:
+      +enabled: "{{ true if target.type not in ('postgres','snowflake','databricks') else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    company_data_postgres:
+      +alias: company_data
+      +enabled: "{{ true if target.type == 'postgres' else false }}"
+      +column_types:
+        id: bigint
+    company_data_snowflake:
+      +alias: company_data
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+      +column_types:
+        id: bigint
+    company_data_databricks:
+      +alias: company_data
+      +enabled: "{{ true if target.type == 'databricks' else false }}"
+      +column_types:
+        id: bigint
     deal_stage_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

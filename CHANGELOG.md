@@ -1,5 +1,13 @@
-# dbt_hubspot v0.18.0
+# dbt_hubspot v0.19.0
+[PR #147](https://github.com/fivetran/dbt_hubspot/pull/147) includes the following updates:
+## Breaking Changes 
+> ⚠️ Since the following changes result in the table format changing, we recommend running a `--full-refresh` after upgrading to this version to avoid possible incremental failures.
+- We have made this a breaking change due to upstream changes that may alter your schema. While changes are made 'behind the scenes' to now allow models to successfully run with both `hubspot__pass_through_all_columns` and `hubspot__<>_pass_through_columns`, this may be a breaking change due to leveraging the `remove_duplicate_and_prefix_from_columns` macro. This is a breaking change because this macro can remove duplicate fields, resulting in an impact to your schema. For more information refer to the [upstream dbt_hubspot_source v0.16.0 release notes](https://github.com/fivetran/dbt_hubspot_source/releases/tag/v0.16.0).
 
+## Under the Hood
+- Updated seed data to include fields with special syntax in order to test the above changes.
+
+# dbt_hubspot v0.18.0
 [PR #144](https://github.com/fivetran/dbt_hubspot/pull/144) includes the following updates:
 
 ## 🚨 Breaking Changes 🚨
