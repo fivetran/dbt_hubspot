@@ -125,7 +125,5 @@ public_models: [
   "hubspot__companies",
   "hubspot__deal_stages",
   "hubspot__deals",
-  "hubspot__engagements",
-  "hubspot__daily_ticket_history",
-  "hubspot__tickets"
+  "hubspot__engagements"
 ]
