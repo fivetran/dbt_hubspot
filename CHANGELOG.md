@@ -1,5 +1,5 @@
 # dbt_hubspot v0.19.1
-[PR #149](https://github.com/fivetran/dbt_hubspot/pull/149) includes the following updates:
+[PR #148](https://github.com/fivetran/dbt_hubspot/pull/148) includes the following updates:
 
 ## Under the Hood
 - Removed `hubspot__daily_ticket_history`, `hubspot__tickets` from the quickstart.yml since these models may not always be present.
