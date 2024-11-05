@@ -9,7 +9,7 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_59
+  hubspot_schema: hubspot_integration_tests_60
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
@@ -109,6 +109,9 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_closedate: timestamp
+        property_createdate: timestamp
     company_property_history_data:
       +column_types:
         company_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
