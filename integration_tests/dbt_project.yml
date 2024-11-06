@@ -87,24 +87,17 @@ seeds:
       +alias: company_data
       +enabled: "{{ true if target.type == 'postgres' else false }}"
       +column_types:
-        id: bigint
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_data_snowflake:
       +alias: company_data
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
       +column_types:
-        id: bigint
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_data_databricks:
       +alias: company_data
-      +enabled: "{{ true if target.type == 'databricks' else false }}"
+      +enabled: "{{ true if target.type in ('databricks','databricks-sql') else false }}"
       +column_types:
-        id: bigint
-    deal_stage_data:
-      +column_types:
-        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    deal_contact_data:
-      +column_types:
-        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -112,6 +105,13 @@ seeds:
         _fivetran_synced: timestamp
         property_closedate: timestamp
         property_createdate: timestamp
+    deal_contact_data:
+      +column_types:
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    deal_stage_data:
+      +column_types:
+        deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     company_property_history_data:
       +column_types:
         company_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -140,6 +140,7 @@ seeds:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        created_at: timestamp
     engagement_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
