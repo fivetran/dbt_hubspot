@@ -105,6 +105,7 @@ seeds:
         _fivetran_synced: timestamp
         property_closedate: timestamp
         property_createdate: timestamp
+        deal_pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     deal_contact_data:
       +column_types:
         contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
