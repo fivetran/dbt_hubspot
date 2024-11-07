@@ -106,6 +106,7 @@ seeds:
         property_closedate: timestamp
         property_createdate: timestamp
         deal_pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
+        deal_pipeline_stage_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     deal_contact_data:
       +column_types:
         contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -177,6 +178,7 @@ seeds:
     deal_pipeline_stage_data:
       +column_types:
         stage_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
+        pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
     email_event_sent_data_snowflake:
       +alias: email_event_sent_data
       +enabled: "{{ true if target.type == 'snowflake' else false }}"
