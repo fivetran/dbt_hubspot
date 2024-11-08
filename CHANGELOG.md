@@ -5,7 +5,6 @@
 - Introduced a new `category` column to the below models. This association field differentiates records by either HUBSPOT_DEFINED (default label) or USER_DEFINED (custom label) and was introduced to the Hubspot connector in October 2024. See the [connector release notes](https://fivetran.com/docs/connectors/applications/hubspot/changelog#october2024) for more.
   - `stg_hubspot__deal_company`
   - `stg_hubspot__deal_contact`
-  - `stg_hubspot__merged_deal`
   - `stg_hubspot__engagement_company`
   - `stg_hubspot__engagement_contact`
   - `stg_hubspot__engagement_deal`
