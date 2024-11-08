@@ -5,11 +5,11 @@ profile: 'integration_tests'
 config-version: 2
 
 models:
-  +schema: "{{ 'hubspot_sqlw_tests_4' if target.name == 'databricks-sql' else 'hubspot' }}"
+  +schema: "{{ 'hubspot_sqlw_tests_5' if target.name == 'databricks-sql' else 'hubspot' }}"
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_61
+  hubspot_schema: hubspot_integration_tests_62
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
