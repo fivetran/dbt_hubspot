@@ -14,16 +14,16 @@ vars:
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
     #   alias: "funky_field"
-  hubspot_service_enabled: true # enable when generating docs
-  hubspot_deal_enabled: true # enable when generating docs
-  hubspot_contact_enabled: true # enable when generating docs
-  hubspot_sales_enabled: true # enable when generating docs
-  hubspot_company_enabled: true # enable when generating docs
-  hubspot_marketing_enabled: true # enable when generating docs
-  hubspot_contact_merge_audit_enabled: true # enable when generating docs
-  hubspot_using_all_email_events: true # enable when generating docs
-  hubspot_merged_deal_enabled: true # enable when generating docs  
-  hubspot_ticket_deal_enabled: true # enable when generating docs  
+  # hubspot_service_enabled: true # enable when generating docs
+  # hubspot_deal_enabled: true # enable when generating docs
+  # hubspot_contact_enabled: true # enable when generating docs
+  # hubspot_sales_enabled: true # enable when generating docs
+  # hubspot_company_enabled: true # enable when generating docs
+  # hubspot_marketing_enabled: true # enable when generating docs
+  # hubspot_contact_merge_audit_enabled: true # enable when generating docs
+  # hubspot_using_all_email_events: true # enable when generating docs
+  # hubspot_merged_deal_enabled: true # enable when generating docs  
+  # hubspot_ticket_deal_enabled: true # enable when generating docs  
   hubspot_company_property_history_identifier: "company_property_history_data"
   hubspot_company_identifier: "company_data"
   hubspot_contact_identifier: "contact_data"
