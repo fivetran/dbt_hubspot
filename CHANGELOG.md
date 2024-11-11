@@ -14,7 +14,8 @@
   - `stg_hubspot__ticket_engagement`
 
 ## Under the Hood
-- Updated the respective seed files in the integration_tests folder to property test for the new `category` field. 
+- Updated the respective seed files in the integration_tests folder to property test for the new `category` field.
+- Updated seed files to make consistent with the seed files in `dbt_hubspot_source`.
 
 # dbt_hubspot v0.19.1
 [PR #148](https://github.com/fivetran/dbt_hubspot/pull/148) includes the following updates:
