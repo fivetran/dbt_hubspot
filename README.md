@@ -1,4 +1,6 @@
-<p align="center">
+# HubSpot Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_hubspot/))
+
+<p align="left">
     <a alt="License"
         href="https://github.com/fivetran/dbt_hubspot/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
@@ -13,7 +15,6 @@
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
-# HubSpot Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_hubspot/))
 ## What does this dbt package do?
 - Produces modeled tables that leverage HubSpot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot) in the format described by [this ERD](https://fivetran.com/docs/applications/hubspot#schemainformation) and build off the output of our [HubSpot source package](https://github.com/fivetran/dbt_hubspot_source).
 - Enables you to better understand your HubSpot email and engagement performance. The package achieves this by performing the following:
@@ -41,6 +42,7 @@ The following table provides a detailed list of all tables materialized within t
 | [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce)   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.           |
 | [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends)     | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity. |
 | [hubspot__engagement_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__engagement_calls)    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.      |
+
 ### Materialized Models
 Each Quickstart transformation job run materializes 129 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
 <!--section-end-->
