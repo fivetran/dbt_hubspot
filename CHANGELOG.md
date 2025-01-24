@@ -1,13 +1,8 @@
-# dbt_hubspot v0.20.1-a1
+# dbt_hubspot version.version
 
 ## Documentation
 - Added Quickstart model counts to README. ([#152](https://github.com/fivetran/dbt_hubspot/pull/152))
 - Corrected references to connectors and connections in the README. ([#152](https://github.com/fivetran/dbt_hubspot/pull/152))
-
-## Under the hood
-- Added the following models to the public models in quickstart.yml.
-  - `hubspot__daily_ticket_history`
-  - `hubspot__tickets`
 
 # dbt_hubspot v0.20.0
 [PR #150](https://github.com/fivetran/dbt_hubspot/pull/150) includes the following updates:
