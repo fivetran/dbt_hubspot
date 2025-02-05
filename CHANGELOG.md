@@ -2,7 +2,7 @@
 This release includes the following updates:
 
 ## Breaking Changes
-- For Quickstart users, the models `hubspot__daily_ticket_history` and `hubspot__tickets` are now available within the Quickstart UI and are enabled by default. ([PR #154](https://github.com/fivetran/dbt_hubspot/pull/154))
+- For Quickstart users, the models `hubspot__daily_ticket_history` and `hubspot__tickets` are now available within the Quickstart UI and are enabled by default. ([#154](https://github.com/fivetran/dbt_hubspot/pull/154))
 
 ## Documentation
 - Added Quickstart model counts to README. ([#152](https://github.com/fivetran/dbt_hubspot/pull/152))
