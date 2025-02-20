@@ -1,17 +1,25 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_service_enabled', false)
+    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_contact_list_enabled', true)
 ) }}
 
 -- this test ensures the daily_activity end model matches the prior version
 with prod as (
-    select *
-    from {{ target.schema }}_hubspot_prod.hubspot__daily_ticket_history
+    select 
+        {{ dbt_utils.star(
+            from=ref('hubspot__contact_lists'), 
+            except=var('consistency_test_contact_list_exclude_fields', [])) 
+        }}
+    from {{ target.schema }}_hubspot_prod.hubspot__contact_lists
 ),
 
 dev as (
-    select *
-    from {{ target.schema }}_hubspot_dev.hubspot__daily_ticket_history
+    select 
+        {{ dbt_utils.star(
+            from=ref('hubspot__contact_lists'), 
+            except=var('consistency_test_contact_list_exclude_fields', [])) 
+        }}
+    from {{ target.schema }}_hubspot_dev.hubspot__contact_lists
 ),
 
 prod_not_in_dev as (
