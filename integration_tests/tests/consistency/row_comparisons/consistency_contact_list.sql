@@ -3,7 +3,7 @@
     enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_contact_list_enabled', true)
 ) }}
 
--- this test ensures the daily_activity end model matches the prior version
+-- this test ensures the contact_list end model matches the prior version
 with prod as (
     select 
         {{ dbt_utils.star(
