@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '0.21.0'
+version: '0.22.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -10,11 +10,18 @@ models:
 
 vars:
   hubspot_schema: hubspot_integration_tests_63
+  consistency_test_contact_list_exclude_fields: ## For hubspot__contact_lists consistency test. Can be removed after this coming release.
+    - created_by_id
+    - object_type_id
+    - processing_status
+    - processing_type
+    - list_version
+    - filters_updated_at
+
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
     #   alias: "funky_field"
-
   # hubspot_service_enabled: true # enable when generating docs
   # hubspot_deal_enabled: true # enable when generating docs
   # hubspot_contact_enabled: true # enable when generating docs
@@ -200,11 +207,6 @@ seeds:
       +enabled: "{{ true if target.type == 'postgres' else false }}"
     email_event_dropped_data:
       +enabled: "{{ true if target.type not in ('snowflake', 'postgres') else false }}"
-    contact_list_data:
-      +enabled: "{{ true if target.type != 'postgres' else false }}"
-    contact_list_data_postgres:
-      +alias: contact_list_data
-      +enabled: "{{ true if target.type == 'postgres' else false }}"
     email_event_data: 
       +column_types:
         _fivetran_synced: timestamp

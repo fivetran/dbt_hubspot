@@ -1,3 +1,13 @@
+# dbt_hubspot v0.22.0
+## Breaking Changes
+- TBD
+
+## Documentation
+- TBD
+
+## Under the Hood
+- TBD
+
 # dbt_hubspot v0.21.0
 This release includes the following updates:
 
