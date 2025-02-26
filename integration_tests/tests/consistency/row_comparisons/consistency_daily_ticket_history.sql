@@ -1,6 +1,6 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false)
+    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_service_enabled', false)
 ) }}
 
 -- this test ensures the daily_activity end model matches the prior version
