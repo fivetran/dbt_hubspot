@@ -1,6 +1,6 @@
 # dbt_hubspot v0.22.0
 
-([PR #156](https://github.com/fivetran/dbt_hubspot/pull/156)) includes the following updates:
+[PR #156](https://github.com/fivetran/dbt_hubspot/pull/156) includes the following updates:
 
 ## Deprecations
 - Select fields have been deprecated from `hubspot__contact_lists` model as well as the upstream `stg_hubspot__contact_list` model (see HubSpot Source ([#137](https://github.com/fivetran/dbt_hubspot_source/pull/137)) for details). The full removal date is planned for May 10th, 2025. Follow [Deprecation Issue #138](https://github.com/fivetran/dbt_hubspot_source/issues/138) for more details and updates around the planned sunsetting of the fields.
