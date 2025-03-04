@@ -311,40 +311,40 @@ models:
         description: >
           If this is false, this is a system list and cannot be deleted.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
       - name: is_dynamic
         description: >
           Whether the contact list is dynamic.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release..
       - name: metadata_error
         description: >
           Any errors that happened the last time the list was processed.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
       - name: metadata_last_processing_state_change_at
         description: >
           A timestamp of the last time that the processing state changed.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
       - name: metadata_last_size_change_at
         description: >
           A timestamp of the last time that the size of the list changed.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
       - name: metadata_processing
         description: >
           One of DONE, REFRESHING, INITIALIZING, or PROCESSING. 
           DONE indicates the list has finished processing, any other value indicates that list membership is being evaluated.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
       - name: metadata_size
         description: >
           The approximate number of contacts in the list.
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
       - name: portal_id
         description: >
           '{{ doc("portal_id") }}'
 
-          PLEASE NOTE: This field will not be populated for connectors utilizing the HubSpot v3 API version. This field will be deprecated in a future release.
+          NOTE: This field is deprecated and will not be populated for connectors utilizing the HubSpot v3 API. This field will be removed in a future release.
