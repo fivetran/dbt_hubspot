@@ -15,7 +15,7 @@
     - `portal_id`
 
 ## Breaking Changes
-- Select fields have been added to the`hubspot__contact_lists` model as well as the upstream `stg_hubspot__contact_list` model (see HubSpot Source ([#137](https://github.com/fivetran/dbt_hubspot_source/pull/137)) for details).
+- Select fields have been added to the `hubspot__contact_lists` model as well as the upstream `stg_hubspot__contact_list` model (see HubSpot Source ([#137](https://github.com/fivetran/dbt_hubspot_source/pull/137)) for details).
   - The newly added fields include the following:
     - `created_by_id`
     - `object_type_id`
