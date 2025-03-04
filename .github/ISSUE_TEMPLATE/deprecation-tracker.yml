@@ -10,7 +10,7 @@ body:
   - type: input
     attributes:
       label: Planned Removal Date
-      description: Enter the date when this deprecated item will be fully removed (format: Month Day, Year. eg. May 10th, 2025).
+      description: Enter the date when this deprecated item will be fully removed (format - "Month Day, Year". eg. "May 10th, 2025").
     validations:
       required: true
   - type: input

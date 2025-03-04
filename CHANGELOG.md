@@ -16,7 +16,7 @@
 
 ## Breaking Changes
 - Select fields have been added to the`hubspot__contact_lists` model as well as the upstream `stg_hubspot__contact_list` model (see HubSpot Source ([#137](https://github.com/fivetran/dbt_hubspot_source/pull/137)) for details).
-  - The deprecated fields include the following:
+  - The newly added fields include the following:
     - `created_by_id`
     - `object_type_id`
     - `processing_status`
@@ -29,7 +29,7 @@
 - All added fields have been documented. 
 
 ## Under the Hood
-- Added a deprecation tracker github issue template to ensure deprecated fields are appropriately tracked for full removal in a future planned update.
+- Added a deprecation tracker GitHub issue template to ensure deprecated fields are appropriately tracked for full removal in a future planned update.
 - Added consistency validation tests to ensure the `hubspot__contact_lists` model remains consistent on subsequent updates.
 - Included an integrity validation test to ensure the accuracy of the `hubspot__contact_lists` model.
 - Updated the daily ticket integrity and consistency tests to be turned off if the `hubspot_service_enabled` variable is disabled.
