@@ -1,0 +1,65 @@
+name: ⚠️ Deprecation Tracker
+description: Use this template to flag and track deprecated items (field, model, or functionality) scheduled for removal.
+title: "[Deprecation] <Item Name>"
+labels: ["type:deprecation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping manage our deprecation process. This template is intended to track deprecated items and plan for their ultimate removal. Providing complete information below will help us ensure a smooth transition and keep our users informed.
+  - type: input
+    attributes:
+      label: Planned Removal Date
+      description: Enter the date when this deprecated item will be fully removed (format: Month Day, Year. eg. May 10th, 2025).
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Original Deprecation Issue Link
+      description: Provide the link to the issue where the deprecation was initially proposed or discussed.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Original Deprecation PR Link
+      description: Provide the link to the pull request that implemented the deprecation.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Deprecated Item Type
+      description: Select the type(s) of item(s) being deprecated.
+      options:
+        - Field
+        - Model
+        - Functionality
+        - Other
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Deprecated Item
+      description: Specify the name(s) and any other relevant information of the deprecated item(s).
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Rationale and Impact Analysis
+      description: |
+        Explain why this item is being deprecated and discuss any potential impacts.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Migration Path / Alternatives
+      description: |
+        Provide details on how users should transition away from this deprecated item, including any recommended alternatives.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Additional Context or Notes
+      description: |
+        Include any other relevant information or context that might be important for planning or executing the deprecation process.
+    validations:
+      required: false
