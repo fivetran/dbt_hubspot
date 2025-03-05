@@ -1,3 +1,39 @@
+# dbt_hubspot v0.22.0
+
+[PR #156](https://github.com/fivetran/dbt_hubspot/pull/156) includes the following updates:
+
+## Deprecations
+- Select fields have been deprecated from `hubspot__contact_lists` model as well as the upstream `stg_hubspot__contact_list` model (see HubSpot Source ([#137](https://github.com/fivetran/dbt_hubspot_source/pull/137)) for details). The full removal date is planned for May 10th, 2025. Follow [Deprecation Issue #138](https://github.com/fivetran/dbt_hubspot_source/issues/138) for more details and updates around the planned sunsetting of the fields.
+  - The deprecated fields include the following:
+    - `is_deletable`
+    - `is_dynamic`
+    - `metadata_error`
+    - `metadata_last_processing_state_change_at`
+    - `metadata_last_size_change_at`
+    - `metadata_processing`
+    - `metadata_size`
+    - `portal_id`
+
+## Breaking Changes
+- Select fields have been added to the `hubspot__contact_lists` model as well as the upstream `stg_hubspot__contact_list` model (see HubSpot Source ([#137](https://github.com/fivetran/dbt_hubspot_source/pull/137)) for details).
+  - The newly added fields include the following:
+    - `created_by_id`
+    - `object_type_id`
+    - `processing_status`
+    - `processing_type`
+    - `list_version`
+    - `filters_updated_at`
+
+## Documentation
+- All deprecated fields have been documented as notice of deprecation in the respective yml documents.
+- All added fields have been documented. 
+
+## Under the Hood
+- Added a deprecation tracker GitHub issue template to ensure deprecated fields are appropriately tracked for full removal in a future planned update.
+- Added consistency validation tests to ensure the `hubspot__contact_lists` model remains consistent on subsequent updates.
+- Included an integrity validation test to ensure the accuracy of the `hubspot__contact_lists` model.
+- Updated the daily ticket integrity and consistency tests to be turned off if the `hubspot_service_enabled` variable is disabled.
+
 # dbt_hubspot v0.21.0
 This release includes the following updates:
 
