@@ -6,6 +6,7 @@ require-dbt-version: [">=1.3.0", "<2.0.0"]
 vars:
   hubspot:
     contact: "{{ ref('stg_hubspot__contact') }}"
+    contact_form_submission: "{{ ref('stg_hubspot__contact_form_submission') }}"
     contact_merge_audit: "{{ ref('stg_hubspot__contact_merge_audit') }}"
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
@@ -43,7 +44,7 @@ vars:
     engagement_meeting: "{{ ref('stg_hubspot__engagement_meeting') }}"
     engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
-    
+    form: "{{ ref('stg_hubspot__form') }}"
     ticket_company: "{{ ref('stg_hubspot__ticket_company') }}"
     ticket_contact: "{{ ref('stg_hubspot__ticket_contact') }}"
     ticket_deal: "{{ ref('stg_hubspot__ticket_deal') }}"
