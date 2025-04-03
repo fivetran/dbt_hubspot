@@ -6,6 +6,7 @@ with contacts as (
 
     select *
     from {{ ref('int_hubspot__contact_merge_adjust') }} 
+
 {% if emails_enabled %}
 
 ), email_sends as (
@@ -60,23 +61,50 @@ with contacts as (
     left join engagements
         using (contact_id)
 
-)
-
-select *
-from engagements_joined
+{% set cte_ref = 'engagements_joined' %}
 
 {% elif emails_enabled %}
 
-)
-
-select *
-from email_joined
+{% set cte_ref = 'email_joined' %}
 
 {% else %}
 
+{% set cte_ref = 'contacts' %}
+
+{% endif %}
+
+), contact_form_submission as (
+
+    select *
+    from {{ var('contact_form_submission') }}
+
+), form as (
+
+    select *
+    from {{ var('form') }}
+
+), form_joined as (
+
+    select 
+        {{ cte_ref }}.*,
+        contact_form_submission.form_id,
+        contact_form_submission.occurred_timestamp as latest_form_submission_timestamp,
+        form.name as latest_form_name,
+        form.form_type as latest_form_type
+    from {{ cte_ref }}
+    left join (
+        select *,
+            row_number() over (
+                partition by contact_id
+                order by occurred_timestamp desc
+            ) as row_num
+        from contact_form_submission
+    ) contact_form_submission
+        on {{ cte_ref }}.contact_id = contact_form_submission.contact_id
+        and contact_form_submission.row_num = 1
+    left join form
+        on contact_form_submission.form_id = form.guid
 )
 
 select *
-from contacts
-
-{% endif %}
+from form_joined

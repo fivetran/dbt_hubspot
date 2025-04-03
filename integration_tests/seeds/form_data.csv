@@ -1,0 +1,6 @@
+guid,action,created_at,css_class,follow_up_id,form_type,lead_nurturing_campaign_id,method,name,notify_recipients,portal_id,redirect,submit_text,updated_at
+abc123,POST,2023-11-01 10:15:00,form-css,fup123,REGULAR,lnc001,POST,Newsletter Signup,true,12345,/thank-you,Submit,2023-11-02T11:00:00
+def456,GET,2023-10-15 08:00:00,custom-style,fup456,POPUP,lnc002,GET,Download Guide,false,12345,/download,Download,2023-10-16T08:30:00
+ghi789,POST,2023-09-20 09:45:00,,,REGULAR,,POST,Contact Us,true,12345,/contact-success,Send,2023-09-20T10:00:00
+jkl012,POST,2023-08-12 14:00:00,default-form,fup789,SLIDEPANEL,lnc003,POST,Request Demo,true,12345,/demo-requested,Request,2023-08-12T14:30:00
+mno345,GET,2023-07-05 12:00:00,landing-form,,REGULAR,,GET,Signup Form,false,12345,/signup-success,Sign Up,2023-07-05T12:15:00
