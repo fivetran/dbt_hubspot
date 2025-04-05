@@ -74,8 +74,13 @@ with contacts as (
 
     select 
         {{ cte_ref }}.*,
-        {{ dbt_utils.star(from=ref('int_hubspot__form_metrics__by_contact'), except=["contact_id"], relation_alias="conversions") }}
-
+        {% for first_or_last in ['first_conversion', 'most_recent_conversion']%}
+            {% for metric in ['form_id', 'date', 'form_name', 'form_type'] %}
+                conversions.{{first_or_last}}_{{ metric }},
+            {% endfor %}
+        {% endfor %}
+        conversions.total_form_submissions,
+        conversions.total_unique_form_submissions
     from {{ cte_ref }}
     left join conversions
         on {{ cte_ref }}.contact_id = conversions.contact_id
