@@ -1,6 +1,7 @@
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled'])) }}
 {% set emails_enabled = fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
 {% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
+{% set forms_enabled = fivetran_utils.enabled_vars(['hubspot_form_enabled','hubspot_contact_form_submission_enabled']) %}
 
 with contacts as (
 
@@ -41,9 +42,8 @@ with contacts as (
 
 {% endif %}
 
-{% if engagements_enabled %}
-
 {% set cte_ref = 'email_joined' if emails_enabled else 'contacts' %}
+{% if engagements_enabled %}
 
 ), engagements as (
 
@@ -59,52 +59,30 @@ with contacts as (
         {% endfor %}
     from {{ cte_ref }}
     left join engagements
-        using (contact_id)
+        on {{ cte_ref }}.contact_id = engagements.contact_id
 
 {% set cte_ref = 'engagements_joined' %}
-
-{% elif emails_enabled %}
-
-{% set cte_ref = 'email_joined' %}
-
-{% else %}
-
-{% set cte_ref = 'contacts' %}
-
 {% endif %}
 
-), contact_form_submission as (
+{% if forms_enabled %}
+), conversions as (
 
     select *
-    from {{ var('contact_form_submission') }}
-
-), form as (
-
-    select *
-    from {{ var('form') }}
+    from {{ ref('int_hubspot__form_metrics__by_contact') }}
 
 ), form_joined as (
 
     select 
         {{ cte_ref }}.*,
-        contact_form_submission.form_id,
-        contact_form_submission.occurred_timestamp as latest_form_submission_timestamp,
-        form.name as latest_form_name,
-        form.form_type as latest_form_type
+        {{ dbt_utils.star(from=ref('int_hubspot__form_metrics__by_contact'), except=["contact_id"], relation_alias="conversions") }}
+
     from {{ cte_ref }}
-    left join (
-        select *,
-            row_number() over (
-                partition by contact_id
-                order by occurred_timestamp desc
-            ) as row_num
-        from contact_form_submission
-    ) contact_form_submission
-        on {{ cte_ref }}.contact_id = contact_form_submission.contact_id
-        and contact_form_submission.row_num = 1
-    left join form
-        on contact_form_submission.form_id = form.guid
+    left join conversions
+        on {{ cte_ref }}.contact_id = conversions.contact_id
+
+{% set cte_ref = 'form_joined' %}
+{% endif %}
 )
 
 select *
-from form_joined
+from {{ cte_ref }}
