@@ -228,6 +228,14 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    form_data:
+      +column_types:
+        guid: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    contact_form_submission_data:
+      +column_types:
+        form_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversion_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 
 dispatch:
   - macro_namespace: dbt_utils
