@@ -60,6 +60,7 @@ vars:
   hubspot_email_event_status_change_identifier: "email_event_status_change_data"
   hubspot_engagement_identifier: "engagement_data"
   hubspot_engagement_call_identifier: "engagement_call_data"
+  hubspot_engagement_communication_identifier: "engagement_communication_data"
   hubspot_engagement_company_identifier: "engagement_company_data"
   hubspot_engagement_contact_identifier: "engagement_contact_data"
   hubspot_engagement_deal_identifier: "engagement_deal_data"
@@ -139,6 +140,12 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_call_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
+    engagement_communication_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: timestamp
