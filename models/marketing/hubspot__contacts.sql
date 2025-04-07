@@ -3,6 +3,7 @@
 {% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
 {% set forms_enabled = fivetran_utils.enabled_vars(['hubspot_form_enabled','hubspot_contact_form_submission_enabled']) %}
 
+{% set cte_ref = 'contacts' %}
 with contacts as (
 
     select *
@@ -30,21 +31,20 @@ with contacts as (
 ), email_joined as (
 
     select 
-        contacts.*,
+        {{ cte_ref }}*,
         {% for metric in email_metrics %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},
         coalesce(email_metrics.total_unique_{{ metric }}, 0)
             as total_unique_{{ metric }}{{ ',' if not loop.last }}
         {% endfor %}
-    from contacts
+    from {{ cte_ref }}
     left join email_metrics
-        on contacts.email = email_metrics.recipient_email_address
+        on {{ cte_ref }}.email = email_metrics.recipient_email_address
 
+{% set cte_ref = 'email_joined' %}
 {% endif %}
 
-{% set cte_ref = 'email_joined' if emails_enabled else 'contacts' %}
 {% if engagements_enabled %}
-
 ), engagements as (
 
     select *
@@ -70,7 +70,7 @@ with contacts as (
     select *
     from {{ ref('int_hubspot__form_metrics__by_contact') }}
 
-), form_joined as (
+), conversions_joined as (
 
     select 
         {{ cte_ref }}.*,
@@ -85,7 +85,7 @@ with contacts as (
     left join conversions
         on {{ cte_ref }}.contact_id = conversions.contact_id
 
-{% set cte_ref = 'form_joined' %}
+{% set cte_ref = 'conversions_joined' %}
 {% endif %}
 )
 
