@@ -31,15 +31,15 @@ with contacts as (
 ), email_joined as (
 
     select 
-        {{ cte_ref }}*,
+        contacts.*,
         {% for metric in email_metrics %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},
         coalesce(email_metrics.total_unique_{{ metric }}, 0)
             as total_unique_{{ metric }}{{ ',' if not loop.last }}
         {% endfor %}
-    from {{ cte_ref }}
+    from contacts
     left join email_metrics
-        on {{ cte_ref }}.email = email_metrics.recipient_email_address
+        on contacts.email = email_metrics.recipient_email_address
 
 {% set cte_ref = 'email_joined' %}
 {% endif %}
@@ -76,7 +76,7 @@ with contacts as (
         {{ cte_ref }}.*,
         {% for first_or_last in ['first_conversion', 'most_recent_conversion']%}
             {% for metric in ['form_id', 'date', 'form_name', 'form_type'] %}
-                conversions.{{first_or_last}}_{{ metric }},
+                conversions.{{first_or_last}}_{{ metric }}, -- add these for emails & engagements if time, otherwise feature request
             {% endfor %}
         {% endfor %}
         conversions.total_form_submissions,
