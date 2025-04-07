@@ -35,6 +35,7 @@ vars:
     email_event: "{{ ref('stg_hubspot__email_event') }}"
     engagement: "{{ ref('stg_hubspot__engagement') }}"
     engagement_call: "{{ ref('stg_hubspot__engagement_call') }}"
+    engagement_communication: "{{ ref('stg_hubspot__engagement_communication') }}"
     engagement_company: "{{ ref('stg_hubspot__engagement_company') }}"
     engagement_contact: "{{ ref('stg_hubspot__engagement_contact') }}"
     engagement_deal: "{{ ref('stg_hubspot__engagement_deal') }}"
