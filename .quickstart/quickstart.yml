@@ -60,14 +60,16 @@ table_variables:
     - deal_property_history
   hubspot_engagement_enabled:
     - engagement
+  hubspot_engagement_call_enabled:
+    - engagement_call
   hubspot_engagement_contact_enabled:
     - engagement_contact
+  hubspot_engagement_communication_enabled:
+    - engagement_communication
   hubspot_engagement_company_enabled:
     - engagement_company
   hubspot_engagement_deal_enabled:
     - engagement_deal
-  hubspot_engagement_call_enabled:
-    - engagement_call
   hubspot_engagement_email_enabled:
     - engagement_email
   hubspot_engagement_meeting_enabled:
