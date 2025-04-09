@@ -72,6 +72,9 @@ vars:
   hubspot_owner_identifier: "owner_data"
   hubspot_property_identifier: "property_data"
   hubspot_property_option_identifier: "property_option_data"
+  hubspot_role_identifier: "role_data"
+  hubspot_team_identifier: "team_data"
+  hubspot_team_user_identifier: "team_user_data"
   hubspot_ticket_company_identifier: "ticket_company_data"
   hubspot_ticket_contact_identifier: "ticket_contact_data"
   hubspot_ticket_deal_identifier: "ticket_deal_data"
@@ -80,6 +83,7 @@ vars:
   hubspot_ticket_pipeline_stage_identifier: "ticket_pipeline_stage_data"
   hubspot_ticket_property_history_identifier: "ticket_property_history_data"
   hubspot_ticket_identifier: "ticket_data"
+  hubspot_users_identifier: "users_data"
   hubspot_contact_list_identifier: "contact_list_data"
   hubspot_email_event_sent_identifier: "email_event_sent_data"
   hubspot_email_event_dropped_identifier: "email_event_dropped_data"
@@ -235,15 +239,31 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    form_data:
-      +column_types:
-        guid: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     contact_form_submission_data:
       +column_types:
         form_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         conversion_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-
+    form_data:
+      +column_types:
+        guid: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    owner_team_data:
+      +column_types:
+        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        team_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    role_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    team_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    owner_team_data:
+      +column_types:
+        user_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        team_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    user_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']

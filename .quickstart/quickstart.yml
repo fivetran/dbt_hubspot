@@ -84,6 +84,8 @@ table_variables:
     - property
   hubspot_property_enabled:
     - property_option
+  hubspot_role_enabled:
+    - role
   hubspot_service_enabled: 
     - ticket_company
     - ticket_contact
@@ -92,8 +94,14 @@ table_variables:
     - ticket_pipeline
     - ticket_property_history
     - ticket
+  hubspot_team_enabled:
+    - owner_team
+    - team
+    - team_user
   hubspot_ticket_deal_enabled:
     - ticket_deal
+  hubspot_users_enabled:
+    - users
 
 destination_configurations:
   databricks:
