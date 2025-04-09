@@ -9,7 +9,7 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema:  zz_hubspot #hubspot_integration_tests_63
+  hubspot_schema: hubspot_integration_tests_63
   consistency_test_contact_list_exclude_fields: ## For hubspot__contact_lists consistency test. Can be removed after this coming release.
     - created_by_id
     - object_type_id
