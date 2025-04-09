@@ -1,3 +1,3 @@
 id,primary_team_id,role_id,email,first_name,last_name,_fivetran_synced
 12345,6789,12345,user01@email.com,Jean-Luc,Picard,2023-07-09 15:55:40
-56789,1234,false,user02@email.com,Kathryn,Janeway,2023-07-09 15:55:40
+56789,1234,23456,user02@email.com,Kathryn,Janeway,2023-07-09 15:55:40

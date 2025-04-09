@@ -20,7 +20,6 @@ vars:
     deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
     deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
     deal_property_history: "{{ ref('stg_hubspot__deal_property_history') }}"
-    owner: "{{ ref('stg_hubspot__owner') }}"
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
     email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
@@ -46,6 +45,11 @@ vars:
     engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
     form: "{{ ref('stg_hubspot__form') }}"
+    owner: "{{ ref('stg_hubspot__owner') }}"
+    owner_team: "{{ ref('stg_hubspot__owner_team') }}"
+    role: "{{ ref('stg_hubspot__role') }}"
+    team: "{{ ref('stg_hubspot__team') }}"
+    team_user: "{{ ref('stg_hubspot__team_user') }}"
     ticket_company: "{{ ref('stg_hubspot__ticket_company') }}"
     ticket_contact: "{{ ref('stg_hubspot__ticket_contact') }}"
     ticket_deal: "{{ ref('stg_hubspot__ticket_deal') }}"
@@ -54,6 +58,7 @@ vars:
     ticket_pipeline_stage: "{{ ref('stg_hubspot__ticket_pipeline_stage') }}"
     ticket_property_history: "{{ ref('stg_hubspot__ticket_property_history') }}"
     ticket: "{{ ref('stg_hubspot__ticket') }}"
+    users: "{{ ref('stg_hubspot__users') }}"
     
     hubspot_contact_merge_audit_enabled: false
 models:

@@ -9,7 +9,7 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema:  hubspot_integration_tests_63
+  hubspot_schema:  zz_hubspot #hubspot_integration_tests_63
   consistency_test_contact_list_exclude_fields: ## For hubspot__contact_lists consistency test. Can be removed after this coming release.
     - created_by_id
     - object_type_id
@@ -70,6 +70,7 @@ vars:
   hubspot_engagement_task_identifier: "engagement_task_data"
   hubspot_form_identifier: "form_data"
   hubspot_owner_identifier: "owner_data"
+  hubspot_owner_team_identifier: "owner_team_data"
   hubspot_property_identifier: "property_data"
   hubspot_property_option_identifier: "property_option_data"
   hubspot_role_identifier: "role_data"
@@ -264,6 +265,7 @@ seeds:
     user_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']

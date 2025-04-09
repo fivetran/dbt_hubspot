@@ -32,9 +32,79 @@ with deals as (
 
 {% if var('hubspot_owner_enabled', true) %}
 ), owners as (
-
     select *
     from {{ var('owner') }}
+
+{% set cte_ref = 'owners' %}
+
+    {% if var('hubspot_owner_team_enabled', true) and var('hubspot_team_enabled', true) %}
+), owner_teams as (
+    select *
+    from {{ var('owner_team') }}
+
+), teams as (
+    select *
+    from {{ var('team') }}
+
+), teams_joined as (
+    select
+        owners.*,
+        owner_teams.is_team_primary,
+        teams.team_id,
+        teams.team_name
+    from owners
+    left join owner_teams
+        on owners.owner_id = owner_teams.owner_id
+    left join teams
+        on owner_teams.team_id = teams.team_id
+
+{% set cte_ref = 'teams_joined' %}
+
+        {% if var('hubspot_team_user_enabled', true) and var('hubspot_users_enabled', true) %}
+), team_users as (
+    select *
+    from {{ var('team_user') }}
+
+), users as (
+    select *
+    from {{ var('users') }}
+
+), users_joined as (
+    select
+        teams_joined.*,
+        team_users.is_secondary_user,
+        users.user_id,
+        users.role_id,
+        users.email,
+        users.first_name,
+        users.last_name
+    from teams_joined
+    left join team_users
+        on teams_joined.team_id = team_users.team_id
+    left join users
+        on team_users.user_id = users.user_id
+
+{% set cte_ref = 'users_joined' %}
+
+            {% if var('hubspot_role_enabled', true) %}
+), roles as (
+    select *
+    from {{ var('role') }}
+
+), roles_joined as (
+    select
+        users_joined.*,
+        roles.role_name,
+        roles.requires_billing_write
+    from users_joined
+    left join roles
+        on users_joined.role_id = roles.role_id
+
+{% set cte_ref = 'roles_joined' %}
+
+            {% endif %}
+        {% endif %}
+    {% endif %}
 {% endif %}
 
 ), deal_fields_joined as (
