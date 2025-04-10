@@ -32,12 +32,17 @@ with deals as (
 
 {% if var('hubspot_owner_enabled', true) %}
 ), owners as (
-    select *
+    select
+        owner_id,
+        email_address,
+        full_name
     from {{ var('owner') }}
 
 {% set cte_ref = 'owners' %}
+{% set cte_ref_cols = ['email_address', 'full_name'] %}
 
     {% if var('hubspot_owner_team_enabled', true) and var('hubspot_team_enabled', true) %}
+    {{print(var('hubspot_owner_team_enabled', true) and var('hubspot_team_enabled', true))}}
 ), owner_teams as (
     select *
     from {{ var('owner_team') }}
@@ -59,7 +64,8 @@ with deals as (
         on owner_teams.team_id = teams.team_id
 
 {% set cte_ref = 'teams_joined' %}
-
+{% do cte_ref_cols.extend(['is_team_primary', 'team_id', 'team_name']) %}
+{{print(cte_ref)}}
         {% if var('hubspot_team_user_enabled', true) and var('hubspot_users_enabled', true) %}
 ), team_users as (
     select *
@@ -85,6 +91,7 @@ with deals as (
         on team_users.user_id = users.user_id
 
 {% set cte_ref = 'users_joined' %}
+{% do cte_ref_cols.extend(['is_secondary_user', 'user_id', 'role_id', 'email', 'first_name', 'last_name']) %}
 
             {% if var('hubspot_role_enabled', true) %}
 ), roles as (
@@ -101,7 +108,7 @@ with deals as (
         on users_joined.role_id = roles.role_id
 
 {% set cte_ref = 'roles_joined' %}
-
+{% do cte_ref_cols.extend(['role_name', 'requires_billing_write']) %}
             {% endif %}
         {% endif %}
     {% endif %}
@@ -124,10 +131,9 @@ with deals as (
         pipelines.deal_pipeline_updated_at,
         pipeline_stages.pipeline_stage_label
 
-        {% if var('hubspot_owner_enabled', true) %}
-        , owners.email_address as owner_email_address
-        , owners.full_name as owner_full_name
-        {% endif %}
+        {% for col in cte_ref_cols %}
+            , {{cte_ref}}.{{ col }}
+        {% endfor %}
 
     from deals    
     left join pipelines 
@@ -135,10 +141,8 @@ with deals as (
     left join pipeline_stages 
         on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
 
-    {% if var('hubspot_owner_enabled', true) %}
-    left join owners 
-        on deals.owner_id = owners.owner_id
-    {% endif %}
+    left join {{ cte_ref }} 
+        on deals.owner_id = {{ cte_ref }}.owner_id
 
     {% if var('hubspot_merged_deal_enabled', false) %}
     left join aggregate_merged_deals
@@ -152,3 +156,4 @@ with deals as (
 
 select *
 from deal_fields_joined
+{{ print(cte_ref_cols) }}

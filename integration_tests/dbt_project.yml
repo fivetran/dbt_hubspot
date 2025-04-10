@@ -9,7 +9,7 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_63
+  hubspot_schema: zz_hubspot #hubspot_integration_tests_63
   consistency_test_contact_list_exclude_fields: ## For hubspot__contact_lists consistency test. Can be removed after this coming release.
     - created_by_id
     - object_type_id
@@ -22,16 +22,21 @@ vars:
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
     #   alias: "funky_field"
-  # hubspot_service_enabled: true # enable when generating docs
-  # hubspot_deal_enabled: true # enable when generating docs
-  # hubspot_contact_enabled: true # enable when generating docs
-  # hubspot_sales_enabled: true # enable when generating docs
-  # hubspot_company_enabled: true # enable when generating docs
-  # hubspot_marketing_enabled: true # enable when generating docs
-  # hubspot_contact_merge_audit_enabled: true # enable when generating docs
-  # hubspot_using_all_email_events: true # enable when generating docs
-  # hubspot_merged_deal_enabled: true # enable when generating docs  
-  # hubspot_ticket_deal_enabled: true # enable when generating docs
+  hubspot_service_enabled: true # enable when generating docs
+  hubspot_deal_enabled: true # enable when generating docs
+  hubspot_contact_enabled: true # enable when generating docs
+  hubspot_sales_enabled: true # enable when generating docs
+  hubspot_company_enabled: true # enable when generating docs
+  hubspot_marketing_enabled: true # enable when generating docs
+  hubspot_contact_merge_audit_enabled: true # enable when generating docs
+  hubspot_using_all_email_events: true # enable when generating docs
+  hubspot_merged_deal_enabled: true # enable when generating docs  
+  hubspot_ticket_deal_enabled: true # enable when generating docs
+  hubspot_owner_team_enabled: true
+  hubspot_team_user_enabled: true
+  hubspot_role_enabled: true
+  hubspot_users_enabled: true
+  hubspot_team_enabled: true
 
   hubspot_company_property_history_identifier: "company_property_history_data"
   hubspot_company_identifier: "company_data"
@@ -262,7 +267,7 @@ seeds:
       +column_types:
         user_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         team_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    user_data:
+    users_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
