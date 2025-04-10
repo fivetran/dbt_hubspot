@@ -42,7 +42,6 @@ with deals as (
 {% set cte_ref_cols = ['email_address', 'full_name'] %}
 
     {% if var('hubspot_owner_team_enabled', true) and var('hubspot_team_enabled', true) %}
-    {{print(var('hubspot_owner_team_enabled', true) and var('hubspot_team_enabled', true))}}
 ), owner_teams as (
     select *
     from {{ var('owner_team') }}
@@ -65,7 +64,7 @@ with deals as (
 
 {% set cte_ref = 'teams_joined' %}
 {% do cte_ref_cols.extend(['is_team_primary', 'team_id', 'team_name']) %}
-{{print(cte_ref)}}
+
         {% if var('hubspot_team_user_enabled', true) and var('hubspot_users_enabled', true) %}
 ), team_users as (
     select *
@@ -156,4 +155,3 @@ with deals as (
 
 select *
 from deal_fields_joined
-{{ print(cte_ref_cols) }}
