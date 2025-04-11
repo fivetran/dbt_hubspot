@@ -80,14 +80,13 @@ table_variables:
     - engagement_task
   hubspot_owner_enabled:
     - owner
-  hubspot_owner_team_enabled:
-    - owner_team
   hubspot_property_enabled:
     - property
   hubspot_property_enabled:
     - property_option
   hubspot_role_enabled:
     - role
+    - users
   hubspot_service_enabled: 
     - ticket_company
     - ticket_contact
@@ -97,13 +96,10 @@ table_variables:
     - ticket_property_history
     - ticket
   hubspot_team_enabled:
+    - owner_team
     - team
-  hubspot_team_user_enabled:
-    - team_user
   hubspot_ticket_deal_enabled:
     - ticket_deal
-  hubspot_users_enabled:
-    - users
 
 destination_configurations:
   databricks:

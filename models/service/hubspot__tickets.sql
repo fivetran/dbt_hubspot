@@ -118,10 +118,10 @@ with ticket as (
 {% endif %}
 
 {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
-), owner as (
+), owners_enhanced as (
 
     select *
-    from {{ var('owner') }}
+    from {{ ref('int_hubspot__owners_enhanced') }}
 
 {% endif%}
 
@@ -164,8 +164,7 @@ with ticket as (
         ticket_pipeline_stage.is_ticket_pipeline_stage_deleted
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
-        , owner.email_address as owner_email
-        , owner.full_name as owner_full_name
+        , {{ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id"], relation_alias="owners_enhanced") }}
     {% endif %}
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}
@@ -199,8 +198,8 @@ with ticket as (
         and ticket_pipeline.ticket_pipeline_id = ticket_pipeline_stage.ticket_pipeline_id
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
-    left join owner 
-        on ticket.owner_id = owner.owner_id
+    left join owners_enhanced 
+        on ticket.owner_id = cast(owners_enhanced.owner_id as {{ dbt.type_string() }})
     {% endif %}
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}

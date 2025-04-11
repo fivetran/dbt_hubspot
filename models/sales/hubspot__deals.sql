@@ -4,6 +4,7 @@ with deals_enhanced as (
 
     select *
     from {{ ref('int_hubspot__deals_enhanced') }}
+{% set cte_ref = 'deals_enhanced' %}
 
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
 
@@ -40,17 +41,10 @@ with deals_enhanced as (
     from deals_enhanced
     left join engagement_deal_agg
         on cast(deals_enhanced.deal_id as {{ dbt.type_bigint() }}) = cast(engagement_deal_agg.deal_id as {{ dbt.type_bigint() }} )
-
+{% set cte_ref = 'engagements_joined' %}
 )
-
-select *
-from engagements_joined
-
-{% else %}
-
-)
-
-select *
-from deals_enhanced
 
 {% endif %}
+
+select *
+from {{ cte_ref }}
