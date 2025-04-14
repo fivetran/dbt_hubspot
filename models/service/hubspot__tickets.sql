@@ -199,7 +199,7 @@ with ticket as (
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
     left join owners_enhanced 
-        on ticket.owner_id = cast(owners_enhanced.owner_id as {{ dbt.type_string() }})
+        on ticket.owner_id = owners_enhanced.owner_id
     {% endif %}
 
     {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}

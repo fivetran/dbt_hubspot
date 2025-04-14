@@ -1,8 +1,4 @@
-{{ config(
-    enabled=var('hubspot_owner_enabled', true)
-        and ((var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true))
-            or var('hubspot_service_enabled', false))
-) }}
+{{ config(enabled=var('hubspot_owner_enabled', true)) }}
 
 with owners as (
     select
