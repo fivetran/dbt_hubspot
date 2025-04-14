@@ -1,3 +1,6 @@
+# dbt_hubspot v0.23.0
+[PR #157](https://github.com/fivetran/dbt_hubspot/pull/157) includes the following updates:
+
 # dbt_hubspot v0.22.0
 
 [PR #156](https://github.com/fivetran/dbt_hubspot/pull/156) includes the following updates:
