@@ -9,20 +9,6 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  hubspot_schema: hubspot_integration_tests_63
-  consistency_test_contact_list_exclude_fields: ## For hubspot__contact_lists consistency test. Can be removed after this coming release.
-    - created_by_id
-    - object_type_id
-    - processing_status
-    - processing_type
-    - list_version
-    - filters_updated_at
-
-  # hubspot__pass_through_all_columns: true
-  # hubspot__company_pass_through_columns:
-    # - name: "property_hs_all-funky-a9384-syntax"
-    #   alias: "funky_field"
-
   ## Enable when generating docs
   # hubspot_service_enabled: true
   # hubspot_deal_enabled: true
@@ -37,6 +23,13 @@ vars:
   # hubspot_engagement_communication_enabled: true
   # hubspot_role_enabled: true
   # hubspot_team_enabled: true
+
+  hubspot_schema: hubspot_integration_tests_63
+
+  # hubspot__pass_through_all_columns: true
+  # hubspot__company_pass_through_columns:
+    # - name: "property_hs_all-funky-a9384-syntax"
+    #   alias: "funky_field"
 
   hubspot_company_property_history_identifier: "company_property_history_data"
   hubspot_company_identifier: "company_data"
