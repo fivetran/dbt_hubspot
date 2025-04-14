@@ -1,4 +1,6 @@
-{{ config(enabled=var('hubspot_owner_enabled', true), materialized='table') }}
+{{ config(enabled=
+    var('hubspot_owner_enabled', true) 
+    and (var('hubspot_service_enabled', False) or var('hubspot_sales_enabled', False))) }}
 
 with owners as (
     select
