@@ -52,9 +52,9 @@ with deals as (
         coalesce(pipeline_stages.is_deal_pipeline_stage_deleted, false) as is_deal_pipeline_stage_deleted,
         pipelines.deal_pipeline_created_at,
         pipelines.deal_pipeline_updated_at,
-        pipeline_stages.pipeline_stage_label,
+        pipeline_stages.pipeline_stage_label
 
-        {{ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id"], relation_alias="owners_enhanced") if owner_enabled }}
+        {{ "," ~ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id"], relation_alias="owners_enhanced") if owner_enabled }}
 
     from deals    
     left join pipelines 
