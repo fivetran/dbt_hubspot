@@ -117,7 +117,7 @@ with ticket as (
 
 {% endif %}
 
-{% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
+{% if var('hubspot_owner_enabled', true) %}
 ), owners_enhanced as (
 
     select *
@@ -163,7 +163,7 @@ with ticket as (
         ticket_pipeline.is_ticket_pipeline_deleted,
         ticket_pipeline_stage.is_ticket_pipeline_stage_deleted
 
-    {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
+    {% if var('hubspot_owner_enabled', true) %}
         , {{ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id"], relation_alias="owners_enhanced") }}
     {% endif %}
 
@@ -197,7 +197,7 @@ with ticket as (
         on ticket.ticket_pipeline_stage_id = ticket_pipeline_stage.ticket_pipeline_stage_id
         and ticket_pipeline.ticket_pipeline_id = ticket_pipeline_stage.ticket_pipeline_id
 
-    {% if var('hubspot_sales_enabled', true) and var('hubspot_owner_enabled', true) %}
+    {% if var('hubspot_owner_enabled', true) %}
     left join owners_enhanced 
         on ticket.owner_id = owners_enhanced.owner_id
     {% endif %}
