@@ -81,7 +81,7 @@ models:
         description: Boolean indicating whether the ticket's pipeline is deleted.
       - name: is_ticket_pipeline_stage_deleted
         description: Boolean indicating whether the ticket's pipeline stage is deleted.
-      - name: owner_email
+      - name: owner_email_address
         description: The email address of the ticket's owner.
       - name: owner_full_name
         description: Full name of the ticket's owner.
