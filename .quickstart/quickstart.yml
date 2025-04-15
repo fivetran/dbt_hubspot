@@ -45,6 +45,9 @@ table_variables:
     - company
   hubspot_company_property_history_enabled:
     - company_property_history
+  hubspot_contact_form_enabled:
+    - contact_form_submission
+    - form
   hubspot_deal_enabled:
     - deal
     - deal_stage
@@ -98,6 +101,8 @@ table_variables:
   hubspot_team_enabled:
     - owner_team
     - team
+  hubspot_team_user_enabled:
+    - team_user
   hubspot_ticket_deal_enabled:
     - ticket_deal
 

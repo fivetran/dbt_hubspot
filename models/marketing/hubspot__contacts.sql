@@ -1,7 +1,7 @@
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled'])) }}
 {% set emails_enabled = fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
 {% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
-{% set forms_enabled = fivetran_utils.enabled_vars(['hubspot_form_enabled','hubspot_contact_form_submission_enabled']) %}
+{% set forms_enabled = fivetran_utils.enabled_vars(['hubspot_contact_form_enabled']) %}
 
 {% set cte_ref = 'contacts' %}
 with contacts as (
