@@ -1,6 +1,105 @@
 # dbt_hubspot v0.23.0
 [PR #157](https://github.com/fivetran/dbt_hubspot/pull/157) includes the following updates:
 
+## Breaking Changes
+- These updates are considered breaking due to changes in model schemas, including the addition of new columns and joins.
+
+### New Models
+- `int_hubspot__owners_enhanced`: Enriches owner records with team and role metadata
+- `int_hubspot__form_metrics__by_contact`: Adds form submission and conversion metrics at the contact level
+- `hubspot__engagement_communication`: Represents the relationship between communications and engagements
+
+### Updated Models
+The following models have been updated with new columns sourced from the new intermediate models:
+
+- `int_hubspot__owners_enhanced` is joined to:
+  - `hubspot__deals`
+  - `hubspot__tickets`
+  - New columns added to both models:
+    - **Team data**:
+      - `owner_primary_team_id`
+      - `owner_primary_team_name`
+      - `owner_all_team_ids`
+      - `owner_all_team_names`
+    - **Role data**:
+      - `owner_role_id`
+      - `owner_role_name`
+
+- `int_hubspot__form_metrics__by_contact` is joined to:
+  - `hubspot__contacts`
+  - New columns added:
+    - `total_form_submissions`
+    - `total_unique_form_submissions`
+    - `first_conversion_form_id`
+    - `first_conversion_date`
+    - `first_conversion_form_name`
+    - `first_conversion_form_type`
+    - `most_recent_conversion_form_id`
+    - `most_recent_conversion_date`
+    - `most_recent_conversion_form_name`
+    - `most_recent_conversion_form_type`
+
+### Configuration Variables
+The following variables have been introduced to enable or disable models or features dynamically, depending on which sources are available in your Hubspot connection:
+- `hubspot_contact_form_enabled` (default: `true`)
+- `hubspot_engagement_communication_enabled` (default: `false`)
+- `hubspot_team_enabled` (default: `true`)
+- `hubspot_role_enabled` (default: `true`)
+- `hubspot_team_user_enabled` (default: `true`)
+
+Model behavior based on these variables:
+- `int_hubspot__owners_enhanced`
+  - Model enabled when `hubspot_owner_enabled` is `true` (existing variable)
+  - Includes additional enrichment when the following are enabled:
+    - `hubspot_team_enabled` – adds team-related columns
+    - `hubspot_role_enabled` – adds role-related columns
+  - Team and role enrichment are optional; you may enable either, both, or neither
+
+- `hubspot__deals` and `hubspot__tickets`
+  - Joins in `int_hubspot__owners_enhanced` when `hubspot_owner_enabled` is `true` (existing variable)
+  - Inherit any team or role enrichment included in `int_hubspot__owners_enhanced`, based on its upstream configuration
+
+- `int_hubspot__form_metrics__by_contact`
+  - Enabled by `hubspot_contact_form_enabled`
+- `hubspot__contacts`
+  - Joins in `int_hubspot__form_metrics__by_contact` when `hubspot_contact_form_enabled` is `true`
+
+- `hubspot__engagement_communication`
+  - Enabled by `hubspot_engagement_communication_enabled`
+
+## Documentation
+- Added column-level descriptions for all new models and fields.
+
+## Under the Hood
+- Added seeds for each new source.
+- Added `get_*_columns` macros for each new source.
+
+## Changes in dbt_hubspot_source
+### New Sources and Staging Models
+Added new source tables and their corresponding staging models:
+- Sources:
+  - `contact_form_submission`
+  - `engagement_communication`
+  - `form`
+  - `owner_team`
+  - `role`
+  - `team`
+  - `team_user`
+  - `user`
+- Staging Models:
+  - `stg_hubspot__contact_form_submission`
+  - `stg_hubspot__engagement_communication`
+  - `stg_hubspot__form`
+  - `stg_hubspot__owner_team`
+  - `stg_hubspot__role`
+  - `stg_hubspot__team`
+  - `stg_hubspot__team_user`
+  - `stg_hubspot__user`
+
+### Source Updates
+- Added `active_user_id` to the existing `owner` source and `stg_hubspot__owner` staging model
+
+
 # dbt_hubspot v0.22.0
 
 [PR #156](https://github.com/fivetran/dbt_hubspot/pull/156) includes the following updates:
