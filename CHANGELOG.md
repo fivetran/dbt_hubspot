@@ -10,12 +10,14 @@
 - `hubspot__engagement_communication`: Represents the relationship between communications and engagements
 
 ### Updated Models
-The following models have been updated with new columns sourced from the new intermediate models:
+The following models have been updated with new columns sourced from the new intermediate models. Refer to the linked documentation for more details.
 
-- `int_hubspot__owners_enhanced` is joined to:
-  - `hubspot__deals`
-  - `hubspot__tickets`
+- [`int_hubspot__owners_enhanced`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__owners_enhanced) is joined to:
+  - [`hubspot__deals`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals)
+  - [`hubspot__tickets`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)
   - New columns added to both models:
+    - **Owner data**
+      - `owner_active_user_id`
     - **Team data**:
       - `owner_primary_team_id`
       - `owner_primary_team_name`
@@ -25,8 +27,8 @@ The following models have been updated with new columns sourced from the new int
       - `owner_role_id`
       - `owner_role_name`
 
-- `int_hubspot__form_metrics__by_contact` is joined to:
-  - `hubspot__contacts`
+- [`int_hubspot__form_metrics__by_contact`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__form_metrics__by_contact) is joined to:
+  - [`hubspot__contacts`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts)
   - New columns added:
     - `total_form_submissions`
     - `total_unique_form_submissions`
@@ -40,14 +42,19 @@ The following models have been updated with new columns sourced from the new int
     - `most_recent_conversion_form_type`
 
 ### Configuration Variables
-The following variables have been introduced to enable or disable models or features dynamically, depending on which sources are available in your Hubspot connection:
+The following variables control whether certain models or features are enabled based on your HubSpot connection.  
+**Note:** This dynamic enablement only applies when using **Quickstart**. Models will automatically be disabled if their required source tables are missing.  
+For **dbt Core users**, the default values below apply unless explicitly overridden.
+
 - `hubspot_contact_form_enabled` (default: `true`)
 - `hubspot_engagement_communication_enabled` (default: `false`)
 - `hubspot_team_enabled` (default: `true`)
 - `hubspot_role_enabled` (default: `true`)
 - `hubspot_team_user_enabled` (default: `true`)
 
-Model behavior based on these variables:
+See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources) for more details on the variables.
+
+**Model behavior based on these variables:**
 - `int_hubspot__owners_enhanced`
   - Model enabled when `hubspot_owner_enabled` is `true` (existing variable)
   - Includes additional enrichment when the following are enabled:
@@ -76,28 +83,23 @@ Model behavior based on these variables:
 
 ## Changes in dbt_hubspot_source
 ### New Sources and Staging Models
-Added new source tables and their corresponding staging models:
-- Sources:
-  - `contact_form_submission`
-  - `engagement_communication`
-  - `form`
-  - `owner_team`
-  - `role`
-  - `team`
-  - `team_user`
-  - `user`
-- Staging Models:
-  - `stg_hubspot__contact_form_submission`
-  - `stg_hubspot__engagement_communication`
-  - `stg_hubspot__form`
-  - `stg_hubspot__owner_team`
-  - `stg_hubspot__role`
-  - `stg_hubspot__team`
-  - `stg_hubspot__team_user`
-  - `stg_hubspot__user`
+- Introduced new sources and their associated staging models to support expanded HubSpot data coverage:
 
-### Source Updates
-- Added `active_user_id` to the existing `owner` source and `stg_hubspot__owner` staging model
+| Source Table                | Staging Model                                 | Enablement Variable                      |
+|-----------------------------|-----------------------------------------------|------------------------------------------|
+| `contact_form_submission`   | `stg_hubspot__contact_form_submission`        | `hubspot_contact_form_enabled` (default: true) |
+| `engagement_communication`  | `stg_hubspot__engagement_communication`       | `hubspot_engagement_communication_enabled` (default: false) |
+| `form`                      | `stg_hubspot__form`                           | `hubspot_contact_form_enabled` (default: true) |
+| `owner_team`                | `stg_hubspot__owner_team`                     | `hubspot_team_enabled` (default: true)     |
+| `role`                      | `stg_hubspot__role`                           | `hubspot_role_enabled` (default: true)     |
+| `team`                      | `stg_hubspot__team`                           | `hubspot_team_enabled` (default: true)     |
+| `team_user`                 | `stg_hubspot__team_user`                      | `hubspot_team_user_enabled` (default: true)|
+| `user`                      | `stg_hubspot__user`                           | `hubspot_role_enabled` (default: true)     |
+
+- See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources) for more details on enabling/disabling sources.
+- Updated the `owner` source and `stg_hubspot__owner` staging model:
+  - Added the `active_user_id` column.
+  - Removed the requirement for `hubspot_sales_enabled` to be true since this logic now applies to multiple objects (e.g. tickets and deals) downstream.
 
 
 # dbt_hubspot v0.22.0

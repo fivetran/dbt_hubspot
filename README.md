@@ -100,7 +100,7 @@ vars:
     hubspot_schema: your_schema_name
 ```
 
-### Step 4: Disable models for non-existent sources
+### Step 4: Disable/enable models and sources
 When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. Therefore we have added enable/disable configs in the `src.yml` to allow you to disable certain sources not present. Downstream models are automatically disabled as well. In order to disable the relevant functionality in the package, you will need to add the relevant variables in your root `dbt_project.yml`. By default, all variables are assumed to be `true`, **with the exception of**:
 
 - `hubspot_service_enabled`
@@ -117,7 +117,7 @@ vars:
 
   hubspot_marketing_enabled: false                        # Disables all marketing models
   hubspot_contact_enabled: false                          # Disables the contact models
-  hubspot_contact_form_submission_enabled: false          # Disables contact form submission data and its relationship to contacts
+  hubspot_contact_form_enabled: false                     # Disables form and contact form submission data and its relationship to contacts
   hubspot_contact_list_enabled: false                     # Disables contact list models
   hubspot_contact_list_member_enabled: false              # Disables contact list member models
   hubspot_contact_merge_audit_enabled: true               # Enables the use of the CONTACT_MERGE_AUDIT table (deprecated by Hubspot v3 API) for removing merged contacts in the final models.
@@ -138,7 +138,6 @@ vars:
   hubspot_email_event_sent_enabled: false
   hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
-  hubspot_form_enabled: false                             # Disables form metadata and relationships to contacts
 
   # Sales
 
