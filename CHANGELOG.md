@@ -72,7 +72,6 @@ Model behavior based on these variables:
 
 ## Under the Hood
 - Added seeds for each new source.
-- Added `get_*_columns` macros for each new source.
 
 ## Changes in dbt_hubspot_source
 ### New Sources and Staging Models
@@ -96,9 +95,10 @@ Added new source tables and their corresponding staging models:
   - `stg_hubspot__team_user`
   - `stg_hubspot__user`
 
-### Source Updates
-- Added `active_user_id` to the existing `owner` source and `stg_hubspot__owner` staging model
+- Added `active_user_id` to the existing `owner` source and `stg_hubspot__owner` staging model.
 
+## Under the Hood
+- Added `get_*_columns` macros for each new source.
 
 # dbt_hubspot v0.22.0
 
