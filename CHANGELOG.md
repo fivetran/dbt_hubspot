@@ -79,7 +79,6 @@ See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov
 
 ## Under the Hood
 - Added seeds for each new source.
-- Added `get_*_columns` macros for each new source.
 
 ## Changes in dbt_hubspot_source
 ### New Sources and Staging Models
@@ -101,6 +100,8 @@ See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov
   - Added the `active_user_id` column.
   - Removed the requirement for `hubspot_sales_enabled` to be true since this logic now applies to multiple objects (e.g. tickets and deals) downstream.
 
+## Under the Hood
+- Added `get_*_columns` macros for each new source.
 
 # dbt_hubspot v0.22.0
 
