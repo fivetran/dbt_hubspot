@@ -84,16 +84,16 @@ See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov
 ### New Sources and Staging Models
 - Introduced new sources and their associated staging models to support expanded HubSpot data coverage:
 
-| Source Table                | Staging Model                                 | Enablement Variable                      |
+| Source Table                | Staging Model                                 | Enablement Variable(s) - Default is true unless otherwise mentioned |
 |-----------------------------|-----------------------------------------------|------------------------------------------|
-| `contact_form_submission`   | `stg_hubspot__contact_form_submission`        | `hubspot_contact_form_enabled` (default: true) |
-| `engagement_communication`  | `stg_hubspot__engagement_communication`       | `hubspot_engagement_communication_enabled` (default: false) |
-| `form`                      | `stg_hubspot__form`                           | `hubspot_contact_form_enabled` (default: true) |
-| `owner_team`                | `stg_hubspot__owner_team`                     | `hubspot_team_enabled` (default: true)     |
-| `role`                      | `stg_hubspot__role`                           | `hubspot_role_enabled` (default: true)     |
-| `team`                      | `stg_hubspot__team`                           | `hubspot_team_enabled` (default: true)     |
-| `team_user`                 | `stg_hubspot__team_user`                      | `hubspot_team_user_enabled` (default: true)|
-| `user`                      | `stg_hubspot__user`                           | `hubspot_role_enabled` (default: true)     |
+| `contact_form_submission`   | `stg_hubspot__contact_form_submission`        | `hubspot_contact_form_enabled` <br> `hubspot_marketing_enabled` |
+| `engagement_communication`  | `stg_hubspot__engagement_communication`       | `hubspot_engagement_communication_enabled` (default: false) <br> `hubspot_engagement_enabled` <br>  `hubspot_sales_enabled` |
+| `form`                      | `stg_hubspot__form`                           | `hubspot_contact_form_enabled` <br>  `hubspot_marketing_enabled` |
+| `owner_team`                | `stg_hubspot__owner_team`                     | `hubspot_team_enabled` |
+| `role`                      | `stg_hubspot__role`                           | `hubspot_role_enabled` |
+| `team`                      | `stg_hubspot__team`                           | `hubspot_team_enabled` |
+| `team_user`                 | `stg_hubspot__team_user`                      | `hubspot_team_user_enabled` <br>  `hubspot_team_enabled` |
+| `user`                      | `stg_hubspot__user`                           | `hubspot_role_enabled` |
 
 - See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources) for more details on enabling/disabling sources.
 - Updated the `owner` source and `stg_hubspot__owner` staging model:
