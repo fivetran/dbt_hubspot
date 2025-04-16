@@ -10,37 +10,36 @@ with owners as (
 {% set cte_ref = 'owners' %}
 
 {% if var('hubspot_team_enabled', true) %}
+), owner_teams as (
+    select *
+    from {{ var('owner_team') }}
 
-    ), owner_teams as (
-        select *
-        from {{ var('owner_team') }}
+), teams as (
+    select *
+    from {{ var('team') }}
 
-    ), teams as (
-        select *
-        from {{ var('team') }}
+), teams_agg as (
+    select
+        owner_teams.owner_id,
+        max(case when owner_teams.is_team_primary then owner_teams.team_id end) as owner_primary_team_id,
+        max(case when owner_teams.is_team_primary then teams.team_name end) as owner_primary_team_name,
+        {{ dbt.listagg(measure="cast(teams.team_id as " ~ dbt.type_string() ~ ")", delimiter_text="','", order_by_clause="order by teams.team_id") }} as owner_all_team_ids,
+        {{ dbt.listagg(measure="teams.team_name", delimiter_text="','", order_by_clause="order by teams.team_id") }} as owner_all_team_names
+    from owner_teams
+    left join teams
+        on owner_teams.team_id = teams.team_id
+    group by 1
 
-    ), teams_agg as (
-        select
-            owner_teams.owner_id,
-            max(case when owner_teams.is_team_primary then owner_teams.team_id end) as owner_primary_team_id,
-            max(case when owner_teams.is_team_primary then teams.team_name end) as owner_primary_team_name,
-            {{ dbt.listagg(measure="cast(teams.team_id as " ~ dbt.type_string() ~ ")", delimiter_text="','", order_by_clause="order by teams.team_id") }} as owner_all_team_ids,
-            {{ dbt.listagg(measure="teams.team_name", delimiter_text="','", order_by_clause="order by teams.team_id") }} as owner_all_team_names
-        from owner_teams
-        left join teams
-            on owner_teams.team_id = teams.team_id
-        group by 1
-
-    ), teams_joined as (
-        select
-            owners.*,
-            teams_agg.owner_primary_team_id,
-            teams_agg.owner_primary_team_name,
-            teams_agg.owner_all_team_ids,
-            teams_agg.owner_all_team_names
-        from owners
-        left join teams_agg
-        on owners.owner_id = teams_agg.owner_id
+), teams_joined as (
+    select
+        owners.*,
+        teams_agg.owner_primary_team_id,
+        teams_agg.owner_primary_team_name,
+        teams_agg.owner_all_team_ids,
+        teams_agg.owner_all_team_names
+    from owners
+    left join teams_agg
+    on owners.owner_id = teams_agg.owner_id
 {% set cte_ref = 'teams_joined' %}
 {% endif %}
 
