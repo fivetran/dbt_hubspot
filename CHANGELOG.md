@@ -54,7 +54,7 @@ For **dbt Core users**, the default values below apply unless explicitly overrid
 
 See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources) for more details on the variables.
 
-**Model behavior based on these variables:**
+**Model behavior based on the above variables:**
 - `int_hubspot__owners_enhanced`
   - Model enabled when `hubspot_owner_enabled` is `true` (existing variable)
   - Includes additional enrichment when the following are enabled:
