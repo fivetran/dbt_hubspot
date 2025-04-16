@@ -3,7 +3,7 @@
     enabled=(var('fivetran_validation_tests_enabled', false) and var('hubspot_service_enabled', true))
 ) }}
 
--- this test ensures the daily_activity end model matches the prior version
+-- this test ensures the tickets end model matches the prior version
 with prod as (
     select *
     from {{ target.schema }}_hubspot_prod.hubspot__tickets

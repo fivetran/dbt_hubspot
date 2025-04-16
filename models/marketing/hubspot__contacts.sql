@@ -76,7 +76,7 @@ with contacts as (
         {{ cte_ref }}.*,
         {% for first_or_last in ['first_conversion', 'most_recent_conversion']%}
             {% for metric in ['form_id', 'date', 'form_name', 'form_type'] %}
-                conversions.{{first_or_last}}_{{ metric }}, -- add these for emails & engagements if time, otherwise feature request
+                conversions.{{first_or_last}}_{{ metric }},
             {% endfor %}
         {% endfor %}
         conversions.total_form_submissions,
