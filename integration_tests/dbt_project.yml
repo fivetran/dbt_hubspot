@@ -1,40 +1,39 @@
 name: 'hubspot_integration_tests'
-version: '0.22.0'
+version: '0.23.0'
 
 profile: 'integration_tests'
 config-version: 2
 
 models:
-  +schema: "{{ 'hubspot_sqlw_tests_6' if target.name == 'databricks-sql' else 'hubspot' }}"
+  +schema: "{{ 'hubspot_sqlw_tests_7' if target.name == 'databricks-sql' else 'hubspot' }}"
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
+  ## Enable when generating docs
+  # hubspot_service_enabled: true
+  # hubspot_deal_enabled: true
+  # hubspot_contact_enabled: true
+  # hubspot_sales_enabled: true
+  # hubspot_company_enabled: true
+  # hubspot_marketing_enabled: true
+  # hubspot_contact_merge_audit_enabled: true
+  # hubspot_using_all_email_events: true
+  # hubspot_merged_deal_enabled: true  
+  # hubspot_ticket_deal_enabled: true
+  # hubspot_engagement_communication_enabled: true
+  # hubspot_role_enabled: true
+  # hubspot_team_enabled: true
+
   hubspot_schema: hubspot_integration_tests_63
-  consistency_test_contact_list_exclude_fields: ## For hubspot__contact_lists consistency test. Can be removed after this coming release.
-    - created_by_id
-    - object_type_id
-    - processing_status
-    - processing_type
-    - list_version
-    - filters_updated_at
 
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
     # - name: "property_hs_all-funky-a9384-syntax"
     #   alias: "funky_field"
-  # hubspot_service_enabled: true # enable when generating docs
-  # hubspot_deal_enabled: true # enable when generating docs
-  # hubspot_contact_enabled: true # enable when generating docs
-  # hubspot_sales_enabled: true # enable when generating docs
-  # hubspot_company_enabled: true # enable when generating docs
-  # hubspot_marketing_enabled: true # enable when generating docs
-  # hubspot_contact_merge_audit_enabled: true # enable when generating docs
-  # hubspot_using_all_email_events: true # enable when generating docs
-  # hubspot_merged_deal_enabled: true # enable when generating docs  
-  # hubspot_ticket_deal_enabled: true # enable when generating docs
 
   hubspot_company_property_history_identifier: "company_property_history_data"
   hubspot_company_identifier: "company_data"
+  hubspot_contact_form_submission_identifier: "contact_form_submission_data"
   hubspot_contact_identifier: "contact_data"
   hubspot_contact_merge_audit_identifier: "contact_merge_audit_data"
   hubspot_contact_list_member_identifier: "contact_list_member_data"
@@ -59,6 +58,7 @@ vars:
   hubspot_email_event_status_change_identifier: "email_event_status_change_data"
   hubspot_engagement_identifier: "engagement_data"
   hubspot_engagement_call_identifier: "engagement_call_data"
+  hubspot_engagement_communication_identifier: "engagement_communication_data"
   hubspot_engagement_company_identifier: "engagement_company_data"
   hubspot_engagement_contact_identifier: "engagement_contact_data"
   hubspot_engagement_deal_identifier: "engagement_deal_data"
@@ -66,9 +66,14 @@ vars:
   hubspot_engagement_meeting_identifier: "engagement_meeting_data"
   hubspot_engagement_note_identifier: "engagement_note_data"
   hubspot_engagement_task_identifier: "engagement_task_data"
+  hubspot_form_identifier: "form_data"
   hubspot_owner_identifier: "owner_data"
+  hubspot_owner_team_identifier: "owner_team_data"
   hubspot_property_identifier: "property_data"
   hubspot_property_option_identifier: "property_option_data"
+  hubspot_role_identifier: "role_data"
+  hubspot_team_identifier: "team_data"
+  hubspot_team_user_identifier: "team_user_data"
   hubspot_ticket_company_identifier: "ticket_company_data"
   hubspot_ticket_contact_identifier: "ticket_contact_data"
   hubspot_ticket_deal_identifier: "ticket_deal_data"
@@ -77,6 +82,7 @@ vars:
   hubspot_ticket_pipeline_stage_identifier: "ticket_pipeline_stage_data"
   hubspot_ticket_property_history_identifier: "ticket_property_history_data"
   hubspot_ticket_identifier: "ticket_data"
+  hubspot_users_identifier: "users_data"
   hubspot_contact_list_identifier: "contact_list_data"
   hubspot_email_event_sent_identifier: "email_event_sent_data"
   hubspot_email_event_dropped_identifier: "email_event_dropped_data"
@@ -137,6 +143,12 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     engagement_call_data:
+      +column_types:
+        engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        property_hs_createdate: timestamp
+        property_hs_timestamp: timestamp
+    engagement_communication_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: timestamp
@@ -216,6 +228,8 @@ seeds:
         sent_by_created: timestamp
     ticket_data:
       +column_types:
+        ticket_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         property_closed_date: timestamp
         property_createdate: timestamp
         change_source_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
@@ -226,7 +240,28 @@ seeds:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-
+    contact_form_submission_data:
+      +column_types:
+        form_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversion_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    form_data:
+      +column_types:
+        guid: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    owner_team_data:
+      +column_types:
+        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        team_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    role_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    team_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    users_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']

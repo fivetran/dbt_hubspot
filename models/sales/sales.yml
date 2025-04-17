@@ -68,6 +68,20 @@ models:
         description: A timestamp representing when the deal_pipeline was created.
       - name: deal_pipeline_updated_at
         description: A timestamp representing when the deal_pipeline was updated.
+      - name: owner_active_user_id
+        description: Unique ID of the active HubSpot user who owns the deal.
+      - name: owner_primary_team_id
+        description: ID of the primary team assigned to the deal owner.
+      - name: owner_primary_team_name
+        description: Name of the primary team assigned to the deal owner.
+      - name: owner_all_team_ids
+        description: Comma-separated list of all team IDs associated with the deal owner.
+      - name: owner_all_team_names
+        description: Comma-separated list of all team names associated with the deal owner.
+      - name: owner_role_id
+        description: ID of the role assigned to the deal owner.
+      - name: owner_role_name
+        description: Name of the role assigned to the deal owner.
 
   - name: hubspot__deal_stages
     description: Each record represents when a deal stage changes in Hubspot, enriched with metrics about deal activities

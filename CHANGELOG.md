@@ -1,3 +1,108 @@
+# dbt_hubspot v0.23.0
+[PR #157](https://github.com/fivetran/dbt_hubspot/pull/157) includes the following updates:
+
+## Breaking Changes
+- These updates are considered breaking due to changes in model schemas, including the addition of new columns and joins.
+
+### New Models
+- `int_hubspot__owners_enhanced`: Enriches owner records with team and role metadata
+- `int_hubspot__form_metrics__by_contact`: Adds form submission and conversion metrics at the contact level
+- `hubspot__engagement_communication`: Represents the relationship between communications and engagements
+
+### Updated Models
+The following models have been updated with new columns sourced from the new intermediate models. Refer to the linked documentation for more details.
+
+- [`int_hubspot__owners_enhanced`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__owners_enhanced) is joined to:
+  - [`hubspot__deals`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals)
+  - [`hubspot__tickets`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)
+  - New columns added to both models:
+    - **Owner data**
+      - `owner_active_user_id`
+    - **Team data**:
+      - `owner_primary_team_id`
+      - `owner_primary_team_name`
+      - `owner_all_team_ids`
+      - `owner_all_team_names`
+    - **Role data**:
+      - `owner_role_id`
+      - `owner_role_name`
+
+- [`int_hubspot__form_metrics__by_contact`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__form_metrics__by_contact) is joined to:
+  - [`hubspot__contacts`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts)
+  - New columns added:
+    - `total_form_submissions`
+    - `total_unique_form_submissions`
+    - `first_conversion_form_id`
+    - `first_conversion_date`
+    - `first_conversion_form_name`
+    - `first_conversion_form_type`
+    - `most_recent_conversion_form_id`
+    - `most_recent_conversion_date`
+    - `most_recent_conversion_form_name`
+    - `most_recent_conversion_form_type`
+
+### Configuration Variables
+The following variables control whether certain models or features are enabled based on your HubSpot connection.  
+**Note:** This dynamic enablement only applies when using **Quickstart**. Models will automatically be disabled if their required source tables are missing.  
+For **dbt Core users**, the default values below apply unless explicitly overridden.
+
+- `hubspot_contact_form_enabled` (default: `true`)
+- `hubspot_engagement_communication_enabled` (default: `false`)
+- `hubspot_team_enabled` (default: `true`)
+- `hubspot_role_enabled` (default: `true`)
+- `hubspot_team_user_enabled` (default: `true`)
+
+See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources) for more details on the variables.
+
+**Model behavior based on the above variables:**
+- `int_hubspot__owners_enhanced`
+  - Model enabled when `hubspot_owner_enabled` is `true` (existing variable)
+  - Includes additional enrichment when the following are enabled:
+    - `hubspot_team_enabled` – adds team-related columns
+    - `hubspot_role_enabled` – adds role-related columns
+  - Team and role enrichment are optional; you may enable either, both, or neither
+
+- `hubspot__deals` and `hubspot__tickets`
+  - Joins in `int_hubspot__owners_enhanced` when `hubspot_owner_enabled` is `true` (existing variable)
+  - Inherit any team or role enrichment included in `int_hubspot__owners_enhanced`, based on its upstream configuration
+
+- `int_hubspot__form_metrics__by_contact`
+  - Enabled by `hubspot_contact_form_enabled`
+- `hubspot__contacts`
+  - Joins in `int_hubspot__form_metrics__by_contact` when `hubspot_contact_form_enabled` is `true`
+
+- `hubspot__engagement_communication`
+  - Enabled by `hubspot_engagement_communication_enabled`
+
+## Documentation
+- Added column-level descriptions for all new models and fields.
+
+## Under the Hood
+- Added seeds for each new source.
+
+## Changes in dbt_hubspot_source
+### New Sources and Staging Models
+- Introduced new sources and their associated staging models to support expanded HubSpot data coverage:
+
+| Source Table                | Staging Model                                 | Enablement Variable(s) - Default is true unless otherwise mentioned |
+|-----------------------------|-----------------------------------------------|------------------------------------------|
+| `contact_form_submission`   | `stg_hubspot__contact_form_submission`        | `hubspot_contact_form_enabled` <br> `hubspot_marketing_enabled` |
+| `engagement_communication`  | `stg_hubspot__engagement_communication`       | `hubspot_engagement_communication_enabled` (default: false) <br> `hubspot_engagement_enabled` <br>  `hubspot_sales_enabled` |
+| `form`                      | `stg_hubspot__form`                           | `hubspot_contact_form_enabled` <br>  `hubspot_marketing_enabled` |
+| `owner_team`                | `stg_hubspot__owner_team`                     | `hubspot_team_enabled` |
+| `role`                      | `stg_hubspot__role`                           | `hubspot_role_enabled` |
+| `team`                      | `stg_hubspot__team`                           | `hubspot_team_enabled` |
+| `team_user`                 | `stg_hubspot__team_user`                      | `hubspot_team_user_enabled` <br>  `hubspot_team_enabled` |
+| `user`                      | `stg_hubspot__user`                           | `hubspot_role_enabled` |
+
+- See [Step 4 of the README](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources) for more details on enabling/disabling sources.
+- Updated the `owner` source and `stg_hubspot__owner` staging model:
+  - Added the `active_user_id` column.
+  - Removed the requirement for `hubspot_sales_enabled` to be true since this logic now applies to multiple objects (e.g. tickets and deals) downstream.
+
+## Under the Hood
+- Added `get_*_columns` macros for each new source.
+
 # dbt_hubspot v0.22.0
 
 [PR #156](https://github.com/fivetran/dbt_hubspot/pull/156) includes the following updates:

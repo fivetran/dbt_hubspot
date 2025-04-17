@@ -1,11 +1,12 @@
 name: 'hubspot'
-version: '0.22.0'
+version: '0.23.0'
 
 config-version: 2
 require-dbt-version: [">=1.3.0", "<2.0.0"]
 vars:
   hubspot:
     contact: "{{ ref('stg_hubspot__contact') }}"
+    contact_form_submission: "{{ ref('stg_hubspot__contact_form_submission') }}"
     contact_merge_audit: "{{ ref('stg_hubspot__contact_merge_audit') }}"
     contact_list: "{{ ref('stg_hubspot__contact_list') }}"
     contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
@@ -19,7 +20,6 @@ vars:
     deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
     deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
     deal_property_history: "{{ ref('stg_hubspot__deal_property_history') }}"
-    owner: "{{ ref('stg_hubspot__owner') }}"
     email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
     email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
     email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
@@ -34,6 +34,7 @@ vars:
     email_event: "{{ ref('stg_hubspot__email_event') }}"
     engagement: "{{ ref('stg_hubspot__engagement') }}"
     engagement_call: "{{ ref('stg_hubspot__engagement_call') }}"
+    engagement_communication: "{{ ref('stg_hubspot__engagement_communication') }}"
     engagement_company: "{{ ref('stg_hubspot__engagement_company') }}"
     engagement_contact: "{{ ref('stg_hubspot__engagement_contact') }}"
     engagement_deal: "{{ ref('stg_hubspot__engagement_deal') }}"
@@ -43,7 +44,12 @@ vars:
     engagement_meeting: "{{ ref('stg_hubspot__engagement_meeting') }}"
     engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
-    
+    form: "{{ ref('stg_hubspot__form') }}"
+    owner: "{{ ref('stg_hubspot__owner') }}"
+    owner_team: "{{ ref('stg_hubspot__owner_team') }}"
+    role: "{{ ref('stg_hubspot__role') }}"
+    team: "{{ ref('stg_hubspot__team') }}"
+    team_user: "{{ ref('stg_hubspot__team_user') }}"
     ticket_company: "{{ ref('stg_hubspot__ticket_company') }}"
     ticket_contact: "{{ ref('stg_hubspot__ticket_contact') }}"
     ticket_deal: "{{ ref('stg_hubspot__ticket_deal') }}"
@@ -52,6 +58,7 @@ vars:
     ticket_pipeline_stage: "{{ ref('stg_hubspot__ticket_pipeline_stage') }}"
     ticket_property_history: "{{ ref('stg_hubspot__ticket_property_history') }}"
     ticket: "{{ ref('stg_hubspot__ticket') }}"
+    users: "{{ ref('stg_hubspot__users') }}"
     
     hubspot_contact_merge_audit_enabled: false
 models:
@@ -63,6 +70,9 @@ models:
         +materialized: ephemeral
         int_hubspot__contact_merge_adjust:
           +materialized: table
+        
     sales:
       intermediate:
         +materialized: ephemeral
+        int_hubspot__deals_enhanced:
+          +materialized: table

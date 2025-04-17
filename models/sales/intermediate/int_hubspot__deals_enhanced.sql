@@ -1,11 +1,13 @@
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{% set merged_deal_enabled = var('hubspot_merged_deal_enabled', false) %}
+{% set owner_enabled = var('hubspot_owner_enabled', true) %}
 
 with deals as (
 
     select *
     from {{ var('deal') }}
 
-{% if var('hubspot_merged_deal_enabled', false) %}
+{% if merged_deal_enabled %}
 ), merged_deals as (
 
     select *
@@ -30,11 +32,11 @@ with deals as (
     select *
     from {{ var('deal_pipeline_stage') }}
 
-{% if var('hubspot_owner_enabled', true) %}
-), owners as (
+{% if owner_enabled %}
+), owners_enhanced as (
 
     select *
-    from {{ var('owner') }}
+    from {{ ref('int_hubspot__owners_enhanced') }}
 {% endif %}
 
 ), deal_fields_joined as (
@@ -42,9 +44,7 @@ with deals as (
     select 
         deals.*,
 
-        {% if var('hubspot_merged_deal_enabled', false) %}
-        aggregate_merged_deals.merged_deal_ids,
-        {% endif %}
+        {{ 'aggregate_merged_deals.merged_deal_ids,' if merged_deal_enabled }}
 
         coalesce(pipelines.is_deal_pipeline_deleted, false) as is_deal_pipeline_deleted,
         pipelines.pipeline_label,
@@ -54,10 +54,7 @@ with deals as (
         pipelines.deal_pipeline_updated_at,
         pipeline_stages.pipeline_stage_label
 
-        {% if var('hubspot_owner_enabled', true) %}
-        , owners.email_address as owner_email_address
-        , owners.full_name as owner_full_name
-        {% endif %}
+        {{ "," ~ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id"], relation_alias="owners_enhanced") if owner_enabled }}
 
     from deals    
     left join pipelines 
@@ -65,12 +62,12 @@ with deals as (
     left join pipeline_stages 
         on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
 
-    {% if var('hubspot_owner_enabled', true) %}
-    left join owners 
-        on deals.owner_id = owners.owner_id
+    {% if owner_enabled %}
+    left join owners_enhanced
+        on deals.owner_id = owners_enhanced.owner_id
     {% endif %}
 
-    {% if var('hubspot_merged_deal_enabled', false) %}
+    {% if merged_deal_enabled %}
     left join aggregate_merged_deals
         on deals.deal_id = aggregate_merged_deals.deal_id
 
