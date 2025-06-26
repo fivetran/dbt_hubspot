@@ -1,6 +1,6 @@
 # dbt_hubspot v0.24.0
 
-[PR #158](https://github.com/fivetran/dbt_hubspot/pull/158) includes the following updates:
+[PR #159](https://github.com/fivetran/dbt_hubspot/pull/159) includes the following updates:
 
 ## Breaking Change for dbt Core < 1.9.6
 
