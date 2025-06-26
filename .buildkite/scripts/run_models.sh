@@ -18,6 +18,7 @@ cd integration_tests
 dbt deps
 if [ "$db" = "databricks-sql" ]; then
 dbt seed --vars '{hubspot_schema: hubspot_sqlw_tests_6}' --target "$db" --full-refresh
+dbt source freshness --vars '{hubspot_schema: hubspot_sqlw_tests_6}' --target "$db" || echo "...Only verifying freshness runs…"
 dbt compile --vars '{hubspot_schema: hubspot_sqlw_tests_6}' --target "$db"
 dbt run --vars '{hubspot_schema: hubspot_sqlw_tests_6}' --target "$db" --full-refresh
 dbt test --vars '{hubspot_schema: hubspot_sqlw_tests_6}' --target "$db"
@@ -25,6 +26,7 @@ dbt run --vars '{hubspot_schema: hubspot_sqlw_tests_6, hubspot_marketing_enabled
 dbt run --vars '{hubspot_schema: hubspot_sqlw_tests_6, hubspot_marketing_enabled: false, hubspot_sales_enabled: true, hubspot_merged_deal_enabled: true, hubspot__pass_through_all_columns: true, hubspot_using_all_email_events: false, hubspot_owner_enabled: false}' --target "$db"
 else
 dbt seed --target "$db" --full-refresh
+dbt source freshness --target "$db" || echo "...Only verifying freshness runs…"
 dbt compile --target "$db" --select hubspot # source does not compile at this time
 dbt run --target "$db" --full-refresh
 dbt test --target "$db"
