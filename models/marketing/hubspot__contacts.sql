@@ -74,9 +74,9 @@ with contacts as (
 
     select 
         {{ cte_ref }}.*,
-        {% for first_or_last in ['first_conversion', 'most_recent_conversion']%}
+        {% for first_or_last in ['first_conversion', 'most_recent_conversion'] %}
             {% for metric in ['form_id', 'date', 'form_name', 'form_type'] %}
-                conversions.{{first_or_last}}_{{ metric }},
+                conversions.{{ first_or_last }}_{{ metric }} as calculated_{{ first_or_last }}_{{ metric }},
             {% endfor %}
         {% endfor %}
         conversions.total_form_submissions,
