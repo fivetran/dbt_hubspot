@@ -1,3 +1,24 @@
+# dbt_hubspot v0.25.0
+
+[PR #160](https://github.com/fivetran/dbt_hubspot/pull/160) includes the following updates:
+
+## Schema Changes
+**8 total changes • 8 possible breaking changes**
+| **Model** | **Change type** | **Old name** | **New name** | **Notes** |
+|-----------|----------------|--------------|--------------|---------|
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `first_conversion_form_id` | `calculated_first_conversion_form_id` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `first_conversion_date` | `calculated_first_conversion_date` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `first_conversion_form_name` | `calculated_first_conversion_form_name` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `first_conversion_form_type` | `calculated_first_conversion_form_type` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `most_recent_conversion_form_id` | `calculated_most_recent_conversion_form_id` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `most_recent_conversion_date` | `calculated_most_recent_conversion_date` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `most_recent_conversion_form_name` | `calculated_most_recent_conversion_form_name` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Column Renamed | `most_recent_conversion_form_type` | `calculated_most_recent_conversion_form_type` | Column renamed to avoid conflicts when passthrough columns are enabled. |
+
+## Under the Hood
+- Minor change to the `consistency_tickets` validation test to ensure it's only run when the service variable is enabled.
+- Updated `contact_data` seed file to confirm duplicate column potential issue is addressed.
+
 # dbt_hubspot v0.24.0
 
 [PR #159](https://github.com/fivetran/dbt_hubspot/pull/159) includes the following updates:

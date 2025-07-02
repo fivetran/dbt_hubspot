@@ -79,7 +79,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.24.0", "<0.25.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.25.0", "<0.26.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 

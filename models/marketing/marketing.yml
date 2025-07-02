@@ -233,22 +233,22 @@ models:
           List of mappings representing contact IDs that have been merged into the contact at hand.
           Format: <merged_contact_id>:<merged_at_in_epoch_time>;<second_merged_contact_id>:<merged_at_in_epoch_time>
           This field has replaced the `CONTACT_MERGE_AUDIT` table, which was deprecated by the Hubspot v3 CRM API.
-      - name: first_conversion_form_id
-        description: ID of the form associated with the contact's first conversion.
-      - name: first_conversion_date
-        description: Timestamp of the contact's first form submission.
-      - name: first_conversion_form_name
-        description: Name of the form submitted during the contact's first conversion.
-      - name: first_conversion_form_type
-        description: Type of form submitted during the contact's first conversion (e.g., regular, pop-up).
-      - name: most_recent_conversion_form_id
-        description: ID of the form associated with the contact's most recent conversion.
-      - name: most_recent_conversion_date
-        description: Timestamp of the contact's most recent form submission.
-      - name: most_recent_conversion_form_name
-        description: Name of the form submitted during the contact's most recent conversion.
-      - name: most_recent_conversion_form_type
-        description: Type of form submitted during the contact's most recent conversion (e.g., regular, pop-up).
+      - name: calculated_first_conversion_form_id
+        description: ID of the form associated with the contact's first conversion, calculated by this package.
+      - name: calculated_first_conversion_date
+        description: Timestamp of the contact's first form submission, calculated by this package.
+      - name: calculated_first_conversion_form_name
+        description: Name of the form submitted during the contact's first conversion, calculated by this package.
+      - name: calculated_first_conversion_form_type
+        description: Type of form submitted during the contact's first conversion (e.g., regular, pop-up), calculated by this package.
+      - name: calculated_most_recent_conversion_form_id
+        description: ID of the form associated with the contact's most recent conversion, calculated by this package.
+      - name: calculated_most_recent_conversion_date
+        description: Timestamp of the contact's most recent form submission, calculated by this package.
+      - name: calculated_most_recent_conversion_form_name
+        description: Name of the form submitted during the contact's most recent conversion, calculated by this package.
+      - name: calculated_most_recent_conversion_form_type
+        description: Type of form submitted during the contact's most recent conversion (e.g., regular, pop-up), calculated by this package.
       - name: total_form_submissions
         description: Total number of form submissions made by the contact.
       - name: total_unique_form_submissions
