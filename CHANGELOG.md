@@ -3,7 +3,7 @@
 [PR #160](https://github.com/fivetran/dbt_hubspot/pull/160) includes the following updates:
 
 ## Breaking Changes
-- Renamed conversion columns in `hubspot__contacts` to avoid conflicts when passthrough columns are enabled.
+- Renamed `*_conversion_*` columns in `hubspot__contacts` to avoid conflicts when passthrough columns are enabled.
 
 ## Schema Changes
 **8 total changes • 8 possible breaking changes**
