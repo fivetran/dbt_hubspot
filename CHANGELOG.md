@@ -14,6 +14,7 @@
 - Updated the `deal_pipeline_stage_data` seed to include the `is_closed` column.
 - Introduced the generate-docs github workflow for consistent docs generation.
 - Updated the maintainer pull request template.
+- Added the `consistency_deal_stages` validation test to verify accuracy of the `hubspot__deal_stages` model on subsequent releases.
 
 # dbt_hubspot v0.25.0
 
