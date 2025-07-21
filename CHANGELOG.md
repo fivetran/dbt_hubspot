@@ -16,6 +16,16 @@
 - Updated the maintainer pull request template.
 - Added the `consistency_deal_stages` validation test to verify accuracy of the `hubspot__deal_stages` model on subsequent releases.
 
+[PR #162](https://github.com/fivetran/dbt_hubspot/pull/162) includes the following updates:
+
+### Under the Hood - July 2025 Updates
+- Updated conditions in `.github/workflows/auto-release.yml`.
+- Added `.github/workflows/generate-docs.yml`.
+- Added `+docs: show: False` to `integration_tests/dbt_project.yml`.
+- Migrated `flags` (e.g., `send_anonymous_usage_stats`, `use_colors`) from `sample.profiles.yml` to `integration_tests/dbt_project.yml`.
+- Updated `maintainer_pull_request_template.md` with improved checklist.
+- Updated `.gitignore` to exclude additional DBT, Python, and system artifacts.
+
 # dbt_hubspot v0.25.0
 
 [PR #160](https://github.com/fivetran/dbt_hubspot/pull/160) includes the following updates:
