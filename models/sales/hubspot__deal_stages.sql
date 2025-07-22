@@ -42,7 +42,7 @@ with deals_enhanced as (
         deal_stage.source_id,
         pipeline_stage.is_active as is_pipeline_stage_active,
         pipeline.is_active as is_pipeline_active,
-        pipeline_stage.is_closed_won as is_pipeline_stage_closed_won,
+        pipeline_stage.is_closed as is_pipeline_stage_closed,
         pipeline_stage.display_order as pipeline_stage_display_order,
         pipeline.display_order as pipeline_display_order,
         pipeline_stage.probability as pipeline_stage_probability,
