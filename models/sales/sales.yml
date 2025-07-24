@@ -127,8 +127,8 @@ models:
         description: The relevant source of the deal stage.
       - name: source_id
         description: Reference to the source.
-      - name: is_pipeline_stage_closed_won
-        description: Whether the stage represents a Closed Won deal.
+      - name: is_pipeline_stage_closed
+        description: Boolean indicating if the pipeline stage is closed. For the state of the closed deal, refer to the pipeline_stage_label column.
       - name: pipeline_stage_display_order
         description: Used to determine the order in which the stages appear when viewed in HubSpot.
       - name: pipeline_display_order
