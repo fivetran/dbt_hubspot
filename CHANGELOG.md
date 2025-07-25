@@ -14,6 +14,7 @@ This release includes the following updates.
 - Removed integer casting for `hs_pipeline` and `hs_pipeline_stage` in `hubspot__daily_ticket_history`, as `ticket_pipeline_id` and `ticket_pipeline_stage_id` are now strings from the schema changes above. [PR #165](https://github.com/fivetran/dbt_hubspot/pull/165)
 
 ## Under the Hood
+- Updated seed files to validate that the new identifiers compile as expected in both the source and transform packages. [PR #165](https://github.com/fivetran/dbt_hubspot/pull/165)
 - Documented the column updates and deprecations in the respective yml files. [PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)
 - Updated the `deal_pipeline_stage_data` seed to include the `is_closed` column. [PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)
 - Introduced the generate-docs github workflow for consistent docs generation. [PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)
