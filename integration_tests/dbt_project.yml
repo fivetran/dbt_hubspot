@@ -10,7 +10,7 @@ models:
 
 vars:
   ## Enable when generating docs
-  hubspot_service_enabled: true
+  # hubspot_service_enabled: true
   # hubspot_deal_enabled: true
   # hubspot_contact_enabled: true
   # hubspot_sales_enabled: true
@@ -24,7 +24,7 @@ vars:
   # hubspot_role_enabled: true
   # hubspot_team_enabled: true
 
-  hubspot_schema: zz_dbt_avinash_seed
+  hubspot_schema: hubspot_integration_tests_63
 
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
