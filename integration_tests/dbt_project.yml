@@ -89,6 +89,8 @@ vars:
   hubspot_merged_deal_identifier: "merged_deal_data"
 
 seeds:
+  +docs:
+    show: False
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     contact_merge_audit_data:
@@ -275,3 +277,5 @@ dispatch:
 
 flags:
   send_anonymous_usage_stats: False
+
+  use_colors: True
