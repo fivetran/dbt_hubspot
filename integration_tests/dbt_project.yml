@@ -24,7 +24,7 @@ vars:
   # hubspot_role_enabled: true
   # hubspot_team_enabled: true
 
-  hubspot_schema: hubspot_integration_tests_63
+  hubspot_schema: hubspot_integration_tests_64
 
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
@@ -271,7 +271,7 @@ seeds:
       +column_types:
         stage_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        
+
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']
