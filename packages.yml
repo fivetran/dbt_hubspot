@@ -2,6 +2,6 @@ packages:
 # - package: fivetran/hubspot_source
 #   version: [">=0.21.0", "<0.22.0"]
 
-  - git: https://github.com/fivetran/dbt_hubspot_source.git
-    revision: bugfix/ticket-pipeline-id-casting
-    warn-unpinned: false 
+- git: https://github.com/fivetran/dbt_hubspot_source.git
+  revision: bugfix/ticket-pipeline-id-casting
+  warn-unpinned: false 

@@ -1,3 +1,2 @@
 packages:
-  - package: fivetran/hubspot
-    version: '>=0.0.0'
+  - local: ../
