@@ -52,7 +52,7 @@ integration_tests:
       catalog: "{{ env_var('CI_DATABRICKS_DBT_CATALOG') }}"
       host: "{{ env_var('CI_DATABRICKS_DBT_HOST') }}"
       http_path: "{{ env_var('CI_DATABRICKS_SQL_DBT_HTTP_PATH') }}"
-      schema: hubspot_sqlw_tests_7
+      schema: hubspot_sqlw_tests_6
       threads: 8
       token: "{{ env_var('CI_DATABRICKS_SQL_DBT_TOKEN') }}"
       type: databricks
