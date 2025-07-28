@@ -264,6 +264,10 @@ seeds:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    ticket_data:
+      +column_types:
+        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     ticket_pipeline_data:
       +column_types:
         pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
