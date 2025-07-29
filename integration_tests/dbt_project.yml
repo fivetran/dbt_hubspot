@@ -10,21 +10,21 @@ models:
 
 vars:
   ## Enable when generating docs
-  # hubspot_service_enabled: true
-  # hubspot_deal_enabled: true
-  # hubspot_contact_enabled: true
-  # hubspot_sales_enabled: true
-  # hubspot_company_enabled: true
-  # hubspot_marketing_enabled: true
-  # hubspot_contact_merge_audit_enabled: true
-  # hubspot_using_all_email_events: true
-  # hubspot_merged_deal_enabled: true  
-  # hubspot_ticket_deal_enabled: true
-  # hubspot_engagement_communication_enabled: true
-  # hubspot_role_enabled: true
-  # hubspot_team_enabled: true
+  # hubspot_service_enabled: true # @docs-include
+  # hubspot_deal_enabled: true # @docs-include
+  # hubspot_contact_enabled: true # @docs-include
+  # hubspot_sales_enabled: true # @docs-include
+  # hubspot_company_enabled: true # @docs-include
+  # hubspot_marketing_enabled: true # @docs-include
+  # hubspot_contact_merge_audit_enabled: true # @docs-include
+  # hubspot_using_all_email_events: true # @docs-include
+  # hubspot_merged_deal_enabled: true # @docs-include
+  # hubspot_ticket_deal_enabled: true # @docs-include
+  # hubspot_engagement_communication_enabled: true # @docs-include
+  # hubspot_role_enabled: true # @docs-include
+  # hubspot_team_enabled: true # @docs-include
 
-  hubspot_schema: hubspot_integration_tests_64
+  hubspot_schema: hubspot_integration_tests_65
 
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
