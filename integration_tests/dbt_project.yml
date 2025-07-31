@@ -1,30 +1,30 @@
 name: 'hubspot_integration_tests'
-version: '0.25.0'
+version: '0.26.0'
 
 profile: 'integration_tests'
 config-version: 2
 
 models:
-  +schema: "{{ 'hubspot_sqlw_tests_7' if target.name == 'databricks-sql' else 'hubspot' }}"
+  +schema: "{{ 'hubspot_sqlw_tests_6' if target.name == 'databricks-sql' else 'hubspot' }}"
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
   ## Enable when generating docs
-  # hubspot_service_enabled: true
-  # hubspot_deal_enabled: true
-  # hubspot_contact_enabled: true
-  # hubspot_sales_enabled: true
-  # hubspot_company_enabled: true
-  # hubspot_marketing_enabled: true
-  # hubspot_contact_merge_audit_enabled: true
-  # hubspot_using_all_email_events: true
-  # hubspot_merged_deal_enabled: true  
-  # hubspot_ticket_deal_enabled: true
-  # hubspot_engagement_communication_enabled: true
-  # hubspot_role_enabled: true
-  # hubspot_team_enabled: true
+  # hubspot_service_enabled: true # @docs-include
+  # hubspot_deal_enabled: true # @docs-include
+  # hubspot_contact_enabled: true # @docs-include
+  # hubspot_sales_enabled: true # @docs-include
+  # hubspot_company_enabled: true # @docs-include
+  # hubspot_marketing_enabled: true # @docs-include
+  # hubspot_contact_merge_audit_enabled: true # @docs-include
+  # hubspot_using_all_email_events: true # @docs-include
+  # hubspot_merged_deal_enabled: true # @docs-include
+  # hubspot_ticket_deal_enabled: true # @docs-include
+  # hubspot_engagement_communication_enabled: true # @docs-include
+  # hubspot_role_enabled: true # @docs-include
+  # hubspot_team_enabled: true # @docs-include
 
-  hubspot_schema: hubspot_integration_tests_63
+  hubspot_schema: hubspot_integration_tests_66
 
   # hubspot__pass_through_all_columns: true
   # hubspot__company_pass_through_columns:
@@ -89,6 +89,8 @@ vars:
   hubspot_merged_deal_identifier: "merged_deal_data"
 
 seeds:
+  +docs:
+    show: False
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
     contact_merge_audit_data:
@@ -262,9 +264,23 @@ seeds:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    ticket_data:
+      +column_types:
+        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    ticket_pipeline_data:
+      +column_types:
+        pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    ticket_pipeline_stage_data:
+      +column_types:
+        stage_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']
 
 flags:
   send_anonymous_usage_stats: False
+
+  use_colors: True

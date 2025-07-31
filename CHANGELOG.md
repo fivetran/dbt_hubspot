@@ -1,3 +1,32 @@
+# dbt_hubspot v0.26.0
+This release includes the following updates.
+
+## Schema Changes 
+**6 total changes • 6 possible breaking changes**
+| **Data Model/Column** | **Change type** | **Old** | **New** | **Notes** |
+|-----------|----------------|--------------|--------------|---------|
+| [`hubspot__deal_stages`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages) | Column Renamed | `is_pipeline_stage_closed_won` | `is_pipeline_stage_closed` | Column renamed to more accurately match the source data. The column is generated via a coalesce between the previous `closed_won` source column and the newly added `is_closed` column. This renamed column represents whether a deal is closed, regardless of its label as “Closed Won” or “Closed Lost.” You can still use the `pipeline_stage_label` column to differentiate between "Closed Won" and "Closed Lost" stages. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)) |
+| [`hubspot__tickets`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)<br> - `ticket_pipeline_id` <br> - `ticket_pipeline_stage_id` | Column datatype |  `int` or `string` | `string`  | Explicitly cast ticket pipeline identifiers to string format to prevent datatype errors in compilation. (Upstream changes from [source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
+| [`stg_hubspot__deal_pipeline_stage`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot_source.stg_hubspot__deal_pipeline_stage) | Column Renamed | `is_closed_won` | `is_closed` | Column renamed to more accurately match the source data. The renamed `is_closed` column is generated via a coalesce between the previous `closed_won` source column and the newly added `is_closed` column. This renamed column represents whether a deal is closed, regardless of its label as “Closed Won” or “Closed Lost.” You can still use the `pipeline_stage_label` column to differentiate between "Closed Won" and "Closed Lost" stages. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)) |
+| [`stg_hubspot__ticket`](https://fivetran.github.io/dbt_hubspot_source/#!/model/model.hubspot_source.stg_hubspot__ticket)<br> - `ticket_pipeline_id` <br> - `ticket_pipeline_stage_id` | Column datatype | `int` or `string` | `string` | Explicitly cast ticket pipeline identifiers to string format to prevent datatype errors in compilation. ([Source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
+| [`stg_hubspot__ticket_pipeline`](https://fivetran.github.io/dbt_hubspot_source/#!/model/model.hubspot_source.stg_hubspot__ticket_pipeline)<br> - `ticket_pipeline_id`  | Column datatype | `int` | `string` | Changed cast of ticket pipeline identifier to the original string format to prevent datatype errors in compilation. ([Source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
+| [`stg_hubspot__ticket_pipeline_stage`](https://fivetran.github.io/dbt_hubspot_source/#!/model/model.hubspot_source.stg_hubspot__ticket_pipeline_stage)<br>- `ticket_pipeline_id` <br> - `ticket_pipeline_stage_id` <br> | Column datatype |  `int`  | `string`  | Changed cast of ticket pipeline identifiers to their original string format to prevent datatype errors in compilation. ([Source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
+
+## Bug Fixes
+- Removed integer casting for `hs_pipeline` and `hs_pipeline_stage` in `hubspot__daily_ticket_history`, as `ticket_pipeline_id` and `ticket_pipeline_stage_id` are now strings from the schema changes above. ([PR #165](https://github.com/fivetran/dbt_hubspot/pull/165))
+
+## Under the Hood
+- Updated seed files to validate that the new identifiers compile as expected in both the source and transform packages. ([PR #165](https://github.com/fivetran/dbt_hubspot/pull/165))
+- Documented the column updates and deprecations in the respective yml files. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161))
+- Updated the `deal_pipeline_stage_data` seed to include the `is_closed` column. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161))
+- Introduced the generate-docs github workflow for consistent docs generation. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161))
+- Added the `consistency_deal_stages` validation test to verify accuracy of the `hubspot__deal_stages` model on subsequent releases. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161))
+- Updated conditions in `.github/workflows/auto-release.yml`. ([PR #162](https://github.com/fivetran/dbt_hubspot/pull/162))
+- Added `+docs: show: False` to `integration_tests/dbt_project.yml`. ([PR #162](https://github.com/fivetran/dbt_hubspot/pull/162))
+- Migrated `flags` (e.g., `send_anonymous_usage_stats`, `use_colors`) from `sample.profiles.yml` to `integration_tests/dbt_project.yml`. ([PR #162](https://github.com/fivetran/dbt_hubspot/pull/162))
+- Updated `maintainer_pull_request_template.md` with improved checklist. ([PR #162](https://github.com/fivetran/dbt_hubspot/pull/162))
+- Updated `.gitignore` to exclude additional DBT, Python, and system artifacts. ([PR #162](https://github.com/fivetran/dbt_hubspot/pull/162))
+
 # dbt_hubspot v0.25.0
 
 [PR #160](https://github.com/fivetran/dbt_hubspot/pull/160) includes the following updates:

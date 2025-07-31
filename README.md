@@ -5,7 +5,7 @@
         href="https://github.com/fivetran/dbt_hubspot/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" /></a>
     <a alt="dbt-core">
-        <img src="https://img.shields.io/badge/dbt_Core™_version->=1.3.0_,<2.0.0-orange.svg" /></a> 
+        <img src="https://img.shields.io/badge/dbt_Core™_version->=1.3.0_,<2.0.0-orange.svg" /></a>
     <a alt="Maintained?">
         <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /></a>
     <a alt="PRs">
@@ -79,7 +79,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.25.0", "<0.26.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=0.26.0", "<0.27.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
 
@@ -334,7 +334,7 @@ This dbt package is dependent on the following dbt packages. These dependencies 
 ```yml
 packages:
     - package: fivetran/hubspot_source
-      version: [">=0.20.0", "<0.21.0"]
+      version: [">=0.21.0", "<0.22.0"]
 
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
