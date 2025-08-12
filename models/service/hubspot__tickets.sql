@@ -3,28 +3,28 @@
 with ticket as (
 
     select *
-    from {{ var('ticket') }}
+    from {{ ref('stg_hubspot__ticket') }}
 
 ), ticket_pipeline as (
 
     select *
-    from {{ var('ticket_pipeline') }}
+    from {{ ref('stg_hubspot__ticket_pipeline') }}
 
 ), ticket_pipeline_stage as (
 
     select *
-    from {{ var('ticket_pipeline_stage') }}
+    from {{ ref('stg_hubspot__ticket_pipeline_stage') }}
 
 {% if var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_ticket_deal_enabled', false) %}
 ), ticket_deal as (
 
     select *
-    from {{ var('ticket_deal') }}
+    from {{ ref('stg_hubspot__ticket_deal') }}
 
 ), deal as (
 
     select *
-    from {{ var('deal') }}
+    from {{ ref('stg_hubspot__deal') }}
 
 ), join_deals as (
     
@@ -53,12 +53,12 @@ with ticket as (
 ), ticket_company as (
 
     select *
-    from {{ var('ticket_company') }}
+    from {{ ref('stg_hubspot__ticket_company') }}
 
 ), company as (
 
     select *
-    from {{ var('company') }}
+    from {{ ref('stg_hubspot__company') }}
 
 ), join_companies as (
     
@@ -87,12 +87,12 @@ with ticket as (
 ), ticket_contact as (
 
     select *
-    from {{ var('ticket_contact') }}
+    from {{ ref('stg_hubspot__ticket_contact') }}
 
 ), contact as (
 
     select *
-    from {{ var('contact') }}
+    from {{ ref('stg_hubspot__contact') }}
 
 ), join_contacts as (
     
@@ -134,7 +134,7 @@ with ticket as (
 ), ticket_engagement as (
 
     select *
-    from {{ var('ticket_engagement') }}
+    from {{ ref('stg_hubspot__ticket_engagement') }}
 
 ), join_engagements as (
 

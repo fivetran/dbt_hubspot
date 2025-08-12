@@ -79,9 +79,9 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=0.26.0", "<0.27.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.0.0", "<1.1.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
-Do **NOT** include the `hubspot_source` package in this file. The transformation package itself has a dependency on it and will install the source package as well.
+> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
 
 #### Databricks dispatch configuration
 If you are using a Databricks destination with this package, you must add the following (or a variation of the following) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
@@ -305,9 +305,9 @@ By default this package will build the HubSpot staging models within a schema ti
 ```yml
 models:
     hubspot:
-      +schema: my_new_schema_name # leave blank for just the target_schema
-    hubspot_source:
-      +schema: my_new_schema_name # leave blank for just the target_schema
+      +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
+      staging:
+        +schema: my_new_schema_name # Leave +schema: blank to use the default target_schema.
 ```
 
 #### Change the source table references
@@ -333,9 +333,6 @@ This dbt package is dependent on the following dbt packages. These dependencies 
 
 ```yml
 packages:
-    - package: fivetran/hubspot_source
-      version: [">=0.21.0", "<0.22.0"]
-
     - package: fivetran/fivetran_utils
       version: [">=0.4.0", "<0.5.0"]
 

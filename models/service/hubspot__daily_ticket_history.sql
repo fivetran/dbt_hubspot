@@ -44,12 +44,12 @@ with change_data as (
 ), pipeline as (
 
     select *
-    from {{ var('ticket_pipeline')}}
+    from {{ ref('stg_hubspot__ticket_pipeline') }}
 
 ), pipeline_stage as (
 
     select *
-    from {{ var('ticket_pipeline_stage')}}
+    from {{ ref('stg_hubspot__ticket_pipeline_stage') }}
 
 ), joined as (
 

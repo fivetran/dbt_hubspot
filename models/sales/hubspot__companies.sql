@@ -3,7 +3,7 @@
 with companies as (
 
     select *
-    from {{ var('company') }}
+    from {{ ref('stg_hubspot__company') }}
 
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_company_enabled']) %}
 
@@ -15,7 +15,7 @@ with companies as (
 ), engagement_companies as (
 
     select *
-    from {{ var('engagement_company') }}
+    from {{ ref('stg_hubspot__engagement_company') }}
 
 ), engagement_companies_joined as (
 

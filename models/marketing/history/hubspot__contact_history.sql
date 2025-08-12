@@ -3,7 +3,7 @@
 with history as (
 
     select *
-    from {{ var('contact_property_history') }}
+    from {{ ref('stg_hubspot__contact_property_history') }}
 
 ), windows as (
 

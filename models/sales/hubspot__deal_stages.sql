@@ -8,17 +8,17 @@ with deals_enhanced as (
 ), deal_stage as (
 
     select *
-    from {{ var('deal_stage') }}
+    from {{ ref('stg_hubspot__deal_stage') }}
 
 ), pipeline_stage as (
 
     select *
-    from {{ var('deal_pipeline_stage') }}
+    from {{ ref('stg_hubspot__deal_pipeline_stage') }}
 
 ), pipeline as (
 
     select *
-    from {{ var('deal_pipeline') }}
+    from {{ ref('stg_hubspot__deal_pipeline') }}
 
 ), final as (
 

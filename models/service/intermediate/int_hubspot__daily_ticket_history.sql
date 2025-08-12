@@ -13,7 +13,7 @@
 with history as (
 
     select *
-    from {{ var('ticket_property_history') }}
+    from {{ ref('stg_hubspot__ticket_property_history') }}
 
     -- should we include an option pivot out ALL properties? in the same vein as our passthrough-all-columns var
     where lower(field_name) in 

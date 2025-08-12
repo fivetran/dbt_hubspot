@@ -3,14 +3,14 @@
 with engagements as (
 
     select *
-    from {{ var('engagement') }}
+    from {{ ref('stg_hubspot__engagement') }}
 
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %}
 
 ), contacts as (
 
     select *
-    from {{ var('engagement_contact') }}
+    from {{ ref('stg_hubspot__engagement_contact') }}
 
 ), contacts_agg as (
 
@@ -27,7 +27,7 @@ with engagements as (
 ), deals as (
 
     select *
-    from {{ var('engagement_deal') }}
+    from {{ ref('stg_hubspot__engagement_deal') }}
  
 ), deals_agg as (
 
@@ -44,7 +44,7 @@ with engagements as (
 ), companies as (
 
     select *
-    from {{ var('engagement_company') }}
+    from {{ ref('stg_hubspot__engagement_company') }}
 
 ), companies_agg as (
 

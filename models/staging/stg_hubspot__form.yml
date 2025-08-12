@@ -1,0 +1,38 @@
+version: 2
+
+models:
+
+  - name: stg_hubspot__form
+    description: Each record represents a form created in HubSpot, including metadata about its configuration and behavior.
+    columns:
+      - name: form_id
+        description: Unique identifier for the form.
+        tests:
+          - unique
+          - not_null
+      - name: action
+        description: The form action type or endpoint triggered upon submission.
+      - name: created_at
+        description: Timestamp when the form was created.
+      - name: css_class
+        description: CSS class applied to the form for styling purposes.
+      - name: follow_up_id
+        description: ID of the follow-up action or workflow triggered by the form.
+      - name: form_type
+        description: Category of the form, such as regular, pop-up, or embedded form.
+      - name: lead_nurturing_campaign_id
+        description: ID of the associated lead nurturing campaign, if applicable.
+      - name: method
+        description: HTTP method used for form submission (typically POST).
+      - name: form_name
+        description: Name of the form as defined in HubSpot.
+      - name: notify_recipients
+        description: List of email addresses that receive notifications on form submissions.
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+      - name: redirect
+        description: URL users are redirected to after submitting the form.
+      - name: submit_text
+        description: Text displayed on the form's submit button.
+      - name: updated_at
+        description: Timestamp when the form was last updated.

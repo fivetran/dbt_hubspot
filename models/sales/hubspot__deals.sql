@@ -16,7 +16,7 @@ with deals_enhanced as (
 ), engagement_deals as (
 
     select *
-    from {{ var('engagement_deal') }}
+    from {{ ref('stg_hubspot__engagement_deal') }}
 
 ), engagement_deal_joined as (
 

@@ -3,7 +3,7 @@
 with events as (
 
     select *
-    from {{ var('email_event') }}
+    from {{ ref('stg_hubspot__email_event') }}
 
 ), aggregates as (
 
