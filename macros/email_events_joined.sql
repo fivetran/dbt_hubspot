@@ -8,7 +8,7 @@ with base as (
 ), events as (
 
     select *
-    from {{ var('email_event') }}
+    from {{ ref('stg_hubspot__email_event') }}
 
 {% if var('hubspot_contact_enabled', true) %}
 ), contacts as (

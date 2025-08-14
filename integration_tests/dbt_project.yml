@@ -236,6 +236,8 @@ seeds:
         property_closed_date: timestamp
         property_createdate: timestamp
         change_source_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
+        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     ticket_property_history_data:
       +column_types:
         timestamp_instant: timestamp
@@ -265,10 +267,6 @@ seeds:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    ticket_data:
-      +column_types:
-        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     ticket_pipeline_data:
       +column_types:
         pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
