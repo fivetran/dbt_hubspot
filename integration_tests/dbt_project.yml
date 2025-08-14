@@ -9,84 +9,85 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
-  ## Enable when generating docs
-  # hubspot_service_enabled: true # @docs-include
-  # hubspot_deal_enabled: true # @docs-include
-  # hubspot_contact_enabled: true # @docs-include
-  # hubspot_sales_enabled: true # @docs-include
-  # hubspot_company_enabled: true # @docs-include
-  # hubspot_marketing_enabled: true # @docs-include
-  # hubspot_contact_merge_audit_enabled: true # @docs-include
-  # hubspot_using_all_email_events: true # @docs-include
-  # hubspot_merged_deal_enabled: true # @docs-include
-  # hubspot_ticket_deal_enabled: true # @docs-include
-  # hubspot_engagement_communication_enabled: true # @docs-include
-  # hubspot_role_enabled: true # @docs-include
-  # hubspot_team_enabled: true # @docs-include
+  hubspot:
+    ## Enable when generating docs
+    # hubspot_service_enabled: true # @docs-include
+    # hubspot_deal_enabled: true # @docs-include
+    # hubspot_contact_enabled: true # @docs-include
+    # hubspot_sales_enabled: true # @docs-include
+    # hubspot_company_enabled: true # @docs-include
+    # hubspot_marketing_enabled: true # @docs-include
+    # hubspot_contact_merge_audit_enabled: true # @docs-include
+    # hubspot_using_all_email_events: true # @docs-include
+    # hubspot_merged_deal_enabled: true # @docs-include
+    # hubspot_ticket_deal_enabled: true # @docs-include
+    # hubspot_engagement_communication_enabled: true # @docs-include
+    # hubspot_role_enabled: true # @docs-include
+    # hubspot_team_enabled: true # @docs-include
 
-  hubspot_schema: hubspot_integration_tests_66
+    hubspot_schema: hubspot_integration_tests_66
 
-  # hubspot__pass_through_all_columns: true
-  # hubspot__company_pass_through_columns:
-    # - name: "property_hs_all-funky-a9384-syntax"
-    #   alias: "funky_field"
+    # hubspot__pass_through_all_columns: true
+    # hubspot__company_pass_through_columns:
+      # - name: "property_hs_all-funky-a9384-syntax"
+      #   alias: "funky_field"
 
-  hubspot_company_property_history_identifier: "company_property_history_data"
-  hubspot_company_identifier: "company_data"
-  hubspot_contact_form_submission_identifier: "contact_form_submission_data"
-  hubspot_contact_identifier: "contact_data"
-  hubspot_contact_merge_audit_identifier: "contact_merge_audit_data"
-  hubspot_contact_list_member_identifier: "contact_list_member_data"
-  hubspot_contact_property_history_identifier: "contact_property_history_data"
-  hubspot_deal_identifier: "deal_data"
-  hubspot_deal_stage_identifier: "deal_stage_data"
-  hubspot_deal_company_identifier: "deal_company_data"
-  hubspot_deal_contact_identifier: "deal_contact_data"
-  hubspot_deal_pipeline_identifier: "deal_pipeline_data"
-  hubspot_deal_pipeline_stage_identifier: "deal_pipeline_stage_data"
-  hubspot_deal_property_history_identifier: "deal_property_history_data"
-  hubspot_email_campaign_identifier: "email_campaign_data"
-  hubspot_email_event_identifier: "email_event_data"
-  hubspot_email_event_bounce_identifier: "email_event_bounce_data"
-  hubspot_email_event_click_identifier: "email_event_click_data"
-  hubspot_email_event_deferred_identifier: "email_event_deferred_data"
-  hubspot_email_event_delivered_identifier: "email_event_delivered_data"
-  hubspot_email_event_forward_identifier: "email_event_forward_data"
-  hubspot_email_event_open_identifier: "email_event_open_data"
-  hubspot_email_event_print_identifier: "email_event_print_data"
-  hubspot_email_event_spam_report_identifier: "email_event_spam_report_data"
-  hubspot_email_event_status_change_identifier: "email_event_status_change_data"
-  hubspot_engagement_identifier: "engagement_data"
-  hubspot_engagement_call_identifier: "engagement_call_data"
-  hubspot_engagement_communication_identifier: "engagement_communication_data"
-  hubspot_engagement_company_identifier: "engagement_company_data"
-  hubspot_engagement_contact_identifier: "engagement_contact_data"
-  hubspot_engagement_deal_identifier: "engagement_deal_data"
-  hubspot_engagement_email_identifier: "engagement_email_data"
-  hubspot_engagement_meeting_identifier: "engagement_meeting_data"
-  hubspot_engagement_note_identifier: "engagement_note_data"
-  hubspot_engagement_task_identifier: "engagement_task_data"
-  hubspot_form_identifier: "form_data"
-  hubspot_owner_identifier: "owner_data"
-  hubspot_owner_team_identifier: "owner_team_data"
-  hubspot_property_identifier: "property_data"
-  hubspot_property_option_identifier: "property_option_data"
-  hubspot_role_identifier: "role_data"
-  hubspot_team_identifier: "team_data"
-  hubspot_team_user_identifier: "team_user_data"
-  hubspot_ticket_company_identifier: "ticket_company_data"
-  hubspot_ticket_contact_identifier: "ticket_contact_data"
-  hubspot_ticket_deal_identifier: "ticket_deal_data"
-  hubspot_ticket_engagement_identifier: "ticket_engagement_data"
-  hubspot_ticket_pipeline_identifier: "ticket_pipeline_data"
-  hubspot_ticket_pipeline_stage_identifier: "ticket_pipeline_stage_data"
-  hubspot_ticket_property_history_identifier: "ticket_property_history_data"
-  hubspot_ticket_identifier: "ticket_data"
-  hubspot_users_identifier: "users_data"
-  hubspot_contact_list_identifier: "contact_list_data"
-  hubspot_email_event_sent_identifier: "email_event_sent_data"
-  hubspot_email_event_dropped_identifier: "email_event_dropped_data"
-  hubspot_merged_deal_identifier: "merged_deal_data"
+    hubspot_company_property_history_identifier: "company_property_history_data"
+    hubspot_company_identifier: "company_data"
+    hubspot_contact_form_submission_identifier: "contact_form_submission_data"
+    hubspot_contact_identifier: "contact_data"
+    hubspot_contact_merge_audit_identifier: "contact_merge_audit_data"
+    hubspot_contact_list_member_identifier: "contact_list_member_data"
+    hubspot_contact_property_history_identifier: "contact_property_history_data"
+    hubspot_deal_identifier: "deal_data"
+    hubspot_deal_stage_identifier: "deal_stage_data"
+    hubspot_deal_company_identifier: "deal_company_data"
+    hubspot_deal_contact_identifier: "deal_contact_data"
+    hubspot_deal_pipeline_identifier: "deal_pipeline_data"
+    hubspot_deal_pipeline_stage_identifier: "deal_pipeline_stage_data"
+    hubspot_deal_property_history_identifier: "deal_property_history_data"
+    hubspot_email_campaign_identifier: "email_campaign_data"
+    hubspot_email_event_identifier: "email_event_data"
+    hubspot_email_event_bounce_identifier: "email_event_bounce_data"
+    hubspot_email_event_click_identifier: "email_event_click_data"
+    hubspot_email_event_deferred_identifier: "email_event_deferred_data"
+    hubspot_email_event_delivered_identifier: "email_event_delivered_data"
+    hubspot_email_event_forward_identifier: "email_event_forward_data"
+    hubspot_email_event_open_identifier: "email_event_open_data"
+    hubspot_email_event_print_identifier: "email_event_print_data"
+    hubspot_email_event_spam_report_identifier: "email_event_spam_report_data"
+    hubspot_email_event_status_change_identifier: "email_event_status_change_data"
+    hubspot_engagement_identifier: "engagement_data"
+    hubspot_engagement_call_identifier: "engagement_call_data"
+    hubspot_engagement_communication_identifier: "engagement_communication_data"
+    hubspot_engagement_company_identifier: "engagement_company_data"
+    hubspot_engagement_contact_identifier: "engagement_contact_data"
+    hubspot_engagement_deal_identifier: "engagement_deal_data"
+    hubspot_engagement_email_identifier: "engagement_email_data"
+    hubspot_engagement_meeting_identifier: "engagement_meeting_data"
+    hubspot_engagement_note_identifier: "engagement_note_data"
+    hubspot_engagement_task_identifier: "engagement_task_data"
+    hubspot_form_identifier: "form_data"
+    hubspot_owner_identifier: "owner_data"
+    hubspot_owner_team_identifier: "owner_team_data"
+    hubspot_property_identifier: "property_data"
+    hubspot_property_option_identifier: "property_option_data"
+    hubspot_role_identifier: "role_data"
+    hubspot_team_identifier: "team_data"
+    hubspot_team_user_identifier: "team_user_data"
+    hubspot_ticket_company_identifier: "ticket_company_data"
+    hubspot_ticket_contact_identifier: "ticket_contact_data"
+    hubspot_ticket_deal_identifier: "ticket_deal_data"
+    hubspot_ticket_engagement_identifier: "ticket_engagement_data"
+    hubspot_ticket_pipeline_identifier: "ticket_pipeline_data"
+    hubspot_ticket_pipeline_stage_identifier: "ticket_pipeline_stage_data"
+    hubspot_ticket_property_history_identifier: "ticket_property_history_data"
+    hubspot_ticket_identifier: "ticket_data"
+    hubspot_users_identifier: "users_data"
+    hubspot_contact_list_identifier: "contact_list_data"
+    hubspot_email_event_sent_identifier: "email_event_sent_data"
+    hubspot_email_event_dropped_identifier: "email_event_dropped_data"
+    hubspot_merged_deal_identifier: "merged_deal_data"
 
 seeds:
   +docs:
@@ -282,5 +283,4 @@ dispatch:
 
 flags:
   send_anonymous_usage_stats: False
-
   use_colors: True
