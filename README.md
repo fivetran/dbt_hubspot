@@ -1,4 +1,4 @@
-# HubSpot Transformation dbt Package ([Docs](https://fivetran.github.io/dbt_hubspot/))
+# HubSpot dbt Package ([Docs](https://fivetran.github.io/dbt_hubspot/))
 
 <p align="left">
     <a alt="License"
@@ -16,7 +16,7 @@
 </p>
 
 ## What does this dbt package do?
-- Produces modeled tables that leverage HubSpot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot) in the format described by [this ERD](https://fivetran.com/docs/applications/hubspot#schemainformation) and build off the output of our [HubSpot source package](https://github.com/fivetran/dbt_hubspot_source).
+- Produces modeled tables that leverage HubSpot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot) in the format described by [this ERD](https://fivetran.com/docs/applications/hubspot#schemainformation).
 - Enables you to better understand your HubSpot email and engagement performance. The package achieves this by performing the following:
     - Generates models for contacts, companies, and deals with enriched email and engagement metrics.
     - Provides analysis-ready event tables for email and engagement activities.
@@ -313,7 +313,7 @@ models:
 #### Change the source table references
 If an individual source table has a different name than the package expects, add the table name as it appears in your destination to the respective variable:
 
-> IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_hubspot_source/blob/main/dbt_project.yml) variable declarations to see the expected names.
+> IMPORTANT: See this project's [`dbt_project.yml`](https://github.com/fivetran/dbt_hubspot/blob/main/dbt_project.yml) variable declarations to see the expected names.
 
 ```yml
 vars:

@@ -3,6 +3,7 @@ version: '1.0.0'
 
 config-version: 2
 require-dbt-version: [">=1.3.0", "<2.0.0"]
+
 vars:
   hubspot:
     contact: "{{ source('hubspot', 'contact') }}"
@@ -59,8 +60,11 @@ vars:
     ticket_property_history: "{{ source('hubspot', 'ticket_property_history') }}"
     ticket: "{{ source('hubspot', 'ticket') }}"
     users: "{{ source('hubspot', 'users') }}"
-    
-    hubspot_contact_merge_audit_enabled: false
+    hubspot__deal_pass_through_columns: []
+    hubspot__contact_pass_through_columns: []
+    hubspot__company_pass_through_columns: []
+    hubspot__ticket_pass_through_columns: []
+
 models:
   hubspot:
     +materialized: table
@@ -70,12 +74,13 @@ models:
         +materialized: ephemeral
         int_hubspot__contact_merge_adjust:
           +materialized: table
-        
     sales:
       intermediate:
         +materialized: ephemeral
         int_hubspot__deals_enhanced:
           +materialized: table
     staging:
-      +schema: hubspot_source
-      +materialized: view
+      +materialized: table
+      +schema: stg_hubspot
+      tmp:
+        +materialized: view
