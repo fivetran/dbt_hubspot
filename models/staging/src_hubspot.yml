@@ -68,6 +68,7 @@ sources:
       - name: company
         identifier: "{{ var('hubspot_company_identifier', 'company')}}"
         description: Each record represents a company in Hubspot.
+        config:
           enabled: "{{ var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) }}"
         columns:
           - name: _fivetran_synced
