@@ -28,9 +28,9 @@ vars:
     hubspot_schema: hubspot_integration_tests_66
 
     # hubspot__pass_through_all_columns: true
-    # hubspot__company_pass_through_columns:
-      # - name: "property_hs_all-funky-a9384-syntax"
-      #   alias: "funky_field"
+    hubspot__company_pass_through_columns: # @docs-ignore
+      - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
+        alias: "funky_field" # @docs-ignore
 
     hubspot_company_property_history_identifier: "company_property_history_data"
     hubspot_company_identifier: "company_data"

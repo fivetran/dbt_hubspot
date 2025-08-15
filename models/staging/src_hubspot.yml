@@ -5,6 +5,8 @@ sources:
     schema: "{{ var('hubspot_schema', 'hubspot') }}"
     database: "{% if target.type != 'spark'%}{{ var('hubspot_database', target.database) }}{% endif %}"
     loader: Fivetran
+    config:
+      loaded_at_field: _fivetran_synced
     tables:
       - name: calendar_event
         identifier: "{{ var('hubspot_calendar_event_identifier', 'calendar_event')}}"
@@ -66,8 +68,6 @@ sources:
       - name: company
         identifier: "{{ var('hubspot_company_identifier', 'company')}}"
         description: Each record represents a company in Hubspot.
-        config:
-          loaded_at_field: _fivetran_synced
           enabled: "{{ var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) }}"
         columns:
           - name: _fivetran_synced
