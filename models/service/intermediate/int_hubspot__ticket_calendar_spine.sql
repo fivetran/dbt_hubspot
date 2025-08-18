@@ -42,7 +42,7 @@ with calendar as (
     select 
         *,
         cast( {{ dbt.date_trunc('day', "case when closed_date is null then " ~ dbt.current_timestamp_backcompat() ~ " else closed_date end") }} as date) as open_until
-    from {{ var('ticket') }}
+    from {{ ref('stg_hubspot__ticket') }}
     where not coalesce(is_ticket_deleted, false)
 
 ), joined as (

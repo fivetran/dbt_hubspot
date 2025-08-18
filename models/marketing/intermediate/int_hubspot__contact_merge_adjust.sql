@@ -3,11 +3,11 @@
 with contacts as (
 
     select *
-    from {{ var('contact') }}
+    from {{ ref('stg_hubspot__contact') }}
 ), contact_merge_audit as (
 {% if var('hubspot_contact_merge_audit_enabled', false) %}
     select *
-    from {{ var('contact_merge_audit') }}
+    from {{ ref('stg_hubspot__contact_merge_audit') }}
 
 {% else %}
     {{ merge_contacts() }}

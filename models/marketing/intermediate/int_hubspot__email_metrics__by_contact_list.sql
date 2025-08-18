@@ -8,7 +8,7 @@ with email_sends as (
 ), contact_list_member as (
 
     select *
-    from {{ var('contact_list_member') }}
+    from {{ ref('stg_hubspot__contact_list_member') }}
 
 ), joined as (
 

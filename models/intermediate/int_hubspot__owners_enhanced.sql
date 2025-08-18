@@ -6,17 +6,17 @@ with owners as (
         active_user_id as owner_active_user_id,
         email_address as owner_email_address,
         full_name as owner_full_name
-    from {{ var('owner') }}
+    from {{ ref('stg_hubspot__owner') }}
 {% set cte_ref = 'owners' %}
 
 {% if var('hubspot_team_enabled', true) %}
 ), owner_teams as (
     select *
-    from {{ var('owner_team') }}
+    from {{ ref('stg_hubspot__owner_team') }}
 
 ), teams as (
     select *
-    from {{ var('team') }}
+    from {{ ref('stg_hubspot__team') }}
 
 ), teams_agg as (
     select
@@ -46,11 +46,11 @@ with owners as (
 {% if var('hubspot_role_enabled', true) %}
 ), users as (
     select *
-    from {{ var('users') }}
+    from {{ ref('stg_hubspot__users') }}
 
 ), roles as (
     select *
-    from {{ var('role') }}
+    from {{ ref('stg_hubspot__role') }}
 
 ), roles_joined as (
     select

@@ -3,12 +3,12 @@
 with form as (
 
     select *
-    from {{ var('form') }}
+    from {{ ref('stg_hubspot__form') }}
     
 ), contact_form_submission as (
 
     select *
-    from {{ var('contact_form_submission') }}
+    from {{ ref('stg_hubspot__contact_form_submission') }}
 
 ), ranked as (
     select

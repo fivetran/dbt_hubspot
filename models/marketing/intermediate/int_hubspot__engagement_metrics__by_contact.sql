@@ -8,7 +8,7 @@ with engagements as (
 ), engagement_contacts as (
 
     select *
-    from {{ var('engagement_contact') }}
+    from {{ ref('stg_hubspot__engagement_contact') }}
 
 ), engagement_contacts_joined as (
 

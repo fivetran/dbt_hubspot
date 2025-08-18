@@ -5,13 +5,13 @@
 with deals as (
 
     select *
-    from {{ var('deal') }}
+    from {{ ref('stg_hubspot__deal') }}
 
 {% if merged_deal_enabled %}
 ), merged_deals as (
 
     select *
-    from {{ var('merged_deal')}}
+    from {{ ref('stg_hubspot__merged_deal') }}
 
 ), aggregate_merged_deals as (
 
@@ -25,12 +25,12 @@ with deals as (
 ), pipelines as (
 
     select *
-    from {{ var('deal_pipeline') }}
+    from {{ ref('stg_hubspot__deal_pipeline') }}
 
 ), pipeline_stages as (
 
     select *
-    from {{ var('deal_pipeline_stage') }}
+    from {{ ref('stg_hubspot__deal_pipeline_stage') }}
 
 {% if owner_enabled %}
 ), owners_enhanced as (
