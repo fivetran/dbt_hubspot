@@ -1,3 +1,14 @@
+# dbt_hubspot v1.1.0
+
+## Schema/Data Changes
+**3 total changes • 2 possible breaking changes**
+| **Model** | **Change type** | **Old** | **New** | **Notes** |
+|-----------|----------------|--------------|--------------|---------|
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts)<br>[int_hubspot__contact_merge_adjust](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__contact_merge_adjust)<br>[stg_hubspot__contact](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__contact) | New Column | | `merged_object_ids` | This column is now used to merge contacts instead of `calculated_merged_vids`. It is more complete in that it captures multi-step or chained contact merges, which `calculated_merged_vids` does not. It is aliased from `property_hs_merged_object_ids` in the raw source data. |
+
+## Under the Hood
+- Adjusted join logic in `hubspot__tickets` to avoid potential data type mismatch errors.
+
 # dbt_hubspot v1.0.0
 
 [PR #167](https://github.com/fivetran/dbt_hubspot/pull/167) includes the following updates:

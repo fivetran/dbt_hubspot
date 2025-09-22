@@ -19,7 +19,7 @@
 {% macro snowflake__merge_contacts() %}
     select
         contacts.contact_id,
-        merges as vid_to_merge
+        merges.value as vid_to_merge
     
     from contacts
     cross join 
