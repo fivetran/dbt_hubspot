@@ -89,6 +89,8 @@ vars:
     hubspot_email_event_dropped_identifier: "email_event_dropped_data"
     hubspot_merged_deal_identifier: "merged_deal_data"
 
+  contact_exception_columns: ['merged_object_ids'] # remove later
+
 seeds:
   +docs:
     show: False

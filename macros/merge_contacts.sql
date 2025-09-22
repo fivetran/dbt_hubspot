@@ -8,46 +8,46 @@
 {# bigquery  #}
     select
         contacts.contact_id,
-        split(merges, ':')[offset(0)] as vid_to_merge
+        merges as vid_to_merge
 
     from contacts
     cross join 
-        unnest(cast(split(calculated_merged_vids, ";") as array<string>)) as merges
+        unnest(cast(split(merged_object_ids, ";") as array<string>)) as merges
 
 {% endmacro %}
 
 {% macro snowflake__merge_contacts() %}
     select
         contacts.contact_id,
-        split_part(merges.value, ':', 0) as vid_to_merge
+        merges as vid_to_merge
     
     from contacts
     cross join 
-        table(flatten(STRTOK_TO_ARRAY(calculated_merged_vids, ';'))) as merges
+        table(flatten(STRTOK_TO_ARRAY(merged_object_ids, ';'))) as merges
 
 {% endmacro %}
 
 {% macro redshift__merge_contacts() %}
 	select
         unnest_vid_array.contact_id,
-        split_part(cast(vid_to_merge as {{ dbt.type_string() }}) ,':',1) as vid_to_merge
+        cast(vid_to_merge as {{ dbt.type_string() }}) as vid_to_merge
     from (
         select 
             contacts.contact_id,
-            split_to_array(calculated_merged_vids, ';') as super_calculated_merged_vids
+            split_to_array(merged_object_ids, ';') as super_merged_object_ids
         from contacts
-    ) as unnest_vid_array, unnest_vid_array.super_calculated_merged_vids as vid_to_merge
+    ) as unnest_vid_array, unnest_vid_array.super_merged_object_ids as vid_to_merge
 
 {% endmacro %}
 
 {% macro postgres__merge_contacts() %}
     select
         contacts.contact_id,
-        split_part(merges, ':', 1) as vid_to_merge
+        merges as vid_to_merge
 
     from contacts
     cross join 
-        unnest(string_to_array(calculated_merged_vids, ';')) as merges
+        unnest(string_to_array(merged_object_ids, ';')) as merges
 
 {% endmacro %}
 
@@ -55,12 +55,12 @@
 {# databricks and spark #}
     select
         contacts.contact_id,
-        split_part(merges, ':', 1) as vid_to_merge
+        merges as vid_to_merge
     from contacts
     cross join (
         select 
             contact_id, 
-            explode(split(calculated_merged_vids, ';')) as merges from contacts
+            explode(split(merged_object_ids, ';')) as merges from contacts
     ) as merges_subquery 
     where contacts.contact_id = merges_subquery.contact_id
 

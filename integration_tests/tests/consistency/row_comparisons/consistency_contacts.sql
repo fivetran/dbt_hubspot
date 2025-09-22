@@ -5,12 +5,12 @@
 
 -- this test ensures the contacts end model matches the prior version
 with prod as (
-    select *
+    select {{ dbt_utils.star(from=ref('hubspot__contacts'), except=var('contact_exception_columns', '[]')) }}
     from {{ target.schema }}_hubspot_prod.hubspot__contacts
 ),
 
 dev as (
-    select *
+    select {{ dbt_utils.star(from=ref('hubspot__contacts'), except=var('contact_exception_columns', '[]')) }}
     from {{ target.schema }}_hubspot_dev.hubspot__contacts
 ),
 

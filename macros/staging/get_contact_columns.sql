@@ -5,6 +5,7 @@
     {"name": "_fivetran_synced", "datatype": dbt.type_timestamp()},
     {"name": "id", "datatype": dbt.type_int(), "alias": "contact_id"},
     {"name": "property_hs_calculated_merged_vids", "datatype": dbt.type_string(), "alias": "calculated_merged_vids"},
+    {"name": "property_hs_merged_object_ids", "datatype": dbt.type_string(), "alias": "merged_object_ids"},
     {"name": "property_email", "datatype": dbt.type_string(), "alias": "email"},
     {"name": "property_company", "datatype": dbt.type_string(), "alias": "contact_company"},
     {"name": "property_firstname", "datatype": dbt.type_string(), "alias": "first_name"},
