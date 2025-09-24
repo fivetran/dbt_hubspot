@@ -8,6 +8,10 @@
 
 ## Under the Hood
 - Adjusted join logic in `hubspot__tickets` to avoid potential data type mismatch errors.
+- Updated `merge_contacts()` macro to reference `merged_object_ids` instead of `calculated_merged_vids`.
+
+## Documentation
+- Updated README to clarify the default value of source-disabling/enabling variables [here](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disableenable-models-and-sources).
 
 # dbt_hubspot v1.0.0
 
