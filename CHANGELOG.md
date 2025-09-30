@@ -1,5 +1,7 @@
 # dbt_hubspot v1.1.0
 
+[PR #171](https://github.com/fivetran/dbt_hubspot/pull/171) includes the following updates:
+
 ## Schema/Data Changes
 **3 total changes • 2 possible breaking changes**
 | **Model** | **Change type** | **Old** | **New** | **Notes** |
@@ -9,9 +11,13 @@
 ## Under the Hood
 - Adjusted join logic in `hubspot__tickets` to avoid potential data type mismatch errors.
 - Updated `merge_contacts()` macro to reference `merged_object_ids` instead of `calculated_merged_vids`.
+- Resolved a dbt Fusion error around `{% set abc = abc.append(...) %}`, as this syntax is valid only in dbt Core. We have opted for `do` instead of `set`.
 
 ## Documentation
 - Updated README to clarify the default value of source-disabling/enabling variables [here](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disableenable-models-and-sources).
+
+## Contributors
+- [@b-per](https://github.com/b-per) ([#170](https://github.com/fivetran/dbt_hubspot/pull/170))
 
 # dbt_hubspot v1.0.0
 
