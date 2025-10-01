@@ -13,7 +13,7 @@
 # dbt_project.yml
 vars:
   hubspot__contact_pass_through_columns:
-    - name:  property_hs_merged_object_ids
+    - name: property_hs_merged_object_ids
       alias: merged_object_ids
 ```
 
