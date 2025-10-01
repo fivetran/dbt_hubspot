@@ -1,3 +1,33 @@
+# dbt_hubspot v1.1.0
+
+[PR #171](https://github.com/fivetran/dbt_hubspot/pull/171) includes the following updates:
+
+## Schema/Data Changes
+**3 total changes • 2 possible breaking changes**
+| **Model** | **Change type** | **Old** | **New** | **Notes** |
+|-----------|----------------|--------------|--------------|---------|
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts)<br>[int_hubspot__contact_merge_adjust](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__contact_merge_adjust)<br>[stg_hubspot__contact](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__contact) | New Column | | `merged_object_ids` | This column is now used to merge contacts instead of `calculated_merged_vids`. It is more complete in that it captures multi-step or chained contact merges, which `calculated_merged_vids` does not. It is aliased from `property_hs_merged_object_ids` in the raw source data. |
+
+**If you have the following configuration, please remove it.** Otherwise, the above field additions will produce duplicate column errors.
+```yml
+# dbt_project.yml
+vars:
+  hubspot__contact_pass_through_columns:
+    - name: property_hs_merged_object_ids
+      alias: merged_object_ids
+```
+
+## Under the Hood
+- Adjusted join logic in `hubspot__tickets` to avoid potential data type mismatch errors.
+- Updated `merge_contacts()` macro to reference `merged_object_ids` instead of `calculated_merged_vids`.
+- Resolved a dbt Fusion error around `{% set abc = abc.append(...) %}`, as this syntax is valid only in dbt Core. We have opted for `do` instead of `set`.
+
+## Documentation
+- Updated README to clarify the default value of source-disabling/enabling variables [here](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disableenable-models-and-sources).
+
+## Contributors
+- [@b-per](https://github.com/b-per) ([#170](https://github.com/fivetran/dbt_hubspot/pull/170))
+
 # dbt_hubspot v1.0.0
 
 [PR #167](https://github.com/fivetran/dbt_hubspot/pull/167) includes the following updates:

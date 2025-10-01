@@ -191,11 +191,11 @@ with ticket as (
     from ticket
 
     left join ticket_pipeline 
-        on ticket.ticket_pipeline_id = ticket_pipeline.ticket_pipeline_id 
+        on cast(ticket.ticket_pipeline_id as {{ dbt.type_string() }}) = cast(ticket_pipeline.ticket_pipeline_id as {{ dbt.type_string() }})
     
     left join ticket_pipeline_stage 
-        on ticket.ticket_pipeline_stage_id = ticket_pipeline_stage.ticket_pipeline_stage_id
-        and ticket_pipeline.ticket_pipeline_id = ticket_pipeline_stage.ticket_pipeline_id
+        on cast(ticket.ticket_pipeline_stage_id as {{ dbt.type_string() }}) = cast(ticket_pipeline_stage.ticket_pipeline_stage_id as {{ dbt.type_string() }})
+        and cast(ticket_pipeline.ticket_pipeline_id as {{ dbt.type_string() }}) = cast(ticket_pipeline_stage.ticket_pipeline_id as {{ dbt.type_string() }})
 
     {% if var('hubspot_owner_enabled', true) %}
     left join owners_enhanced 

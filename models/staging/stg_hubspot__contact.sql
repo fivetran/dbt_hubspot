@@ -43,6 +43,7 @@ with base as (
         contact_id,
         is_contact_deleted,
         calculated_merged_vids, -- will be null for BigQuery users until v3 api is rolled out to them
+        merged_object_ids, -- using this field instead of calculated_merged_vids to merge contacts
         email,
         contact_company,
         first_name,
