@@ -111,7 +111,7 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
 
-You only need to add variables for the sources that differ from their defaults. To do so for, add the relevant variable configuration from below to your `dbt_project.yml`:
+You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
 ```yml
 vars:
