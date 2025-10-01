@@ -8,6 +8,15 @@
 |-----------|----------------|--------------|--------------|---------|
 | [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts)<br>[int_hubspot__contact_merge_adjust](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__contact_merge_adjust)<br>[stg_hubspot__contact](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__contact) | New Column | | `merged_object_ids` | This column is now used to merge contacts instead of `calculated_merged_vids`. It is more complete in that it captures multi-step or chained contact merges, which `calculated_merged_vids` does not. It is aliased from `property_hs_merged_object_ids` in the raw source data. |
 
+**If you have the following configuration, please remove it.** Otherwise, the above field additions will produce duplicate column errors.
+```yml
+# dbt_project.yml
+vars:
+  hubspot__contact_pass_through_columns:
+    - name:  property_hs_merged_object_ids
+      alias: merged_object_ids
+```
+
 ## Under the Hood
 - Adjusted join logic in `hubspot__tickets` to avoid potential data type mismatch errors.
 - Updated `merge_contacts()` macro to reference `merged_object_ids` instead of `calculated_merged_vids`.
