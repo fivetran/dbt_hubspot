@@ -21,6 +21,8 @@ with base as (
     select
         label as property_option_label,	
         property_id,
+        hubspot_object,
+        name as property_option_name,
         _fivetran_synced,
         display_order,
         hidden,

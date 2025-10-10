@@ -54,8 +54,9 @@ with sends as (
         coalesce(unsubscribes.unsubscribes,0) as unsubscribes,
         coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed
     from booleans
-    left join unsubscribes using (email_send_id)
-
+    left join unsubscribes
+        on booleans.email_send_id = unsubscribes.email_send_id
+        and booleans.email_campaign_id = unsubscribes.email_campaign_id
 )
 
 select *

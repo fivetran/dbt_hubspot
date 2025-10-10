@@ -1199,11 +1199,11 @@ sources:
           - name: hubspot_defined
             description: This will be true for default properties that are built into HubSpot.
           - name: hubspot_object
-            description: If this property is related to other objects, the object will be listed here.
+            description: If this property is related to other objects, the object will be listed here. Part of the primary key with `name`.
           - name: label
             description: A human readable label for the property.
           - name: name
-            description: The internal name of the property.
+            description: The internal name of the property. Part of the primary key with `hubspot_object`.
           - name: show_currency_symbol
             description: If true, the property will display the currency symbol set in the portal settings.
           - name: type
@@ -1229,6 +1229,12 @@ sources:
             description: Boolean if the option will be displayed in HubSpot
           - name: value
             description: The internal value of the option.
+          - name: hubspot_object
+            description: >
+              If this option's property is related to other objects, the object will be listed here. Part of the primary key with `name`. 
+              Use `hubspot_object` to join with the `PROPERTY` table.
+          - name: name
+            description: The internal name of the property option. Part of the primary key with `hubspot_object`.
 
       - name: ticket_company
         identifier: "{{ var('hubspot_ticket_company_identifier', 'ticket_company')}}"
