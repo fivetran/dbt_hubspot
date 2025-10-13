@@ -25,7 +25,7 @@ vars:
     # hubspot_role_enabled: true # @docs-include
     # hubspot_team_enabled: true # @docs-include
 
-    hubspot_schema: hubspot_integration_tests
+    hubspot_schema: hubspot_integration_tests_66
 
     # hubspot__pass_through_all_columns: true
     hubspot__company_pass_through_columns: # @docs-ignore
