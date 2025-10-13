@@ -7,7 +7,7 @@ models:
     columns:
       - name: _fivetran_id
         description: >
-          (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` in the `property_option` table. 
+          (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` (ALSO DEPRECATED) in the `property_option` table. 
           Use the `property_name` and `hubspot_object` columns as new composite primary key instead.
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
@@ -40,9 +40,9 @@ models:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: property_option_label
-        description: The label of the option displayed inside the HubSpot app.
+        description: The label of the option displayed inside the HubSpot app. Part of the composite parimary key with `hubspot_object` and `property_option_name`.
       - name: property_id
-        description: (NOT USED) The ID of the related property. Use the `property_option_name` and `hubspot_object` columns as a composite primary key instead.
+        description: (DEPRECATED IN OCTOBER 2025) The ID of the related property. Use `hubspot_object` to join with the `PROPERTY` table instead.
       - name: display_order
         description: Order of options displayed in Hubspot, starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.
       - name: hidden
@@ -51,7 +51,7 @@ models:
         description: The internal value of the option.
       - name: hubspot_object
         description: >
-          If this option's property is related to other objects, the object will be listed here. Part of the primary key with `property_option_name`.
+          If this option's property is related to other objects, the object will be listed here. Part of the primary key with `property_option_name` and `property_option_label`.
           Use `hubspot_object` to join with the `PROPERTY` table.
       - name: property_option_name
-        description: The internal name of the property option. Part of the primary key with `hubspot_object`.
+        description: The internal name of the property option. Part of the primary key with `hubspot_object` and `property_option_label`.

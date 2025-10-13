@@ -1183,7 +1183,9 @@ sources:
           enabled: "{{ var('hubspot_property_enabled', true) }}"
         columns:
           - name: _fivetran_id
-            description: Fivetran generated id. Joins to `property_id` in the `property_option` table.
+            description: >
+              (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` in the `property_option` table.
+              Use the `name` and `hubspot_object` columns as new composite primary key instead.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
           - name: calculated
