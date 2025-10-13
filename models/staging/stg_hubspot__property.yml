@@ -7,8 +7,8 @@ models:
     columns:
       - name: _fivetran_id
         description: >
-          (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` (ALSO DEPRECATED) in the `property_option` table. 
-          Use the `property_name` and `hubspot_object` columns as new composite primary key instead.
+          (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` (ALSO DEPRECATED) in the `PROPERTY_OPTION` table. 
+          Use `hubspot_object` to join to `PROPERTY_OPTION` instead.
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: calculated
