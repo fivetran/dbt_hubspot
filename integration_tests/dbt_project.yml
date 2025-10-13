@@ -119,6 +119,9 @@ seeds:
       +enabled: "{{ true if target.type in ('databricks','databricks-sql') else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    contact_property_history_data:
+      +column_types:
+        _fivetran_synced: timestamp
     deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
