@@ -24,7 +24,9 @@ models:
       - name: hubspot_defined
         description: This will be true for default properties that are built into HubSpot.
       - name: hubspot_object
-        description: If this property is related to other objects, the object will be listed here. Part of the primary key with `property_name`.
+        description: >
+          If this property is related to other objects, the object will be listed here. Part of the primary key with `property_name`.
+          Use `hubspot_object` to join with the `PROPERTY_OPTION` table.
       - name: property_label
         description: A human readable label for the property.
       - name: property_name

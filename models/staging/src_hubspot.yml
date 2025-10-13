@@ -1184,8 +1184,8 @@ sources:
         columns:
           - name: _fivetran_id
             description: >
-              (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` in the `property_option` table.
-              Use the `name` and `hubspot_object` columns as new composite primary key instead.
+              (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` (ALSO DEPRECATED) in the `PROPERTY_OPTION` table.
+              Use `hubspot_object` to join to `property_option` instead.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
           - name: calculated
@@ -1201,7 +1201,9 @@ sources:
           - name: hubspot_defined
             description: This will be true for default properties that are built into HubSpot.
           - name: hubspot_object
-            description: If this property is related to other objects, the object will be listed here. Part of the primary key with `name`.
+            description: >
+              If this property is related to other objects, the object will be listed here. 
+              Part of the primary key with `name`. Use `hubspot_object` to join with the `PROPERTY_OPTION` table.
           - name: label
             description: A human readable label for the property.
           - name: name
@@ -1222,9 +1224,10 @@ sources:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
           - name: label
-            description: The label of the option displayed inside the HubSpot app.
+            description: The label of the option displayed inside the HubSpot app. Part of the primary key with `name` and `hubspot_object`. 
           - name: property_id
-            description: The ID of the related property.
+            description: >
+              (DEPRECATED IN OCTOBER 2025) The ID of the related property. Use `hubspot_object` to join with the `PROPERTY` table instead.
           - name: display_order
             description: Order of options displayed in Hubspot, starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.
           - name: hidden
@@ -1233,10 +1236,10 @@ sources:
             description: The internal value of the option.
           - name: hubspot_object
             description: >
-              If this option's property is related to other objects, the object will be listed here. Part of the primary key with `name`. 
+              If this option's property is related to other objects, the object will be listed here. Part of the primary key with `name` and `label`. 
               Use `hubspot_object` to join with the `PROPERTY` table.
           - name: name
-            description: The internal name of the property option. Part of the primary key with `hubspot_object`.
+            description: The internal name of the property option. Part of the primary key with `hubspot_object` and `label`.
 
       - name: ticket_company
         identifier: "{{ var('hubspot_ticket_company_identifier', 'ticket_company')}}"
