@@ -3,7 +3,7 @@
 [PR #182](https://github.com/fivetran/dbt_hubspot/pull/182) includes the following updates:
 
 ## Schema/Data Change
-**6 total changes • 6 possible breaking changes**
+**5 total changes • 2 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ---------- | ----------- | -------- | -------- | ----- |
