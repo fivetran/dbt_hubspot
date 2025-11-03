@@ -3,7 +3,8 @@ version: 2
 models:
   - name: int_hubspot__email_aggregate_status_change
     columns:
-      - name: email_send_id
+      - name: unique_key
+        description: Hashed on `email_send_id` and `email_campaign_id`.
         tests:
           - unique
           - not_null

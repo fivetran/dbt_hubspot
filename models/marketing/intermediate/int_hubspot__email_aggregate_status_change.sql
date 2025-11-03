@@ -18,5 +18,7 @@ with base as (
 
 )
 
-select *
+select
+    *,
+    {{ dbt_utils.generate_surrogate_key(['email_campaign_id', 'email_send_id']) }} as unique_key
 from aggregates

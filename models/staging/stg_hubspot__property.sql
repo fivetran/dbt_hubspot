@@ -27,7 +27,7 @@ with base as (
         field_type,
         group_name,
         hubspot_defined,
-        hubspot_object,
+        lower(hubspot_object) as hubspot_object, -- should already be lower but just in case
         label as property_label,
         name as property_name,
         type as property_type,

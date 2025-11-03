@@ -1183,7 +1183,9 @@ sources:
           enabled: "{{ var('hubspot_property_enabled', true) }}"
         columns:
           - name: _fivetran_id
-            description: Fivetran generated id. Joins to `property_id` in the `property_option` table.
+            description: >
+              (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` (ALSO DEPRECATED) in the `PROPERTY_OPTION` table.
+              Use `hubspot_object` to join to `property_option` instead.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
           - name: calculated
@@ -1199,11 +1201,13 @@ sources:
           - name: hubspot_defined
             description: This will be true for default properties that are built into HubSpot.
           - name: hubspot_object
-            description: If this property is related to other objects, the object will be listed here.
+            description: >
+              If this property is related to other objects, the object will be listed here. 
+              Part of the composite primary key with `name`. Use `hubspot_object` to join with the `PROPERTY_OPTION` table.
           - name: label
             description: A human readable label for the property.
           - name: name
-            description: The internal name of the property.
+            description: The internal name of the property. Part of the composite primary key with `hubspot_object`.
           - name: show_currency_symbol
             description: If true, the property will display the currency symbol set in the portal settings.
           - name: type
@@ -1220,15 +1224,22 @@ sources:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
           - name: label
-            description: The label of the option displayed inside the HubSpot app.
+            description: The label of the option displayed inside the HubSpot app. Part of the composite primary key with `name` and `hubspot_object`. 
           - name: property_id
-            description: The ID of the related property.
+            description: >
+              (DEPRECATED IN OCTOBER 2025) The ID of the related property. Use `hubspot_object` to join with the `PROPERTY` table instead.
           - name: display_order
             description: Order of options displayed in Hubspot, starting with the lowest positive integer value. Values of -1 will cause the option to be displayed after any positive values.
           - name: hidden
             description: Boolean if the option will be displayed in HubSpot
           - name: value
             description: The internal value of the option.
+          - name: hubspot_object
+            description: >
+              If this option's property is related to other objects, the object will be listed here. Part of the composite primary key with `name` and `label`. 
+              Use `hubspot_object` to join with the `PROPERTY` table.
+          - name: name
+            description: The internal name of the property option. Part of the composite primary key with `hubspot_object` and `label`.
 
       - name: ticket_company
         identifier: "{{ var('hubspot_ticket_company_identifier', 'ticket_company')}}"

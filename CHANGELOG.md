@@ -1,3 +1,33 @@
+# dbt_hubspot v1.2.0
+
+[PR #182](https://github.com/fivetran/dbt_hubspot/pull/182) includes the following updates:
+
+## Schema/Data Change
+**5 total changes • 2 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| [stg_hubspot__property](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__property) | Primary Key Change | `_fivetran_id` + `hubspot_object` | `property_name` + `hubspot_object` | The composite primary key is now `property_name` and `hubspot_object` instead of `_fivetran_id` and `hubspot_object`. The `_fivetran_id` field is marked as deprecated. |
+| [stg_hubspot__property_option](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__property_option) | Primary Key Change | `property_id` + `property_option_label` | `property_option_name` + `hubspot_object` + `property_option_label` | The composite primary key is now `property_option_name`, `hubspot_object`, and `property_label` instead of `property_id` and `property_option_label`. The `property_id` field is marked as deprecated. |
+| [stg_hubspot__property_option](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__property_option) | New Column | | `hubspot_object` | Added to support new composite primary key and joins with the `PROPERTY` table. |
+| [stg_hubspot__property_option](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.stg_hubspot__property_option) | New Column | | `property_option_name` | Added to support new composite primary key. |
+| [int_hubspot__email_aggregate_status_change](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.int_hubspot__email_aggregate_status_change) | New Column | | `unique_key` | Adds surrogate key generated from `email_campaign_id` and `email_send_id` to ensure uniqueness. Previously we only included `email_send_id` in its uniqueness test. |
+
+## Bug Fix
+- Fixes join condition in `hubspot__email_sends` model to include both `email_send_id` and `email_campaign_id` when joining with unsubscribes data, preventing potential data integrity issues with duplicate email send IDs across different campaigns.
+
+## Under the Hood
+- Updates join logic in the `add_property_labels` [macro](https://github.com/fivetran/dbt_hubspot/blob/main/macros/staging/add_property_labels.sql) to join `PROPERTY` and `PROPERTY_OPTION` on `hubspot_object` instead of `_fivetran_id/property_id`. This is used in the following staging models:
+  - `stg_hubspot__company`
+  - `stg_hubspot__contact`
+  - `stg_hubspot__deal`
+  - `stg_hubspot__ticket`
+- Updates `get_property_option_columns` macro to include the new `hubspot_object` and `name` columns for property options.
+- Updates uniqueness tests in `int_hubspot__email_aggregate_status_change` to use the new `unique_key` field instead of `email_send_id`.
+- Updates documentation in staging models to reflect the deprecated status of `_fivetran_id` and `property_id` fields and explain the new composite primary key structure.
+- Updates `property_option` seed data to include the newly added columns.
+- Adds consistency data validation tests for `hubspot__companies`.
+
 # dbt_hubspot v1.1.0
 
 [PR #171](https://github.com/fivetran/dbt_hubspot/pull/171) includes the following updates:
