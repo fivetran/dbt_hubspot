@@ -26,6 +26,7 @@
 - Updates uniqueness tests in `int_hubspot__email_aggregate_status_change` to use the new `unique_key` field instead of `email_send_id`.
 - Updates documentation in staging models to reflect the deprecated status of `_fivetran_id` and `property_id` fields and explain the new composite primary key structure.
 - Updates `property_option` seed data to include the newly added columns.
+- Adds consistency data validation tests for `hubspot__companies`.
 
 # dbt_hubspot v1.1.0
 
