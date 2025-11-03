@@ -42,7 +42,7 @@ models:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: property_option_label
-        description: The label of the option displayed inside the HubSpot app. Part of the composite parimary key with `hubspot_object` and `property_option_name`.
+        description: The label of the option displayed inside the HubSpot app. Part of the composite primary key with `hubspot_object` and `property_option_name`.
       - name: property_id
         description: (DEPRECATED IN OCTOBER 2025) The ID of the related property. Use `hubspot_object` to join with the `PROPERTY` table instead.
       - name: display_order

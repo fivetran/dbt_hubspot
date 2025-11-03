@@ -1203,11 +1203,11 @@ sources:
           - name: hubspot_object
             description: >
               If this property is related to other objects, the object will be listed here. 
-              Part of the primary key with `name`. Use `hubspot_object` to join with the `PROPERTY_OPTION` table.
+              Part of the composite primary key with `name`. Use `hubspot_object` to join with the `PROPERTY_OPTION` table.
           - name: label
             description: A human readable label for the property.
           - name: name
-            description: The internal name of the property. Part of the primary key with `hubspot_object`.
+            description: The internal name of the property. Part of the composite primary key with `hubspot_object`.
           - name: show_currency_symbol
             description: If true, the property will display the currency symbol set in the portal settings.
           - name: type
@@ -1224,7 +1224,7 @@ sources:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
           - name: label
-            description: The label of the option displayed inside the HubSpot app. Part of the primary key with `name` and `hubspot_object`. 
+            description: The label of the option displayed inside the HubSpot app. Part of the composite primary key with `name` and `hubspot_object`. 
           - name: property_id
             description: >
               (DEPRECATED IN OCTOBER 2025) The ID of the related property. Use `hubspot_object` to join with the `PROPERTY` table instead.
@@ -1236,10 +1236,10 @@ sources:
             description: The internal value of the option.
           - name: hubspot_object
             description: >
-              If this option's property is related to other objects, the object will be listed here. Part of the primary key with `name` and `label`. 
+              If this option's property is related to other objects, the object will be listed here. Part of the composite primary key with `name` and `label`. 
               Use `hubspot_object` to join with the `PROPERTY` table.
           - name: name
-            description: The internal name of the property option. Part of the primary key with `hubspot_object` and `label`.
+            description: The internal name of the property option. Part of the composite primary key with `hubspot_object` and `label`.
 
       - name: ticket_company
         identifier: "{{ var('hubspot_ticket_company_identifier', 'ticket_company')}}"
