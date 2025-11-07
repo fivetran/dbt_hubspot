@@ -10,8 +10,7 @@ models:
 
 vars:
   # jsons and arrays. reminder to myself to remove source_relation + surrogate keys
-  consistency_test_exclude: ['source_relation', 'id', 'ticket_day_id', 'merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
-
+  consistency_test_exclude: ['source_relation', 'id', 'ticket_day_id', 'merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'deal_names', 'contact_emails', 'company_names', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include
