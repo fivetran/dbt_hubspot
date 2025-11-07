@@ -28,6 +28,7 @@ with base as (
                 staging_columns=get_company_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
         {% if all_passthrough_column_check('stg_hubspot__company_tmp',get_company_columns()) > 0 %}
         -- just pass everything through if extra columns are present, but ensure required columns are present.
         {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_company_columns()) %}
@@ -36,7 +37,6 @@ with base as (
                 columns=adapter.get_columns_in_relation(ref('stg_hubspot__company_tmp')), 
                 prefix='property_', exclude=exclude_cols)
         }}
-        {{ hubspot.apply_source_relation() }}
         {% endif %}
     from base
 
