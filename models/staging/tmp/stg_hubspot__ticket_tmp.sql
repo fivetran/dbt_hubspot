@@ -1,4 +1,9 @@
 {{ config(enabled=var('hubspot_service_enabled', False)) }}
 
-select {{ dbt_utils.star(source('hubspot','ticket')) }}
-from {{ var('ticket') }}
+{{
+    hubspot.hubspot_union_connections(
+        connection_dictionary='hubspot_sources',
+        single_source_name='hubspot',
+        single_table_name='ticket'
+    )
+}}

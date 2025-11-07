@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_role_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         id as role_id,
         name as role_name,
         requires_billing_write,

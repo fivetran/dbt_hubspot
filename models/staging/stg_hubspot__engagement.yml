@@ -3,15 +3,16 @@ version: 2
 models:
 
   - name: stg_hubspot__engagement_call
-    description: Each record represents a CALL engagement event. All source `property_hs_*` fields 
+    description: Each record represents a CALL engagement event. All source `property_hs_*` fields
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: engagement_id
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: _fivetran_deleted
         description: Boolean to mark rows that were deleted in the source database.
       - name: engagement_type
@@ -48,7 +49,6 @@ models:
         description: ID of the engagement associated with the communication.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -119,7 +119,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -154,7 +153,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -189,7 +187,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: note
@@ -226,7 +223,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -259,7 +255,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
       - name: is_active

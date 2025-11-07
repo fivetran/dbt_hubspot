@@ -16,13 +16,14 @@ fields as (
                 staging_columns=get_ticket_pipeline_columns()
             )
         }}
-
+        {{ hubspot.apply_source_relation() }}
     from base
 ),
 
 final as (
 
     select
+        source_relation,
         cast(pipeline_id as {{ dbt.type_string() }}) as ticket_pipeline_id,
         _fivetran_deleted as is_ticket_pipeline_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,

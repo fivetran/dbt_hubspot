@@ -9,10 +9,12 @@ models:
       By default, tracks the ticket's pipeline, pipeline stage, and state. Additional properties can be tracked by configuring the `hubspot__ticket_property_history_columns` variable.
 
       The start of a ticket's history is its creation date, and its end is by default the close date (or the current date if still open).
-      The history of ticket can be extended past its close date by configuring the `ticket_history_extension_days` variable. 
+      The history of ticket can be extended past its close date by configuring the `ticket_history_extension_days` variable.
     columns:
-      - name: ticket_day_id 
-        description: Unique surrogate key hashed on `date_day` and `ticket_id`.
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ticket_day_id
+        description: Unique surrogate key hashed on `source_relation`, `date_day`, and `ticket_id`.
         tests:
           - unique
           - not_null
@@ -38,10 +40,11 @@ models:
       Custom columns from `TICKET` can be included by configuring the `hubspot__ticket_pass_through_columns` variable.
       Custom calculated ticket fields can be added by configuring the `hubspot__ticket_calculated_fields` variable.
     columns:
-      - name: ticket_id 
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ticket_id
         description: Unique id of a ticket in Hubspot.
         tests:
-          - unique
           - not_null
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'

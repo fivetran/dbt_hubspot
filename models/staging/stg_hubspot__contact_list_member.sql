@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_contact_list_member_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         _fivetran_deleted as is_contact_list_member_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         cast(added_at as {{ dbt.type_timestamp() }}) as added_timestamp,

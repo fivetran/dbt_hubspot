@@ -5,6 +5,8 @@ models:
   - name: hubspot__deals
     description: Each record represents a deal in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: description
@@ -19,9 +21,6 @@ models:
         description: The ID of the deal
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_deal_deleted, false)"
       - name: deal_name
         description: The name you have given this deal.
       - name: merged_deal_ids
@@ -86,13 +85,12 @@ models:
   - name: hubspot__deal_stages
     description: Each record represents when a deal stage changes in Hubspot, enriched with metrics about deal activities
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: deal_stage_id
         description: The unique deal stage identifier.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_deal_pipeline_stage_deleted, false)"
       - name: is_deal_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
       - name: is_deal_pipeline_stage_deleted
@@ -145,13 +143,12 @@ models:
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: company_id
         description: The ID of the company.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_company_deleted, false)"
       - name: portal_id
         description: '{{ doc("portal_id") }}'
       - name: is_company_deleted
@@ -172,8 +169,10 @@ models:
         description: "{{ doc('count_engagement_forwarded_emails') }}"
 
   - name: hubspot__engagements
-    description: Each record represents an engagement 
+    description: Each record represents an engagement
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: activity_type
@@ -184,7 +183,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
       - name: is_active

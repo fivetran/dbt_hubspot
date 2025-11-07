@@ -16,13 +16,14 @@ fields as (
                 staging_columns=get_deal_stage_columns()
             )
         }}
-        
+        {{ hubspot.apply_source_relation() }}
     from base
 ),
 
 final as (
-    
-    select 
+
+    select
+        source_relation,
         cast(date_entered as {{ dbt.type_timestamp() }}) as date_entered,
         deal_id,
         source,

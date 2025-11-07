@@ -5,6 +5,8 @@ models:
   - name: stg_hubspot__deal_pipeline_stage
     description: Each record represents a pipeline stage in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_deal_pipeline_stage_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -13,8 +15,7 @@ models:
         description: The ID of the related pipeline.
       - name: deal_pipeline_stage_id
         description: The ID of the pipeline stage.
-        tests: 
-          - unique
+        tests:
           - not_null
       - name: display_order
         description: Used to determine the order in which the stages appear when viewed in HubSpot.
@@ -34,6 +35,8 @@ models:
   - name: stg_hubspot__deal_pipeline
     description: Each record represents a pipeline in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_deal_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -41,7 +44,6 @@ models:
       - name: deal_pipeline_id
         description: The ID of the pipeline.
         tests:
-          - unique
           - not_null
       - name: display_order
         description: Used to determine the order in which the pipelines appear when viewed in HubSpot
@@ -58,6 +60,8 @@ models:
   - name: stg_hubspot__deal
     description: Each record represents a deal in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_deal_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -66,7 +70,6 @@ models:
         description: The ID of the deal
         tests:
           - not_null
-          - unique
       - name: portal_id
         description: '{{ doc("portal_id") }}'
       - name: deal_pipeline_id
@@ -89,6 +92,8 @@ models:
   - name: stg_hubspot__deal_stage
     description: Each record represents a deal stage.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_active
         description: Boolean indicating whether the deal stage is active.
       - name: _fivetran_end
@@ -111,6 +116,8 @@ models:
   - name: stg_hubspot__deal_company
     description: Each record represents a 'link' between a deal and company.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: company_id
         description: The ID of the company.
       - name: deal_id
@@ -125,6 +132,8 @@ models:
   - name: stg_hubspot__deal_contact
     description: Each record represents a 'link' between a deal and contact.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: contact_id
         description: The ID of the contact.
       - name: deal_id
@@ -139,6 +148,8 @@ models:
   - name: stg_hubspot__deal_property_history
     description: Each record represents the details of your deal properties.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: change_source
@@ -157,6 +168,8 @@ models:
   - name: stg_hubspot__merged_deal
     description: Each record represents a deal that has been merged along with the related deal it's been merged into.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: merged_deal_id
         description: ID of deal that has been merged.
         tests:

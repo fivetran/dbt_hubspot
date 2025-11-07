@@ -14,12 +14,14 @@ with base as (
                 staging_columns=get_property_option_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
-        label as property_option_label,	
+        source_relation,
+        label as property_option_label,
         property_id,
         lower(hubspot_object) as hubspot_object, -- should already be lower but just in case
         name as property_option_name,

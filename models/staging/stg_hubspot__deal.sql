@@ -14,6 +14,7 @@ with base as (
                 staging_columns=get_deal_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
@@ -21,6 +22,7 @@ with base as (
     select
 
 {% if var('hubspot__pass_through_all_columns', false) %}
+        source_relation,
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__deal_tmp')),
@@ -40,6 +42,7 @@ with base as (
 {% else %}
         -- just default columns + explicitly configured passthrough columns
         -- a few columns below are aliased within the macros/get_deal_columns.sql macro
+        source_relation,
         deal_name,
         cast(closed_date as {{ dbt.type_timestamp() }}) as closed_date,
         cast(created_date as {{ dbt.type_timestamp() }}) as created_date,

@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.2.0'
+version: '1.3.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -26,6 +26,8 @@ vars:
     # hubspot_team_enabled: true # @docs-include
 
     hubspot_schema: hubspot_integration_tests_66
+
+    consistency_test_exclude: ['source_relation', 'id', 'ticket_day_id']
 
     # hubspot__pass_through_all_columns: true
     hubspot__company_pass_through_columns: # @docs-ignore

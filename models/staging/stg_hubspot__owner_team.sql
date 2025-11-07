@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_owner_team_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         owner_id,
         team_id,
         is_team_primary,

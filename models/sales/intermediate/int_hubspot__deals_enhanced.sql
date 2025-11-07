@@ -16,10 +16,11 @@ with deals as (
 ), aggregate_merged_deals as (
 
     select
+        source_relation,
         deal_id,
         {{ fivetran_utils.array_agg("merged_deal_id") }} as merged_deal_ids
     from merged_deals
-    group by 1
+    group by 1, 2
 {% endif %}
 
 ), pipelines as (
@@ -54,25 +55,30 @@ with deals as (
         pipelines.deal_pipeline_updated_at,
         pipeline_stages.pipeline_stage_label
 
-        {{ "," ~ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id"], relation_alias="owners_enhanced") if owner_enabled }}
+        {{ "," ~ dbt_utils.star(ref('int_hubspot__owners_enhanced'), except=["owner_id", "source_relation"], relation_alias="owners_enhanced") if owner_enabled }}
 
     from deals    
-    left join pipelines 
+    left join pipelines
         on deals.deal_pipeline_id = pipelines.deal_pipeline_id
-    left join pipeline_stages 
+        and deals.source_relation = pipelines.source_relation
+    left join pipeline_stages
         on deals.deal_pipeline_stage_id = pipeline_stages.deal_pipeline_stage_id
+        and deals.source_relation = pipeline_stages.source_relation
 
     {% if owner_enabled %}
     left join owners_enhanced
         on deals.owner_id = owners_enhanced.owner_id
+        and deals.source_relation = owners_enhanced.source_relation
     {% endif %}
 
     {% if merged_deal_enabled %}
     left join aggregate_merged_deals
         on deals.deal_id = aggregate_merged_deals.deal_id
+        and deals.source_relation = aggregate_merged_deals.source_relation
 
     left join merged_deals
         on deals.deal_id = merged_deals.merged_deal_id
+        and deals.source_relation = merged_deals.source_relation
     where merged_deals.merged_deal_id is null
     {% endif %}
 )   

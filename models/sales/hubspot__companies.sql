@@ -21,10 +21,12 @@ with companies as (
 
     select
         engagements.engagement_type,
-        engagement_companies.company_id
+        engagement_companies.company_id,
+        engagement_companies.source_relation
     from engagements
     inner join engagement_companies
-        using (engagement_id)
+        on engagements.engagement_id = engagement_companies.engagement_id
+        and engagements.source_relation = engagement_companies.source_relation
 
 ), engagement_companies_agg as (
 
@@ -39,7 +41,8 @@ with companies as (
         {% endfor %}
     from companies
     left join engagement_companies_agg
-        using (company_id)
+        on companies.company_id = engagement_companies_agg.company_id
+        and companies.source_relation = engagement_companies_agg.source_relation
 
 )
 

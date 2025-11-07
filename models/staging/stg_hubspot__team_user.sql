@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_team_user_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         team_id,
         user_id,
         is_secondary_user,

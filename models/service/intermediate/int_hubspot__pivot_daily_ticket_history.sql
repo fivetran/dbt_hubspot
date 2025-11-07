@@ -24,6 +24,7 @@ with daily_history as (
 ), pivot_out as (
 
     select 
+        source_relation,
         date_day, 
         ticket_id
 
@@ -34,13 +35,13 @@ with daily_history as (
 
     from daily_history
 
-    group by 1,2
+    group by 1,2,3
 
 ), surrogate as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['date_day', 'ticket_id']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','date_day', 'ticket_id']) }} as id
     from pivot_out
 )
 

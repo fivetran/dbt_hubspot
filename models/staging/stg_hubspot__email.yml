@@ -5,6 +5,8 @@ models:
   - name: stg_hubspot__email_event_bounce
     description: Each record represents a BOUNCE email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: bounce_category
@@ -15,7 +17,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -25,6 +26,8 @@ models:
   - name: stg_hubspot__email_event_click
     description: Each record represents a CLICK email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: browser
@@ -34,7 +37,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -55,7 +57,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -68,7 +69,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -93,7 +93,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: from_email
         description: The 'from' field of the email message.
@@ -110,7 +109,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -131,7 +129,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -150,7 +147,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -173,7 +169,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: from_email
         description: The 'from' field of the email message.
@@ -188,7 +183,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: ip_address
         description: '{{ doc("email_event_ip_address") }}'
@@ -206,7 +200,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: is_bounced
         description: | 
@@ -244,7 +237,6 @@ models:
       - name: event_id
         description: The ID of the event.
         tests:
-          - unique
           - not_null
       - name: event_type
         description: The type of event.
@@ -277,7 +269,6 @@ models:
       - name: email_campaign_id
         description: The ID of the email campaign.
         tests:
-          - unique
           - not_null
       - name: email_campaign_name
         description: The name of the email campaign.

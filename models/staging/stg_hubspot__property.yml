@@ -5,6 +5,8 @@ models:
   - name: stg_hubspot__property
     description: Each record represents a property.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_id
         description: >
           (DEPRECATED IN OCTOBER 2025) Fivetran generated id. Joins to `property_id` (ALSO DEPRECATED) in the `PROPERTY_OPTION` table. 
@@ -39,6 +41,8 @@ models:
   - name: stg_hubspot__property_option
     description: Each record represents an option for the related property.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: property_option_label

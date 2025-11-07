@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_team_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         id as team_id,
         name as team_name,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced

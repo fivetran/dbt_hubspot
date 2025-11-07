@@ -1,4 +1,9 @@
 {{ config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_contact_merge_audit_enabled', false))) }}
 
-select {{ dbt_utils.star(source('hubspot','contact_merge_audit')) }}
-from {{ var('contact_merge_audit') }}
+{{
+    hubspot.hubspot_union_connections(
+        connection_dictionary='hubspot_sources',
+        single_source_name='hubspot',
+        single_table_name='contact_merge_audit'
+    )
+}}

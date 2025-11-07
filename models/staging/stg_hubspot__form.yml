@@ -5,10 +5,11 @@ models:
   - name: stg_hubspot__form
     description: Each record represents a form created in HubSpot, including metadata about its configuration and behavior.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: form_id
         description: Unique identifier for the form.
         tests:
-          - unique
           - not_null
       - name: action
         description: The form action type or endpoint triggered upon submission.

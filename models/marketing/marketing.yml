@@ -5,6 +5,8 @@ models:
   - name: hubspot__email_sends
     description: Each record represents a SENT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: is_contact_deleted
@@ -19,9 +21,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
       - name: from_email
         description: The 'from' field of the email message.
       - name: reply_to_email
@@ -80,6 +79,8 @@ models:
   - name: hubspot__email_campaigns
     description: Each record represents an email campaign in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: app_id
@@ -91,7 +92,6 @@ models:
       - name: email_campaign_id
         description: The ID of the email campaign.
         tests:
-          - unique
           - not_null
       - name: email_campaign_name
         description: The name of the email campaign.
@@ -149,6 +149,8 @@ models:
   - name: hubspot__contacts
     description: Each record represents a contact in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_contact_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -157,9 +159,6 @@ models:
         description: The ID of the contact.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
       - name: contact_company
         description: The name of the contact's company
       - name: first_name
@@ -265,15 +264,14 @@ models:
   - name: hubspot__contact_lists
     description: Each record represents a contact list in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: contact_list_id
         description: The ID of the contact list.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_list_deleted, false)"
       - name: contact_list_name
         description: The name of the contact list.
       - name: is_contact_list_deleted

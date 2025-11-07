@@ -14,6 +14,7 @@ with base as (
                 staging_columns=get_ticket_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
@@ -21,6 +22,7 @@ with base as (
     select
 
 {% if var('hubspot__pass_through_all_columns', false) %}
+        source_relation,
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__ticket_tmp')),
@@ -40,6 +42,7 @@ with base as (
 {% else %}
         -- just default columns + explicitly configured passthrough columns
         -- a few columns below are aliased within the macros/get_ticket_columns.sql macro
+        source_relation,
         ticket_id,
         coalesce(_fivetran_ticket_deleted, is_ticket_deleted) as is_ticket_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,

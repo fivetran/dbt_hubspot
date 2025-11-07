@@ -5,13 +5,14 @@ models:
   - name: hubspot__engagement_calls
     description: Each record represents a CALL engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
         tests:
-          - not_null
-          - unique  
+          - not_null  
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -30,13 +31,14 @@ models:
   - name: hubspot__engagement_communication
     description: Each record represents a COMMUNICATION engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
         tests:
-          - not_null
-          - unique  
+          - not_null  
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -55,13 +57,14 @@ models:
   - name: hubspot__engagement_emails
     description: Each record represents an EMAIL engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
         tests:
-          - not_null
-          - unique  
+          - not_null  
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -80,13 +83,14 @@ models:
   - name: hubspot__engagement_meetings
     description: Each record represents a MEETING engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
         tests:
-          - not_null
-          - unique  
+          - not_null  
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -105,13 +109,14 @@ models:
   - name: hubspot__engagement_notes
     description: Each record represents a NOTE engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
         tests:
-          - not_null
-          - unique  
+          - not_null  
       - name: note
         description: The body of the note. The body has a limit of 65536 characters.  
       - name: is_active
@@ -132,13 +137,14 @@ models:
   - name: hubspot__engagement_tasks
     description: Each record represents a TASK engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
         tests:
-          - not_null
-          - unique  
+          - not_null  
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp

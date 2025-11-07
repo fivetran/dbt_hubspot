@@ -1,4 +1,9 @@
 {{ config(enabled=var('hubspot_owner_enabled', true)) }}
 
-select {{ dbt_utils.star(source('hubspot','owner')) }}
-from {{ var('owner') }}
+{{
+    hubspot.hubspot_union_connections(
+        connection_dictionary='hubspot_sources',
+        single_source_name='hubspot',
+        single_table_name='owner'
+    )
+}}

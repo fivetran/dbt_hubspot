@@ -107,3 +107,7 @@ The total number of related incoming email engagements.
 {% docs count_engagement_forwarded_emails %}
 The total number of related forwarded email engagements.
 {% enddocs %}
+
+{% docs source_relation %}
+Identifies the record's source.
+{% enddocs %}

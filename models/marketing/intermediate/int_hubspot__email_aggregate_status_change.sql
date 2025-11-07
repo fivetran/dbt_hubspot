@@ -9,16 +9,17 @@ with base as (
 ), aggregates as (
 
     select
+        source_relation,
         email_campaign_id,
         email_send_id,
         count(case when subscription_status = 'UNSUBSCRIBED' then 1 end) as unsubscribes
     from base
     where email_send_id is not null
-    group by 1,2
+    group by 1,2,3
 
 )
 
 select
     *,
-    {{ dbt_utils.generate_surrogate_key(['email_campaign_id', 'email_send_id']) }} as unique_key
+    {{ dbt_utils.generate_surrogate_key(['source_relation','email_campaign_id', 'email_send_id']) }} as unique_key
 from aggregates

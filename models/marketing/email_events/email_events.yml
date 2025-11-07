@@ -5,6 +5,8 @@ models:
   - name: hubspot__email_event_bounce
     description: Each record represents a BOUNCE email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -21,9 +23,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -52,6 +51,9 @@ models:
   - name: hubspot__email_event_clicks
     description: Each record represents a CLICK email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -68,9 +70,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -105,6 +104,9 @@ models:
   - name: hubspot__email_event_deferred
     description: Each record represents a DEFERRED email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -118,9 +120,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -146,6 +145,9 @@ models:
   - name: hubspot__email_event_delivered
     description: Each record represents a DELIVERED email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -156,9 +158,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -187,6 +186,9 @@ models:
   - name: hubspot__email_event_dropped
     description: Each record represents a DROPPED email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -212,9 +214,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: from_email
         description: The 'from' field of the email message.
@@ -243,6 +242,9 @@ models:
   - name: hubspot__email_event_forward
     description: Each record represents a FORWARD email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -256,9 +258,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -290,6 +289,9 @@ models:
   - name: hubspot__email_event_opens
     description: Each record represents a OPEN email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -306,9 +308,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -340,6 +339,9 @@ models:
   - name: hubspot__email_event_print
     description: Each record represents a PRINT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -353,9 +355,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -387,6 +386,9 @@ models:
   - name: hubspot__email_event_sent
     description: Each record represents a SENT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -406,9 +408,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: from_email
         description: The 'from' field of the email message.
@@ -437,6 +436,9 @@ models:
   - name: hubspot__email_event_spam_report
     description: Each record represents a SPAM_REPORT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -447,9 +449,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: ip_address
         description: '{{ doc("email_event_ip_address") }}'
@@ -478,6 +477,9 @@ models:
   - name: hubspot__email_event_status_change
     description: Each record represents a STATUS_CHANGE email event in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+        
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -491,9 +493,6 @@ models:
         description: The ID of the event.
         tests:
           - not_null
-          - unique:
-              config:
-                where: "not coalesce(is_contact_deleted, false)"
 
       - name: is_bounced
         description: | 

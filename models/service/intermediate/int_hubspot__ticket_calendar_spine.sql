@@ -9,13 +9,14 @@
         file_format = 'delta'
     )
 }}
+-- depends_on: {{ ref('stg_hubspot__ticket_tmp') }}
 
 with calendar as (
 
     {% if execute %}
     {% set first_date_query %}
     -- start at the first created ticket
-        select  min( property_createdate ) as min_date from {{ source('hubspot','ticket') }}
+        select  min( property_createdate ) as min_date from {{ ref('stg_hubspot__ticket_tmp') }}
     {% endset %}
     {% set first_date = run_query(first_date_query).columns[0][0]|string %}
     
@@ -47,10 +48,11 @@ with calendar as (
 
 ), joined as (
 
-    select 
+    select
         cast(calendar.date_day as date) as date_day,
-        ticket.ticket_id
-    from calendar 
+        ticket.ticket_id,
+        ticket.source_relation
+    from calendar
     inner join ticket
         on cast(calendar.date_day as date) >= cast(ticket.created_date as date)
         -- use this variable to extend the ticket's history past its close date (for reporting/data viz purposes :-)
@@ -60,7 +62,7 @@ with calendar as (
 
     select
         *,
-        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['date_day','ticket_id','source_relation']) }} as id
     from joined
 
 )

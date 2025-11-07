@@ -3,22 +3,16 @@
     enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_contact_list_enabled', true)
 ) }}
 
+{% set exclude_cols = var('consistency_test_exclude', []) %}
+
 -- this test ensures the contact_list end model matches the prior version
 with prod as (
-    select 
-        {{ dbt_utils.star(
-            from=ref('hubspot__contact_lists'), 
-            except=var('consistency_test_contact_list_exclude_fields', [])) 
-        }}
+    select {{ dbt_utils.star(from=ref('hubspot__contact_lists'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_prod.hubspot__contact_lists
 ),
 
 dev as (
-    select 
-        {{ dbt_utils.star(
-            from=ref('hubspot__contact_lists'), 
-            except=var('consistency_test_contact_list_exclude_fields', [])) 
-        }}
+    select {{ dbt_utils.star(from=ref('hubspot__contact_lists'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_dev.hubspot__contact_lists
 ),
 

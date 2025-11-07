@@ -5,6 +5,8 @@ models:
   - name: stg_hubspot__owner_team
     description: Table mapping owners to their associated teams in HubSpot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: owner_id
         description: Unique ID of the HubSpot owner (user) assigned to the team.
       - name: team_id
@@ -17,10 +19,11 @@ models:
   - name: stg_hubspot__role
     description: Table containing role information for HubSpot users.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: role_id
         description: Unique ID of the role.
         tests:
-          - unique
           - not_null
       - name: role_name
         description: Name of the role.
@@ -32,10 +35,11 @@ models:
   - name: stg_hubspot__team
     description: Table containing HubSpot team details.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: team_id
         description: Unique ID of the team.
         tests:
-          - unique
           - not_null
       - name: team_name
         description: Name of the team.
@@ -45,6 +49,8 @@ models:
   - name: stg_hubspot__team_user
     description: Table representing associations between users and teams, including secondary team assignments.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: user_id
         description: Unique ID of the user associated with the team.
       - name: team_id
@@ -57,10 +63,11 @@ models:
   - name: stg_hubspot__users
     description: Table containing information about HubSpot users.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: user_id
         description: Unique ID of the user.
         tests:
-          - unique
           - not_null
       - name: primary_team_id
         description: ID of the user's primary team.

@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_contact_list_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         id as contact_list_id,
         name as contact_list_name,
         created_by_id,

@@ -16,9 +16,10 @@ with base as (
                 staging_columns=get_engagement_communication_columns()
             )
         }}
-        {% if new_cols | length > 0 %} 
-            {{ new_cols }} 
+        {% if new_cols | length > 0 %}
+            {{ new_cols }}
         {% endif %}
+        {{ hubspot.apply_source_relation() }}
     from base
 )
 

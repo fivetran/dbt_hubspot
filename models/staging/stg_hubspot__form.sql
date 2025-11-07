@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_form_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         guid as form_id,
         action,
         created_at,
