@@ -54,6 +54,7 @@ with change_data as (
 ), joined as (
 
     select 
+        calendar.source_relation,
         calendar.date_day,
         calendar.ticket_id
         {% if is_incremental() %}    
@@ -116,7 +117,7 @@ with change_data as (
 ), fix_null_values as (
 
     select 
-        source_relation,
+        fill_values.source_relation,
         date_day,
         ticket_id,
         pipeline_stage.ticket_state,

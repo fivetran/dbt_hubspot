@@ -22,7 +22,6 @@ with base as (
     select
 
 {% if var('hubspot__pass_through_all_columns', false) %}
-        source_relation,
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__company_tmp')),
@@ -36,6 +35,7 @@ with base as (
                 columns=adapter.get_columns_in_relation(ref('stg_hubspot__company_tmp')), 
                 prefix='property_', exclude=get_macro_columns(get_company_columns()))
         }}
+        {{ hubspot.apply_source_relation() }}
         {% endif %}
     from base
 

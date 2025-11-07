@@ -9,6 +9,9 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
+  # jsons and arrays. reminder to myself to remove source_relation + surrogate keys
+  consistency_test_exclude: ['source_relation', 'id', 'ticket_day_id', 'merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
+
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include
@@ -26,8 +29,6 @@ vars:
     # hubspot_team_enabled: true # @docs-include
 
     hubspot_schema: hubspot_integration_tests_66
-
-    consistency_test_exclude: ['source_relation', 'id', 'ticket_day_id']
 
     # hubspot__pass_through_all_columns: true
     hubspot__company_pass_through_columns: # @docs-ignore
