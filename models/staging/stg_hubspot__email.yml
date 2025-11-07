@@ -50,6 +50,8 @@ models:
   - name: stg_hubspot__email_event_deferred
     description: Each record represents a DEFERRED email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: attempt_number
@@ -64,6 +66,8 @@ models:
   - name: stg_hubspot__email_event_delivered
     description: Each record represents a DELIVERED email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: event_id
@@ -78,6 +82,8 @@ models:
   - name: stg_hubspot__email_event_dropped
     description: Each record represents a DROPPED email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: bcc_emails
@@ -102,6 +108,8 @@ models:
   - name: stg_hubspot__email_event_forward
     description: Each record represents a FORWARD email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: browser
@@ -120,6 +128,8 @@ models:
   - name: stg_hubspot__email_event_open
     description: Each record represents a OPEN email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: browser
@@ -140,6 +150,8 @@ models:
   - name: stg_hubspot__email_event_print
     description: Each record represents a PRINT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: browser
@@ -158,6 +170,8 @@ models:
   - name: stg_hubspot__email_event_sent
     description: Each record represents a SENT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: bcc_emails
@@ -178,6 +192,8 @@ models:
   - name: stg_hubspot__email_event_spam_report
     description: Each record represents a SPAM_REPORT email event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: event_id
@@ -192,6 +208,8 @@ models:
   - name: stg_hubspot__email_event_status_change
     description: Each record represents a STATUS_CHANGE email event in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: change_source
@@ -222,6 +240,8 @@ models:
   - name: stg_hubspot__email_event
     description: Each record represents an email event in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: app_id
@@ -258,6 +278,8 @@ models:
   - name: stg_hubspot__email_campaign
     description: Each record represents an email campaign in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: app_id

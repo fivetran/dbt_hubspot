@@ -22,7 +22,6 @@ with base as (
     select
 
 {% if var('hubspot__pass_through_all_columns', false) %}
-        source_relation,
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__ticket_tmp')),
@@ -31,11 +30,13 @@ with base as (
         }}
         {% if all_passthrough_column_check('stg_hubspot__ticket_tmp',get_ticket_columns()) > 0 %}
         -- just pass everything through if extra columns are present, but ensure required columns are present.
+        {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_ticket_columns()) %}
         {{  
             remove_duplicate_and_prefix_from_columns(
                 columns=adapter.get_columns_in_relation(ref('stg_hubspot__ticket_tmp')), 
-                prefix='property_', exclude=get_macro_columns(get_ticket_columns())) 
+                prefix='property_', exclude=exclude_cols) 
         }}
+        {{ hubspot.apply_source_relation() }}
         {% endif %}
     from base
 
