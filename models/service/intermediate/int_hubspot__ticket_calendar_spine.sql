@@ -13,7 +13,7 @@
 
 with calendar as (
 
-    {% if execute %}
+    {% if execute and flags.WHICH in ('run', 'build') %}
     {% set first_date_query %}
     -- start at the first created ticket
         select  min( property_createdate ) as min_date from {{ ref('stg_hubspot__ticket_tmp') }}
