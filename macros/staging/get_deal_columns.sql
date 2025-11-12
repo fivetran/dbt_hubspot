@@ -2,10 +2,11 @@
 
 {% set columns = [
     {"name": "_fivetran_synced", "datatype": dbt.type_timestamp()},
+    {"name": "_fivetran_deleted", "datatype": dbt.type_boolean()},
     {"name": "deal_id", "datatype": dbt.type_int()},
     {"name": "deal_pipeline_id", "datatype": dbt.type_string()},
     {"name": "deal_pipeline_stage_id", "datatype": dbt.type_string()},
-    {"name": "is_deleted", "datatype": "boolean", "alias": "is_deal_deleted"},
+    {"name": "is_deleted", "datatype": dbt.type_boolean(), "alias": "is_deal_deleted"},
     {"name": "owner_id", "datatype": dbt.type_int()},
     {"name": "portal_id", "datatype": dbt.type_int()},
     {"name": "property_dealname", "datatype": dbt.type_string(), "alias": "deal_name"},

@@ -16,7 +16,7 @@ models:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: is_deleted
-        description: '{{ doc("is_deleted") }}'
+        description: '{{ doc("_fivetran_deleted") }}'
 
   - name: stg_hubspot__role
     description: Table containing role information for HubSpot users.
@@ -33,6 +33,8 @@ models:
         description: Indicates whether the role requires billing write access.
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
 
   - name: stg_hubspot__team
     description: Table containing HubSpot team details.
@@ -47,6 +49,8 @@ models:
         description: Name of the team.
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
 
   - name: stg_hubspot__team_user
     description: Table representing associations between users and teams, including secondary team assignments.
@@ -61,6 +65,8 @@ models:
         description: Indicates whether the team is a secondary team for the user.
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("_fivetran_deleted") }}'
 
   - name: stg_hubspot__users
     description: Table containing information about HubSpot users.
@@ -83,3 +89,5 @@ models:
         description: Last name of the user.
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("_fivetran_deleted") }}'

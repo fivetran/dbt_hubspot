@@ -34,7 +34,9 @@ with base as (
         portal_id,
         redirect,
         submit_text,
-        updated_at
+        updated_at,
+        _fivetran_deleted as is_deleted
+
     from macro
 )
 

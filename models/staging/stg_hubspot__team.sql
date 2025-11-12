@@ -23,7 +23,8 @@ with base as (
         source_relation,
         id as team_id,
         name as team_name,
-        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
+        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
+        _fivetran_deleted as is_deleted
     from macro
 )
 

@@ -74,6 +74,8 @@ sources:
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
           - name: id
             description: The ID of the company.
           - name: portal_id
@@ -360,6 +362,8 @@ sources:
             description: The day the deal is expected to close, or was closed.
           - name: property_createdate
             description: The date the deal was created. This property is set automatically by HubSpot.
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
 
       - name: deal_stage
         identifier: "{{ var('hubspot_deal_stage_identifier', 'deal_stage')}}"
@@ -1149,6 +1153,8 @@ sources:
             description: Text displayed on the form's submit button.
           - name: updated_at
             description: Timestamp when the form was last updated.
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
 
       - name: owner
         identifier: "{{ var('hubspot_owner_identifier', 'owner')}}"
@@ -1447,7 +1453,7 @@ sources:
             description: '{{ doc("_fivetran_synced") }}'
           - name: _fivetran_deleted
             description: '{{ doc("_fivetran_deleted") }}'
-            
+
       - name: role
         identifier: '{{ var("hubspot_role_identifier", "role") }}'
         description: Table containing role information for HubSpot users.
@@ -1462,6 +1468,8 @@ sources:
             description: Indicates whether the role requires billing write access.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
 
       - name: team
         identifier: '{{ var("hubspot_team_identifier", "team") }}'
@@ -1475,6 +1483,8 @@ sources:
             description: Name of the team.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
 
       - name: team_user
         identifier: '{{ var("hubspot_team_user_identifier", "team_user") }}'
@@ -1490,6 +1500,8 @@ sources:
             description: Indicates whether the team is a secondary team for the user.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
 
       - name: users
         identifier: '{{ var("hubspot_users_identifier", "users") }}'
@@ -1511,3 +1523,5 @@ sources:
             description: Last name of the user.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'

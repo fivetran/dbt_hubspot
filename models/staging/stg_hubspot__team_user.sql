@@ -24,7 +24,8 @@ with base as (
         team_id,
         user_id,
         is_secondary_user,
-        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
+        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
+        _fivetran_deleted as is_deleted
     from macro
 )
 
