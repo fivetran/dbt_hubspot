@@ -1445,7 +1445,9 @@ sources:
             description: Indicates whether the team is the owner's primary team.
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
-
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+            
       - name: role
         identifier: '{{ var("hubspot_role_identifier", "role") }}'
         description: Table containing role information for HubSpot users.

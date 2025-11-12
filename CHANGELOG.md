@@ -1,12 +1,13 @@
 # dbt_hubspot v1.3.0
 
-[PR #187](https://github.com/fivetran/dbt_hubspot/pull/187) includes the following updates:
+[PR #186](https://github.com/fivetran/dbt_hubspot/pull/186) and [PR #187](https://github.com/fivetran/dbt_hubspot/pull/187) include the following updates:
 
 ## Schema/Data Change
-**7 total changes • 6 possible breaking changes**
+**8 total changes • 6 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | ----| --- | ----- |
+| `stg_hubspot__owner_team` | New column | | `is_deleted` (aliased from `_fivetran_deleted`) | Boolean indicating whether a record has been deleted in Hubspot and/or inferred deleted in Hubspot by Fivetran |
 | All models | New column | | `source_relation` | Identifies the source connection when using multiple hubspot connections |
 | `hubspot__company_history` | Updated surrogate key | `id` = `company_id` + `field_name` + `valid_from` | `id` = `source_relation` + `company_id` + `field_name` + `valid_from` |  |
 | `hubspot__contact_history` | Updated surrogate key | `id` = `contact_id` + `field_name` + `valid_from` | `id` = `source_relation` + `contact_id` + `field_name` + `valid_from` |  |
@@ -22,6 +23,9 @@
 - Removes uniqueness tests. The new unioning feature requires combination-of-column tests to consider the new `source_relation` column in addition to the existing primary key, but this is not supported across dbt versions.
 - These tests will be reintroduced once a version-agnostic solution is available.
 > We have kept uniqueness tests on the surrogate keys listed above.
+
+## Contributors
+- [@zhoward101](https://github.com/zhoward101) ([PR #186](https://github.com/fivetran/dbt_hubspot/pull/186))
 
 # dbt_hubspot v1.2.0
 
