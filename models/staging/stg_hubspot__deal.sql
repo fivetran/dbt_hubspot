@@ -47,7 +47,7 @@ with base as (
         deal_name,
         cast(closed_date as {{ dbt.type_timestamp() }}) as closed_date,
         cast(created_date as {{ dbt.type_timestamp() }}) as created_date,
-        coalesce(is_deal_deleted, _fivetran_deleted) as is_deal_deleted,
+        coalesce(is_deal_deleted, _fivetran_deal_deleted) as is_deal_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         deal_id,
         cast(deal_pipeline_id as {{ dbt.type_string() }}) as deal_pipeline_id,
