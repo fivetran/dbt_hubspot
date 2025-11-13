@@ -17,20 +17,23 @@
 | `int_hubspot__daily_ticket_history` | Updated surrogate key | `id` = `date_day` + `ticket_id` + `field_name` | `id` = `source_relation` + `date_day` + `ticket_id` + `field_name` |  |
 
 ## Additional Breaking Changes
-If you have either of the following passthrough column configurations, please remove or adjust the `alias` to avoid duplicate column errors.
+If you are currently using the `hubspot__company_pass_through_columns` or `hubspot__deal_pass_through_columns` variables to persist the `_fivetran_deleted` field, please add an `alias` to avoid duplicate column errors.
+
+> Please note that `_fivetran_deleted` is coalesced with the `is_<company/deal>_eabled` field present in the `hubspot__companies`, `hubspot__deals`, and `hubspot__deal_stages` models.
+
 ```yml
 vars:
   hubspot__company_pass_through_columns: 
     - name: "_fivetran_deleted" 
-      alias: "_fivetran_company_deleted"
+      alias: "_fivetran_company_deleted" # Can choose any alias other than _fivetran_deleted
   hubspot__deal_pass_through_columns: 
     - name: "_fivetran_deleted" 
-      alias: "_fivetran_deal_deleted"
+      alias: "_fivetran_deal_deleted" # Can choose any alias other than _fivetran_deleted
 ```
 
 ## Feature Update
 - **Union Data Functionality**: This release supports running the package on multiple hubspot source connections. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature.
-- In `stg_hubspot__company` and `stg_hubspot__deal`, coalesces `is_<company/deal>_deleted` with `_fivetran_deleted`.
+- Coalesces `is_<company/deal>_deleted` with `_fivetran_deleted` in `stg_hubspot__company` and `stg_hubspot__deal`.
 
 ## Tests Update
 - Removes uniqueness tests. The new unioning feature requires combination-of-column tests to consider the new `source_relation` column in addition to the existing primary key, but this is not supported across dbt versions.
