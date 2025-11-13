@@ -5,6 +5,8 @@ models:
   - name: stg_hubspot__company_property_history
     description: Each record represents a change to company record in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: change_source
@@ -23,6 +25,8 @@ models:
   - name: stg_hubspot__company
     description: Each record represents a company in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: is_company_deleted
@@ -30,7 +34,6 @@ models:
       - name: company_id
         description: The ID of the company.
         tests:
-          - unique
           - not_null
       - name: company_name
         description: The name of the company.

@@ -9,16 +9,19 @@ with base as (
 
     select
         {% set default_cols = adapter.get_columns_in_relation(ref('stg_hubspot__engagement_task_tmp')) %}
+        {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_engagement_task_columns()) %}
+
         {% set new_cols = remove_duplicate_and_prefix_from_columns(columns=default_cols, 
-            prefix='property_hs_',exclude=get_macro_columns(get_engagement_task_columns())) %}
+            prefix='property_hs_',exclude=exclude_cols) %}
         {{
             fivetran_utils.fill_staging_columns(source_columns=default_cols,
                 staging_columns=get_engagement_task_columns()
             )
         }}
-        {% if new_cols | length > 0 %} 
-            {{ new_cols }} 
+        {% if new_cols | length > 0 %}
+            {{ new_cols }}
         {% endif %}
+        {{ hubspot.apply_source_relation() }}
     from base
 )
 

@@ -5,6 +5,9 @@ models:
   - name: hubspot__contact_history
     description: Each record represents a change to contact record in Hubspot; the grain of this model is contact_id -> field_name -> valid_to.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -30,7 +33,7 @@ models:
         description: '{{ doc("history_value") }}'
 
       - name: id
-        description: The ID of the change.
+        description: The ID of the change. Hashed on `source_relation`, `contact_id`, `field_name`, and `valid_from`.
         tests:
           - unique
           - not_null

@@ -7,18 +7,20 @@ with base as (
 
 ), macro as (
 
-    select 
+    select
         {{
             fivetran_utils.fill_staging_columns(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__deal_contact_tmp')),
                 staging_columns=get_deal_contact_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         contact_id,
         deal_id,
         type_id,

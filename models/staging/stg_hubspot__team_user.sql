@@ -14,15 +14,18 @@ with base as (
                 staging_columns=get_team_user_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         team_id,
         user_id,
         is_secondary_user,
-        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
+        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
+        _fivetran_deleted as is_deleted
     from macro
 )
 

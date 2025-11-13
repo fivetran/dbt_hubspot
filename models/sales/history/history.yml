@@ -5,6 +5,9 @@ models:
   - name: hubspot__company_history
     description: Each record represents a change to company record in Hubspot; the grain of this model is company_id -> field_name -> valid_to.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -30,7 +33,7 @@ models:
         description: '{{ doc("history_value") }}'
 
       - name: id
-        description: The ID of the change.
+        description: The ID of the change. Hashed on `source_relation`, `field_name`, `company_id`, and `valid_from`.
         tests:
           - unique
           - not_null
@@ -38,6 +41,9 @@ models:
   - name: hubspot__deal_history
     description: Each record represents a change to deal record in Hubspot; the grain of this model is deal_id -> field_name -> valid_to.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+        
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
 
@@ -63,7 +69,7 @@ models:
         description: '{{ doc("history_value") }}'
 
       - name: id
-        description: The ID of the change.
+        description: The ID of the change. Hashed on `source_relation`, `field_name`, `deal_id`, and `valid_from`.
         tests:
           - unique
           - not_null

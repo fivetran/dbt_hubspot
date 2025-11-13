@@ -62,6 +62,9 @@ service-account.json
 *.temp
 *.tmp
 
+# Claude instructions
+CLAUDE.md
+
 # Virtual environments
 .conda/
 .env

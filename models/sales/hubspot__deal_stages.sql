@@ -23,7 +23,8 @@ with deals_enhanced as (
 ), final as (
 
     select
-        deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id order by deal_stage.date_entered asc) as deal_stage_id,
+        deal_stage.source_relation,
+        deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id {{ hubspot.partition_by_source_relation(alias='deal_stage') }} order by deal_stage.date_entered asc) as deal_stage_id,
         deals_enhanced.deal_id,
         deals_enhanced.deal_name,
 
@@ -56,12 +57,15 @@ with deals_enhanced as (
 
     left join pipeline_stage
         on deal_stage.deal_stage_name = pipeline_stage.deal_pipeline_stage_id
-    
+        and deal_stage.source_relation = pipeline_stage.source_relation
+
     left join pipeline
         on pipeline_stage.deal_pipeline_id = pipeline.deal_pipeline_id
+        and pipeline_stage.source_relation = pipeline.source_relation
 
     left join deals_enhanced
         on deal_stage.deal_id = deals_enhanced.deal_id
+        and deal_stage.source_relation = deals_enhanced.source_relation
 )
 
 select * 

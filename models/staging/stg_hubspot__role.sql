@@ -14,15 +14,18 @@ with base as (
                 staging_columns=get_role_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         id as role_id,
         name as role_name,
         requires_billing_write,
-        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
+        cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
+        _fivetran_deleted as is_deleted
     from macro
 )
 

@@ -1,6 +1,7 @@
 {% macro engagements_aggregated(from_ref, primary_key) %}
 
     select
+        source_relation,
         {{ primary_key }},
         count(case when engagement_type = 'NOTE' then {{ primary_key }} end) as count_engagement_notes,
         count(case when engagement_type = 'TASK' then {{ primary_key }} end) as count_engagement_tasks,
@@ -10,7 +11,7 @@
         count(case when engagement_type = 'INCOMING_EMAIL' then {{ primary_key }} end) as count_engagement_incoming_emails,
         count(case when engagement_type = 'FORWARDED_EMAIL' then {{ primary_key }} end) as count_engagement_forwarded_emails
     from {{ from_ref }}
-    group by 1
+    group by 1,2
 
 {% endmacro %}
 

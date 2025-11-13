@@ -5,10 +5,11 @@ models:
   - name: stg_hubspot__owner
     description: Each record represents an owner/user in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: owner_id
         description: The ID of the owner.
         tests:
-          - unique
           - not_null
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'

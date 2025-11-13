@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_email_event_open_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         browser,
         duration as duration_open,

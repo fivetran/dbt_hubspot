@@ -5,6 +5,8 @@ models:
   - name: stg_hubspot__ticket_company
     description: Each record represents a 'link' between a ticket and company.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: ticket_id
@@ -17,6 +19,8 @@ models:
   - name: stg_hubspot__ticket_contact
     description: Each record represents a 'link' between a ticket and a contact.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: ticket_id
@@ -29,6 +33,8 @@ models:
   - name: stg_hubspot__ticket_deal
     description: Each record represents a 'link' between a ticket and a deal.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: ticket_id
@@ -41,6 +47,8 @@ models:
   - name: stg_hubspot__ticket_engagement
     description: Each record represents a 'link' between a ticket and an engagement.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: ticket_id
@@ -53,6 +61,8 @@ models:
   - name: stg_hubspot__ticket_property_history
     description: Each record represents a change to ticket record in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: _fivetran_start
@@ -75,12 +85,13 @@ models:
   - name: stg_hubspot__ticket
     description: Each record represents a ticket in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: ticket_id
         description: ID of the ticket.
         tests:
-          - unique
           - not_null
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'
@@ -108,6 +119,8 @@ models:
   - name: stg_hubspot__ticket_pipeline_stage
     description: Each record represents a ticket pipeline stage.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_ticket_pipeline_stage_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -134,6 +147,8 @@ models:
   - name: stg_hubspot__ticket_pipeline
     description: Each record represents a ticket pipeline.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_ticket_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced

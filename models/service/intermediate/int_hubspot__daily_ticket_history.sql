@@ -29,6 +29,7 @@ with history as (
 ), windows as (
 
     select
+        source_relation,
         cast({{ dbt.date_trunc('day', 'change_timestamp') }} as date) as date_day,
         ticket_id,
         field_name,
@@ -45,7 +46,7 @@ with history as (
     select 
         *,
         row_number() over (
-            partition by date_day, ticket_id, field_name
+            partition by date_day, ticket_id, field_name {{ hubspot.partition_by_source_relation() }}
             order by valid_from desc
             ) as row_num
     from windows
@@ -53,6 +54,7 @@ with history as (
 ), extract_latest as (
     
     select 
+        source_relation,
         date_day,
         ticket_id,
         field_name,
@@ -69,7 +71,7 @@ with history as (
 
     select 
         *,
-        {{ dbt_utils.generate_surrogate_key(['field_name','ticket_id','date_day']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['field_name','ticket_id','date_day','source_relation']) }} as id
     from extract_latest
 
 )

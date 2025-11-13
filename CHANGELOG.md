@@ -1,3 +1,51 @@
+# dbt_hubspot v1.3.0
+
+[PR #186](https://github.com/fivetran/dbt_hubspot/pull/186) and [PR #187](https://github.com/fivetran/dbt_hubspot/pull/187) include the following updates:
+
+## Schema/Data Change
+**8 total changes • 6 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | ----| --- | ----- |
+| `stg_hubspot__owner_team`<br>`stg_hubspot__form`<br>`stg_hubspot__role`<br>`stg_hubspot__team`<br>`stg_hubspot__team_user`<br>`stg_hubspot__users` | New column | | `is_deleted` (aliased from `_fivetran_deleted`) | Boolean indicating whether a record has been deleted in Hubspot and/or inferred deleted in Hubspot by Fivetran |
+| All models | New column | | `source_relation` | Identifies the source connection when using multiple hubspot connections |
+| `hubspot__company_history` | Updated surrogate key | `id` = `company_id` + `field_name` + `valid_from` | `id` = `source_relation` + `company_id` + `field_name` + `valid_from` |  |
+| `hubspot__contact_history` | Updated surrogate key | `id` = `contact_id` + `field_name` + `valid_from` | `id` = `source_relation` + `contact_id` + `field_name` + `valid_from` |  |
+| `hubspot__deal_history` | Updated surrogate key | `id` = `deal_id` + `field_name` + `valid_from` | `id` = `source_relation` + `deal_id` + `field_name` + `valid_from` |  |
+| `hubspot__daily_ticket_history` | Updated surrogate key | `ticket_day_id` = `date_day` + `ticket_id` | `ticket_day_id` = `source_relation` + `date_day` + `ticket_id` |  |
+| `int_hubspot__pivot_daily_ticket_history`<br>`int_hubspot__ticket_calendar_spine` | Updated surrogate key | `id` = `date_day` + `ticket_id` | `id` = `source_relation` + `date_day` + `ticket_id` |  |
+| `int_hubspot__daily_ticket_history` | Updated surrogate key | `id` = `date_day` + `ticket_id` + `field_name` | `id` = `source_relation` + `date_day` + `ticket_id` + `field_name` |  |
+
+## Additional Breaking Changes
+If you are currently using the `hubspot__company_pass_through_columns` or `hubspot__deal_pass_through_columns` variables to persist the `_fivetran_deleted` field, please add an `alias` to avoid duplicate column errors.
+
+> Please note that `_fivetran_deleted` is coalesced with the `is_<company/deal>_eabled` field present in the `hubspot__companies`, `hubspot__deals`, and `hubspot__deal_stages` models.
+
+```yml
+vars:
+  hubspot__company_pass_through_columns: 
+    - name: "_fivetran_deleted" 
+      alias: "_fivetran_company_deleted" # Can choose any alias other than _fivetran_deleted
+  hubspot__deal_pass_through_columns: 
+    - name: "_fivetran_deleted" 
+      alias: "_fivetran_deal_deleted" # Can choose any alias other than _fivetran_deleted
+```
+
+## Feature Update
+- **Union Data Functionality**: This release supports running the package on multiple hubspot source connections. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#step-3-define-database-and-schema-variables) for details on how to leverage this feature.
+- Coalesces `is_<company/deal>_deleted` with `_fivetran_deleted` in `stg_hubspot__company` and `stg_hubspot__deal`.
+
+## Tests Update
+- Removes uniqueness tests. The new unioning feature requires combination-of-column tests to consider the new `source_relation` column in addition to the existing primary key, but this is not supported across dbt versions.
+- These tests will be reintroduced once a version-agnostic solution is available.
+> We have kept uniqueness tests on the surrogate keys listed above.
+
+## Under the Hood
+- Ensures that the `datatype` config of `_fivetran_deleted`/`is_deleted` uses the cross-compatible `dbt.type_boolean()` macro.
+
+## Contributors
+- [@zhoward101](https://github.com/zhoward101) ([PR #186](https://github.com/fivetran/dbt_hubspot/pull/186))
+
 # dbt_hubspot v1.2.0
 
 [PR #182](https://github.com/fivetran/dbt_hubspot/pull/182) includes the following updates:

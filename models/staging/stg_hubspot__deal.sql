@@ -14,6 +14,7 @@ with base as (
                 staging_columns=get_deal_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
@@ -27,12 +28,14 @@ with base as (
                 staging_columns=get_deal_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
         {% if all_passthrough_column_check('stg_hubspot__deal_tmp',get_deal_columns()) > 0 %}
         -- just pass everything through if extra columns are present, but ensure required columns are present.
+        {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_deal_columns()) %}
         {{ 
             remove_duplicate_and_prefix_from_columns(
                 columns=adapter.get_columns_in_relation(ref('stg_hubspot__deal_tmp')), 
-                prefix='property_',exclude=get_macro_columns(get_deal_columns()))
+                prefix='property_',exclude=exclude_cols)
         }}
         {% endif %}
     from base
@@ -40,10 +43,11 @@ with base as (
 {% else %}
         -- just default columns + explicitly configured passthrough columns
         -- a few columns below are aliased within the macros/get_deal_columns.sql macro
+        source_relation,
         deal_name,
         cast(closed_date as {{ dbt.type_timestamp() }}) as closed_date,
         cast(created_date as {{ dbt.type_timestamp() }}) as created_date,
-        is_deal_deleted,
+        coalesce(is_deal_deleted, _fivetran_deleted) as is_deal_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         deal_id,
         cast(deal_pipeline_id as {{ dbt.type_string() }}) as deal_pipeline_id,

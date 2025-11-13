@@ -3,14 +3,16 @@
     enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_service_enabled', false)
 ) }}
 
+{% set exclude_cols = var('consistency_test_exclude', []) %}
+
 -- this test ensures the daily_activity end model matches the prior version
 with prod as (
-    select *
+    select {{ dbt_utils.star(from=ref('hubspot__daily_ticket_history'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_prod.hubspot__daily_ticket_history
 ),
 
 dev as (
-    select *
+    select {{ dbt_utils.star(from=ref('hubspot__daily_ticket_history'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_dev.hubspot__daily_ticket_history
 ),
 

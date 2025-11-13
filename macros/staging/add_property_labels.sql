@@ -21,17 +21,20 @@ select {{ cte_name }}.*
 
   left join -- create subset of property and property_options for property in question
     (select 
+      property_option.source_relation,
       property_option.property_option_value, 
       property_option.property_option_label
     from {{ ref('stg_hubspot__property_option') }} as property_option
     join {{ ref('stg_hubspot__property') }} as property
       on property_option.hubspot_object = property.hubspot_object
+      and property_option.source_relation = property.source_relation
     where property.property_name = '{{ col.name.replace('property_', '') }}'
       and property.hubspot_object = '{{ source_name }}'
     ) as {{ col.name }}_option
 
     on cast({{ cte_name }}.{{ col_alias }} as {{ dbt.type_string() }})
       = cast({{ col.name }}_option.property_option_value as {{ dbt.type_string() }})
+    and {{ cte_name }}.source_relation = {{ col.name }}_option.source_relation
 
     {% endif -%}
   {%- endfor %}

@@ -4,6 +4,8 @@ models:
   - name: stg_hubspot__contact_form_submission
     description: Table containing contact form submission information.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: contact_id
@@ -26,6 +28,8 @@ models:
   - name: stg_hubspot__contact_list_member
     description: Each record represents a 'link' between a contact and a contact list.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_contact_list_member_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -40,6 +44,8 @@ models:
   - name: stg_hubspot__contact_list
     description: Each record represents a contact list in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_contact_list_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -47,7 +53,6 @@ models:
       - name: contact_list_id
         description: The ID of the contact list.
         tests:
-          - unique
           - not_null
       - name: contact_list_name
         description: The name of the contact list.
@@ -112,6 +117,8 @@ models:
   - name: stg_hubspot__contact_property_history
     description: Each record represents a change to contact record in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: change_source
@@ -130,6 +137,8 @@ models:
   - name: stg_hubspot__contact_merge_audit
     description: Each record contains a contact merge event and the contacts effected by the merge.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: canonical_vid
@@ -154,6 +163,8 @@ models:
   - name: stg_hubspot__contact
     description: Each record represents a contact in Hubspot.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: is_contact_deleted
         description: '{{ doc("is_deleted") }}'
       - name: _fivetran_synced
@@ -161,7 +172,6 @@ models:
       - name: contact_id
         description: The ID of the contact.
         tests:
-          - unique
           - not_null
       - name: email
         description: The email address of the contact.

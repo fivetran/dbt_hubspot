@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_contact_merge_audit_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         canonical_vid,
         contact_id,
         entity_id,

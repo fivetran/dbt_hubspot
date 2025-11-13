@@ -3,7 +3,7 @@
 {% set columns = [
     {"name": "_fivetran_synced", "datatype": dbt.type_timestamp()},
     {"name": "id", "datatype": dbt.type_int(), "alias": "ticket_id"},
-    {"name": "_fivetran_deleted", "datatype": "boolean", "alias": "_fivetran_ticket_deleted"},
+    {"name": "_fivetran_deleted", "datatype": dbt.type_boolean(), "alias": "_fivetran_ticket_deleted"},
     {"name": "is_deleted", "datatype": "boolean", "alias": "is_ticket_deleted"},
     {"name": "property_closed_date", "datatype": dbt.type_timestamp(), "alias": "closed_date"},
     {"name": "property_createdate", "datatype": dbt.type_timestamp(), "alias": "created_date"},

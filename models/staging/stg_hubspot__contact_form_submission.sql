@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_contact_form_submission_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         cast(timestamp as {{ dbt.type_timestamp() }}) as occurred_timestamp,
         form_id,
         contact_id,

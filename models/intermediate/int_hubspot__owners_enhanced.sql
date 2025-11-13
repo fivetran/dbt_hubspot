@@ -2,6 +2,7 @@
 
 with owners as (
     select
+        source_relation,
         owner_id,
         active_user_id as owner_active_user_id,
         email_address as owner_email_address,
@@ -20,6 +21,7 @@ with owners as (
 
 ), teams_agg as (
     select
+        owner_teams.source_relation,
         owner_teams.owner_id,
         max(case when owner_teams.is_team_primary then owner_teams.team_id end) as owner_primary_team_id,
         max(case when owner_teams.is_team_primary then teams.team_name end) as owner_primary_team_name,
@@ -28,7 +30,8 @@ with owners as (
     from owner_teams
     left join teams
         on owner_teams.team_id = teams.team_id
-    group by 1
+        and owner_teams.source_relation = teams.source_relation
+    group by 1, 2
 
 ), teams_joined as (
     select
@@ -40,6 +43,7 @@ with owners as (
     from owners
     left join teams_agg
     on owners.owner_id = teams_agg.owner_id
+    and owners.source_relation = teams_agg.source_relation
 {% set cte_ref = 'teams_joined' %}
 {% endif %}
 
@@ -60,8 +64,10 @@ with owners as (
     from {{ cte_ref }}
     left join users
         on {{ cte_ref }}.owner_active_user_id = users.user_id
+        and {{ cte_ref }}.source_relation = users.source_relation
     left join roles
         on users.role_id = roles.role_id
+        and users.source_relation = roles.source_relation
 
 {% set cte_ref = 'roles_joined' %}
 {% endif %}

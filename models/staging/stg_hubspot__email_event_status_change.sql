@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_email_event_status_change_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         bounced as is_bounced,
         id as event_id,

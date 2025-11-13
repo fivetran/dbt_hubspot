@@ -14,11 +14,13 @@ with base as (
                 staging_columns=get_deal_pipeline_columns()
             )
         }}
+        {{ hubspot.apply_source_relation() }}
     from base
 
 ), fields as (
 
     select
+        source_relation,
         _fivetran_deleted as is_deal_pipeline_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         active as is_active,

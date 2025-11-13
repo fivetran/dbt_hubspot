@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.2.0'
+version: '1.3.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -9,6 +9,8 @@ models:
   # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
 
 vars:
+  # jsons and arrays
+  consistency_test_exclude: ['merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'deal_names', 'contact_emails', 'company_names', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include

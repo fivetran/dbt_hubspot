@@ -3,14 +3,16 @@
     enabled=(var('fivetran_validation_tests_enabled', false) and var('hubspot_deal_enabled', true))
 ) }}
 
+{% set exclude_cols = var('consistency_test_exclude', []) %}
+
 -- this test ensures the deals end model matches the prior version
 with prod as (
-    select *
+    select {{ dbt_utils.star(from=ref('hubspot__deals'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_prod.hubspot__deals
 ),
 
 dev as (
-    select *
+    select {{ dbt_utils.star(from=ref('hubspot__deals'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_dev.hubspot__deals
 ),
 

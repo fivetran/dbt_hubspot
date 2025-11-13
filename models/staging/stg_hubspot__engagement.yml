@@ -3,15 +3,16 @@ version: 2
 models:
 
   - name: stg_hubspot__engagement_call
-    description: Each record represents a CALL engagement event. All source `property_hs_*` fields 
+    description: Each record represents a CALL engagement event. All source `property_hs_*` fields
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: engagement_id
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: _fivetran_deleted
         description: Boolean to mark rows that were deleted in the source database.
       - name: engagement_type
@@ -40,6 +41,8 @@ models:
   - name: stg_hubspot__engagement_communication
     description: Each record represents a 'link' between a communication and an engagement.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: _fivetran_deleted
@@ -48,7 +51,6 @@ models:
         description: ID of the engagement associated with the communication.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -75,6 +77,8 @@ models:
   - name: stg_hubspot__engagement_company
     description: Each record represents a 'link' between a company and an engagement.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: company_id
@@ -87,6 +91,8 @@ models:
   - name: stg_hubspot__engagement_contact
     description: Each record represents a 'link' between a contact and an engagement.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: contact_id
@@ -99,6 +105,8 @@ models:
   - name: stg_hubspot__engagement_deal
     description: Each record represents a 'link' between a deal and an engagement.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: deal_id
@@ -111,6 +119,8 @@ models:
   - name: stg_hubspot__engagement_email
     description: Each record represents an EMAIL engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: _fivetran_deleted
@@ -119,7 +129,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -146,6 +155,8 @@ models:
   - name: stg_hubspot__engagement_meeting
     description: Each record represents a MEETING engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: _fivetran_deleted
@@ -154,7 +165,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -181,6 +191,8 @@ models:
   - name: stg_hubspot__engagement_note
     description: Each record represents a NOTE engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: _fivetran_deleted
@@ -189,7 +201,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: note
@@ -218,6 +229,8 @@ models:
   - name: stg_hubspot__engagement_task
     description: Each record represents a TASK engagement event.
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: _fivetran_deleted
@@ -226,7 +239,6 @@ models:
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: The type of the engagement.
       - name: created_timestamp
@@ -251,15 +263,16 @@ models:
           PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
 
   - name: stg_hubspot__engagement
-    description: Each record represents an engagement 
+    description: Each record represents an engagement
     columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: engagement_id
         description: The ID of the engagement.
         tests:
           - not_null
-          - unique
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
       - name: is_active

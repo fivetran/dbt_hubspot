@@ -20,6 +20,7 @@ with contacts as (
     
     left join contact_merge_audit
         on cast(contacts.contact_id as {{ dbt.type_string() }}) = cast(contact_merge_audit.vid_to_merge as {{ dbt.type_string() }})
+        and contacts.source_relation = contact_merge_audit.source_relation
     
     where contact_merge_audit.vid_to_merge is null
 )

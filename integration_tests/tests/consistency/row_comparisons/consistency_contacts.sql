@@ -3,14 +3,16 @@
     enabled=(var('fivetran_validation_tests_enabled', false) and var('hubspot_contact_enabled', true))
 ) }}
 
+{% set exclude_cols = var('consistency_test_exclude', []) %}
+
 -- this test ensures the contacts end model matches the prior version
 with prod as (
-    select {{ dbt_utils.star(from=ref('hubspot__contacts'), except=var('contact_exception_columns', '[]')) }}
+    select {{ dbt_utils.star(from=ref('hubspot__contacts'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_prod.hubspot__contacts
 ),
 
 dev as (
-    select {{ dbt_utils.star(from=ref('hubspot__contacts'), except=var('contact_exception_columns', '[]')) }}
+    select {{ dbt_utils.star(from=ref('hubspot__contacts'), except=exclude_cols) }}
     from {{ target.schema }}_hubspot_dev.hubspot__contacts
 ),
 
