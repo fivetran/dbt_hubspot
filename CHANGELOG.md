@@ -1,3 +1,10 @@
+# dbt_hubspot v1.4.0
+
+[PR #188](https://github.com/fivetran/dbt_hubspot/pull/188) includes the following updates:
+
+## Features
+  - Increases the required dbt version upper limit to v3.0.0
+
 # dbt_hubspot v1.3.0
 
 [PR #186](https://github.com/fivetran/dbt_hubspot/pull/186) and [PR #187](https://github.com/fivetran/dbt_hubspot/pull/187) include the following updates:
