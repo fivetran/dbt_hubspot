@@ -1,3 +1,12 @@
+# dbt_hubspot v1.5.0
+
+## Schema/Data Change (--full-refresh required after upgrading)
+**1 total changes • 1 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| `stg_hubspot__contact`<br>`hubspot__contacts` | Removed column | `calculated_merged_vids` | | This field is sunset. Use `merged_object_ids` instead |
+
 # dbt_hubspot v1.4.0
 
 [PR #188](https://github.com/fivetran/dbt_hubspot/pull/188) includes the following updates:
