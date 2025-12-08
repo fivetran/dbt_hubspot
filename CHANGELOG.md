@@ -6,7 +6,10 @@
 | Data Model(s) | Change type | Old | New | Notes |
 | ---------- | ----------- | -------- | -------- | ----- |
 | `stg_hubspot__contact`<br>`hubspot__contacts` | Removed column | `calculated_merged_vids` | | Field deprecated in [v1.3.0](https://github.com/fivetran/dbt_hubspot/releases/tag/v1.3.0) has been sunset. Use `merged_object_ids` instead |
-| `hubspot__email_sends` | Column rename | `was_unsubcribed` | `was_unsubscribed` | Fixed spelling error in column name |
+| `hubspot__email_sends` | Column rename | `was_unsubcribed` | `was_unsubscribed` | Fix spelling error in column name |
+
+## Under the Hood
+- Updates seeds and macros to support the schema changes.
 
 # dbt_hubspot v1.4.0
 
