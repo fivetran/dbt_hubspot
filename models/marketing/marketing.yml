@@ -73,7 +73,7 @@ models:
         description: Whether the email was printed.
       - name: was_spam_reported
         description: Whether the email was spam reported.
-      - name: was_unsubcribed
+      - name: was_unsubscribed
         description: Whether the email was unsubcribed.
 
   - name: hubspot__email_campaigns
