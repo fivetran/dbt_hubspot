@@ -1,3 +1,17 @@
+# dbt_hubspot v1.5.0
+
+## Schema/Data Changes
+**3 total changes • 1 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| `stg_hubspot__contact`<br>`hubspot__contacts` | Removed column | `calculated_merged_vids` | | Field deprecated in [v1.3.0](https://github.com/fivetran/dbt_hubspot/releases/tag/v1.3.0) has been sunset. Use `merged_object_ids` instead |
+| `hubspot__email_sends` | Added column | | `was_unsubscribed` | Fix spelling error - replaces misspelled `was_unsubcribed` column |
+| `hubspot__email_sends` | Deprecated column | `was_unsubcribed` | | [DEPRECATED] Maintained for backwards compatibility. Use `was_unsubscribed` instead. Will be removed in a future release. |
+
+## Under the Hood
+- Updates seeds and macros to support the schema changes.
+
 # dbt_hubspot v1.4.0
 
 [PR #188](https://github.com/fivetran/dbt_hubspot/pull/188) includes the following updates:

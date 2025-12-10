@@ -51,10 +51,11 @@ with sends as (
 
 ), unsubscribes_joined as (
 
-    select 
+    select
         booleans.*,
         coalesce(unsubscribes.unsubscribes,0) as unsubscribes,
-        coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed
+        coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubscribed,
+        coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed  -- [DEPRECATED] Use was_unsubscribed instead
     from booleans
     left join unsubscribes
         on booleans.email_send_id = unsubscribes.email_send_id

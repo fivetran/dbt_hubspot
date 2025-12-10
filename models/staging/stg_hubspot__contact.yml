@@ -189,15 +189,8 @@ models:
         description: The contact's job title.
       - name: company_annual_revenue
         description: The contact's annual company revenue.
-      - name: calculated_merged_vids
-        description: >
-          [DEPRECATED IN OCTOBER 2025 AND WILL BE REMOVED IN FUTURE RELEASE] List of mappings representing contact IDs that have been merged into the contact at hand.
-          Format: <merged_contact_id>:<merged_at_in_epoch_time>;<second_merged_contact_id>:<merged_at_in_epoch_time>
-          This field replaced the `CONTACT_MERGE_AUDIT` table, which was deprecated by the Hubspot v3 CRM API.
-          This field does not capture chained or multi-step merges and has therefore been replaced by `merged_object_ids`.
       - name: merged_object_ids
         description: >
           List of mappings representing contact IDs that have been merged into the contact at hand. Captures chained and multi-step merges.
           Format: <merged_contact_id>;<second_merged_contact_id>
-          This field has replaced `calculated_merged_vids`, which itself replaced the
-          `CONTACT_MERGE_AUDIT` table that was deprecated by the Hubspot v3 CRM API.
+          This field replaced the deprecated `CONTACT_MERGE_AUDIT` table that was deprecated by the Hubspot v3 CRM API.
