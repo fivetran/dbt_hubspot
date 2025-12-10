@@ -76,7 +76,7 @@ models:
       - name: was_unsubscribed
         description: Whether the email was unsubscribed.
       - name: was_unsubcribed
-        description: '[DEPRECATED] Use was_unsubscribed instead.'
+        description: '[DEPRECATED] Use `was_unsubscribed` instead.'
 
   - name: hubspot__email_campaigns
     description: Each record represents an email campaign in Hubspot.
