@@ -142,3 +142,64 @@ public_models: [
   "hubspot__daily_ticket_history",
   "hubspot__tickets"
 ]
+
+supported_vars:
+  email_metrics:
+    type: list
+    value:
+      - "bounces"
+      - "clicks"
+      - "deferrals"
+      - "deliveries"
+      - "drops"
+      - "forwards"
+      - "opens"
+      - "prints"
+      - "spam_reports"
+      - "unsubscribes"
+    description: "Email metrics to calculate in `hubspot__email_campaigns`"
+    display_name: "Email Campaign Metrics"
+
+  hubspot__enable_all_property_labels:
+    type: boolean
+    value: false
+    description: "Add corresponding property labels to `DEAL`, `CONTACT`, `COMPANY`, and `TICKET` columns beginning with `property_hs_`. Requires the `PROPERTY` and `PROPERTY_OPTION` tables to be synced"
+    display_name: "Add Labels to All Property Fields"
+
+  hubspot__deal_pass_through_columns:
+    type: dictionary
+    description: "Addtional `DEAL` fields to include in `hubspot__deals`"
+    display_name: "Additional Deal Columns"
+
+  hubspot__contact_pass_through_columns:
+    type: dictionary
+    description: "Addtional `CONTACT` fields to include in `hubspot__contacts`"
+    display_name: "Additional Contact Columns"
+
+  hubspot__company_pass_through_columns:
+    type: dictionary
+    description: "Addtional `COMPANY` fields to include in `hubspot__companies`"
+    display_name: "Additional Company Columns"
+
+  hubspot__ticket_pass_through_columns:
+    type: dictionary
+    description: "Addtional `TICKET` fields to include in `hubspot__tickets`"
+    display_name: "Additional Ticket Columns"
+
+  hubspot__ticket_property_history_columns:
+    type: list
+    description: "Ticket properties from `TICKET_PROPERTY_HISTORY` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
+    display_name: "Tracked Ticket Properties"
+
+  ticket_history_extension_days:
+    type: integer
+    value: 0
+    description: "Number of days that `hubspot__daily_ticket_history` will track for each ticket after it has been closed. Hubspot tickets can be altered after closing"
+    display_name: "Post-Close Ticket History Extension (Days)"
+
+  hubspot_using_all_email_events:
+    type: boolean
+    value: true
+    description: "Include filtered email events in all `hubspot__email_event_*` models and downstream aggregations in `hubspot__email_sends`, `hubspot__email_campaigns`, `hubspot__contacts`, and `hubspot__contact_lists`"
+    display_name: "Include Filtered Email Events"
+
