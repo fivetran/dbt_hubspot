@@ -167,7 +167,7 @@ sources:
   tables: # copy and paste from hubspot/models/staging/src_hubspot.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
 ```
 
-> **Note**: If there are source tables you do not have (see [Disable/enable models and sources](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#disable-enable-models-and-sources)), you may still include them, as long as you have set the right variables to `False`.
+> **Note**: If there are source tables you do not have (see [Disable/enable models and sources](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#disableenable-models-and-sources)), you may still include them, as long as you have set the right variables to `False`.
 
 2. Set the `has_defined_sources` variable (scoped to the `hubspot` package) to `True`, like such:
 ```yml
