@@ -168,22 +168,22 @@ supported_vars:
 
   hubspot__deal_pass_through_columns:
     type: dictionary
-    description: "Addtional `DEAL` fields to include in `hubspot__deals`"
+    description: "Additional `DEAL` fields to include in `hubspot__deals`"
     display_name: "Additional Deal Columns"
 
   hubspot__contact_pass_through_columns:
     type: dictionary
-    description: "Addtional `CONTACT` fields to include in `hubspot__contacts`"
+    description: "Additional `CONTACT` fields to include in `hubspot__contacts`"
     display_name: "Additional Contact Columns"
 
   hubspot__company_pass_through_columns:
     type: dictionary
-    description: "Addtional `COMPANY` fields to include in `hubspot__companies`"
+    description: "Additional `COMPANY` fields to include in `hubspot__companies`"
     display_name: "Additional Company Columns"
 
   hubspot__ticket_pass_through_columns:
     type: dictionary
-    description: "Addtional `TICKET` fields to include in `hubspot__tickets`"
+    description: "Additional `TICKET` fields to include in `hubspot__tickets`"
     display_name: "Additional Ticket Columns"
 
   hubspot__ticket_property_history_columns:
