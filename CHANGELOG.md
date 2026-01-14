@@ -3,7 +3,7 @@
 [PR #192](https://github.com/fivetran/dbt_hubspot/pull/192) includes the following updates:
 
 ## Documentation
-- Updates README with standardized Fivetran formatting
+- Updates README with standardized Fivetran formatting.
 
 ## Under the Hood
 - In the `quickstart.yml` file:
