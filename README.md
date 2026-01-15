@@ -72,16 +72,6 @@ To use this dbt package, you must have the following:
 - At least one Fivetran HubSpot connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
-#### Database Incremental Strategies
-Many of the models in this package are materialized incrementally, so we have configured our models to work with the different strategies available to each supported warehouse.
-
-For **BigQuery** and **Databricks All Purpose Cluster runtime** destinations, we have chosen `insert_overwrite` as the default strategy, which benefits from the partitioning capability.
-> For Databricks SQL Warehouse destinations, models are materialized as tables without support for incremental runs.
-
-For **Snowflake**, **Redshift**, and **Postgres** databases, we have chosen `delete+insert` as the default strategy.
-
-> Regardless of strategy, we recommend that users periodically run a `--full-refresh` to ensure a high level of data quality.
-
 ## How do I use the dbt package?
 You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:
 
@@ -99,6 +89,16 @@ packages:
     version: [">=1.6.0", "<1.7.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
+
+#### Database Incremental Strategies
+Many of the models in this package are materialized incrementally, so we have configured our models to work with the different strategies available to each supported warehouse.
+
+For **BigQuery** and **Databricks All Purpose Cluster runtime** destinations, we have chosen `insert_overwrite` as the default strategy, which benefits from the partitioning capability.
+> For Databricks SQL Warehouse destinations, models are materialized as tables without support for incremental runs.
+
+For **Snowflake**, **Redshift**, and **Postgres** databases, we have chosen `delete+insert` as the default strategy.
+
+> Regardless of strategy, we recommend that users periodically run a `--full-refresh` to ensure a high level of data quality.
 
 #### Databricks dispatch configuration
 If you are using a Databricks destination with this package, you must add the following (or a variation of the following) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
