@@ -1,3 +1,14 @@
+# dbt_hubspot v1.6.0
+
+[PR #192](https://github.com/fivetran/dbt_hubspot/pull/192) includes the following updates:
+
+## Documentation
+- Updates README with standardized Fivetran formatting.
+
+## Under the Hood
+- In the `quickstart.yml` file:
+  - Adds `supported_vars` for Quickstart UI customization.
+
 # dbt_hubspot v1.5.0
 
 ## Schema/Data Changes

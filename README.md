@@ -1,4 +1,5 @@
-# HubSpot dbt Package ([Docs](https://fivetran.github.io/dbt_hubspot/))
+<!--section="hubspot_transformation_model"-->
+# Hubspot dbt Package
 
 <p align="left">
     <a alt="License"
@@ -11,58 +12,83 @@
     <a alt="PRs">
         <img src="https://img.shields.io/badge/Contributions-welcome-blueviolet" /></a>
     <a alt="Fivetran Quickstart Compatible"
-        href="https://fivetran.com/docs/transformations/dbt/quickstart">
+        href="https://fivetran.com/docs/transformations/data-models/quickstart-management#quickstartmanagement">
         <img src="https://img.shields.io/badge/Fivetran_Quickstart_Compatible%3F-yes-green.svg" /></a>
 </p>
 
+This dbt package transforms data from Fivetran's Hubspot connector into analytics-ready tables.
+
+## Resources
+
+- Number of materialized models¹: 147
+- Connector documentation
+  - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
+  - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
+- dbt package documentation
+  - [GitHub repository](https://github.com/fivetran/dbt_hubspot)
+  - [dbt Docs](https://fivetran.github.io/dbt_hubspot/#!/overview)
+  - [DAG](https://fivetran.github.io/dbt_hubspot/#!/overview?g_v=1)
+  - [Changelog](https://github.com/fivetran/dbt_hubspot/blob/main/CHANGELOG.md)
+
 ## What does this dbt package do?
-- Produces modeled tables that leverage HubSpot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot) in the format described by [this ERD](https://fivetran.com/docs/applications/hubspot#schemainformation).
-- Enables you to better understand your HubSpot email and engagement performance. The package achieves this by performing the following:
-    - Generates models for contacts, companies, and deals with enriched email and engagement metrics.
-    - Provides analysis-ready event tables for email and engagement activities.
-- Generates a comprehensive data dictionary of your source and modeled HubSpot data through the [dbt docs site](https://fivetran.github.io/dbt_hubspot/).
+This package enables you to better understand your HubSpot email and engagement performance and generates comprehensive data dictionaries. It creates enriched models with metrics focused on contacts, companies, deals, and analysis-ready event tables for email and engagement activities.
 
-<!--section="hubspot_transformation_model"-->
-The following table provides a detailed list of all tables materialized within this package by default.
-> TIP: See more details about these tables in the package's [dbt docs site](https://fivetran.github.io/dbt_hubspot/#!/overview?g_v=1).
+### Output schema
+Final output tables are generated in the following target schema:
 
-| **Table**                | **Description**                                                                                                      |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| [hubspot__companies](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__companies)         | Each record represents a company in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br>• Which companies receive many emails but send few replies?<br>• Which industries or regions have the most engaged companies?                      |
-| [hubspot__company_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_history) | Each record represents a change to a company in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br>• Which companies change owners or lifecycle stages most often?<br>• How long after updating company details do deals typically get created?               |
-| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts)        | Each record represents a contact in Hubspot, enriched with metrics about email and engagement activities.<br><br>**Example Analytics Questions:**<br>• Which job titles have the highest email open and click rates?<br>• Do contacts prefer calls and meetings or email?            |
-| [hubspot__contact_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contact_history) | Each record represents a change to a contact in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br>• What is the typical progression timeline of contact lifecycle stage changes from "lead" to "customer"?<br>• What proportion of contacts revert to earlier lifecycle stages?               |
-| [hubspot__contact_lists](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contact_lists)   | Each record represents a contact list in Hubspot, enriched with metrics about email activities.<br><br>**Example Analytics Questions:**<br>• Which contact lists have the highest click-to-open ratios and lowest unsubscribe rates?<br>• Which contact lists show high bounce rates or low delivery rates?                      |
-| [hubspot__deals](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals)            | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br>• How do won deals differ from lost deals in engagement activity?<br>• Which high-value deals have low engagement and may be at risk?                         |
-| [hubspot__deal_stages](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages)            | Each record represents when a deal stage changes in Hubspot, enriched with metrics about deal activities.<br><br>**Example Analytics Questions:**<br>• Which pipeline stages have the highest drop-off rates?<br>• Which deals are currently in stages longer than the historical average, indicating stalled opportunities?                         |
-| [hubspot__deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_history)    | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br>• How do deal amounts fluctuate throughout the sales cycle?<br>• Which deals have experienced frequent ownership transfers or reassignments, possibly slowing progress?                  |
-| [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)    | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.<br><br>**Example Analytics Questions:**<br>• Which currently open tickets are linked to high-value customers or companies and should be prioritized?<br>• Which customers generate the highest support volume relative to their deal size or lifetime value?                  |
-| [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history)    | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br>• How long did tickets spend in each pipeline stage on average last quarter?<br>• What is the distribution of ticket ages by priority level and pipeline stage?               |
-| [hubspot__email_campaigns](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_campaigns) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.<br><br>**Example Analytics Questions:**<br>• What is the click-to-open ratio by campaign type (newsletter vs. promotional vs. nurture)?<br>• What is the relationship between a campaign's number of messages and recipient engagement?                    |
-| [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce)   | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.<br><br>**Example Analytics Questions:**<br>• How do spam reports vary by sender domain or audience source?<br>• Which links or CTAs receive the most clicks?           |
-| [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends)     | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity.<br><br>**Example Analytics Questions:**<br>• Which recipient domains have the highest bounce rates?<br>• What are the optimal send timing patterns based on open and click performance across different contact segments? |
-| [hubspot__engagements](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__engagements)    | Each record represents an engagement in Hubspot, enriched with contact, company, and deal information.<br><br>**Example Analytics Questions:**<br>• Which sales reps log the highest number of engagements overall, and what is their activity mix (calls vs. emails vs. meetings)?<br>• What is the average time between customer-initiated engagement (e.g., inbound email) and follow-up activity from reps?      |
-| [hubspot__engagement_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__engagement_calls)    | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.<br><br>**Example Analytics Questions:**<br>• What are the busiest call days and times for successful connections?<br>• Which reps consistently schedule follow-up meetings after initial contact?      |
+```
+<your_database>.<connector/schema_name>_hubspot
+```
 
-### Materialized Models
-Each Quickstart transformation job run materializes 147 models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
-<!--section-end-->
+### Final output tables
 
-## How do I use the dbt package?
+By default, this package materializes the following final tables:
 
-### Step 1: Prerequisites
+| Table | Description |
+| :---- | :---- |
+| [hubspot__companies](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__companies) | Each record represents a company in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>Which companies receive many emails but send few replies?</li><li>Which industries or regions have the most engaged companies?</li></ul> |
+| [hubspot__company_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_history) | Each record represents a change to a company in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>Which companies change owners or lifecycle stages most often?</li><li>How long after updating company details do deals typically get created?</li></ul> |
+| [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Each record represents a contact in Hubspot, enriched with metrics about email and engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>Which job titles have the highest email open and click rates?</li><li>Do contacts prefer calls and meetings or email?</li></ul> |
+| [hubspot__contact_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contact_history) | Each record represents a change to a contact in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>What is the typical progression timeline of contact lifecycle stage changes from "lead" to "customer"?</li><li>What proportion of contacts revert to earlier lifecycle stages?</li></ul> |
+| [hubspot__contact_lists](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contact_lists) | Each record represents a contact list in Hubspot, enriched with metrics about email activities.<br><br>**Example Analytics Questions:**<br><ul><li>Which contact lists have the highest click-to-open ratios and lowest unsubscribe rates?</li><li>Which contact lists show high bounce rates or low delivery rates?</li></ul> |
+| [hubspot__deals](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals) | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>How do won deals differ from lost deals in engagement activity?</li><li>Which high-value deals have low engagement and may be at risk?</li></ul> |
+| [hubspot__deal_stages](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages) | Each record represents when a deal stage changes in Hubspot, with stage entry/exit dates and pipeline metadata.<br><br>**Example Analytics Questions:**<br><ul><li>Which pipeline stages have the highest drop-off rates?</li><li>Which deals are currently in stages longer than the historical average, indicating stalled opportunities?</li></ul> |
+| [hubspot__deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_history) | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>How do deal amounts fluctuate throughout the sales cycle?</li><li>Which deals have experienced frequent ownership transfers or reassignments, possibly slowing progress?</li></ul> |
+| [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets) | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.<br><br>**Example Analytics Questions:**<br><ul><li>Which currently open tickets are linked to high-value customers or companies and should be prioritized?</li><li>Which customers generate the highest support volume relative to their deal size or lifetime value?</li></ul> |
+| [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history) | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did tickets spend in each pipeline stage on average last quarter?</li><li>What is the distribution of ticket ages by priority level and pipeline stage?</li></ul> |
+| [hubspot__email_campaigns](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_campaigns) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.<br><br>**Example Analytics Questions:**<br><ul><li>What is the click-to-open ratio by campaign type (newsletter vs. promotional vs. nurture)?</li><li>What is the relationship between a campaign's number of messages and recipient engagement?</li></ul> |
+| [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce) | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.<br><br>**Example Analytics Questions:**<br><ul><li>How do spam reports vary by sender domain or audience source?</li><li>Which links or CTAs receive the most clicks?</li></ul> |
+| [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends) | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity.<br><br>**Example Analytics Questions:**<br><ul><li>Which recipient domains have the highest bounce rates?</li><li>What are the optimal send timing patterns based on open and click performance across different contact segments?</li></ul> |
+| [hubspot__engagements](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__engagements) | Each record represents an engagement in Hubspot, enriched with contact, company, and deal information.<br><br>**Example Analytics Questions:**<br><ul><li>Which sales reps log the highest number of engagements overall, and what is their activity mix (calls vs. emails vs. meetings)?</li><li>What is the average time between customer-initiated engagement (e.g., inbound email) and follow-up activity from reps?</li></ul> |
+| [hubspot__engagement_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__engagement_calls) | Each record represents an engagement event in Hubspot, joined with relevant tables to make them analysis-ready.<br><br>**Example Analytics Questions:**<br><ul><li>What are the busiest call days and times for successful connections?</li><li>Which reps consistently schedule follow-up meetings after initial contact?</li></ul> |
+
+¹ Each Quickstart transformation job run materializes these models if all components of this data model are enabled. This count includes all staging, intermediate, and final models materialized as `view`, `table`, or `incremental`.
+
+---
+
+## Prerequisites
 To use this dbt package, you must have the following:
 
 - At least one Fivetran HubSpot connection syncing data into your destination.
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
 
-#### Databricks Dispatch Configuration
-If you are using a Databricks destination with this package you will need to add the below (or a variation of the below) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
-```yml
-dispatch:
-  - macro_namespace: dbt_utils
-    search_order: ['spark_utils', 'dbt_utils']
+## How do I use the dbt package?
+You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:
+
+- To add the package in the Fivetran dashboard, follow our [Quickstart guide](https://fivetran.com/docs/transformations/data-models/quickstart-management).
+- To add the package to your dbt project, follow the setup instructions in the dbt package's [README file](https://github.com/fivetran/dbt_hubspot/blob/main/README.md#how-do-i-use-the-dbt-package) to use this package.
+
+<!--section-end-->
+
+### Install the package
+Include the following hubspot package version in your `packages.yml` file:
+> TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
+```yaml
+packages:
+  - package: fivetran/hubspot
+    version: [">=1.6.0", "<1.7.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
+> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
 
 #### Database Incremental Strategies
 Many of the models in this package are materialized incrementally, so we have configured our models to work with the different strategies available to each supported warehouse.
@@ -74,16 +100,6 @@ For **Snowflake**, **Redshift**, and **Postgres** databases, we have chosen `del
 
 > Regardless of strategy, we recommend that users periodically run a `--full-refresh` to ensure a high level of data quality.
 
-### Step 2: Install the package
-Include the following hubspot package version in your `packages.yml` file:
-> TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
-```yaml
-packages:
-  - package: fivetran/hubspot
-    version: [">=1.5.0", "<1.6.0"] # we recommend using ranges to capture non-breaking changes automatically
-```
-> All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
-
 #### Databricks dispatch configuration
 If you are using a Databricks destination with this package, you must add the following (or a variation of the following) dispatch configuration within your `dbt_project.yml`. This is required in order for the package to accurately search for macros within the `dbt-labs/spark_utils` then the `dbt-labs/dbt_utils` packages respectively.
 ```yml
@@ -92,7 +108,7 @@ dispatch:
     search_order: ['spark_utils', 'dbt_utils']
 ```
 
-### Step 3: Define database and schema variables
+### Define database and schema variables
 
 #### Option A: Single connection
 By default, this package runs using your [destination](https://docs.getdbt.com/docs/running-a-dbt-project/using-the-command-line-interface/configure-your-profile) and the `hubspot` schema. If this is not where your hubspot data is (for example, if your hubspot schema is named `hubspot_fivetran`), add the following configuration to your root `dbt_project.yml` file:
@@ -151,7 +167,7 @@ sources:
   tables: # copy and paste from hubspot/models/staging/src_hubspot.yml - see https://support.atlassian.com/bitbucket-cloud/docs/yaml-anchors/ for how to use anchors to only do so once
 ```
 
-> **Note**: If there are source tables you do not have (see [Step 4](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#step-4-disable-models-for-non-existent-sources)), you may still include them, as long as you have set the right variables to `False`.
+> **Note**: If there are source tables you do not have (see [Disable/enable models and sources](https://github.com/fivetran/dbt_hubspot?tab=readme-ov-file#disableenable-models-and-sources)), you may still include them, as long as you have set the right variables to `False`.
 
 2. Set the `has_defined_sources` variable (scoped to the `hubspot` package) to `True`, like such:
 ```yml
@@ -161,7 +177,7 @@ vars:
         has_defined_sources: true
 ```
 
-### Step 4: Disable/enable models and sources
+### Disable/enable models and sources
 When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. Therefore we have added enable/disable configs in the `src.yml` to allow you to disable certain sources not present. Downstream models are automatically disabled as well. In order to disable the relevant functionality in the package, you will need to add the relevant variables in your root `dbt_project.yml`. 
 
 By default, all variables are assumed to be `true`, **with the exception of the below**. These default to `false` and must be explicitly enabled if needed:
@@ -233,7 +249,7 @@ vars:
   hubspot_ticket_deal_enabled: true                       # Enables ticket_deal transformations. Default = False
 ```
 
-### (Optional) Step 5: Additional configurations
+### (Optional) Additional configurations
 
 #### Configure email metrics
 This package allows you to specify which email metrics (total count and total unique count) you would like to be calculated for specified fields within the `hubspot__email_campaigns` model. By default, the `email_metrics` variable below includes all the shown fields. If you would like to remove any field metrics from the final model, you may copy and paste the below snippet within your root `dbt_project.yml` and remove any fields you want to be ignored in the final model.
@@ -383,11 +399,11 @@ vars:
     hubspot_<default_source_table_name>_identifier: your_table_name
 ```
 
-### (Optional) Step 6: Orchestrate your models with Fivetran Transformations for dbt Core™
+### (Optional) Orchestrate your models with Fivetran Transformations for dbt Core™
 <details><summary>Expand for details</summary>
 <br>
 
-Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core™ setup guides](https://fivetran.com/docs/transformations/dbt#setupguide).
+Fivetran offers the ability for you to orchestrate your dbt project through [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt#transformationsfordbtcore). Learn how to set up your project for orchestration through Fivetran in our [Transformations for dbt Core™ setup guides](https://fivetran.com/docs/transformations/dbt/setup-guide#transformationsfordbtcoresetupguide).
 </details>
 
 ## Does this package have dependencies?
@@ -405,14 +421,19 @@ packages:
     - package: dbt-labs/spark_utils
       version: [">=0.3.0", "<0.4.0"]
 ```
+
+<!--section="hubspot_maintenance"-->
 ## How is this package maintained and can I contribute?
+
 ### Package Maintenance
-The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/hubspot/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_hubspot/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
+The Fivetran team maintaining this package only maintains the [latest version](https://hub.getdbt.com/fivetran/hubspot/latest/) of the package. We highly recommend you stay consistent with the latest version of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_hubspot/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
 
 ### Contributions
 A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions.
 
-We highly encourage and welcome contributions to this package. Check out [this dbt Discourse article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657) on the best workflow for contributing to a package.
+We highly encourage and welcome contributions to this package. Learn how to contribute to a package in dbt's [Contributing to an external dbt package article](https://discourse.getdbt.com/t/contributing-to-a-dbt-package/657).
+
+<!--section-end-->
 
 ## Are there any resources available?
 - If you have questions or want to reach out for help, see the [GitHub Issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose) section to find the right avenue of support for you.
