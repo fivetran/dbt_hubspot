@@ -97,8 +97,6 @@ models:
         description: '{{ doc("is_deleted") }}'
       - name: is_deal_deleted
         description: '{{ doc("is_deleted") }}'
-      - name: pipeline_stage_id
-        description: The name of the deal stage.
       - name: date_stage_entered
         description: The timestamp the deal stage was entered.
       - name: date_stage_exited

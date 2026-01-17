@@ -181,8 +181,6 @@ models:
         description: The contact's first name.
       - name: last_name
         description: The contact's last name.
-      - name: email
-        description: The contact's email.
       - name: created_date
         description: The date that the contact was created in your HubSpot account.
       - name: job_title
