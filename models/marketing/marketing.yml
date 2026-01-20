@@ -12,9 +12,9 @@ models:
       - name: is_contact_deleted
         description: '{{ doc("is_deleted") }}'
       - name: bcc_emails
-        description: The 'cc' field of the email message.
-      - name: cc_emails
         description: The 'bcc' field of the email message.
+      - name: cc_emails
+        description: The 'cc' field of the email message.
       - name: email_subject
         description: The subject line of the email message.
       - name: event_id

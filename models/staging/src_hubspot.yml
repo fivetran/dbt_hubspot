@@ -1297,7 +1297,7 @@ sources:
           - name: ticket_id
             description: The ID of the related ticket.
           - name: engagement_id
-            description: The ID of the related deal.
+            description: The ID of the related engagement.
           - name: category
             description: The association category. Either HUBSPOT_DEFINED (default label) or USER_DEFINED (custom label).
       

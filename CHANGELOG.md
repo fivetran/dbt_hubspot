@@ -1,3 +1,11 @@
+# dbt_hubspot v1.6.1
+
+[PR #193](https://github.com/fivetran/dbt_hubspot/pull/193) includes the following updates:
+
+## Test Fixes
+- Removes duplicate column definitions in YAML schema files to avoid `dbt parse` warnings.
+- Corrects descriptions for several fields. 
+
 # dbt_hubspot v1.6.0
 
 [PR #192](https://github.com/fivetran/dbt_hubspot/pull/192) includes the following updates:
