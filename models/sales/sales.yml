@@ -189,8 +189,6 @@ models:
         description: A timestamp in representing when the engagement was last updated.
       - name: occurred_timestamp
         description: A timestamp in representing the time that the engagement should appear in the timeline.
-      - name: owner_id
-        description: The ID of the engagement's owner.
       - name: portal_id
         description: '{{ doc("portal_id") }}'
       - name: contact_ids

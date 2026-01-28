@@ -24,13 +24,12 @@ with base as (
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         id as engagement_id,
         created_timestamp,
-        owner_id,
         occurred_timestamp,
         portal_id,
         engagement_type,
         is_active
     from macro
-    
+
 )
 
 select *
