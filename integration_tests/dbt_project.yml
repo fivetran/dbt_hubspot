@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.6.1'
+version: '1.7.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -96,9 +96,6 @@ seeds:
     show: False
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
-    contact_merge_audit_data:
-      +column_types:
-        vid_to_merge: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     owner_data:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -121,14 +118,10 @@ seeds:
       +enabled: "{{ true if target.type in ('databricks','databricks-sql') else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-    contact_property_history_data:
-      +column_types:
-        _fivetran_synced: timestamp
     deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        _fivetran_synced: timestamp
         property_closedate: timestamp
         property_createdate: timestamp
         deal_pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
@@ -174,17 +167,15 @@ seeds:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        created_at: timestamp
+        _fivetran_synced: timestamp
     engagement_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        created_at: timestamp
+        _fivetran_synced: timestamp
     engagement_meeting_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
         _fivetran_synced: timestamp
-        property_hs_createdate: timestamp
-        property_hs_timestamp: timestamp
     engagement_email_data:
       +column_types:
         engagement_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -234,18 +225,6 @@ seeds:
         created: timestamp
         obsoleted_by_created: timestamp
         sent_by_created: timestamp
-    ticket_data:
-      +column_types:
-        ticket_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        property_closed_date: timestamp
-        property_createdate: timestamp
-        change_source_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
-        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-    ticket_property_history_data:
-      +column_types:
-        timestamp_instant: timestamp
     merged_deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -271,7 +250,10 @@ seeds:
     users_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    ticket_data:
+      +column_types:
+        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     ticket_pipeline_data:
       +column_types:
         pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"

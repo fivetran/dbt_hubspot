@@ -173,22 +173,12 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
-      - name: activity_type
-        description: The engagement's activity type.
-      - name: created_timestamp
-        description: A timestamp representing when the engagement was created.
       - name: engagement_id
         description: The ID of the engagement.
         tests:
           - not_null
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
-      - name: is_active
-        description: Whether the engagement is currently being shown in the UI.
-      - name: last_updated_timestamp
-        description: A timestamp in representing when the engagement was last updated.
-      - name: occurred_timestamp
-        description: A timestamp in representing the time that the engagement should appear in the timeline.
       - name: portal_id
         description: '{{ doc("portal_id") }}'
       - name: contact_ids
