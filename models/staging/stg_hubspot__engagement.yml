@@ -274,21 +274,6 @@ models:
         tests:
           - not_null
       - name: engagement_type
-        description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.
-      - name: is_active
-        description: >
-          Whether the engagement is currently being shown in the UI.
-
-          NOTE: This field will only be populated for pre HubSpot v3 API versions and is included for backwards compatibility.
-      - name: occurred_timestamp
-        description: >
-          A timestamp representing the time that the engagement should appear in the timeline.
-
-          NOTE: This field will only be populated for pre HubSpot v3 API versions and is included for backwards compatibility.
-      - name: created_timestamp
-        description: >
-          This field marks the engagement's time of creation and determines where the engagement sits on the record timeline.
-
-          NOTE: This field will only be populated for pre HubSpot v3 API versions and is included for backwards compatibility.
+        description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement. 
       - name: portal_id
         description: '{{ doc("portal_id") }}'
