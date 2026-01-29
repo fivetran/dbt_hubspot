@@ -96,6 +96,9 @@ seeds:
     show: False
   hubspot_integration_tests:
     +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+    contact_merge_audit_data:
+      +column_types:
+        vid_to_merge: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     owner_data:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -118,6 +121,10 @@ seeds:
       +enabled: "{{ true if target.type in ('databricks','databricks-sql') else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    contact_property_history_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        timestamp: timestamp
     deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -225,6 +232,15 @@ seeds:
         created: timestamp
         obsoleted_by_created: timestamp
         sent_by_created: timestamp
+    ticket_data:
+      +column_types:
+        property_closed_date: timestamp
+        property_createdate: timestamp
+        property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        property_hs_pipeline_stage: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    ticket_property_history_data:
+      +column_types:
+        timestamp_instant: timestamp
     merged_deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -250,6 +266,7 @@ seeds:
     users_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        role_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     ticket_data:
       +column_types:
         property_hs_pipeline: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
