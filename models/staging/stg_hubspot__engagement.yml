@@ -279,21 +279,16 @@ models:
         description: >
           Whether the engagement is currently being shown in the UI.
 
-          PLEASE NOTE - This field will only be populated for pre HubSpot v3 API versions. This field is only included to allow for backwards compatibility between HubSpot API versions. This field will be deprecated in the near future.
+          NOTE: This field will only be populated for pre HubSpot v3 API versions and is included for backwards compatibility.
       - name: occurred_timestamp
         description: >
-          A timestamp in representing the time that the engagement should appear in the timeline.
+          A timestamp representing the time that the engagement should appear in the timeline.
 
-          PLEASE NOTE - This field will only be populated for pre HubSpot v3 API versions. This field is only included to allow for backwards compatibility between HubSpot API versions. This field will be deprecated in the near future.
+          NOTE: This field will only be populated for pre HubSpot v3 API versions and is included for backwards compatibility.
       - name: created_timestamp
         description: >
-          This field marks the call's time of creation and determines where the call sits on the record timeline. You can use either a Unix timestamp in milliseconds or UTC format. 
+          This field marks the engagement's time of creation and determines where the engagement sits on the record timeline.
 
-          PLEASE NOTE: This field will only be populated for pre HubSpot v3 API versions. This field is only included to allow for backwards compatibility between HubSpot API versions. This field will be deprecated in the near future.
-      - name: owner_id
-        description: >
-          The ID of the engagement's owner.
-
-          PLEASE NOTE - This field will only be populated for pre HubSpot v3 API versions. This field is only included to allow for backwards compatibility between HubSpot API versions. This field will be deprecated in the near future.
+          NOTE: This field will only be populated for pre HubSpot v3 API versions and is included for backwards compatibility.
       - name: portal_id
         description: '{{ doc("portal_id") }}'

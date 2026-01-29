@@ -32,15 +32,7 @@ with base as (
         _fivetran_deleted as is_contact_list_deleted,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_timestamp,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
-        cast(created_at as {{ dbt.type_timestamp() }}) as created_timestamp,
-        deleteable as is_deletable, --Deprecated
-        dynamic as is_dynamic, --Deprecated
-        metadata_error, --Deprecated
-        cast(metadata_last_processing_state_change_at as {{ dbt.type_timestamp() }}) as metadata_last_processing_state_change_at, --Deprecated
-        cast(metadata_last_size_change_at as {{ dbt.type_timestamp() }}) as metadata_last_size_change_at, --Deprecated
-        metadata_processing, --Deprecated
-        metadata_size, --Deprecated
-        portal_id --Deprecated
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_timestamp
 
     from macro
     
