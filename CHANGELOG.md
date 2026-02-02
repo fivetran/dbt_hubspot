@@ -1,5 +1,7 @@
 # dbt_hubspot v1.7.0
 
+[PR #194](https://github.com/fivetran/dbt_hubspot/pull/194) includes the following updates:
+
 ## Schema/Data Changes
 **4 total changes • 4 possible breaking changes**
 
