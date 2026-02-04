@@ -1,3 +1,24 @@
+# dbt_hubspot v1.7.0
+
+[PR #194](https://github.com/fivetran/dbt_hubspot/pull/194) includes the following updates:
+
+## Schema/Data Changes
+**4 total changes • 4 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| `hubspot__email_sends` | Removed column | `was_unsubcribed` | | Field deprecated in [v1.5.0 release](https://github.com/fivetran/dbt_hubspot/releases/tag/v1.5.0) has been sunset. Use the corrected spelling `was_unsubscribed` existing field instead. |
+| `hubspot__engagements` | Removed columns | `owner_id`<br>`is_active`<br>`created_timestamp`<br>`occurred_timestamp`<br>`activity_type`<br>`last_updated_timestamp` | | Fields deprecated for HubSpot v3 API connectors in [v0.11.0 release](https://github.com/fivetran/dbt_hubspot/releases/tag/v0.11.0) have been sunset. The `engagement` source table now only contains `type`, `id`, `_fivetran_synced`, `portal_id`, and `source_relation`. All engagement properties (timestamps, owner, status) are available in child engagement tables (e.g., `hubspot__engagement_emails`, `hubspot__engagement_notes`). Junction table aggregations (`contact_ids`, `deal_ids`, `company_ids`) remain available in `hubspot__engagements`. |
+| `stg_hubspot__contact_list` | Removed columns | `is_deletable`<br>`is_dynamic`<br>`metadata_error`<br>`metadata_last_processing_state_change_at`<br>`metadata_last_size_change_at`<br>`metadata_processing`<br>`metadata_size`<br>`portal_id` | | Fields deprecated for HubSpot v3 API connectors in [v0.22.0 release](https://github.com/fivetran/dbt_hubspot/releases/tag/v0.22.0) have been sunset. |
+| `stg_hubspot__engagement` | Removed columns | `owner_id`<br>`is_active`<br>`created_timestamp`<br>`occurred_timestamp` | | Fields deprecated for HubSpot v3 API connectors [v0.11.0 release](https://github.com/fivetran/dbt_hubspot/releases/tag/v0.11.0) have been sunset. The `engagement` source table now only contains `type`, `id`, `_fivetran_synced`, and `portal_id`. These properties are available in child engagement staging tables instead. |
+
+## Under the Hood
+- Updates `engagements_joined` macro to remove all coalesce logic to remove sunset columns.
+- Brought seed column types in `integration_tests/dbt_project.yml` up to date to resolve runtime warnings. 
+
+## Documentation Update
+- Removes documentation for above sunset fields in the above models.
+
 # dbt_hubspot v1.6.1
 
 [PR #193](https://github.com/fivetran/dbt_hubspot/pull/193) includes the following updates:
