@@ -13,11 +13,11 @@
 | `stg_hubspot__engagement` | Removed columns | `owner_id`<br>`is_active`<br>`created_timestamp`<br>`occurred_timestamp` | | Fields deprecated for HubSpot v3 API connectors [v0.11.0 release](https://github.com/fivetran/dbt_hubspot/releases/tag/v0.11.0) have been sunset. The `engagement` source table now only contains `type`, `id`, `_fivetran_synced`, and `portal_id`. These properties are available in child engagement staging tables instead. |
 
 ## Under the Hood
-- Updates `engagements_joined` macro to remove all coalesce logic. Since `hubspot__engagements` no longer contains timestamps, owner, or status fields, the macro passes through all base table fields and enriches engagement events with junction table data (`contact_ids`, `deal_ids`, `company_ids`). The `except` clause now only excludes `_fivetran_deleted` which is transformed to `is_active`.
+- Updates `engagements_joined` macro to remove all coalesce logic to remove sunset columns.
 - Brought seed column types in `integration_tests/dbt_project.yml` up to date to resolve runtime warnings. 
 
 ## Documentation Update
-- Removes documentation for above deprecated fields in the above models.
+- Removes documentation for above sunset fields in the above models.
 
 # dbt_hubspot v1.6.1
 
