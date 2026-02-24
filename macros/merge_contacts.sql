@@ -63,13 +63,6 @@
         contacts.contact_id,
         merges as vid_to_merge
     from contacts
-    cross join (
-        select 
-            source_relation,
-            contact_id, 
-            explode(split(merged_object_ids, ';')) as merges from contacts
-    ) as merges_subquery 
-    where contacts.contact_id = merges_subquery.contact_id
-    and contacts.source_relation = merges_subquery.source_relation
+    lateral view explode(split(merged_object_ids, ';')) merges_view as merges
 
 {% endmacro %}

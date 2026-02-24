@@ -1,3 +1,10 @@
+# dbt_hubspot v1.7.1
+
+[PR #195](https://github.com/fivetran/dbt_hubspot/pull/195) includes the following updates:
+
+## Feature Update
+- Optimizes the `merge_contacts()` macro for Databricks destinations.
+
 # dbt_hubspot v1.7.0
 
 [PR #194](https://github.com/fivetran/dbt_hubspot/pull/194) includes the following updates:
