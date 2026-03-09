@@ -46,7 +46,7 @@ with base as (
         source_relation,
         contact_id,
         is_contact_deleted,
-        merged_object_ids, -- using this field to merge contacts
+        cast(merged_object_ids as {{ dbt.type_string() }}) as merged_object_ids, -- using this field to merge contacts
         email,
         contact_company,
         first_name,
