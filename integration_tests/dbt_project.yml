@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.7.1'
+version: '1.7.2'
 
 profile: 'integration_tests'
 config-version: 2
@@ -124,6 +124,9 @@ seeds:
       +enabled: "{{ true if target.type in ('databricks','databricks-sql') else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    contact_data:
+      +column_types:
+        property_hs_merged_object_ids: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     contact_property_history_data:
       +column_types:
         _fivetran_synced: timestamp
