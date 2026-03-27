@@ -1,16 +1,14 @@
 # dbt_hubspot v1.7.2
 
-[PR #197](https://github.com/fivetran/dbt_hubspot/pull/197) includes the following updates:
+[PR #197](https://github.com/fivetran/dbt_hubspot/pull/197) includes the following update:
 
 ## Schema/Data Change
 **1 total change • 0 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
-| `stg_hubspot__contact` | Changed field | `merged_object_ids` (integer) | `merged_object_ids` (string) | HubSpot syncs this field as an integer when no contacts have been merged. The downstream `merge_contacts()` macro passes this field to a string-split function, causing a runtime error. Casting to string at staging prevents the error. |
+| `stg_hubspot__contact` | Changed field | `merged_object_ids` (integer) | `merged_object_ids` (string) | HubSpot can sync this field as an integer when no contacts have been merged. Casting to string prevents runtime errors in the downstream `merge_contacts()` macro where the split function requires a string. |
 
-## Under the Hood
-- Updated `contact_data` integration test seed to cast `property_hs_merged_object_ids` as an integer, reproducing the scenario where HubSpot syncs the field as an integer when a contact has only a single merged predecessor.
 
 # dbt_hubspot v1.7.1
 
