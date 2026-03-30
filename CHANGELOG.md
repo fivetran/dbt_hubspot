@@ -7,7 +7,7 @@
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
-| `stg_hubspot__contact` | Changed field | `merged_object_ids` (integer) | `merged_object_ids` (string) | HubSpot can sync this field as an integer when no contacts have been merged. Casting to string prevents runtime errors in the downstream `merge_contacts()` macro where the split function requires a string. |
+| `stg_hubspot__contact` | Changed field | `merged_object_ids` (string or integer) | `merged_object_ids` (string) | HubSpot can sync this field as an integer when no contacts have been merged. Casting to string prevents runtime errors in the downstream `merge_contacts()` macro where the split function requires a string. |
 
 
 # dbt_hubspot v1.7.1
