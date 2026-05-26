@@ -1,0 +1,51 @@
+# Only set if not using default adapter ranges
+# dbt_adapter_versions:
+#   snowflake: ">=1.3.0,<2.0.0"
+#   bigquery: ">=1.3.0,<2.0.0"
+#   postgres: ">=1.3.0,<2.0.0"
+#   redshift: ">=1.3.0,<2.0.0"
+#   databricks: ">=1.6.0,<2.0.0"
+
+schema_variable_name: "hubspot_schema"
+
+include_databricks_sql: true
+include_sqlserver: false
+include_dbt_compile: true
+
+test_scenarios:
+  - name: "Default"
+    vars: {}
+    include_incremental: false
+
+  - name: "marketing and communication enabled"
+    vars:
+      hubspot_service_enabled: true
+      hubspot_marketing_enabled: true
+      hubspot_sales_enabled: false
+      hubspot_engagement_communication_enabled: true
+    include_incremental: false
+
+  - name: "marketing with merged deals"
+    vars:
+      hubspot_service_enabled: true
+      hubspot_marketing_enabled: true
+      hubspot_sales_enabled: false
+      hubspot_merged_deal_enabled: true
+    include_incremental: false
+
+  - name: "marketing with contact merge audit"
+    vars:
+      hubspot_marketing_enabled: true
+      hubspot_contact_merge_audit_enabled: true
+      hubspot_sales_enabled: false
+    include_incremental: false
+
+  - name: "sales only with all features"
+    vars:
+      hubspot_marketing_enabled: false
+      hubspot_sales_enabled: true
+      hubspot_merged_deal_enabled: true
+      hubspot__pass_through_all_columns: true
+      hubspot_using_all_email_events: false
+      hubspot_owner_enabled: false
+    include_incremental: false
