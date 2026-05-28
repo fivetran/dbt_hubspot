@@ -174,6 +174,7 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_contact_merge_audit_enabled`
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
+- `hubspot_conversations_enabled`
 
 You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
@@ -234,6 +235,7 @@ vars:
   # Service
   hubspot_service_enabled: true                           # Enables all service models. Default = False
   hubspot_ticket_deal_enabled: true                       # Enables ticket_deal transformations. Default = False
+  hubspot_conversations_enabled: true                     # Enables conversation models (thread, message history, senders, recipients, actors, inboxes, channels). Default = False
 ```
 
 ### (Optional) Additional configurations

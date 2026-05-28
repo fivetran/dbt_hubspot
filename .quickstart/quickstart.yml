@@ -48,6 +48,8 @@ table_variables:
   hubspot_contact_form_enabled:
     - contact_form_submission
     - form
+  hubspot_conversations_enabled:
+    - conversation_thread
   hubspot_deal_enabled:
     - deal
     - deal_stage
@@ -105,6 +107,21 @@ table_variables:
     - team_user
   hubspot_ticket_deal_enabled:
     - ticket_deal
+
+  _fivetran_quickstart_conversation_actor:
+    - conversation_actor
+  _fivetran_quickstart_conversation_channel:
+    - conversation_channel
+  _fivetran_quickstart_conversation_channel_account:
+    - conversation_channel_account
+  _fivetran_quickstart_conversation_inbox:
+    - conversation_inbox
+  _fivetran_quickstart_conversation_message_history:
+    - conversation_message_history
+  _fivetran_quickstart_conversation_message_recipient:
+    - conversation_message_recipient
+  _fivetran_quickstart_conversation_message_sender:
+    - conversation_message_sender
 
 destination_configurations:
   databricks:

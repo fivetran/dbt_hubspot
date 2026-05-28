@@ -1,0 +1,3 @@
+id,avatar,email,name,type,_fivetran_synced
+actor_001,https://example.com/avatar1.png,john.smith@example.com,John Smith,HUMAN,2024-03-15 10:00:00
+actor_002,,bot@hubspot.com,Support Bot,BOT,2024-03-15 10:00:00

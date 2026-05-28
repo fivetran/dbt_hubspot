@@ -1,0 +1,3 @@
+id,active,created_at,name,type,updated_at,_fivetran_deleted,_fivetran_synced
+inbox_001,true,2024-01-01 00:00:00,Support Inbox,EMAIL,2024-03-01 00:00:00,false,2024-03-15 10:00:00
+inbox_002,true,2024-01-15 00:00:00,Live Chat,LIVE_CHAT,2024-03-10 00:00:00,false,2024-03-15 10:00:00

@@ -1,0 +1,245 @@
+version: 2
+
+models:
+
+  - name: stg_hubspot__conversation_actor
+    description: Each record represents an actor (user or contact) in HubSpot conversations.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: actor_id
+        description: Unique ID of the actor.
+        tests:
+          - not_null
+      - name: avatar
+        description: URL of the actor's avatar image.
+      - name: email
+        description: Email address of the actor.
+      - name: name
+        description: Display name of the actor.
+      - name: actor_type
+        description: Type of the actor (e.g., HUMAN, BOT).
+
+  - name: stg_hubspot__conversation_inbox
+    description: Each record represents a conversations inbox in HubSpot.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: inbox_id
+        description: Unique ID of the inbox.
+        tests:
+          - not_null
+      - name: is_active
+        description: Boolean indicating whether the inbox is active.
+      - name: created_at
+        description: Timestamp when the inbox was created.
+      - name: name
+        description: Display name of the inbox.
+      - name: type
+        description: Type of the inbox (e.g., EMAIL, CHAT).
+      - name: updated_at
+        description: Timestamp when the inbox was last updated.
+
+  - name: stg_hubspot__conversation_channel
+    description: Each record represents a conversation channel in HubSpot.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: channel_id
+        description: Unique ID of the channel.
+        tests:
+          - not_null
+      - name: channel_name
+        description: Display name of the channel.
+
+  - name: stg_hubspot__conversation_channel_account
+    description: Each record represents a channel account connecting a channel to an inbox.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: channel_account_id
+        description: Unique ID of the channel account.
+        tests:
+          - not_null
+      - name: channel_id
+        description: ID of the channel this account belongs to.
+      - name: inbox_id
+        description: ID of the inbox this channel account is connected to.
+      - name: is_active
+        description: Boolean indicating whether the channel account is active.
+      - name: is_authorized
+        description: Boolean indicating whether the channel account is authorized.
+      - name: created_at
+        description: Timestamp when the channel account was created.
+      - name: channel_account_name
+        description: Display name of the channel account.
+      - name: delivery_identifier_type
+        description: The type of delivery identifier for this channel account (e.g., EMAIL).
+      - name: delivery_identifier_value
+        description: The value of the delivery identifier (e.g., the email address).
+
+  - name: stg_hubspot__conversation_thread
+    description: Each record represents a conversation thread in HubSpot.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: is_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: conversation_thread_id
+        description: Unique ID of the conversation thread.
+        tests:
+          - not_null
+      - name: inbox_id
+        description: ID of the inbox the thread belongs to.
+      - name: associated_contact_id
+        description: ID of the contact associated with the thread.
+      - name: associated_ticket_id
+        description: ID of the ticket associated with the thread.
+      - name: original_channel_account_id
+        description: ID of the channel account through which the thread was originally created.
+      - name: original_channel_id
+        description: ID of the channel through which the thread was originally created.
+      - name: assigned_to
+        description: ID of the agent or team the thread is assigned to.
+      - name: closed_at
+        description: Timestamp when the thread was closed.
+      - name: created_at
+        description: Timestamp when the thread was created.
+      - name: latest_message_received_timestamp
+        description: Timestamp of the most recently received message in the thread.
+      - name: latest_message_sent_timestamp
+        description: Timestamp of the most recently sent message in the thread.
+      - name: latest_message_timestamp
+        description: Timestamp of the most recent message (sent or received) in the thread.
+      - name: spam
+        description: Indicates whether the thread has been marked as spam.
+      - name: status
+        description: Current status of the thread (e.g., OPEN, CLOSED).
+
+  - name: stg_hubspot__conversation_message_sender
+    description: Each record represents a sender associated with a conversation message.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: _fivetran_id
+        description: Unique ID generated by Fivetran for this sender record.
+        tests:
+          - not_null
+      - name: actor_id
+        description: ID of the actor (user or contact) who sent the message.
+      - name: message_id
+        description: ID of the message this sender is associated with.
+      - name: thread_id
+        description: ID of the thread this message belongs to.
+      - name: sender_name
+        description: Display name of the sender.
+      - name: sender_field
+        description: The role of this sender in the message (e.g., FROM).
+      - name: delivery_identifier_type
+        description: The type of delivery identifier for the sender (e.g., EMAIL).
+      - name: delivery_identifier_value
+        description: The value of the delivery identifier (e.g., the email address).
+
+  - name: stg_hubspot__conversation_message_history
+    description: Each record represents a version of a conversation message, tracking changes over time via SCD Type 2.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: _fivetran_start
+        description: '{{ doc("_fivetran_start") }}'
+      - name: _fivetran_end
+        description: '{{ doc("_fivetran_end") }}'
+      - name: _fivetran_active
+        description: Boolean indicating whether this is the currently active version of the record.
+      - name: is_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: message_id
+        description: Unique ID of the conversation message.
+        tests:
+          - not_null
+      - name: thread_id
+        description: ID of the thread this message belongs to.
+      - name: channel_account_id
+        description: ID of the channel account associated with this message.
+      - name: channel_id
+        description: ID of the channel associated with this message.
+      - name: from_inbox_id
+        description: ID of the inbox the message was sent from.
+      - name: to_inbox_id
+        description: ID of the inbox the message was sent to.
+      - name: assigned_to
+        description: ID of the agent or team the thread was assigned to at message time.
+      - name: assigned_from
+        description: ID of the previous assignee before this message triggered a reassignment.
+      - name: created_at
+        description: Timestamp when the message was created.
+      - name: created_by
+        description: ID of the user who created the message.
+      - name: direction
+        description: Direction of the message (e.g., INCOMING, OUTGOING).
+      - name: in_reply_to_id
+        description: ID of the message this message is a reply to.
+      - name: new_status
+        description: The thread status set by this message event.
+      - name: rich_text
+        description: HTML-formatted body of the message.
+      - name: subject
+        description: Subject line of the message.
+      - name: message_text
+        description: Plain-text body of the message.
+      - name: truncation_status
+        description: Indicates whether the message body was truncated (e.g., NOT_TRUNCATED).
+      - name: message_type
+        description: Type of the message event (e.g., MESSAGE, COMMENT).
+      - name: updated_at
+        description: Timestamp when the message record was last updated.
+      - name: client_type
+        description: The type of client used to send the message.
+      - name: status_type
+        description: The status type of the message.
+
+  - name: stg_hubspot__conversation_message_recipient
+    description: Each record represents a recipient associated with a conversation message.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: _fivetran_id
+        description: Unique ID generated by Fivetran for this recipient record.
+        tests:
+          - not_null
+      - name: actor_id
+        description: ID of the actor (user or contact) who received the message.
+      - name: message_id
+        description: ID of the message this recipient is associated with.
+      - name: thread_id
+        description: ID of the thread this message belongs to.
+      - name: recipient_name
+        description: Display name of the recipient.
+      - name: recipient_field
+        description: The role of this recipient in the message (e.g., TO, CC, BCC).
+      - name: delivery_identifier_type
+        description: The type of delivery identifier for the recipient (e.g., EMAIL).
+      - name: delivery_identifier_value
+        description: The value of the delivery identifier (e.g., the email address).
