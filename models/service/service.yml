@@ -214,6 +214,10 @@ models:
         description: Company of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
       - name: is_contact_deleted
         description: '{{ doc("is_deleted") }}'
+      - name: first_response_time_seconds
+        description: Time taken to respond to the first incoming message in the thread (in seconds).
+      - name: resolution_time_seconds
+        description: Time taken to resolve the thread (in seconds), starting at the first incoming message and ending at thread close.
       - name: first_message_at
         description: Timestamp of the first message (any direction) in the thread.
       - name: first_message_received_at

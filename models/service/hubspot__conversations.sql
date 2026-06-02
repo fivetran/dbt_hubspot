@@ -132,6 +132,8 @@ thread_join as (
         contact.contact_company,
         contact.is_contact_deleted,
         {% endif %}
+        {{ dbt.datediff('message_history_join.first_message_received_at', 'message_history_join.first_message_sent_at', 'second') }} as first_response_time_seconds,
+        {{ dbt.datediff('message_history_join.first_message_received_at', 'conversation_thread.closed_at', 'second') }} as resolution_time_seconds,
         message_history_join.first_message_at,
         message_history_join.first_message_received_at,
         message_history_join.first_message_sent_at,
