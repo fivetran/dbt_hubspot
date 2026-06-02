@@ -1,5 +1,7 @@
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled'])) }}
 
+{% set columns = adapter.get_columns_in_relation(ref('stg_hubspot__contact_tmp')) %}
+
 with base as (
 
     select *
@@ -10,11 +12,21 @@ with base as (
     select
         {{
             fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__contact_tmp')),
+                source_columns=columns,
                 staging_columns=get_contact_columns()
             )
         }}
         {{ hubspot.apply_source_relation() }}
+
+        {% if var('hubspot__pass_through_all_columns', false) and all_passthrough_column_check(columns,get_contact_columns()) > 0 %}
+        -- just pass everything through if extra columns are present, but ensure required columns are present.
+        {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_contact_columns()) %}
+        {{
+            remove_duplicate_and_prefix_from_columns(
+                columns=columns,
+                prefix='property_', exclude=exclude_cols)
+        }}
+        {% endif %}
     from base
 
 ), fields as (
@@ -22,23 +34,8 @@ with base as (
     select
 
 {% if var('hubspot__pass_through_all_columns', false) %}
-        {{
-            fivetran_utils.fill_staging_columns(
-                source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__contact_tmp')),
-                staging_columns=get_contact_columns()
-            )
-        }}
-        {{ hubspot.apply_source_relation() }}
-        {% if all_passthrough_column_check('stg_hubspot__contact_tmp',get_contact_columns()) > 0 %}
-        -- just pass everything through if extra columns are present, but ensure required columns are present.
-        {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_contact_columns()) %}
-        {{ 
-            remove_duplicate_and_prefix_from_columns(
-                columns=adapter.get_columns_in_relation(ref('stg_hubspot__contact_tmp')), 
-                prefix='property_', exclude=exclude_cols) 
-        }}
-        {% endif %}
-    from base
+        *
+    from macro
 
 {% else %}
         -- just default columns + explicitly configured passthrough columns.
@@ -63,7 +60,7 @@ with base as (
         {{ fivetran_utils.calculated_fields('hubspot__contact_calculated_fields') }}
 
     from macro
-{% endif %}    
+{% endif %}
 
 ), joined as (
     {{ add_property_labels('hubspot__contact_pass_through_columns', cte_name='fields') }}
