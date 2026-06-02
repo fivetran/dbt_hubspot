@@ -26,7 +26,7 @@ with base as (
         avatar,
         email,
         name,
-        type as actor_type
+        upper(type) as type
     from macro
 
 )

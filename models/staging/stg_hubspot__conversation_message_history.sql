@@ -32,22 +32,25 @@ with base as (
         channel_id,
         from_inbox_id,
         to_inbox_id,
-        assigned_to,
-        assigned_from,
+        assigned_to as assigned_to_actor_id,
+        assigned_from as assigned_from_actor_id,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
-        created_by,
-        direction,
+        created_by as created_by_actor_id,
+        upper(direction) as direction,
         in_reply_to_id,
         new_status,
         rich_text,
         subject,
-        text as message_text,
-        truncation_status,
-        type as message_type,
+        text,
+        upper(truncation_status) as truncation_status,
+        upper(type) as type,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
-        client_type,
-        status_type
+        upper(client_type) as client_type,
+        upper(status_type) as status_type,
+        row_number() over (partition by id order by _fivetran_end desc) as version_rank
     from macro
+    where coalesce(_fivetran_active, true)
+        and not coalesce(_fivetran_deleted, false)
 
 )
 

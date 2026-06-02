@@ -10,7 +10,7 @@ models:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: actor_id
-        description: Unique ID of the actor.
+        description: Unique ID of the actor. The first letter corresponds with the type of actor (A- agent, B- bot, S- system, E- email, I- integration, L- customer agent).
         tests:
           - not_null
       - name: avatar
@@ -19,8 +19,8 @@ models:
         description: Email address of the actor.
       - name: name
         description: Display name of the actor.
-      - name: actor_type
-        description: Type of the actor (e.g., HUMAN, BOT).
+      - name: type
+        description: Type of the actor (e.g., VISITOR, AGENT, BOT, SYSTEM).
 
   - name: stg_hubspot__conversation_inbox
     description: Each record represents a conversations inbox in HubSpot.
@@ -42,12 +42,12 @@ models:
       - name: name
         description: Display name of the inbox.
       - name: type
-        description: Type of the inbox (e.g., EMAIL, CHAT).
+        description: Type of the inbox (e.g., HELP_DESK, INBOX).
       - name: updated_at
         description: Timestamp when the inbox was last updated.
 
   - name: stg_hubspot__conversation_channel
-    description: Each record represents a conversation channel in HubSpot.
+    description: Each record represents a channel through which users can contact your team, such as email, Chat, Facebook Messenger, or WhatsApp.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -59,11 +59,11 @@ models:
         description: Unique ID of the channel.
         tests:
           - not_null
-      - name: channel_name
+      - name: name
         description: Display name of the channel.
 
   - name: stg_hubspot__conversation_channel_account
-    description: Each record represents a channel account connecting a channel to an inbox.
+    description: Each record represents an instance of a channel connected to an inbox, such as a specific email address or Facebook Messenger account.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -85,10 +85,10 @@ models:
         description: Boolean indicating whether the channel account is authorized.
       - name: created_at
         description: Timestamp when the channel account was created.
-      - name: channel_account_name
+      - name: name
         description: Display name of the channel account.
       - name: delivery_identifier_type
-        description: The type of delivery identifier for this channel account (e.g., EMAIL).
+        description: The type of delivery identifier for this channel account (e.g., HS_EMAIL_ADDRESS).
       - name: delivery_identifier_value
         description: The value of the delivery identifier (e.g., the email address).
 
@@ -99,8 +99,6 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
-      - name: is_deleted
-        description: '{{ doc("is_deleted") }}'
       - name: conversation_thread_id
         description: Unique ID of the conversation thread.
         tests:
@@ -115,19 +113,19 @@ models:
         description: ID of the channel account through which the thread was originally created.
       - name: original_channel_id
         description: ID of the channel through which the thread was originally created.
-      - name: assigned_to
-        description: ID of the agent or team the thread is assigned to.
+      - name: assigned_to_actor_id
+        description: ID of the agent the thread is assigned to.
       - name: closed_at
         description: Timestamp when the thread was closed.
       - name: created_at
         description: Timestamp when the thread was created.
-      - name: latest_message_received_timestamp
+      - name: latest_message_received_at
         description: Timestamp of the most recently received message in the thread.
-      - name: latest_message_sent_timestamp
+      - name: latest_message_sent_at
         description: Timestamp of the most recently sent message in the thread.
-      - name: latest_message_timestamp
+      - name: latest_message_at
         description: Timestamp of the most recent message (sent or received) in the thread.
-      - name: spam
+      - name: is_spam
         description: Indicates whether the thread has been marked as spam.
       - name: status
         description: Current status of the thread (e.g., OPEN, CLOSED).
@@ -149,12 +147,12 @@ models:
         description: ID of the message this sender is associated with.
       - name: thread_id
         description: ID of the thread this message belongs to.
-      - name: sender_name
+      - name: name
         description: Display name of the sender.
       - name: sender_field
-        description: The role of this sender in the message (e.g., FROM).
+        description: The role of this sender in the message (e.g., FROM, ORIGINAL_FROM).
       - name: delivery_identifier_type
-        description: The type of delivery identifier for the sender (e.g., EMAIL).
+        description: The type of delivery identifier for the sender (e.g., HS_EMAIL_ADDRESS).
       - name: delivery_identifier_value
         description: The value of the delivery identifier (e.g., the email address).
 
@@ -187,36 +185,38 @@ models:
         description: ID of the inbox the message was sent from.
       - name: to_inbox_id
         description: ID of the inbox the message was sent to.
-      - name: assigned_to
-        description: ID of the agent or team the thread was assigned to at message time.
-      - name: assigned_from
+      - name: assigned_to_actor_id
+        description: ID of the agent the thread was assigned to at message time.
+      - name: assigned_from_actor_id
         description: ID of the previous assignee before this message triggered a reassignment.
       - name: created_at
         description: Timestamp when the message was created.
-      - name: created_by
+      - name: created_by_actor_id
         description: ID of the user who created the message.
       - name: direction
         description: Direction of the message (e.g., INCOMING, OUTGOING).
       - name: in_reply_to_id
         description: ID of the message this message is a reply to.
       - name: new_status
-        description: The thread status set by this message event.
+        description: The thread status set by this message event (e.g., OPEN, CLOSED).
       - name: rich_text
         description: HTML-formatted body of the message.
       - name: subject
         description: Subject line of the message.
-      - name: message_text
+      - name: text
         description: Plain-text body of the message.
       - name: truncation_status
-        description: Indicates whether the message body was truncated (e.g., NOT_TRUNCATED).
-      - name: message_type
-        description: Type of the message event (e.g., MESSAGE, COMMENT).
+        description: Indicates whether the message body was truncated (e.g., NOT_TRUNCATED, TRUNCATED_TO_MOST_RECENT_REPLY, TRUNCATED).
+      - name: type
+        description: Type of the message event (e.g., MESSAGE, COMMENT, WELCOME_MESSAGE).
       - name: updated_at
         description: Timestamp when the message record was last updated.
       - name: client_type
-        description: The type of client used to send the message.
+        description: The type of client used to send the message (e.g., SYSTEM, HUBSPOT, INTEGRATION).
       - name: status_type
-        description: The status type of the message.
+        description: The status type of the message (e.g., SENT, RECEIVED).
+      - name: version_rank
+        description: Row number ordered by _fivetran_end descending; rank 1 is the most recent active version of the message.
 
   - name: stg_hubspot__conversation_message_recipient
     description: Each record represents a recipient associated with a conversation message.
@@ -235,11 +235,11 @@ models:
         description: ID of the message this recipient is associated with.
       - name: thread_id
         description: ID of the thread this message belongs to.
-      - name: recipient_name
+      - name: name
         description: Display name of the recipient.
       - name: recipient_field
         description: The role of this recipient in the message (e.g., TO, CC, BCC).
       - name: delivery_identifier_type
-        description: The type of delivery identifier for the recipient (e.g., EMAIL).
+        description: The type of delivery identifier for the recipient (e.g., HS_EMAIL_ADDRESS).
       - name: delivery_identifier_value
         description: The value of the delivery identifier (e.g., the email address).

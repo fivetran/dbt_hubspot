@@ -24,7 +24,7 @@ with base as (
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         _fivetran_deleted as is_deleted,
         id as channel_id,
-        name as channel_name
+        name
     from macro
 
 )

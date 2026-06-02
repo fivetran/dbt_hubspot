@@ -26,7 +26,7 @@ with base as (
         actor_id,
         message_id,
         thread_id,
-        name as sender_name,
+        name,
         sender_field,
         delivery_identifier_type,
         delivery_identifier_value

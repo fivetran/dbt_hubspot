@@ -1700,7 +1700,7 @@ sources:
           - name: in_reply_to_id
             description: ID of the message this message is a reply to.
           - name: new_status
-            description: The thread status set by this message event.
+            description: The thread status set by this message event (e.g., OPEN, CLOSED).
           - name: rich_text
             description: HTML-formatted body of the message.
           - name: subject
@@ -1714,7 +1714,7 @@ sources:
           - name: updated_at
             description: Timestamp when the message record was last updated.
           - name: client_type
-            description: The type of client used to send the message.
+            description: The type of client used to send the message (e.g., SYSTEM, HUBSPOT, INTEGRATION)
           - name: status_type
             description: The status type of the message (e.g., SENT, RECEIVED)
           - name: _fivetran_deleted

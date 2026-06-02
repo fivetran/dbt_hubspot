@@ -29,7 +29,7 @@ with base as (
         active as is_active,
         authorized as is_authorized,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
-        name as channel_account_name,
+        name,
         delivery_identifier_type,
         delivery_identifier_value
     from macro

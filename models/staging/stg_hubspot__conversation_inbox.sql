@@ -27,7 +27,7 @@ with base as (
         active as is_active,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         name,
-        type,
+        upper(type) as type,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at
     from macro
 
