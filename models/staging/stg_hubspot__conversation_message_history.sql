@@ -36,6 +36,15 @@ with base as (
         assigned_from as assigned_from_actor_id,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         created_by as created_by_actor_id,
+        case 
+            when created_by like 'A-%' then 'AGENT'
+            when created_by like 'B-%' then 'BOT'
+            when created_by like 'E-%' then 'EMAIL'
+            when created_by like 'I-%' then 'INTEGRATION'
+            when created_by like 'L-%' then 'BREEZE'  -- customer agent powered by Hubspot's AI called Breeze
+            when created_by like 'S-%' then 'SYSTEM'
+            when created_by like 'V-%' then 'VISITOR'
+            else 'OTHER' end as created_by_actor_type,
         upper(direction) as direction,
         in_reply_to_id,
         new_status,

@@ -234,8 +234,8 @@ models:
         description: Number of distinct outgoing messages sent by an agent.
       - name: bot_outgoing_message_count
         description: Number of distinct outgoing messages sent by a bot.
-      - name: system_incoming_message_count
-        description: Number of distinct incoming messages received by a system actor.
+      - name: system_outgoing_message_count
+        description: Number of distinct outgoing messages sent by a system actor.
       - name: comment_count
         description: Number of internal comments on the thread.
       - name: assignment_count
@@ -245,6 +245,12 @@ models:
       - name: unique_assignee_count
         description: Number of distinct actors the thread has been assigned to.
       - name: involved_agent_count
-        description: Number of distinct agents who have created messages in the thread.
+        description: Number of distinct agents who have created any conversation event (message, comment, etc) in the thread.
+      - name: agent_author_count
+        description: Number of distinct agents who sent an outgoing message in the thread.
+      - name: visitor_author_count
+        description: Number of distinct visitors who sent an incoming message in the thread.
+      - name: visitor_recipient_count
+        description: Number of distinct visitors who received an outgoing message in the thread.
       - name: has_welcome_message
         description: Boolean indicating whether the thread includes a welcome message.

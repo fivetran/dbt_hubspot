@@ -65,38 +65,45 @@ message_history_join as (
         min(case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else '9999-01-01' end) as first_message_received_at,
         min(case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else '9999-01-01' end) as first_message_sent_at,
 
-        -- Message counts
+        -- Overall message counts
         count(distinct case when conversation_message_history.type = 'MESSAGE' then conversation_message_history.message_id end) total_message_count,
         count(distinct case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.message_id end) incoming_message_count,
         count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.message_id end) outgoing_message_count,
-        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and actor_sender.type = 'AGENT' then conversation_message_history.message_id end) agent_outgoing_message_count,
-        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and actor_sender.type = 'BOT' then conversation_message_history.message_id end) bot_outgoing_message_count,
-        count(distinct case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' and actor_recipient.type = 'SYSTEM' then conversation_message_history.message_id end) system_incoming_message_count,
 
+        -- Message counts by sender type
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'AGENT' then conversation_message_history.message_id end) agent_outgoing_message_count,
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'BOT' then conversation_message_history.message_id end) bot_outgoing_message_count,
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'SYSTEM' then conversation_message_history.message_id end) system_outgoing_message_count,
+
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'AGENT' then conversation_message_history.created_by_actor_id end) agent_author_count,
+        count(distinct case when coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'AGENT' then conversation_message_history.created_by_actor_id end) involved_agent_count,
+        count(distinct case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'VISITOR' then conversation_message_history.created_by_actor_id end) visitor_author_count,
+
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and actor_recipient.type = 'VISITOR' then actor_recipient.actor_id end) visitor_recipient_count,
+
+        -- Other conversation event counts
         count(distinct case when conversation_message_history.type = 'COMMENT' then conversation_message_history.message_id end) comment_count,
         count(distinct case when conversation_message_history.type = 'THREAD_STATUS_CHANGE' then conversation_message_history.message_id end) thread_status_change_count,
         count(distinct case when conversation_message_history.type = 'ASSIGNMENT' then conversation_message_history.message_id end) assignment_count,
         count(distinct case when conversation_message_history.type = 'ASSIGNMENT' then conversation_message_history.assigned_to_actor_id end) unique_assignee_count,
-        count(distinct case when conversation_message_history.created_by_actor_id like 'A-%' then conversation_message_history.created_by_actor_id end) involved_agent_count,
+        
         max(conversation_message_history.type = 'WELCOME_MESSAGE') as has_welcome_message
 
     from conversation_message_history 
 
+    left join conversation_actor actor_sender
+        on conversation_message_history.created_by_actor_id = actor_sender.actor_id
+        and conversation_message_history.source_relation = actor_sender.source_relation
+
+    -- Messages can be sent to multiple recipients
     left join conversation_message_recipient
         on conversation_message_history.message_id = conversation_message_recipient.message_id
         and conversation_message_history.thread_id = conversation_message_recipient.thread_id
         and conversation_message_history.source_relation = conversation_message_recipient.source_relation
-    left join conversation_message_sender
-        on conversation_message_history.message_id = conversation_message_sender.message_id
-        and conversation_message_history.thread_id = conversation_message_sender.thread_id
-        and conversation_message_history.source_relation = conversation_message_sender.source_relation
 
     left join conversation_actor actor_recipient
         on conversation_message_recipient.actor_id = actor_recipient.actor_id
         and conversation_message_recipient.source_relation = actor_recipient.source_relation
-    left join conversation_actor actor_sender
-        on conversation_message_sender.actor_id = actor_sender.actor_id
-        and conversation_message_sender.source_relation = actor_sender.source_relation
 
     group by 1,2
 
@@ -142,14 +149,16 @@ thread_join as (
         message_history_join.outgoing_message_count,
         message_history_join.agent_outgoing_message_count,
         message_history_join.bot_outgoing_message_count,
-        message_history_join.system_incoming_message_count,
+        message_history_join.system_outgoing_message_count,
         message_history_join.comment_count,
         message_history_join.assignment_count,
         message_history_join.thread_status_change_count,
         message_history_join.unique_assignee_count,
         message_history_join.involved_agent_count,
+        message_history_join.agent_author_count,
+        message_history_join.visitor_author_count,
+        message_history_join.visitor_recipient_count,
         message_history_join.has_welcome_message
-
 
     from conversation_thread
     left join message_history_join
