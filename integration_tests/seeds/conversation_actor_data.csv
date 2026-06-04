@@ -1,3 +1,5 @@
 id,avatar,email,name,type,_fivetran_synced
-actor_001,https://example.com/avatar1.png,john.smith@example.com,John Smith,HUMAN,2024-03-15 10:00:00
-actor_002,,bot@hubspot.com,Support Bot,BOT,2024-03-15 10:00:00
+A-1234,https://example.com/avatar1.png,john.smith@example.com,John Smith,AGENT,2024-03-15 10:00:00
+B-1234,,bot@hubspot.com,Support Bot,BOT,2024-03-15 10:00:00
+S-1234,,system@hubspot.com,Hubspot System,SYSTEM,2024-03-15 10:00:00
+V-1234,,bot@hubspot.com,Jane Doe,VISITOR,2024-03-15 10:00:00

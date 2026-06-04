@@ -1,3 +1,3 @@
 id,inbox_id,associated_contact_id,associated_ticket_id,original_channel_account_id,original_channel_id,assigned_to,closed_at,created_at,latest_message_received_timestamp,latest_message_sent_timestamp,latest_message_timestamp,spam,status,_fivetran_deleted,_fivetran_synced
-thread_001,inbox_001,contact_001,ticket_001,channel_acct_001,channel_001,agent_001,2024-03-15 10:00:00,2024-03-01 09:00:00,2024-03-14 15:30:00,2024-03-14 16:00:00,2024-03-14 16:00:00,false,CLOSED,false,2024-03-15 10:00:00
-thread_002,inbox_001,contact_002,,channel_acct_001,channel_001,,,2024-03-28 10:00:00,2024-03-28 11:00:00,,2024-03-28 11:00:00,false,OPEN,false,2024-03-28 11:30:00
+thread_001,inbox_001,78971951,307034542,channel_acct_001,channel_001,A-1234,2024-03-15 10:00:00,2024-03-01 09:00:00,2024-03-14 15:30:00,2024-03-14 16:00:00,2024-03-14 16:00:00,false,CLOSED,false,2024-03-15 10:00:00
+thread_002,inbox_001,76340251,293370454,channel_acct_001,channel_001,,,2024-03-28 10:00:00,2024-03-28 11:00:00,,2024-03-28 11:00:00,false,OPEN,false,2024-03-28 11:30:00
