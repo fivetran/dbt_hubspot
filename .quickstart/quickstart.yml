@@ -48,8 +48,9 @@ table_variables:
   hubspot_contact_form_enabled:
     - contact_form_submission
     - form
-  hubspot_conversations_enabled:
+  hubspot_conversation_enabled:
     - conversation_thread
+    - conversation_message_history
   hubspot_deal_enabled:
     - deal
     - deal_stage
@@ -87,7 +88,6 @@ table_variables:
     - owner
   hubspot_property_enabled:
     - property
-  hubspot_property_enabled:
     - property_option
   hubspot_role_enabled:
     - role
@@ -116,8 +116,6 @@ table_variables:
     - conversation_channel_account
   _fivetran_quickstart_conversation_inbox:
     - conversation_inbox
-  _fivetran_quickstart_conversation_message_history:
-    - conversation_message_history
   _fivetran_quickstart_conversation_message_recipient:
     - conversation_message_recipient
   _fivetran_quickstart_conversation_message_sender:
@@ -157,7 +155,8 @@ public_models: [
   "hubspot__deals",
   "hubspot__engagements",
   "hubspot__daily_ticket_history",
-  "hubspot__tickets"
+  "hubspot__tickets",
+  "hubspot__conversations"
 ]
 
 supported_vars:

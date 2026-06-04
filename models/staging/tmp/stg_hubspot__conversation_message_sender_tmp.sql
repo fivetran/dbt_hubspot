@@ -1,4 +1,4 @@
-{{ config(enabled=var('hubspot_service_enabled', false) and var('hubspot_conversations_enabled', false)) }}
+{{ config(enabled=var('hubspot_service_enabled', false) and var('hubspot_conversation_enabled', false)) }}
 
 {{
     hubspot.hubspot_union_connections(

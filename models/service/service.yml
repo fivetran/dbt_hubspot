@@ -65,7 +65,7 @@ models:
       - name: ticket_category
         description: The category of the ticket.
       - name: owner_id
-        description: Foreign key referencing the ID of the deal's `OWNER`.
+        description: Foreign key referencing the ID of the ticket's `OWNER`.
       - name: ticket_subject
         description: Short summary of ticket.
       - name: ticket_content
@@ -115,26 +115,24 @@ models:
       - name: count_engagement_forwarded_emails
         description: "{{ doc('count_engagement_forwarded_emails') }}"
       - name: owner_active_user_id
-        description: Unique ID of the active HubSpot user who owns the deal.
+        description: Unique ID of the active HubSpot user who owns the ticket.
       - name: owner_primary_team_id
-        description: ID of the primary team assigned to the deal owner.
+        description: ID of the primary team assigned to the ticket owner.
       - name: owner_primary_team_name
-        description: Name of the primary team assigned to the deal owner.
+        description: Name of the primary team assigned to the ticket owner.
       - name: owner_all_team_ids
-        description: Comma-separated list of all team IDs associated with the deal owner.
+        description: Comma-separated list of all team IDs associated with the ticket owner.
       - name: owner_all_team_names
-        description: Comma-separated list of all team names associated with the deal owner.
+        description: Comma-separated list of all team names associated with the ticket owner.
       - name: owner_role_id
-        description: ID of the role assigned to the deal owner.
+        description: ID of the role assigned to the ticket owner.
       - name: owner_role_name
-        description: Name of the role assigned to the deal owner.
+        description: Name of the role assigned to the ticket owner.
 
   - name: hubspot__conversations
     description: >
-      Each record represents a conversation thread in HubSpot. Enabled by setting both `hubspot_service_enabled` and `hubspot_conversations_enabled` to `True`.
-
-      Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
-      Optionally joins to ticket and contact data when the respective features are enabled.
+      Each record represents a conversation thread in HubSpot. Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
+      Optionally joins to ticket and contact data when the respective features are enabled. Enabled by setting both `hubspot_service_enabled` and `hubspot_conversation_enabled` to `True`.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -170,6 +168,10 @@ models:
         description: Indicates whether the thread has been marked as spam.
       - name: status
         description: Current status of the thread (e.g., OPEN, CLOSED).
+      - name: assignee_name
+        description: Name of the actor currently assigned to this conversation thread.
+      - name: assignee_email
+        description: Email address of the actor currently assigned to this conversation thread.
       - name: inbox_name
         description: Display name of the inbox the thread belongs to.
       - name: inbox_type
@@ -254,3 +256,17 @@ models:
         description: Number of distinct visitors who received an outgoing message in the thread.
       - name: has_welcome_message
         description: Boolean indicating whether the thread includes a welcome message.
+      - name: ticket_owner_email_address
+        description: Email address of the associated ticket owner.
+      - name: ticket_owner_full_name
+        description: Full name of the associated ticket owner.
+      - name: ticket_owner_primary_team_id
+        description: ID of the primary team assigned to the associated ticket owner.
+      - name: ticket_owner_primary_team_name
+        description: Name of the primary team assigned to the associated ticket owner.
+      - name: ticket_owner_role_id
+        description: ID of the role assigned to the associated ticket owner.
+      - name: ticket_owner_role_name
+        description: Name of the role assigned to the associated ticket owner.
+      - name: ticket_owner_active_user_id
+        description: Unique ID of the active HubSpot user who owns the associated ticket.

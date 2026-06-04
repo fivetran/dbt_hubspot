@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.7.2'
+version: '1.8.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -17,6 +17,7 @@ vars:
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include
+    # hubspot_conversation_enabled: true # @docs-include
     # hubspot_deal_enabled: true # @docs-include
     # hubspot_contact_enabled: true # @docs-include
     # hubspot_sales_enabled: true # @docs-include
@@ -44,6 +45,14 @@ vars:
     hubspot_contact_merge_audit_identifier: "contact_merge_audit_data"
     hubspot_contact_list_member_identifier: "contact_list_member_data"
     hubspot_contact_property_history_identifier: "contact_property_history_data"
+    hubspot_conversation_actor_identifier: "conversation_actor_data"
+    hubspot_conversation_inbox_identifier: "conversation_inbox_data"
+    hubspot_conversation_channel_identifier: "conversation_channel_data"
+    hubspot_conversation_channel_account_identifier: "conversation_channel_account_data"
+    hubspot_conversation_thread_identifier: "conversation_thread_data"
+    hubspot_conversation_message_sender_identifier: "conversation_message_sender_data"
+    hubspot_conversation_message_history_identifier: "conversation_message_history_data"
+    hubspot_conversation_message_recipient_identifier: "conversation_message_recipient_data"
     hubspot_deal_identifier: "deal_data"
     hubspot_deal_stage_identifier: "deal_stage_data"
     hubspot_deal_company_identifier: "deal_company_data"

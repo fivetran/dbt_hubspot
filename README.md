@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's Hubspot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 147
+- Number of materialized models¹: 164
 - Connector documentation
   - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -73,7 +73,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=1.7.0", "<1.8.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.8.0", "<1.9.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
 
@@ -174,7 +174,7 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_contact_merge_audit_enabled`
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
-- `hubspot_conversations_enabled`
+- `hubspot_conversation_enabled`
 
 You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
@@ -235,7 +235,7 @@ vars:
   # Service
   hubspot_service_enabled: true                           # Enables all service models. Default = False
   hubspot_ticket_deal_enabled: true                       # Enables ticket_deal transformations. Default = False
-  hubspot_conversations_enabled: true                     # Enables conversation models (thread, message history, senders, recipients, actors, inboxes, channels). Default = False
+  hubspot_conversation_enabled: true                     # Enables conversation models (thread, message history, senders, recipients, actors, inboxes, channels). Default = False
 ```
 
 ### (Optional) Additional configurations
