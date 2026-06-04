@@ -132,7 +132,7 @@ models:
   - name: hubspot__conversations
     description: >
       Each record represents a conversation thread in HubSpot. Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
-      Optionally joins to ticket and contact data when the respective features are enabled. Enabled by setting both `hubspot_service_enabled` and `hubspot_conversation_enabled` to `True`.
+      Optionally joins to ticket and contact data when the respective features are enabled. Enable by setting `hubspot_conversation_enabled` to `True`.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

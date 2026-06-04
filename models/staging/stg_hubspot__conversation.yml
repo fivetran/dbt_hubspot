@@ -23,7 +23,7 @@ models:
         description: Type of the actor (e.g., VISITOR, AGENT, BOT, SYSTEM).
 
   - name: stg_hubspot__conversation_inbox
-    description: Each record represents a conversations inbox in HubSpot.
+    description: Each record represents a conversation inbox in HubSpot.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
