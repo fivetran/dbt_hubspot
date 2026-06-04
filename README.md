@@ -233,9 +233,10 @@ vars:
   hubspot_team_user_enabled: false                        # Disables user-to-team relationships
 
   # Service
-  hubspot_service_enabled: true                           # Enables all service models. Default = False
+  hubspot_service_enabled: true                           # Enables all ticket-related service models. Default = False
   hubspot_ticket_deal_enabled: true                       # Enables ticket_deal transformations. Default = False
-  hubspot_conversation_enabled: true                     # Enables conversation models (thread, message history, senders, recipients, actors, inboxes, channels). Default = False
+
+  hubspot_conversation_enabled: true                     # Enables conversation models. Default = False
 ```
 
 ### (Optional) Additional configurations

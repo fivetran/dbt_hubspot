@@ -1,4 +1,4 @@
-{{ config(enabled=var('hubspot_service_enabled', false) and var('hubspot_conversation_enabled', false)) }}
+{{ config(enabled=var('hubspot_conversation_enabled', false)) }}
 
 with base as (
 
