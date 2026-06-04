@@ -95,8 +95,8 @@ message_history_join as (
         count(distinct case when conversation_message_history.type = 'THREAD_STATUS_CHANGE' then conversation_message_history.message_id end) thread_status_change_count,
         count(distinct case when conversation_message_history.type = 'ASSIGNMENT' then conversation_message_history.message_id end) assignment_count,
         count(distinct case when conversation_message_history.type = 'ASSIGNMENT' then conversation_message_history.assigned_to_actor_id end) unique_assignee_count,
-        
-        max(conversation_message_history.type = 'WELCOME_MESSAGE') as has_welcome_message
+
+        cast(max(case when conversation_message_history.type = 'WELCOME_MESSAGE' then 1 else 0 end) as {{ dbt.type_boolean() }}) as has_welcome_message
 
     from conversation_message_history 
 
