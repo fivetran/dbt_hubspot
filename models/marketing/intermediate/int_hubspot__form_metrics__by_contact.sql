@@ -16,9 +16,9 @@ with form as (
         contact_id,
         form_id,
         occurred_timestamp,
-        row_number() over (partition by contact_id {{ hubspot.partition_by_source_relation() }} order by occurred_timestamp asc
+        row_number() over (partition by contact_id {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }} order by occurred_timestamp asc
             ) = 1 as is_first_conversion,
-        row_number() over (partition by contact_id {{ hubspot.partition_by_source_relation() }} order by occurred_timestamp desc
+        row_number() over (partition by contact_id {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }} order by occurred_timestamp desc
             ) = 1 as is_most_recent_conversion
     from contact_form_submission
 

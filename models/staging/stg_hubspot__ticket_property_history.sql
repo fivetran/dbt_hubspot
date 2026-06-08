@@ -21,7 +21,7 @@ with base as (
         {% if new_cols | length > 0 %}
             {{ new_cols }}
         {% endif %}
-        {{ hubspot.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}
         from base
 
 )

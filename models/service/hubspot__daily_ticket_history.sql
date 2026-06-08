@@ -92,7 +92,7 @@ with change_data as (
         , {{ col.name }}
         -- create a batch/partition once a new value is provided
         , sum(case when joined.{{ col.name }} is null then 0 else 1 end) over (
-                partition by ticket_id {{ hubspot.partition_by_source_relation() }}
+                partition by ticket_id {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
                 order by date_day rows unbounded preceding) as {{ col.name }}_partition
         {% endfor %}
 
@@ -108,7 +108,7 @@ with change_data as (
         {% for col in change_data_columns if col.name|lower not in ['source_relation','ticket_id','date_day','id'] %}
         -- grab the value that started this batch/partition
         , first_value( {{ col.name }} ) over (
-            partition by ticket_id, {{ col.name }}_partition {{ hubspot.partition_by_source_relation() }}
+            partition by ticket_id, {{ col.name }}_partition {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
             order by date_day asc rows between unbounded preceding and current row) as {{ col.name }}
         {% endfor %}
 
