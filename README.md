@@ -1,14 +1,14 @@
 <!--section="hubspot_transformation_model"-->
-# Hubspot dbt Package
+# HubSpot dbt Package
 
-This dbt package transforms data from Fivetran's Hubspot connector into analytics-ready tables.
+This dbt package transforms data from Fivetran's HubSpot connector into analytics-ready tables.
 
 ## Resources
 
 - Number of materialized models¹: 147
 - Connector documentation
-  - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
-  - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
+  - [HubSpot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
+  - [HubSpot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
 - dbt package documentation
   - [GitHub repository](https://github.com/fivetran/dbt_hubspot)
   - [dbt Docs](https://fivetran.github.io/dbt_hubspot/#!/overview)
@@ -68,7 +68,7 @@ You can either add this dbt package in the Fivetran dashboard or import it into 
 <!--section-end-->
 
 ### Install the package
-Include the following hubspot package version in your `packages.yml` file:
+Include the following HubSpot package version in your `packages.yml` file:
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
 packages:
@@ -130,7 +130,7 @@ vars:
 If you use [Fivetran Transformations for dbt Core™](https://fivetran.com/docs/transformations/dbt#transformationsfordbtcore) and are unioning multiple HubSpot connections, you can define your sources in a property `.yml` file, [using this as a template](https://github.com/fivetran/dbt_hubspot/blob/main/models/staging/src_hubspot.yml). Set the variable `has_defined_sources: true` under the HubSpot namespace in your `dbt_project.yml`. Otherwise, your HubSpot connections won't appear in your DAG. See the `union_connections` macro [documentation](https://github.com/fivetran/dbt_fivetran_utils/tree/releases/v0.4.latest#optional-union-connections-defined-sources-configuration) for full configuration details.
 
 ### Disable/enable models and sources
-When setting up your Hubspot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in Hubspot or have actively decided to not sync some tables. Therefore we have added enable/disable configs in the `src.yml` to allow you to disable certain sources not present. Downstream models are automatically disabled as well. In order to disable the relevant functionality in the package, you will need to add the relevant variables in your root `dbt_project.yml`. 
+When setting up your HubSpot connection in Fivetran, it is possible that not every table this package expects will be synced. This can occur because you either don't use that functionality in HubSpot or have actively decided to not sync some tables. Therefore we have added enable/disable configs in the `src.yml` to allow you to disable certain sources not present. Downstream models are automatically disabled as well. In order to disable the relevant functionality in the package, you will need to add the relevant variables in your root `dbt_project.yml`. 
 
 By default, all variables are assumed to be `true`, **with the exception of the below**. These default to `false` and must be explicitly enabled if needed:
 
