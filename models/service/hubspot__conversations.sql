@@ -65,9 +65,9 @@ message_history_join as (
         conversation_message_history.source_relation,
 
         -- Latest message timestamps are already available on the conversation_thread table, so just get first
-        min(case when conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else '9999-01-01' end) as first_message_at,
-        min(case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else '9999-01-01' end) as first_message_received_at,
-        min(case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else '9999-01-01' end) as first_message_sent_at,
+        min(case when conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else null end) as first_message_at,
+        min(case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else null end) as first_message_received_at,
+        min(case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' then conversation_message_history.created_at else null end) as first_message_sent_at,
 
         -- Overall message counts
         count(distinct case when conversation_message_history.type = 'MESSAGE' then conversation_message_history.message_id end) total_message_count,
