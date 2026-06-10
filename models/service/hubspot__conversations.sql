@@ -15,11 +15,6 @@ conversation_message_recipient as (
     from {{ ref('stg_hubspot__conversation_message_recipient') }}
 ),
 
-conversation_message_sender as (
-    select *
-    from {{ ref('stg_hubspot__conversation_message_sender') }}
-),
-
 conversation_actor as (
     select *
     from {{ ref('stg_hubspot__conversation_actor') }}

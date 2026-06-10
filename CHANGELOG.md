@@ -3,12 +3,12 @@
 [PR #200](https://github.com/fivetran/dbt_hubspot/pull/200) includes the following updates:
 
 ## Schema Change
-**9 new models • 0 possible breaking changes**
+**8 new models • 0 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
 | [`hubspot__conversations`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | New end model | | | One record per conversation thread, enriched with inbox, channel, channel account details, and aggregated message metrics. Dynamically enabled in Quickstart. To enable in self-managed dbt projects, set `hubspot_conversation_enabled` to `True`. |
-| `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_message_sender`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_inbox` | New staging models | | See model names | Eight new staging models that power `hubspot__conversations`. Enabled alongside the end model via `hubspot_conversation_enabled`. |
+| `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_inbox` | New staging models | | See model names | Seven new staging models that power `hubspot__conversations`. Enabled alongside the end model via `hubspot_conversation_enabled`. |
 
 # dbt_hubspot v1.7.2
 

@@ -118,8 +118,6 @@ table_variables:
     - conversation_inbox
   _fivetran_quickstart_conversation_message_recipient:
     - conversation_message_recipient
-  _fivetran_quickstart_conversation_message_sender:
-    - conversation_message_sender
 
 destination_configurations:
   databricks:

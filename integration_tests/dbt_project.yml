@@ -50,7 +50,6 @@ vars:
     hubspot_conversation_channel_identifier: "conversation_channel_data"
     hubspot_conversation_channel_account_identifier: "conversation_channel_account_data"
     hubspot_conversation_thread_identifier: "conversation_thread_data"
-    hubspot_conversation_message_sender_identifier: "conversation_message_sender_data"
     hubspot_conversation_message_history_identifier: "conversation_message_history_data"
     hubspot_conversation_message_recipient_identifier: "conversation_message_recipient_data"
     hubspot_deal_identifier: "deal_data"
@@ -360,17 +359,6 @@ seeds:
         thread_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         recipient_field: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        delivery_identifier_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        delivery_identifier_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-    conversation_message_sender_data:
-      +column_types:
-        _fivetran_synced: timestamp
-        _fivetran_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        actor_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        message_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        thread_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
-        sender_field: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         delivery_identifier_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         delivery_identifier_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     conversation_thread_data:

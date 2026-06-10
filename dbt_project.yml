@@ -68,7 +68,6 @@ vars:
     conversation_inbox: "{{ source('hubspot','conversation_inbox') }}"
     conversation_message_history: "{{ source('hubspot','conversation_message_history') }}"
     conversation_message_recipient: "{{ source('hubspot','conversation_message_recipient') }}"
-    conversation_message_sender: "{{ source('hubspot','conversation_message_sender') }}"
     conversation_thread: "{{ source('hubspot','conversation_thread') }}"
     hubspot__deal_pass_through_columns: []
     hubspot__contact_pass_through_columns: []

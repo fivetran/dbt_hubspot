@@ -257,16 +257,16 @@ models:
       - name: has_welcome_message
         description: Boolean indicating whether the thread includes a welcome message.
       - name: ticket_owner_email_address
-        description: Email address of the associated ticket owner.
+        description: Email address of the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
       - name: ticket_owner_full_name
-        description: Full name of the associated ticket owner.
+        description: Full name of the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
       - name: ticket_owner_primary_team_id
-        description: ID of the primary team assigned to the associated ticket owner.
+        description: ID of the primary team assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
       - name: ticket_owner_primary_team_name
-        description: Name of the primary team assigned to the associated ticket owner.
+        description: Name of the primary team assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
       - name: ticket_owner_role_id
-        description: ID of the role assigned to the associated ticket owner.
+        description: ID of the role assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
       - name: ticket_owner_role_name
-        description: Name of the role assigned to the associated ticket owner.
+        description: Name of the role assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
       - name: ticket_owner_active_user_id
-        description: Unique ID of the active HubSpot user who owns the associated ticket.
+        description: Unique ID of the active HubSpot user who owns the associated ticket. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
