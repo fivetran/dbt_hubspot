@@ -336,33 +336,40 @@ vars:
   hubspot_using_all_email_events: false # True by default
 ```
 
-#### Daily ticket history
-The `hubspot__daily_ticket_history` model is disabled by default, but will materialize if `hubspot_service_enabled` is set to `true`. See additional configurations for this model below.
+#### Daily ticket and deal history
+The `hubspot__daily_ticket_history` model is disabled by default, but will materialize if `hubspot_service_enabled` is set to `true`. The `hubspot__daily_deal_history` model is disabled by default, but will materialize if `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` are all set to `true`. See additional configurations for these models below.
 
-> **Note**: `hubspot__daily_ticket_history` and its parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
+> **Note**: `hubspot__daily_ticket_history`, `hubspot__daily_deal_history`, and their parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
 
-##### **Tracking ticket properties**
-By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. However, any property from the source `TICKET_PROPERTY_HISTORY` table can be tracked and pivoted out into columns. To add other properties to this end model, add the following configuration to your `dbt_project.yml` file:
+##### **Tracking ticket and deal properties**
+By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. `hubspot__daily_deal_history` will track each deal's stage, pipeline, and amount. However, any property from the source `TICKET_PROPERTY_HISTORY` or `DEAL_PROPERTY_HISTORY` tables can be tracked and pivoted out into columns. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 vars:
   hubspot__ticket_property_history_columns:
     - the
     - list
-    - of 
+    - of
+    - property
+    - names
+  hubspot__deal_property_history_columns:
+    - the
+    - list
+    - of
     - property
     - names
 ```
 
-##### **Extending ticket history past closing date**
-This package will create a row in `hubspot__daily_ticket_history` for each day that a ticket is open, starting at its creation date. A Hubspot ticket can be altered after being closed, so its properties can change after this date.
+##### **Extending ticket and deal history past closing date**
+This package will create a row in `hubspot__daily_ticket_history` and `hubspot__daily_deal_history` for each day that a ticket or deal is open, starting at its creation date. Tickets and deals can be altered after being closed, so their properties can change after this date.
 
-By default, the package will track a ticket up to its closing date (or the current date if still open). To capture post-closure changes, you may want to extend a ticket's history past the close date. To do so, add the following configuration to your root dbt_project.yml file:
+By default, the package will track a ticket or deal up to its closing date (or the current date if still open). To capture post-closure changes, you may want to extend history past the close date. To do so, add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 vars:
   hubspot:
     ticket_history_extension_days: integer_number_of_days # default = 0
+    deal_history_extension_days: integer_number_of_days # default = 0
 ```
 
 #### Changing the Build Schema
