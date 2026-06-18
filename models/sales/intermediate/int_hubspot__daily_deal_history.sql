@@ -39,7 +39,7 @@ with deal_history as (
     select
         source_relation,
         deal_id,
-        'deal_stage' as field_name,
+        'pipeline_stage' as field_name,
         deal_stage_name as new_value,
         source as change_source,
         source_id as change_source_id,

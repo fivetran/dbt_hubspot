@@ -1,3 +1,21 @@
+# dbt_hubspot v1.8.0
+
+[PR #202](https://github.com/fivetran/dbt_hubspot/pull/202) includes the following updates:
+
+## Schema Change
+**5 new models • 0 possible breaking changes• 8 total changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| `hubspot__daily_deal_history` | New end model | | | Final model. Each record represents a deal's state on a given day with pipeline, stage, amount, and other selected properties pivoted into columns. |
+| `int_hubspot__daily_deal_history`<br>`int_hubspot__deal_calendar_spine`<br>`int_hubspot__pivot_daily_deal_history`<br>`int_hubspot__scd_daily_deal_history` | New intermediate models | | | |
+| `stg_hubspot__deal_property_history`<br>`stg_hubspot__company_property_history`<br>`stg_hubspot__contact_property_history` | New columns | | `_fivetran_start`, `_fivetran_end`, `_fivetran_active` | SCD metadata fields used to power `hubspot__daily_deal_history`. |
+
+## Feature Update
+- Adds the new `hubspot__daily_deal_history` end model. Each record represents a deal's state on a given day, with deal properties pivoted into columns. 
+  - By default, tracks `pipeline`, `pipeline_stage`, and `amount` but additional properties can be configured via the **Tracked Deal Properties** variable (`hubspot__deal_property_history_columns`). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#tracking-ticket-and-deal-properties) for configuration details.
+  - By default, tracks deals up to their close date, but this can be extended via the **Post-Close Deal History Extension (Days)** variable (`deal_history_extension_days`). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
+
 # dbt_hubspot v1.7.2
 
 [PR #198](https://github.com/fivetran/dbt_hubspot/pull/198) includes the following update:

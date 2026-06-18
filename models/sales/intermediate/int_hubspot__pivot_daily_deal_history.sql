@@ -10,7 +10,7 @@
     )
 }}
 
-{% set deal_columns = (['pipeline', 'deal_stage', 'amount'] + var('hubspot__deal_property_history_columns', [])) | unique | list %}
+{% set deal_columns = (['pipeline', 'pipeline_stage', 'amount'] + var('hubspot__deal_property_history_columns', [])) | unique | list %}
 
 with daily_history as (
 

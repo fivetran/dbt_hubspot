@@ -6,7 +6,7 @@ models:
     description: >
       Each record represents a deal's day in Hubspot with tracked properties from the `DEAL_PROPERTY_HISTORY` source table pivoted out into columns. Enabled by setting `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` to `True`.
 
-      By default, tracks the deal's pipeline and pipeline stage. Additional properties can be tracked by configuring the `hubspot__deal_property_history_columns` variable.
+      By default, tracks the deal's pipeline, pipeline stage, and amount. Additional properties can be tracked by configuring the `hubspot__deal_property_history_columns` variable.
 
       The start of a deal's history is its creation date, and its end is by default the close date (or the current date if still open).
       The history of a deal can be extended past its close date by configuring the `deal_history_extension_days` variable.
@@ -24,13 +24,15 @@ models:
         description: Unique id of a deal in Hubspot.
       - name: is_deal_closed
         description: Boolean indicating whether the deal's pipeline stage is closed.
-      - name: hs_pipeline_label
+      - name: amount
+        description: The amount of the deal on that day.
+      - name: pipeline_label
         description: The human-readable label for the deal pipeline.
-      - name: hs_pipeline_stage_label
+      - name: pipeline_stage_label
         description: The human-readable label for the deal's stage.
-      - name: hs_pipeline
+      - name: pipeline
         description: ID of the deal pipeline.
-      - name: hs_pipeline_stage
+      - name: pipeline_stage
         description: ID of the deal pipeline stage.
 
   - name: hubspot__company_history

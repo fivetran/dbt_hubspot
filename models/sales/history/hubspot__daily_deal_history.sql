@@ -135,8 +135,7 @@ with change_data as (
         on fill_values.pipeline = pipeline.deal_pipeline_id
         and fill_values.source_relation = pipeline.source_relation
     left join pipeline_stage
-        on fill_values.deal_stage = pipeline_stage.deal_pipeline_stage_id
-        and pipeline.deal_pipeline_id = pipeline_stage.deal_pipeline_id
+        on fill_values.pipeline_stage = pipeline_stage.deal_pipeline_stage_id
         and fill_values.source_relation = pipeline_stage.source_relation
 
 ), surrogate as (
