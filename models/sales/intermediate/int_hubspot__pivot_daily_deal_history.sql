@@ -10,7 +10,10 @@
     )
 }}
 
-{% set deal_columns = (['pipeline', 'pipeline_stage', 'amount'] + var('hubspot__deal_property_history_columns', [])) | unique | list %}
+{% set deal_columns = (['deal_pipeline_id', 'pipeline_stage_id', 'amount', 'amount_in_home_currency'] + var('hubspot__deal_property_history_columns', [])) %}
+{% do deal_columns.append('owner_id') if var('hubspot_owner_enabled', true) %}
+{% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
+{% set deal_columns = deal_columns | unique | list %}
 
 with daily_history as (
 

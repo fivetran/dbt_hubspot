@@ -30,10 +30,22 @@ models:
         description: The human-readable label for the deal pipeline.
       - name: pipeline_stage_label
         description: The human-readable label for the deal's stage.
-      - name: pipeline
+      - name: deal_pipeline_id
         description: ID of the deal pipeline.
-      - name: pipeline_stage
+      - name: pipeline_stage_id
         description: ID of the deal pipeline stage.
+      - name: amount_in_home_currency
+        description: The amount of the deal in the account's home currency on that day.
+      - name: owner_full_name
+        description: The full name of the deal owner on that day.
+      - name: owner_email_address
+        description: The email address of the deal owner on that day.
+      - name: hubspot_team_name
+        description: The name of the Hubspot team associated with the deal on that day.
+      - name: owner_id
+        description: The ID of the deal owner on that day.
+      - name: hubspot_team_id
+        description: The ID of the Hubspot team associated with the deal on that day.
 
   - name: hubspot__company_history
     description: Each record represents a change to company record in Hubspot; the grain of this model is company_id -> field_name -> valid_to.

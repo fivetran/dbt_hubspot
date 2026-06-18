@@ -10,7 +10,11 @@
     )
 }}
 
-{% set deal_columns = (['pipeline', 'amount'] + var('hubspot__deal_property_history_columns', [])) | unique | list %}
+-- pipeline_stage_id is added manually
+{% set deal_columns = (['deal_pipeline_id', 'amount', 'amount_in_home_currency'] + var('hubspot__deal_property_history_columns', [])) %}
+{% do deal_columns.append('owner_id') if var('hubspot_owner_enabled', true) %}
+{% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
+{% set deal_columns = deal_columns | unique | list %}
 
 with deal_history as (
 
@@ -39,7 +43,7 @@ with deal_history as (
     select
         source_relation,
         deal_id,
-        'pipeline_stage' as field_name,
+        'pipeline_stage_id' as field_name,
         deal_stage_name as new_value,
         source as change_source,
         source_id as change_source_id,

@@ -343,7 +343,7 @@ The `hubspot__daily_ticket_history` model is disabled by default, but will mater
 > **Note**: `hubspot__daily_ticket_history`, `hubspot__daily_deal_history`, and their parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
 
 ##### **Tracking ticket and deal properties**
-By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. `hubspot__daily_deal_history` will track each deal's stage, pipeline, and amount. However, any property from the source `TICKET_PROPERTY_HISTORY` or `DEAL_PROPERTY_HISTORY` tables can be tracked and pivoted out into columns. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
+By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. `hubspot__daily_deal_history` will track each deal's stage, pipeline, amount, owner, and team. However, any property from the source `TICKET_PROPERTY_HISTORY` or `DEAL_PROPERTY_HISTORY` tables can be tracked and pivoted out into columns. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 vars:

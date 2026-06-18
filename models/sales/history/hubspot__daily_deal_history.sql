@@ -51,6 +51,21 @@ with change_data as (
     select *
     from {{ ref('stg_hubspot__deal_pipeline_stage') }}
 
+{% if var('hubspot_owner_enabled', true) %}
+), owner as (
+
+    select *
+    from {{ ref('stg_hubspot__owner') }}
+
+{% endif %}
+
+{% if var('hubspot_team_enabled', true) %}
+), team as (
+
+    select *
+    from {{ ref('stg_hubspot__team') }}
+    
+{% endif %}
 ), joined as (
 
     select
@@ -123,6 +138,15 @@ with change_data as (
         pipeline_stage.is_closed as is_deal_closed,
         pipeline.pipeline_label as pipeline_label,
         pipeline_stage.pipeline_stage_label as pipeline_stage_label
+        
+        {% if var('hubspot_owner_enabled', true) %}
+        , owner.full_name as owner_full_name
+        , owner.email_address as owner_email_address
+        {% endif %}
+
+        {% if var('hubspot_team_enabled', true) %}
+        , team.team_name as hubspot_team_name
+        {% endif %}
 
         {% for col in change_data_columns if col.name|lower not in ['source_relation','deal_id','date_day','id'] %}
         -- we de-nulled the true null values earlier in order to differentiate them from nulls that just needed to be backfilled
@@ -132,11 +156,23 @@ with change_data as (
     from fill_values
 
     left join pipeline
-        on fill_values.pipeline = pipeline.deal_pipeline_id
+        on fill_values.deal_pipeline_id = pipeline.deal_pipeline_id
         and fill_values.source_relation = pipeline.source_relation
     left join pipeline_stage
-        on fill_values.pipeline_stage = pipeline_stage.deal_pipeline_stage_id
+        on fill_values.pipeline_stage_id = pipeline_stage.deal_pipeline_stage_id
         and fill_values.source_relation = pipeline_stage.source_relation
+    
+    {% if var('hubspot_owner_enabled', true) %}
+    left join owner
+        on cast(fill_values.owner_id as {{ dbt.type_string() }}) = cast(owner.owner_id as {{ dbt.type_string() }})
+        and fill_values.source_relation = owner.source_relation
+    {% endif %}
+
+    {% if var('hubspot_team_enabled', true) %}
+    left join team
+        on cast(fill_values.hubspot_team_id as {{ dbt.type_string() }}) = cast(team.team_id as {{ dbt.type_string() }})
+        and fill_values.source_relation = team.source_relation
+    {% endif %}
 
 ), surrogate as (
 
