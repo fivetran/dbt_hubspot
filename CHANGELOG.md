@@ -5,10 +5,10 @@
 ## Schema Change
 **2 total change • 2 possible breaking changes**
 
-| Data Model(s) | Change type | Old | New | Notes |
+| Data Models/Columns | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
-| `stg_hubspot__owner` | Column data type | `owner_active_user_id` (string or integer) | `owner_active_user_id` (string) | |
-| `stg_hubspot__users` | Column data type | `user_id` (string or integer) | `user_id` (string) | |
+| `stg_hubspot__owner.OWNER_ACTIVE_USER_ID` | Data type | String or Integer | String | |
+| `stg_hubspot__user.USER_ID` | Data type | String or Integer | String |  |
 
 ## Bug Fix
 - Avoids joining incorrect data types in `int_hubspot__owners_enhanced`.
