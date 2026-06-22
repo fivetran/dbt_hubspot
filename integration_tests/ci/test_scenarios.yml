@@ -31,6 +31,7 @@ test_scenarios:
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_merged_deal_enabled: true
+      hubspot_submission_response_enabled: false
     include_incremental: false
 
   - name: "marketing with contact merge audit"

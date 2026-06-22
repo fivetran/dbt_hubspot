@@ -1149,6 +1149,29 @@ sources:
           - name: _fivetran_deleted
             description: '{{ doc("_fivetran_deleted") }}'
 
+      - name: submission_response
+        identifier: "{{ var('hubspot_submission_response_identifier', 'submission_response')}}"
+        description: Each record represents a single field response from a HubSpot form submission.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_contact_form_enabled', true) and var('hubspot_submission_response_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: conversion_id
+            description: Unique identifier for the specific form conversion event. Joins with `CONTACT_FORM_SUBMISSION.conversion_id`.
+          - name: form_id
+            description: The ID of the `FORM` the submission belongs to.
+          - name: field_name
+            description: The name of the form field.
+          - name: field_value
+            description: The value submitted for the form field.
+          - name: submitted_at
+            description: Unix timestamp in milliseconds of when the form was submitted.
+          - name: page_url
+            description: The URL of the page where the form was submitted.
+          - name: object_type_id
+            description: The ID corresponding to the HubSpot object type associated with the submission.
+
       - name: owner
         identifier: "{{ var('hubspot_owner_identifier', 'owner')}}"
         description: Each record represents an owner/user in Hubspot.

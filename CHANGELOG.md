@@ -1,3 +1,24 @@
+# dbt_hubspot v1.8.0
+
+[PR #204](https://github.com/fivetran/dbt_hubspot/pull/204) includes the following updates:
+
+## Schema/Data Change
+**6 total changes • 0 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| `hubspot__contacts` | New field | | `calculated_first_conversion_fields_responded_to` | Comma-separated list of fields submitted during the contact's first form conversion. Requires `hubspot_submission_response_enabled: true`. |
+| `hubspot__contacts` | New field | | `calculated_first_conversion_total_responses` | Number of fields submitted during the contact's first form conversion. Requires `hubspot_submission_response_enabled: true`. |
+| `hubspot__contacts` | New field | | `calculated_most_recent_conversion_fields_responded_to` | Comma-separated list of fields submitted during the contact's most recent form conversion. Requires `hubspot_submission_response_enabled: true`. |
+| `hubspot__contacts` | New field | | `calculated_most_recent_conversion_total_responses` | Number of fields submitted during the contact's most recent form conversion. Requires `hubspot_submission_response_enabled: true`. |
+| `stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | | Stages the new `submission_response` source table. Each record represents a single field response from a HubSpot form submission. |
+
+## Feature Update
+- **`submission_response` source support**: Adds staging and intermediate logic for the new `submission_response` HubSpot source table. The `int_hubspot__form_metrics__by_contact` model now joins submission response data to surface per-conversion field metrics on `hubspot__contacts`. Enable or disable this table with the new `hubspot_submission_response_enabled` variable (default: `true`).
+
+## Under the Hood
+- Adds `submission_response_data` seed and column type configuration to integration tests.
+
 # dbt_hubspot v1.7.2
 
 [PR #198](https://github.com/fivetran/dbt_hubspot/pull/198) includes the following update:

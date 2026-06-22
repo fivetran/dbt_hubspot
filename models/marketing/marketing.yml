@@ -248,6 +248,14 @@ models:
         description: Name of the form submitted during the contact's most recent conversion, calculated by this package.
       - name: calculated_most_recent_conversion_form_type
         description: Type of form submitted during the contact's most recent conversion (e.g., regular, pop-up), calculated by this package.
+      - name: calculated_first_conversion_fields_responded_to
+        description: Comma-separated list of unique field names submitted during the contact's first form conversion. Only populated when `hubspot_submission_response_enabled` is true.
+      - name: calculated_first_conversion_total_responses
+        description: Number of fields submitted during the contact's first form conversion. Only populated when `hubspot_submission_response_enabled` is true.
+      - name: calculated_most_recent_conversion_fields_responded_to
+        description: Comma-separated list of unique field names submitted during the contact's most recent form conversion. Only populated when `hubspot_submission_response_enabled` is true.
+      - name: calculated_most_recent_conversion_total_responses
+        description: Number of fields submitted during the contact's most recent form conversion. Only populated when `hubspot_submission_response_enabled` is true.
       - name: total_form_submissions
         description: Total number of form submissions made by the contact.
       - name: total_unique_form_submissions

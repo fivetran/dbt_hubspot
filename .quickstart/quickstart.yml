@@ -48,6 +48,8 @@ table_variables:
   hubspot_contact_form_enabled:
     - contact_form_submission
     - form
+  hubspot_submission_response_enabled:
+    - submission_response
   hubspot_deal_enabled:
     - deal
     - deal_stage

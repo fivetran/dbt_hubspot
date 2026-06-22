@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's Hubspot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 147
+- Number of materialized models¹: 149
 - Connector documentation
   - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -73,7 +73,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=1.7.0", "<1.8.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.8.0", "<1.9.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
 
@@ -184,6 +184,7 @@ vars:
   hubspot_marketing_enabled: false                        # Disables all marketing models
   hubspot_contact_enabled: false                          # Disables the contact models
   hubspot_contact_form_enabled: false                     # Disables form and contact form submission data and its relationship to contacts
+  hubspot_submission_response_enabled: false              # Disables the submission_response source table and its enrichment of form conversion metrics in hubspot__contacts. Default = True
   hubspot_contact_list_enabled: false                     # Disables contact list models
   hubspot_contact_list_member_enabled: false              # Disables contact list member models
   hubspot_contact_merge_audit_enabled: true               # Enables the use of the CONTACT_MERGE_AUDIT table (deprecated by Hubspot v3 API) for removing merged contacts in the final models.
