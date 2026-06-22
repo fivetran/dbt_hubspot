@@ -1,3 +1,18 @@
+# dbt_hubspot v1.8.0
+
+[PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) includes the following update:
+
+## Schema Change
+**2 total change • 2 possible breaking changes**
+
+| Data Models/Columns | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| `stg_hubspot__owner.OWNER_ACTIVE_USER_ID` | Data type | String or Integer | String | |
+| `stg_hubspot__user.USER_ID` | Data type | String or Integer | String |  |
+
+## Bug Fix
+- Avoids joining incorrect data types in `int_hubspot__owners_enhanced`.
+
 # dbt_hubspot v1.7.2
 
 [PR #198](https://github.com/fivetran/dbt_hubspot/pull/198) includes the following update:

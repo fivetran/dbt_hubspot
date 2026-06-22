@@ -23,7 +23,7 @@ with base as (
         source_relation,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
         owner_id,
-        active_user_id,
+        cast(active_user_id as {{ dbt.type_string() }}) as active_user_id,
         cast(created_at as {{ dbt.type_timestamp() }}) as created_timestamp,
         email as email_address,
         first_name,
