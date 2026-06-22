@@ -21,7 +21,7 @@ with base as (
 
     select
         source_relation,
-        cast(id as {{ dbt.type_string() }}) as user_id,
+        id as user_id,
         primary_team_id,
         role_id,
         email,
