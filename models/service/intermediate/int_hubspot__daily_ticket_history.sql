@@ -46,7 +46,7 @@ with history as (
     select 
         *,
         row_number() over (
-            partition by date_day, ticket_id, field_name {{ hubspot.partition_by_source_relation() }}
+            partition by date_day, ticket_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
             order by valid_from desc
             ) as row_num
     from windows

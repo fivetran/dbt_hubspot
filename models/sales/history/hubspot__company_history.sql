@@ -15,7 +15,7 @@ with history as (
         change_source_id,
         change_timestamp as valid_from,
         new_value,
-        lead(change_timestamp) over (partition by company_id, field_name {{ hubspot.partition_by_source_relation() }} order by change_timestamp) as valid_to
+        lead(change_timestamp) over (partition by company_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }} order by change_timestamp) as valid_to
     from history
 
 ), surrogate as (

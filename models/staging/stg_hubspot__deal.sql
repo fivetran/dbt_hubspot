@@ -14,7 +14,7 @@ with base as (
                 staging_columns=get_deal_columns()
             )
         }}
-        {{ hubspot.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}
     from base
 
 ), fields as (
@@ -28,7 +28,7 @@ with base as (
                 staging_columns=get_deal_columns()
             )
         }}
-        {{ hubspot.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}
         {% if all_passthrough_column_check('stg_hubspot__deal_tmp',get_deal_columns()) > 0 %}
         -- just pass everything through if extra columns are present, but ensure required columns are present.
         {% set exclude_cols = ['_dbt_source_relation'] + get_macro_columns(get_deal_columns()) %}
