@@ -9,16 +9,14 @@
 | ------------- | ----------- | --- | --- | ----- |
 | `hubspot__contacts` | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to` | Comma-separated list of fields submitted during the contact's first and most recent form conversions. |
 | `hubspot__contacts` | New fields | | `calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Number of fields submitted during the contact's first and most recent form conversions. |
-| `stg_hubspot__contact_form_submission`<br>`stg_hubspot__form`  | Column data type | `form_id` (bigint) | `form_id` (string) |  |
-| `stg_hubspot__contact_form_submission`  | Column data type | `conversion_id` (bigint) | `conversion_id` (string) |  |
-| `stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | | Stages the new `submission_response` source table. Each record represents a single field response from a HubSpot form submission. Can be disabled by setting the `hubspot_submission_response_enabled` to false. |
+| `stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | | |
 
 ## Feature Update
-- Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` otherwise. 
+- Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise. 
 
 ## Under the Hood
-- Adds `submission_response_data` seed and column type configuration to integration tests.
-- Ensures that the `form_id` and `conversion_id` fields are strings in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
+- Casts `form_id` and `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
+- Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
 
 # dbt_hubspot v1.7.2
 
@@ -501,7 +499,7 @@ This release includes the following updates:
 # dbt_hubspot v0.19.0
 [PR #147](https://github.com/fivetran/dbt_hubspot/pull/147) includes the following updates:
 ## Breaking Changes 
->  Since the following changes result in the table format changing, we recommend running a `--full-refresh` after upgrading to this version to avoid possible incremental failures.
+> ⚠️ Since the following changes result in the table format changing, we recommend running a `--full-refresh` after upgrading to this version to avoid possible incremental failures.
 - We have made this a breaking change due to upstream changes that may alter your schema. While changes are made 'behind the scenes' to now allow models to successfully run with both `hubspot__pass_through_all_columns` and `hubspot__<>_pass_through_columns`, this may be a breaking change due to leveraging the `remove_duplicate_and_prefix_from_columns` macro. This is a breaking change because this macro can remove duplicate fields, resulting in an impact to your schema. For more information refer to the [upstream dbt_hubspot_source v0.16.0 release notes](https://github.com/fivetran/dbt_hubspot_source/releases/tag/v0.16.0).
 
 ## Under the Hood
@@ -511,7 +509,7 @@ This release includes the following updates:
 [PR #144](https://github.com/fivetran/dbt_hubspot/pull/144) includes the following updates:
 
 ## 🚨 Breaking Changes 🚨
->  Since the following changes result in the table format changing, we recommend running a `--full-refresh` after upgrading to this version to avoid possible incremental failures.
+> ⚠️ Since the following changes result in the table format changing, we recommend running a `--full-refresh` after upgrading to this version to avoid possible incremental failures.
 
 - For Databricks All-Purpose clusters, incremental models will now be materialized using the delta table format (previously parquet).
   - Delta tables are generally more performant than parquet and are also more widely available for Databricks users. This will also prevent compilation issues on customers' managed tables.
