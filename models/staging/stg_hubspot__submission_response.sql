@@ -26,7 +26,7 @@ with base as (
         field_name,
         field_value,
         submitted_at,
-        {{ dbt.dateadd(datepart='millisecond',interval='submitted_at', from_date_or_timestamp="'1970-01-01'") }} as submitted_timestamp,
+        {{ dbt.dateadd(datepart='millisecond',interval='submitted_at', from_date_or_timestamp="cast('1970-01-01' as " ~ dbt.type_timestamp() ~ ")") }} as submitted_timestamp,
         page_url,
         object_type_id,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
