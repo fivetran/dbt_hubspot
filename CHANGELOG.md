@@ -1,9 +1,9 @@
 # dbt_hubspot v1.8.0
 
-[PR #204](https://github.com/fivetran/dbt_hubspot/pull/204) includes the following updates:
+[PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) includes the following updates:
 
 ## Schema/Data Change
-**9 total changes • 3 possible breaking changes**
+**2 new models • 0 possible breaking changes• 6 total changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
