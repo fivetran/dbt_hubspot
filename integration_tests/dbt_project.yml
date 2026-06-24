@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.7.2'
+version: '1.8.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -13,10 +13,11 @@ models:
 
 vars:
   # jsons and arrays
-  consistency_test_exclude: ['merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'deal_names', 'contact_emails', 'company_names', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
+  consistency_test_exclude: ['calculated_first_conversion_fields_responded_to', 'calculated_first_conversion_total_responses', 'calculated_most_recent_conversion_fields_responded_to', 'calculated_most_recent_conversion_total_responses', 'merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'deal_names', 'contact_emails', 'company_names', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include
+    # hubspot_conversation_enabled: true # @docs-include
     # hubspot_deal_enabled: true # @docs-include
     # hubspot_contact_enabled: true # @docs-include
     # hubspot_sales_enabled: true # @docs-include
@@ -44,6 +45,13 @@ vars:
     hubspot_contact_merge_audit_identifier: "contact_merge_audit_data"
     hubspot_contact_list_member_identifier: "contact_list_member_data"
     hubspot_contact_property_history_identifier: "contact_property_history_data"
+    hubspot_conversation_actor_identifier: "conversation_actor_data"
+    hubspot_conversation_inbox_identifier: "conversation_inbox_data"
+    hubspot_conversation_channel_identifier: "conversation_channel_data"
+    hubspot_conversation_channel_account_identifier: "conversation_channel_account_data"
+    hubspot_conversation_thread_identifier: "conversation_thread_data"
+    hubspot_conversation_message_history_identifier: "conversation_message_history_data"
+    hubspot_conversation_message_recipient_identifier: "conversation_message_recipient_data"
     hubspot_deal_identifier: "deal_data"
     hubspot_deal_stage_identifier: "deal_stage_data"
     hubspot_deal_company_identifier: "deal_company_data"
@@ -73,6 +81,7 @@ vars:
     hubspot_engagement_note_identifier: "engagement_note_data"
     hubspot_engagement_task_identifier: "engagement_task_data"
     hubspot_form_identifier: "form_data"
+    hubspot_submission_response_identifier: "submission_response_data"
     hubspot_owner_identifier: "owner_data"
     hubspot_owner_team_identifier: "owner_team_data"
     hubspot_property_identifier: "property_data"
@@ -250,12 +259,22 @@ seeds:
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     contact_form_submission_data:
       +column_types:
-        form_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        form_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        conversion_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversion_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     form_data:
       +column_types:
-        guid: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        guid: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    submission_response_data:
+      +column_types:
+        submitted_at: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        conversion_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        form_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        field_name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        field_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        page_url: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        object_type_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     owner_team_data:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
@@ -277,6 +296,100 @@ seeds:
       +column_types:
         stage_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         pipeline_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    conversation_actor_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        avatar: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        email: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    conversation_channel_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    conversation_channel_account_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        channel_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        inbox_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        active: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        authorized: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        created_at: timestamp
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        delivery_identifier_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        delivery_identifier_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    conversation_inbox_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        active: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        created_at: timestamp
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        updated_at: timestamp
+    conversation_message_history_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        _fivetran_start: timestamp
+        _fivetran_end: timestamp
+        _fivetran_active: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        thread_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        channel_account_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        channel_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        from_inbox_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        to_inbox_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        assigned_to: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        assigned_from: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        created_at: timestamp
+        created_by: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        direction: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        in_reply_to_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        new_status: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        rich_text: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        subject: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        text: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        truncation_status: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        updated_at: timestamp
+        client_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        status_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    conversation_message_recipient_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        _fivetran_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        actor_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        message_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        thread_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        recipient_field: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        delivery_identifier_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        delivery_identifier_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    conversation_thread_data:
+      +column_types:
+        _fivetran_synced: timestamp
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        inbox_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        associated_contact_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        associated_ticket_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        original_channel_account_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        original_channel_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        assigned_to: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        closed_at: timestamp
+        created_at: timestamp
+        latest_message_received_timestamp: timestamp
+        latest_message_sent_timestamp: timestamp
+        latest_message_timestamp: timestamp
+        spam: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        status: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
 
 dispatch:
   - macro_namespace: dbt_utils

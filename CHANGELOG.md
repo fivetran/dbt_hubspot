@@ -1,20 +1,29 @@
 # dbt_hubspot v1.8.0
 
-[PR #202](https://github.com/fivetran/dbt_hubspot/pull/202) includes the following updates:
+[PR #200](https://github.com/fivetran/dbt_hubspot/pull/200), [PR #202](https://github.com/fivetran/dbt_hubspot/pull/202), and [PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) include the following updates:
 
-## Schema Change
-**5 new models • 0 possible breaking changes • 8 total changes**
+## Schema/Data Change
+**15 new models • 0 possible breaking changes • 19 total changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
-| `hubspot__daily_deal_history` | New end model | | | Final model. Each record represents a deal's state on a given day with pipeline, stage, amount, owner, team, and other selected properties pivoted into columns. |
+| [`hubspot__daily_deal_history`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | New end model | | | Final model. Each record represents a deal's state on a given day with pipeline, stage, amount, owner, team, and other selected properties pivoted into columns. |
+| [`hubspot__conversations`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | New end model | | | One record per conversation thread, enriched with inbox, channel, channel account details, and aggregated message metrics. Dynamically enabled in Quickstart. To enable in self-managed dbt projects, set `hubspot_conversation_enabled` to `True`. |
+| [`hubspot__contacts`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to`<br>`calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Comma-separated list and count of fields submitted during the contact's first and most recent form conversions. |
+| `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_inbox` | New staging models | | | Seven new staging models that power `hubspot__conversations`. Enabled alongside the end model via `hubspot_conversation_enabled`. |
+| `stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | | |
 | `int_hubspot__daily_deal_history`<br>`int_hubspot__deal_calendar_spine`<br>`int_hubspot__pivot_daily_deal_history`<br>`int_hubspot__scd_daily_deal_history` | New intermediate models | | | |
 | `stg_hubspot__deal_property_history`<br>`stg_hubspot__company_property_history`<br>`stg_hubspot__contact_property_history` | New columns | | `_fivetran_start`, `_fivetran_end`, `_fivetran_active` | SCD metadata fields used to power `hubspot__daily_deal_history`. |
 
 ## Feature Update
-- Adds the new `hubspot__daily_deal_history` end model. Each record represents a deal's state on a given day, with deal properties pivoted into columns. 
-  - By default, tracks `pipeline`, `pipeline_stage`, `amount`, `amount_in_home_currency`, `owner`, and `hubspot_team`, but additional properties can be configured via the **Tracked Deal Properties** variable (`hubspot__deal_property_history_columns`). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#tracking-ticket-and-deal-properties) for configuration details.
-  - By default, tracks deals up to their close date, but this can be extended via the **Post-Close Deal History Extension (Days)** variable (`deal_history_extension_days`). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
+- Adds the `hubspot__deal_property_history_columns` variable to pivot out additional properties as columns in `hubspot__daily_deal_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-ticket-and-deal-history) for configuration details.
+- Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
+- Adds the `hubspot_conversation_enabled` variable to support enabling/disabling `conversation` data. Dynamically configured in Quickstart; `false` by default otherwise. 
+- Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise. 
+
+## Under the Hood
+- Casts `form_id` and `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
+- Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
 
 # dbt_hubspot v1.7.2
 

@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's Hubspot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 152
+- Number of materialized models¹: 169
 - Connector documentation
   - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -44,6 +44,7 @@ By default, this package materializes the following final tables:
 | [hubspot__daily_deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | Each record represents a deal's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did deals spend in each pipeline stage on average last quarter?</li><li>Which deals have been stalled in the same stage the longest?</li></ul> |
 | [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets) | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.<br><br>**Example Analytics Questions:**<br><ul><li>Which currently open tickets are linked to high-value customers or companies and should be prioritized?</li><li>Which customers generate the highest support volume relative to their deal size or lifetime value?</li></ul> |
 | [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history) | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did tickets spend in each pipeline stage on average last quarter?</li><li>What is the distribution of ticket ages by priority level and pipeline stage?</li></ul> |
+| [hubspot__conversations](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | Each record represents a conversation thread in HubSpot, enriched with inbox, channel, and message metrics.<br><br>**Example Analytics Questions:**<br><ul><li>What is the average first response time and resolution time by inbox or channel?</li><li>Which agents handle the most conversations and how does their message volume compare?</li></ul> |
 | [hubspot__email_campaigns](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_campaigns) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.<br><br>**Example Analytics Questions:**<br><ul><li>What is the click-to-open ratio by campaign type (newsletter vs. promotional vs. nurture)?</li><li>What is the relationship between a campaign's number of messages and recipient engagement?</li></ul> |
 | [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce) | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.<br><br>**Example Analytics Questions:**<br><ul><li>How do spam reports vary by sender domain or audience source?</li><li>Which links or CTAs receive the most clicks?</li></ul> |
 | [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends) | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity.<br><br>**Example Analytics Questions:**<br><ul><li>Which recipient domains have the highest bounce rates?</li><li>What are the optimal send timing patterns based on open and click performance across different contact segments?</li></ul> |
@@ -74,7 +75,7 @@ Include the following hubspot package version in your `packages.yml` file:
 ```yaml
 packages:
   - package: fivetran/hubspot
-    version: [">=1.7.0", "<1.8.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.8.0", "<1.9.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
 
@@ -175,6 +176,7 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_contact_merge_audit_enabled`
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
+- `hubspot_conversation_enabled`
 
 You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
@@ -185,6 +187,7 @@ vars:
   hubspot_marketing_enabled: false                        # Disables all marketing models
   hubspot_contact_enabled: false                          # Disables the contact models
   hubspot_contact_form_enabled: false                     # Disables form and contact form submission data and its relationship to contacts
+  hubspot_submission_response_enabled: false              # Disables the submission_response source table and its enrichment of form conversion metrics in hubspot__contacts. Default = True
   hubspot_contact_list_enabled: false                     # Disables contact list models
   hubspot_contact_list_member_enabled: false              # Disables contact list member models
   hubspot_contact_merge_audit_enabled: true               # Enables the use of the CONTACT_MERGE_AUDIT table (deprecated by Hubspot v3 API) for removing merged contacts in the final models.
@@ -233,8 +236,10 @@ vars:
   hubspot_team_user_enabled: false                        # Disables user-to-team relationships
 
   # Service
-  hubspot_service_enabled: true                           # Enables all service models. Default = False
+  hubspot_service_enabled: true                           # Enables all ticket-related service models. Default = False
   hubspot_ticket_deal_enabled: true                       # Enables ticket_deal transformations. Default = False
+
+  hubspot_conversation_enabled: true                     # Enables conversation models. Default = False
 ```
 
 ### (Optional) Additional configurations

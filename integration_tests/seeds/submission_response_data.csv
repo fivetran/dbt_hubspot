@@ -1,0 +1,6 @@
+conversion_id,form_id,field_name,field_value,submitted_at,page_url,object_type_id,_fivetran_synced
+conv-101,form-123,email,user1@example.com,1698832800000,https://example.com/contact,0-1,2024-12-30 03:15:52
+conv-101,form-456,first_name,Alice,1698832800000,https://example.com/contact,0-1,2024-12-30 03:15:52
+conv-102,form-789,email,user2@example.com,1698919200000,https://example.com/contact,0-1,2024-12-30 03:15:52
+conv-102,form-012,first_name,Bob,1698919200000,https://example.com/contact,0-1,2024-12-30 03:15:52
+conv-103,form-345,email,user3@example.com,1699005600000,https://example.com/demo,0-1,2024-12-30 03:15:52
