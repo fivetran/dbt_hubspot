@@ -1,16 +1,19 @@
 # dbt_hubspot v1.8.0
 
-[PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) includes the following updates:
+[PR #200](https://github.com/fivetran/dbt_hubspot/pull/200) and [PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) includes the following updates:
 
 ## Schema/Data Change
-**2 new models • 0 possible breaking changes • 6 total changes**
+**10 new models • 0 possible breaking changes • 6 total changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
+| [`hubspot__conversations`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | New end model | | | One record per conversation thread, enriched with inbox, channel, channel account details, and aggregated message metrics. Dynamically enabled in Quickstart. To enable in self-managed dbt projects, set `hubspot_conversation_enabled` to `True`. |
 | `hubspot__contacts` | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to`<br>`calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Comma-separated list and count of fields submitted during the contact's first and most recent form conversions. |
+| `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_inbox` | New staging models | | | Seven new staging models that power `hubspot__conversations`. Enabled alongside the end model via `hubspot_conversation_enabled`. |
 | `stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | | |
 
 ## Feature Update
+- Adds the `hubspot_conversation_enabled` variable to support enabling/disabling `conversation` data. Dynamically configured in Quickstart; `false` by default otherwise. 
 - Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise. 
 
 ## Under the Hood

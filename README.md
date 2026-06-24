@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's Hubspot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 149
+- Number of materialized models¹: 164
 - Connector documentation
   - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -43,6 +43,7 @@ By default, this package materializes the following final tables:
 | [hubspot__deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_history) | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>How do deal amounts fluctuate throughout the sales cycle?</li><li>Which deals have experienced frequent ownership transfers or reassignments, possibly slowing progress?</li></ul> |
 | [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets) | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.<br><br>**Example Analytics Questions:**<br><ul><li>Which currently open tickets are linked to high-value customers or companies and should be prioritized?</li><li>Which customers generate the highest support volume relative to their deal size or lifetime value?</li></ul> |
 | [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history) | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did tickets spend in each pipeline stage on average last quarter?</li><li>What is the distribution of ticket ages by priority level and pipeline stage?</li></ul> |
+| [hubspot__conversations](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | Each record represents a conversation thread in HubSpot, enriched with inbox, channel, and message metrics.<br><br>**Example Analytics Questions:**<br><ul><li>What is the average first response time and resolution time by inbox or channel?</li><li>Which agents handle the most conversations and how does their message volume compare?</li></ul> |
 | [hubspot__email_campaigns](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_campaigns) | Each record represents a email campaign in Hubspot, enriched with metrics about email activities.<br><br>**Example Analytics Questions:**<br><ul><li>What is the click-to-open ratio by campaign type (newsletter vs. promotional vs. nurture)?</li><li>What is the relationship between a campaign's number of messages and recipient engagement?</li></ul> |
 | [hubspot__email_event_*](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_event_bounce) | Each record represents an email event in Hubspot, joined with relevant tables to make them analysis-ready.<br><br>**Example Analytics Questions:**<br><ul><li>How do spam reports vary by sender domain or audience source?</li><li>Which links or CTAs receive the most clicks?</li></ul> |
 | [hubspot__email_sends](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__email_sends) | Each record represents a sent email in Hubspot, enriched with metrics about opens, clicks, and other email activity.<br><br>**Example Analytics Questions:**<br><ul><li>Which recipient domains have the highest bounce rates?</li><li>What are the optimal send timing patterns based on open and click performance across different contact segments?</li></ul> |
@@ -174,6 +175,7 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_contact_merge_audit_enabled`
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
+- `hubspot_conversation_enabled`
 
 You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
@@ -233,8 +235,10 @@ vars:
   hubspot_team_user_enabled: false                        # Disables user-to-team relationships
 
   # Service
-  hubspot_service_enabled: true                           # Enables all service models. Default = False
+  hubspot_service_enabled: true                           # Enables all ticket-related service models. Default = False
   hubspot_ticket_deal_enabled: true                       # Enables ticket_deal transformations. Default = False
+
+  hubspot_conversation_enabled: true                     # Enables conversation models. Default = False
 ```
 
 ### (Optional) Additional configurations

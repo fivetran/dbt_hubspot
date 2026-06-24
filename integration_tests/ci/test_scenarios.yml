@@ -23,6 +23,7 @@ test_scenarios:
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_engagement_communication_enabled: true
+      hubspot_conversation_enabled: true
     include_incremental: false
 
   - name: "marketing with merged deals"
@@ -41,7 +42,7 @@ test_scenarios:
       hubspot_sales_enabled: false
     include_incremental: false
 
-  - name: "sales only with all features"
+  - name: "sales only with all features + conversation"
     vars:
       hubspot_marketing_enabled: false
       hubspot_sales_enabled: true
@@ -49,4 +50,5 @@ test_scenarios:
       hubspot__pass_through_all_columns: true
       hubspot_using_all_email_events: false
       hubspot_owner_enabled: false
+      hubspot_conversation_enabled: true
     include_incremental: false

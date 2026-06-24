@@ -65,7 +65,7 @@ models:
       - name: ticket_category
         description: The category of the ticket.
       - name: owner_id
-        description: Foreign key referencing the ID of the deal's `OWNER`.
+        description: Foreign key referencing the ID of the ticket's `OWNER`.
       - name: ticket_subject
         description: Short summary of ticket.
       - name: ticket_content
@@ -115,16 +115,158 @@ models:
       - name: count_engagement_forwarded_emails
         description: "{{ doc('count_engagement_forwarded_emails') }}"
       - name: owner_active_user_id
-        description: Unique ID of the active HubSpot user who owns the deal.
+        description: Unique ID of the active HubSpot user who owns the ticket.
       - name: owner_primary_team_id
-        description: ID of the primary team assigned to the deal owner.
+        description: ID of the primary team assigned to the ticket owner.
       - name: owner_primary_team_name
-        description: Name of the primary team assigned to the deal owner.
+        description: Name of the primary team assigned to the ticket owner.
       - name: owner_all_team_ids
-        description: Comma-separated list of all team IDs associated with the deal owner.
+        description: Comma-separated list of all team IDs associated with the ticket owner.
       - name: owner_all_team_names
-        description: Comma-separated list of all team names associated with the deal owner.
+        description: Comma-separated list of all team names associated with the ticket owner.
       - name: owner_role_id
-        description: ID of the role assigned to the deal owner.
+        description: ID of the role assigned to the ticket owner.
       - name: owner_role_name
-        description: Name of the role assigned to the deal owner.
+        description: Name of the role assigned to the ticket owner.
+
+  - name: hubspot__conversations
+    description: >
+      Each record represents a conversation thread in HubSpot. Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
+      Optionally joins to ticket and contact data when the respective features are enabled. Enable by setting `hubspot_conversation_enabled` to `True`.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: conversation_thread_id
+        description: Unique ID of the conversation thread.
+        tests:
+          - not_null
+      - name: inbox_id
+        description: ID of the inbox the thread belongs to.
+      - name: associated_contact_id
+        description: ID of the contact associated with the thread.
+      - name: associated_ticket_id
+        description: ID of the ticket associated with the thread.
+      - name: original_channel_account_id
+        description: ID of the channel account through which the thread was originally created.
+      - name: original_channel_id
+        description: ID of the channel through which the thread was originally created.
+      - name: assigned_to_actor_id
+        description: ID of the actor the thread is currently assigned to.
+      - name: closed_at
+        description: Timestamp when the thread was closed.
+      - name: created_at
+        description: Timestamp when the thread was created.
+      - name: latest_message_at
+        description: Timestamp of the most recent message (sent or received) in the thread.
+      - name: latest_message_received_at
+        description: Timestamp of the most recently received message in the thread.
+      - name: latest_message_sent_at
+        description: Timestamp of the most recently sent message in the thread.
+      - name: is_spam
+        description: Indicates whether the thread has been marked as spam.
+      - name: status
+        description: Current status of the thread (e.g., OPEN, CLOSED).
+      - name: assignee_name
+        description: Name of the actor currently assigned to this conversation thread.
+      - name: assignee_email
+        description: Email address of the actor currently assigned to this conversation thread.
+      - name: inbox_name
+        description: Display name of the inbox the thread belongs to.
+      - name: inbox_type
+        description: Type of the inbox (e.g., HELP_DESK, INBOX).
+      - name: is_inbox_active
+        description: Boolean indicating whether the inbox is active.
+      - name: is_inbox_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: channel_name
+        description: Display name of the channel through which the thread was created.
+      - name: is_channel_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: channel_account_name
+        description: Display name of the channel account through which the thread was created.
+      - name: channel_account_delivery_identifier_type
+        description: The type of delivery identifier for the channel account (e.g., HS_EMAIL_ADDRESS).
+      - name: channel_account_delivery_identifier_value
+        description: The value of the delivery identifier for the channel account (e.g., the email address).
+      - name: is_channel_account_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: ticket_subject
+        description: Short summary of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+      - name: ticket_content
+        description: Text in the body of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+      - name: ticket_created_date
+        description: Date the associated ticket was created. Only populated when `hubspot_service_enabled` is `True`.
+      - name: ticket_closed_date
+        description: Date the associated ticket was closed. Only populated when `hubspot_service_enabled` is `True`.
+      - name: ticket_category
+        description: Category of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+      - name: ticket_owner_id
+        description: ID of the owner of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+      - name: is_ticket_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: contact_email
+        description: Email address of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+      - name: contact_first_name
+        description: First name of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+      - name: contact_last_name
+        description: Last name of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+      - name: contact_company
+        description: Company of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: first_response_time_seconds
+        description: Time taken to respond to the first incoming message in the thread (in seconds).
+      - name: resolution_time_seconds
+        description: Time taken to resolve the thread (in seconds), starting at the first incoming message and ending at thread close.
+      - name: first_message_at
+        description: Timestamp of the first message (any direction) in the thread.
+      - name: first_message_received_at
+        description: Timestamp of the first incoming message in the thread.
+      - name: first_message_sent_at
+        description: Timestamp of the first outgoing message in the thread.
+      - name: total_message_count
+        description: Total number of distinct messages in the thread.
+      - name: incoming_message_count
+        description: Number of distinct incoming messages in the thread.
+      - name: outgoing_message_count
+        description: Number of distinct outgoing messages in the thread.
+      - name: agent_outgoing_message_count
+        description: Number of distinct outgoing messages sent by an agent.
+      - name: bot_outgoing_message_count
+        description: Number of distinct outgoing messages sent by a bot.
+      - name: system_outgoing_message_count
+        description: Number of distinct outgoing messages sent by a system actor.
+      - name: comment_count
+        description: Number of internal comments on the thread.
+      - name: assignment_count
+        description: Number of assignment events on the thread.
+      - name: thread_status_change_count
+        description: Number of status change events on the thread.
+      - name: unique_assignee_count
+        description: Number of distinct actors the thread has been assigned to.
+      - name: involved_agent_count
+        description: Number of distinct agents who have created any conversation event (message, comment, etc) in the thread.
+      - name: agent_author_count
+        description: Number of distinct agents who sent an outgoing message in the thread.
+      - name: visitor_author_count
+        description: Number of distinct visitors who sent an incoming message in the thread.
+      - name: visitor_recipient_count
+        description: Number of distinct visitors who received an outgoing message in the thread.
+      - name: has_welcome_message
+        description: Boolean indicating whether the thread includes a welcome message.
+      - name: ticket_owner_email_address
+        description: Email address of the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+      - name: ticket_owner_full_name
+        description: Full name of the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+      - name: ticket_owner_primary_team_id
+        description: ID of the primary team assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+      - name: ticket_owner_primary_team_name
+        description: Name of the primary team assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+      - name: ticket_owner_role_id
+        description: ID of the role assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+      - name: ticket_owner_role_name
+        description: Name of the role assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+      - name: ticket_owner_active_user_id
+        description: Unique ID of the active HubSpot user who owns the associated ticket. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.

@@ -1,0 +1,3 @@
+id,name,_fivetran_deleted,_fivetran_synced
+channel_001,Email,false,2024-03-15 10:00:00
+channel_002,Live Chat,false,2024-03-15 10:00:00
