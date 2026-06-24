@@ -4,8 +4,8 @@ models:
 
   - name: hubspot__daily_deal_history
     description: >
-      Each record represents a deal's day in Hubspot with tracked properties pivoted into columns. By default, tracks the deal's pipeline, pipeline stage, and amount
-      values from the deal's creation date to its close date.
+      Each record represents a deal's day in Hubspot with tracked properties pivoted into columns. By default, tracks the deal's pipeline, pipeline stage, amount, team,
+      and owner on each day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

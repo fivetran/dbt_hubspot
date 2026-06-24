@@ -205,7 +205,7 @@ supported_vars:
 
   deal_history_extension_days:
     type: integer
-    value: 0
+    value: 30
     description: "Number of days that `hubspot__daily_deal_history` will track for each deal after it has been closed. HubSpot deals can be altered after closing"
     display_name: "Post-Close Deal History Extension (Days)"
 
