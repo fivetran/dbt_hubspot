@@ -62,6 +62,9 @@ service-account.json
 *.temp
 *.tmp
 
+# dbt union test worktrees
+worktrees/
+
 # Claude instructions
 CLAUDE.md
 

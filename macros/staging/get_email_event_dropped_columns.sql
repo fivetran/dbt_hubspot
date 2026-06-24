@@ -11,7 +11,7 @@
     {"name": "subject", "datatype": dbt.type_string()}
 ] %}
 
-{% if target.type == 'snowflake' %}
+{% if target.type == 'snowflake' and not var('fivetran_using_source_casing', false) %}
  {{ columns.append({"name": "FROM", "datatype": dbt.type_string(), "quote": True, "alias": "from_email"}) }}
 {% else %}
  {{ columns.append({"name": "from", "datatype": dbt.type_string(), "quote": True, "alias": "from_email"}) }}

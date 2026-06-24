@@ -14,7 +14,7 @@ with base as (
                 staging_columns=get_email_event_open_columns()
             )
         }}
-        {{ hubspot.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}
     from base
 
 ), fields as (

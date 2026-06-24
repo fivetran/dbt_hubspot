@@ -24,7 +24,7 @@ with deals_enhanced as (
 
     select
         deal_stage.source_relation,
-        deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id {{ hubspot.partition_by_source_relation(alias='deal_stage') }} order by deal_stage.date_entered asc) as deal_stage_id,
+        deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id {{ fivetran_utils.partition_by_source_relation(package_name='hubspot', alias='deal_stage') }} order by deal_stage.date_entered asc) as deal_stage_id,
         deals_enhanced.deal_id,
         deals_enhanced.deal_name,
 

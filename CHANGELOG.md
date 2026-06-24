@@ -1,4 +1,4 @@
-# dbt_hubspot v1.8.0
+# dbt_hubspot v1.9.0
 
 [PR #200](https://github.com/fivetran/dbt_hubspot/pull/200), [PR #202](https://github.com/fivetran/dbt_hubspot/pull/202), and [PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) include the following updates:
 
@@ -23,6 +23,14 @@
 ## Under the Hood
 - Casts `form_id` and `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
 - Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
+
+# dbt_hubspot v1.8.0
+
+[PR #201](https://github.com/fivetran/dbt_hubspot/pull/201) includes the following updates:
+
+## Under the Hood
+- Migrates the `union_connections`, `apply_source_relation`, and `partition_by_source_relation` macros to the `dbt_fivetran_utils` package.
+- Adds the `fivetran_using_source_casing` variable for case-sensitive destination support. When enabled, downstream transformations respect source casing to ensure consistent results. See the [Additional Configurations](https://github.com/fivetran/dbt_hubspot/#source-casing-for-case-sensitive-destinations) section of the README for details.
 
 # dbt_hubspot v1.7.2
 
@@ -239,9 +247,9 @@ This release includes the following updates.
 **6 total changes • 6 possible breaking changes**
 | **Data Model/Column** | **Change type** | **Old** | **New** | **Notes** |
 |-----------|----------------|--------------|--------------|---------|
-| [`hubspot__deal_stages`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages) | Column Renamed | `is_pipeline_stage_closed_won` | `is_pipeline_stage_closed` | Column renamed to more accurately match the source data. The column is generated via a coalesce between the previous `closed_won` source column and the newly added `is_closed` column. This renamed column represents whether a deal is closed, regardless of its label as “Closed Won” or “Closed Lost.” You can still use the `pipeline_stage_label` column to differentiate between "Closed Won" and "Closed Lost" stages. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)) |
+| [`hubspot__deal_stages`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages) | Column Renamed | `is_pipeline_stage_closed_won` | `is_pipeline_stage_closed` | Column renamed to more accurately match the source data. The column is generated via a coalesce between the previous `closed_won` source column and the newly added `is_closed` column. This renamed column represents whether a deal is closed, regardless of its label as "Closed Won" or "Closed Lost." You can still use the `pipeline_stage_label` column to differentiate between "Closed Won" and "Closed Lost" stages. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)) |
 | [`hubspot__tickets`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets)<br> - `ticket_pipeline_id` <br> - `ticket_pipeline_stage_id` | Column datatype |  `int` or `string` | `string`  | Explicitly cast ticket pipeline identifiers to string format to prevent datatype errors in compilation. (Upstream changes from [source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
-| [`stg_hubspot__deal_pipeline_stage`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot_source.stg_hubspot__deal_pipeline_stage) | Column Renamed | `is_closed_won` | `is_closed` | Column renamed to more accurately match the source data. The renamed `is_closed` column is generated via a coalesce between the previous `closed_won` source column and the newly added `is_closed` column. This renamed column represents whether a deal is closed, regardless of its label as “Closed Won” or “Closed Lost.” You can still use the `pipeline_stage_label` column to differentiate between "Closed Won" and "Closed Lost" stages. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)) |
+| [`stg_hubspot__deal_pipeline_stage`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot_source.stg_hubspot__deal_pipeline_stage) | Column Renamed | `is_closed_won` | `is_closed` | Column renamed to more accurately match the source data. The renamed `is_closed` column is generated via a coalesce between the previous `closed_won` source column and the newly added `is_closed` column. This renamed column represents whether a deal is closed, regardless of its label as "Closed Won" or "Closed Lost." You can still use the `pipeline_stage_label` column to differentiate between "Closed Won" and "Closed Lost" stages. ([PR #161](https://github.com/fivetran/dbt_hubspot/pull/161)) |
 | [`stg_hubspot__ticket`](https://fivetran.github.io/dbt_hubspot_source/#!/model/model.hubspot_source.stg_hubspot__ticket)<br> - `ticket_pipeline_id` <br> - `ticket_pipeline_stage_id` | Column datatype | `int` or `string` | `string` | Explicitly cast ticket pipeline identifiers to string format to prevent datatype errors in compilation. ([Source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
 | [`stg_hubspot__ticket_pipeline`](https://fivetran.github.io/dbt_hubspot_source/#!/model/model.hubspot_source.stg_hubspot__ticket_pipeline)<br> - `ticket_pipeline_id`  | Column datatype | `int` | `string` | Changed cast of ticket pipeline identifier to the original string format to prevent datatype errors in compilation. ([Source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |
 | [`stg_hubspot__ticket_pipeline_stage`](https://fivetran.github.io/dbt_hubspot_source/#!/model/model.hubspot_source.stg_hubspot__ticket_pipeline_stage)<br>- `ticket_pipeline_id` <br> - `ticket_pipeline_stage_id` <br> | Column datatype |  `int`  | `string`  | Changed cast of ticket pipeline identifiers to their original string format to prevent datatype errors in compilation. ([Source PR #151](https://github.com/fivetran/dbt_hubspot_source/pull/151)) |

@@ -16,7 +16,7 @@ fields as (
                 staging_columns=get_ticket_pipeline_columns()
             )
         }}
-        {{ hubspot.apply_source_relation() }}
+        {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}
     from base
 ),
 
