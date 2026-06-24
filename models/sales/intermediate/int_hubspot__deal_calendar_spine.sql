@@ -9,14 +9,14 @@
         file_format = 'delta'
     )
 }}
--- depends_on: {{ ref('stg_hubspot__deal_tmp') }}
+-- depends_on: {{ ref('stg_hubspot__deal') }}
 
 with calendar as (
 
     {% if execute and flags.WHICH in ('run', 'build') %}
     {% set first_date_query %}
     -- start at the first created deal
-        select  min( property_createdate ) as min_date from {{ ref('stg_hubspot__deal_tmp') }}
+        select  min( created_date ) as min_date from {{ ref('stg_hubspot__deal') }}
     {% endset %}
     {% set first_date = run_query(first_date_query).columns[0][0]|string %}
 

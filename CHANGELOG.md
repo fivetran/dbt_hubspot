@@ -3,7 +3,7 @@
 [PR #202](https://github.com/fivetran/dbt_hubspot/pull/202) includes the following updates:
 
 ## Schema Change
-**5 new models • 0 possible breaking changes• 8 total changes**
+**5 new models • 0 possible breaking changes • 8 total changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |

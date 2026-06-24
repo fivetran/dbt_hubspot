@@ -134,10 +134,11 @@ public_models: [
   "hubspot__engagement_notes",
   "hubspot__engagement_tasks",
   "hubspot__company_history",
-  "hubspot__deal_history",
   "hubspot__companies",
   "hubspot__deal_stages",
   "hubspot__deals",
+  "hubspot__daily_deal_history",
+  "hubspot__deal_history",
   "hubspot__engagements",
   "hubspot__daily_ticket_history",
   "hubspot__tickets"
@@ -188,12 +189,12 @@ supported_vars:
 
   hubspot__ticket_property_history_columns:
     type: list
-    description: "Ticket properties from `TICKET_PROPERTY_HISTORY` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
+    description: "Ticket properties from `TICKET_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
     display_name: "Tracked Ticket Properties"
 
   hubspot__deal_property_history_columns:
     type: list
-    description: "Deal properties from `DEAL_PROPERTY_HISTORY` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
+    description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
     display_name: "Tracked Deal Properties"
 
   ticket_history_extension_days:
