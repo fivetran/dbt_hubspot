@@ -2,6 +2,47 @@ version: 2
 
 models:
 
+  - name: hubspot__daily_deal_history
+    description: >
+      Each record represents a deal's day in Hubspot with tracked properties pivoted into columns. By default, tracks the deal's pipeline, pipeline stage, amount, team,
+      and owner on each day.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: deal_day_id
+        description: Unique surrogate key hashed on `source_relation`, `date_day`, and `deal_id`.
+        tests:
+          - unique
+          - not_null
+      - name: date_day
+        description: Date on which the deal had these values.
+      - name: deal_id
+        description: Unique id of a deal in Hubspot.
+      - name: is_deal_closed
+        description: Boolean indicating whether the deal's pipeline stage is closed.
+      - name: amount
+        description: The amount of the deal on that day.
+      - name: pipeline_label
+        description: The human-readable label for the deal pipeline.
+      - name: pipeline_stage_label
+        description: The human-readable label for the deal's stage.
+      - name: deal_pipeline_id
+        description: ID of the deal pipeline.
+      - name: pipeline_stage_id
+        description: ID of the deal pipeline stage.
+      - name: amount_in_home_currency
+        description: The amount of the deal in the account's home currency on that day.
+      - name: owner_full_name
+        description: The full name of the deal owner on that day.
+      - name: owner_email_address
+        description: The email address of the deal owner on that day.
+      - name: hubspot_team_name
+        description: The name of the Hubspot team associated with the deal on that day.
+      - name: owner_id
+        description: The ID of the deal owner on that day.
+      - name: hubspot_team_id
+        description: The ID of the Hubspot team associated with the deal on that day.
+
   - name: hubspot__company_history
     description: Each record represents a change to company record in Hubspot; the grain of this model is company_id -> field_name -> valid_to.
     columns:

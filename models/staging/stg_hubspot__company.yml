@@ -9,6 +9,12 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
+      - name: _fivetran_start
+        description: The date the company property history record became active.
+      - name: _fivetran_end
+        description: The Fivetran calculated exit time of the company property history record.
+      - name: _fivetran_active
+        description: Boolean indicating whether the company property history record is currently active.
       - name: change_source
         description: '{{ doc("history_source") }}'
       - name: change_source_id

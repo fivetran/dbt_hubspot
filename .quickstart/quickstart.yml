@@ -149,10 +149,11 @@ public_models: [
   "hubspot__engagement_notes",
   "hubspot__engagement_tasks",
   "hubspot__company_history",
-  "hubspot__deal_history",
   "hubspot__companies",
   "hubspot__deal_stages",
   "hubspot__deals",
+  "hubspot__daily_deal_history",
+  "hubspot__deal_history",
   "hubspot__engagements",
   "hubspot__daily_ticket_history",
   "hubspot__tickets",
@@ -204,14 +205,25 @@ supported_vars:
 
   hubspot__ticket_property_history_columns:
     type: list
-    description: "Ticket properties from `TICKET_PROPERTY_HISTORY` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
+    description: "Ticket properties from `TICKET_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
     display_name: "Tracked Ticket Properties"
+
+  hubspot__deal_property_history_columns:
+    type: list
+    description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
+    display_name: "Tracked Deal Properties"
 
   ticket_history_extension_days:
     type: integer
     value: 0
-    description: "Number of days that `hubspot__daily_ticket_history` will track for each ticket after it has been closed. Hubspot tickets can be altered after closing"
+    description: "Number of days that `hubspot__daily_ticket_history` will track for each ticket after it has been closed. HubSpot tickets can be altered after closing"
     display_name: "Post-Close Ticket History Extension (Days)"
+
+  deal_history_extension_days:
+    type: integer
+    value: 30
+    description: "Number of days that `hubspot__daily_deal_history` will track for each deal after it has been closed. HubSpot deals can be altered after closing"
+    display_name: "Post-Close Deal History Extension (Days)"
 
   hubspot_using_all_email_events:
     type: boolean

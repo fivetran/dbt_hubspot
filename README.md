@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's Hubspot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 164
+- Number of materialized models¹: 169
 - Connector documentation
   - [Hubspot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [Hubspot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -41,6 +41,7 @@ By default, this package materializes the following final tables:
 | [hubspot__deals](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals) | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>How do won deals differ from lost deals in engagement activity?</li><li>Which high-value deals have low engagement and may be at risk?</li></ul> |
 | [hubspot__deal_stages](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages) | Each record represents when a deal stage changes in Hubspot, with stage entry/exit dates and pipeline metadata.<br><br>**Example Analytics Questions:**<br><ul><li>Which pipeline stages have the highest drop-off rates?</li><li>Which deals are currently in stages longer than the historical average, indicating stalled opportunities?</li></ul> |
 | [hubspot__deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_history) | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>How do deal amounts fluctuate throughout the sales cycle?</li><li>Which deals have experienced frequent ownership transfers or reassignments, possibly slowing progress?</li></ul> |
+| [hubspot__daily_deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | Each record represents a deal's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did deals spend in each pipeline stage on average last quarter?</li><li>Which deals have been stalled in the same stage the longest?</li></ul> |
 | [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets) | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.<br><br>**Example Analytics Questions:**<br><ul><li>Which currently open tickets are linked to high-value customers or companies and should be prioritized?</li><li>Which customers generate the highest support volume relative to their deal size or lifetime value?</li></ul> |
 | [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history) | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did tickets spend in each pipeline stage on average last quarter?</li><li>What is the distribution of ticket ages by priority level and pipeline stage?</li></ul> |
 | [hubspot__conversations](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | Each record represents a conversation thread in HubSpot, enriched with inbox, channel, and message metrics.<br><br>**Example Analytics Questions:**<br><ul><li>What is the average first response time and resolution time by inbox or channel?</li><li>Which agents handle the most conversations and how does their message volume compare?</li></ul> |
@@ -341,33 +342,44 @@ vars:
   hubspot_using_all_email_events: false # True by default
 ```
 
-#### Daily ticket history
-The `hubspot__daily_ticket_history` model is disabled by default, but will materialize if `hubspot_service_enabled` is set to `true`. See additional configurations for this model below.
+#### Daily ticket and deal history
+The `hubspot__daily_ticket_history` model is disabled by default, but will materialize if `hubspot_service_enabled` is set to `true`. The `hubspot__daily_deal_history` model is disabled by default, but will materialize if `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` are all set to `true`. See additional configurations for these models below.
 
-> **Note**: `hubspot__daily_ticket_history` and its parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
+> **Note**: `hubspot__daily_ticket_history`, `hubspot__daily_deal_history`, and their parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
 
-##### **Tracking ticket properties**
-By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. However, any property from the source `TICKET_PROPERTY_HISTORY` table can be tracked and pivoted out into columns. To add other properties to this end model, add the following configuration to your `dbt_project.yml` file:
+##### **Tracking ticket and deal properties**
+By default, `hubspot__daily_ticket_history` will track each ticket's state, pipeline, and pipeline stage and pivot these properties into columns. `hubspot__daily_deal_history` will track each deal's stage, pipeline, amount, owner, and team. However, any property `name` from the source `TICKET_PROPERTY_HISTORY` or `DEAL_PROPERTY_HISTORY` tables can be tracked and pivoted out into columns. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 vars:
   hubspot__ticket_property_history_columns:
     - the
     - list
-    - of 
+    - of
+    - property
+    - names
+  hubspot__deal_property_history_columns:
+    - the
+    - list
+    - of
     - property
     - names
 ```
 
-##### **Extending ticket history past closing date**
-This package will create a row in `hubspot__daily_ticket_history` for each day that a ticket is open, starting at its creation date. A Hubspot ticket can be altered after being closed, so its properties can change after this date.
+> Note: All values will be stored as strings.
 
-By default, the package will track a ticket up to its closing date (or the current date if still open). To capture post-closure changes, you may want to extend a ticket's history past the close date. To do so, add the following configuration to your root dbt_project.yml file:
+##### **Extending ticket and deal history past closing date**
+This package will create a row in `hubspot__daily_ticket_history` and `hubspot__daily_deal_history` for each day that a ticket or deal is open, starting at its creation date. Tickets and deals can be altered after being closed, so their properties can change after this date.
+
+By default, the package will track a ticket up to its closing date (or the current date if still open) and a deal 30 days past its close date.
+
+To extend or limit history past the close date for either kind of entity, add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 vars:
   hubspot:
     ticket_history_extension_days: integer_number_of_days # default = 0
+    deal_history_extension_days: integer_number_of_days # default = 30
 ```
 
 #### Changing the Build Schema
