@@ -3,12 +3,11 @@
 [PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) includes the following updates:
 
 ## Schema/Data Change
-**2 new models • 0 possible breaking changes• 6 total changes**
+**2 new models • 0 possible breaking changes • 6 total changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
-| `hubspot__contacts` | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to` | Comma-separated list of fields submitted during the contact's first and most recent form conversions. |
-| `hubspot__contacts` | New fields | | `calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Number of fields submitted during the contact's first and most recent form conversions. |
+| `hubspot__contacts` | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to`<br>`calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Comma-separated list and count of fields submitted during the contact's first and most recent form conversions. |
 | `stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | | |
 
 ## Feature Update
