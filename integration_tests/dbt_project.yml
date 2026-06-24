@@ -13,7 +13,7 @@ models:
 
 vars:
   # jsons and arrays
-  consistency_test_exclude: ['merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'deal_names', 'contact_emails', 'company_names', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
+  consistency_test_exclude: ['calculated_first_conversion_fields_responded_to', 'calculated_first_conversion_total_responses', 'calculated_most_recent_conversion_fields_responded_to', 'calculated_most_recent_conversion_total_responses', 'merged_deal_ids', 'browser', 'contact_ids', 'deal_ids', 'company_ids', 'deal_names', 'contact_emails', 'company_names', 'bcc_emails', 'cc_emails', 'reply_to_email', 'geo_location', 'subscriptions']
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include
@@ -81,6 +81,7 @@ vars:
     hubspot_engagement_note_identifier: "engagement_note_data"
     hubspot_engagement_task_identifier: "engagement_task_data"
     hubspot_form_identifier: "form_data"
+    hubspot_submission_response_identifier: "submission_response_data"
     hubspot_owner_identifier: "owner_data"
     hubspot_owner_team_identifier: "owner_team_data"
     hubspot_property_identifier: "property_data"
@@ -258,12 +259,22 @@ seeds:
         merged_deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
     contact_form_submission_data:
       +column_types:
-        form_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        form_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        conversion_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversion_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     form_data:
       +column_types:
-        guid: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        guid: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    submission_response_data:
+      +column_types:
+        submitted_at: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        conversion_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        form_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        field_name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        field_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        page_url: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        object_type_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     owner_team_data:
       +column_types:
         owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
