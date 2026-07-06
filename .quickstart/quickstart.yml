@@ -139,6 +139,7 @@ public_models: [
   "hubspot__email_event_spam_report",
   "hubspot__email_event_status_change",
   "hubspot__contact_history",
+  "hubspot__daily_contact_history",
   "hubspot__contact_lists",
   "hubspot__contacts",
   "hubspot__email_campaigns",
@@ -207,6 +208,11 @@ supported_vars:
     type: list
     description: "Ticket properties from `TICKET_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
     display_name: "Tracked Ticket Properties"
+
+  hubspot__contact_property_history_columns:
+    type: list
+    description: "Contact properties from `CONTACT_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_contact_history`. Lifecycle stage and owner are included automatically"
+    display_name: "Tracked Contact Properties"
 
   hubspot__deal_property_history_columns:
     type: list
