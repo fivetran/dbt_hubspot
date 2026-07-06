@@ -68,14 +68,14 @@ with change_data as (
         source_relation,
         contact_id,
         cast({{ dbt.date_trunc('day', 'created_timestamp') }} as date) as date_day,
-        count(*) as total_emails_sent,
-        sum(deliveries) as total_email_deliveries,
-        sum(opens) as total_email_opens,
-        sum(clicks) as total_email_clicks,
-        sum(bounces) as total_email_bounces,
-        sum(spam_reports) as total_email_spam_reports
+        count(*) as count_emails_sent,
+        sum(deliveries) as count_email_deliveries,
+        sum(opens) as count_email_opens,
+        sum(clicks) as count_email_clicks,
+        sum(bounces) as count_email_bounces,
+        sum(spam_reports) as count_email_spam_reports
         {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
-        , sum(unsubscribes) as total_email_unsubscribes
+        , sum(unsubscribes) as count_email_unsubscribes
         {% endif %}
 
     from {{ ref('hubspot__email_sends') }}
@@ -180,14 +180,14 @@ with change_data as (
         {% endif %}
 
         {% if fivetran_utils.enabled_vars(['hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
-        , coalesce(email_metrics.total_emails_sent, 0) as total_emails_sent
-        , coalesce(email_metrics.total_email_deliveries, 0) as total_email_deliveries
-        , coalesce(email_metrics.total_email_opens, 0) as total_email_opens
-        , coalesce(email_metrics.total_email_clicks, 0) as total_email_clicks
-        , coalesce(email_metrics.total_email_bounces, 0) as total_email_bounces
-        , coalesce(email_metrics.total_email_spam_reports, 0) as total_email_spam_reports
+        , coalesce(email_metrics.count_emails_sent, 0) as count_emails_sent
+        , coalesce(email_metrics.count_email_deliveries, 0) as count_email_deliveries
+        , coalesce(email_metrics.count_email_opens, 0) as count_email_opens
+        , coalesce(email_metrics.count_email_clicks, 0) as count_email_clicks
+        , coalesce(email_metrics.count_email_bounces, 0) as count_email_bounces
+        , coalesce(email_metrics.count_email_spam_reports, 0) as count_email_spam_reports
         {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
-        , coalesce(email_metrics.total_email_unsubscribes, 0) as total_email_unsubscribes
+        , coalesce(email_metrics.count_email_unsubscribes, 0) as count_email_unsubscribes
         {% endif %}
         {% endif %}
 
