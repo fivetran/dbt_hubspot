@@ -5,7 +5,7 @@ models:
   - name: hubspot__daily_contact_history
     description: >
       Each record represents a contact's day in Hubspot with tracked properties pivoted into columns. By default, tracks the contact's
-      lifecycle stage and owner on each day.
+      lifecycle stage, likelihood-to-close score, and owner on each day and includes engagement and email event metrics.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
