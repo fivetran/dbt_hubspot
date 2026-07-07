@@ -11,6 +11,8 @@
 }}
 
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('int_hubspot__scd_daily_contact_history')) -%}
+{% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
+{% set email_events_enabled = fivetran_utils.enabled_vars(['hubspot_email_event_enabled']) %}
 
 with change_data as (
 
@@ -49,7 +51,7 @@ with change_data as (
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_contact_enabled']) %}
+{% if engagements_enabled %}
 ), engagement_metrics as (
 
     select *
@@ -61,31 +63,15 @@ with change_data as (
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
+{% if email_events_enabled %}
 ), email_metrics as (
 
-    select
-        source_relation,
-        contact_id,
-        cast({{ dbt.date_trunc('day', 'created_timestamp') }} as date) as date_day,
-        count(*) as count_emails_sent,
-        sum(deliveries) as count_email_deliveries,
-        sum(opens) as count_email_opens,
-        sum(clicks) as count_email_clicks,
-        sum(bounces) as count_email_bounces,
-        sum(spam_reports) as count_email_spam_reports
-        {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
-        , sum(unsubscribes) as count_email_unsubscribes
-        {% endif %}
-
-    from {{ ref('hubspot__email_sends') }}
-    where contact_id is not null
+    select *
+    from {{ ref('int_hubspot__daily_email_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    and cast({{ dbt.date_trunc('day', 'created_timestamp') }} as date) >= (select max(date_day) from {{ this }})
+    where date_day >= (select max(date_day) from {{ this }})
     {% endif %}
-
-    group by 1, 2, 3
 
 {% endif %}
 
@@ -169,7 +155,7 @@ with change_data as (
         , case when cast( fill_values.{{ col.name }} as {{ dbt.type_string() }} ) = 'is_null' then null else fill_values.{{ col.name }} end as {{ col.name }}
         {% endfor %}
 
-        {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_contact_enabled']) %}
+        {% if engagements_enabled %}
         , coalesce(engagement_metrics.count_engagement_notes, 0) as count_engagement_notes
         , coalesce(engagement_metrics.count_engagement_tasks, 0) as count_engagement_tasks
         , coalesce(engagement_metrics.count_engagement_calls, 0) as count_engagement_calls
@@ -179,7 +165,7 @@ with change_data as (
         , coalesce(engagement_metrics.count_engagement_forwarded_emails, 0) as count_engagement_forwarded_emails
         {% endif %}
 
-        {% if fivetran_utils.enabled_vars(['hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
+        {% if email_events_enabled %}
         , coalesce(email_metrics.count_emails_sent, 0) as count_emails_sent
         , coalesce(email_metrics.count_email_deliveries, 0) as count_email_deliveries
         , coalesce(email_metrics.count_email_opens, 0) as count_email_opens
@@ -199,14 +185,14 @@ with change_data as (
         and fill_values.source_relation = owner.source_relation
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_contact_enabled']) %}
+    {% if engagements_enabled %}
     left join engagement_metrics
         on fill_values.contact_id = engagement_metrics.contact_id
         and fill_values.date_day = engagement_metrics.date_day
         and fill_values.source_relation = engagement_metrics.source_relation
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_email_event_enabled', 'hubspot_email_event_sent_enabled']) %}
+    {% if email_events_enabled %}
     left join email_metrics
         on fill_values.contact_id = email_metrics.contact_id
         and fill_values.date_day = email_metrics.date_day
