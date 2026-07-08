@@ -61,3 +61,4 @@ test_scenarios:
       fivetran_using_source_casing: true
     include_incremental: false
     include_dbt_seed: true
+    warehouses: ["bigquery", "redshift", "postgres", "snowflake"]
