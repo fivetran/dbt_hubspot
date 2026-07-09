@@ -20,7 +20,7 @@ with history as (
     where lower(field_name) in ({{ "'" ~ contact_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
-    and change_timestamp >= (select cast(max(date_day) as {{ dbt.type_timestamp() }}) from {{ this }} )
+    and cast(change_timestamp as date) >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 ), windows as (

@@ -42,6 +42,8 @@ models:
         description: Number of inbound email engagements logged for the contact on that day.
       - name: count_engagement_forwarded_emails
         description: Number of forwarded email engagements logged for the contact on that day.
+      - name: count_engagement_communications
+        description: Number of communication engagements logged for the contact on that day.
       - name: count_emails_sent
         description: Number of emails sent to the contact on that day.
       - name: count_email_deliveries

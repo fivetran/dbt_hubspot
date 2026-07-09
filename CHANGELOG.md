@@ -19,6 +19,7 @@
 - Adds the `hubspot__contact_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_contact_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-contact-ticket-and-deal-history) for configuration details.
 - Adds the `hubspot__deal_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_deal_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-contact-ticket-and-deal-history) for configuration details.
 - Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
+- Adds a configurable `lookback_window` variable to all incremental windows to catch late-arriving records. Default value = 3 days. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#lookback-window) for configuration details.
 - Adds the `hubspot_conversation_enabled` variable to support enabling/disabling `conversation` data. Dynamically configured in Quickstart; `false` by default otherwise. 
 - Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise. 
 

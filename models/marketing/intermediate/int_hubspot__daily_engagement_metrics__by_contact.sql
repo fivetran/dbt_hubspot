@@ -19,6 +19,9 @@
 {% if fivetran_utils.enabled_vars(['hubspot_engagement_task_enabled']) %}
     {% do engagement_staging_models.append('stg_hubspot__engagement_task') %}
 {% endif %}
+{% if var('hubspot_engagement_communication_enabled', false) %}
+    {% do engagement_staging_models.append('stg_hubspot__engagement_communication') %}
+{% endif %}
 
 with engagement_contacts as (
 
@@ -77,7 +80,8 @@ with engagement_contacts as (
         count(case when engagement_type = 'MEETING' then 1 end) as count_engagement_meetings,
         count(case when engagement_type = 'EMAIL' then 1 end) as count_engagement_emails,
         count(case when engagement_type = 'INCOMING_EMAIL' then 1 end) as count_engagement_incoming_emails,
-        count(case when engagement_type = 'FORWARDED_EMAIL' then 1 end) as count_engagement_forwarded_emails
+        count(case when engagement_type = 'FORWARDED_EMAIL' then 1 end) as count_engagement_forwarded_emails,
+        count(case when engagement_type = 'COMMUNICATION' then 1 end) as count_engagement_communications
     from joined
     group by 1, 2, 3
 

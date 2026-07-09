@@ -34,7 +34,7 @@ with deal_history as (
     where lower(field_name) in ({{ "'" ~ deal_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
-    and valid_from >= (select cast(max(date_day) as {{ dbt.type_timestamp() }}) from {{ this }} )
+    and valid_from >= cast({{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }} as {{ dbt.type_timestamp() }})
     {% endif %}
 
 {# Deal stages are not stored in deal_property_history #}
@@ -54,7 +54,7 @@ with deal_history as (
     from {{ ref('stg_hubspot__deal_stage') }}
 
     {% if is_incremental() %}
-    where date_entered >= (select cast(max(date_day) as {{ dbt.type_timestamp() }}) from {{ this }} )
+    where date_entered >= cast({{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }} as {{ dbt.type_timestamp() }})
     {% endif %}
 
 ), combined as (

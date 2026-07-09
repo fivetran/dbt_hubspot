@@ -18,7 +18,7 @@ with change_data as (
     from {{ ref('int_hubspot__scd_daily_ticket_history') }}
 
 {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
 
 -- If no issue fields have been updated since the last incremental run, the pivoted_daily_history CTE will return no record/rows.
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist 
@@ -38,7 +38,7 @@ with change_data as (
     from {{ ref('int_hubspot__ticket_calendar_spine') }}
 
     {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 ), pipeline as (

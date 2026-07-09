@@ -20,7 +20,7 @@ with change_data as (
     from {{ ref('int_hubspot__scd_daily_contact_history') }}
 
 {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
 
 -- If no contact fields have been updated since the last incremental run, the pivoted_daily_history CTE will return no record/rows.
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist
@@ -40,7 +40,7 @@ with change_data as (
     from {{ ref('int_hubspot__contact_calendar_spine') }}
 
     {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 {% if var('hubspot_owner_enabled', true) %}
@@ -58,7 +58,7 @@ with change_data as (
     from {{ ref('int_hubspot__daily_engagement_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 {% endif %}
@@ -70,7 +70,7 @@ with change_data as (
     from {{ ref('int_hubspot__daily_email_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 {% endif %}
@@ -163,6 +163,9 @@ with change_data as (
         , coalesce(engagement_metrics.count_engagement_emails, 0) as count_engagement_emails
         , coalesce(engagement_metrics.count_engagement_incoming_emails, 0) as count_engagement_incoming_emails
         , coalesce(engagement_metrics.count_engagement_forwarded_emails, 0) as count_engagement_forwarded_emails
+        {% if var('hubspot_engagement_communication_enabled', false) %}
+        , coalesce(engagement_metrics.count_engagement_communications, 0) as count_engagement_communications
+        {% endif %}
         {% endif %}
 
         {% if email_events_enabled %}
