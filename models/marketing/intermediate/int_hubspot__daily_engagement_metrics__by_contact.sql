@@ -4,24 +4,12 @@
 
 {# Build a list of (model_ref, enabled_var) pairs so we can union only what's enabled #}
 {% set engagement_staging_models = [] %}
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_call_enabled']) %}
-    {% do engagement_staging_models.append('stg_hubspot__engagement_call') %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_email_enabled']) %}
-    {% do engagement_staging_models.append('stg_hubspot__engagement_email') %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_meeting_enabled']) %}
-    {% do engagement_staging_models.append('stg_hubspot__engagement_meeting') %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_note_enabled']) %}
-    {% do engagement_staging_models.append('stg_hubspot__engagement_note') %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_task_enabled']) %}
-    {% do engagement_staging_models.append('stg_hubspot__engagement_task') %}
-{% endif %}
-{% if var('hubspot_engagement_communication_enabled', false) %}
-    {% do engagement_staging_models.append('stg_hubspot__engagement_communication') %}
-{% endif %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_call') if fivetran_utils.enabled_vars(['hubspot_engagement_call_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_email') if fivetran_utils.enabled_vars(['hubspot_engagement_email_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_meeting') if fivetran_utils.enabled_vars(['hubspot_engagement_meeting_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_note') if fivetran_utils.enabled_vars(['hubspot_engagement_note_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_task') if fivetran_utils.enabled_vars(['hubspot_engagement_task_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_communication') if var('hubspot_engagement_communication_enabled', false) %}
 
 with engagement_contacts as (
 

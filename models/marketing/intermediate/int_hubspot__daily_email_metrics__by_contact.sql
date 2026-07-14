@@ -4,24 +4,12 @@
 
 {# Build a list of (model_ref, event_type) pairs so we can union only what's enabled #}
 {% set email_event_models = [] %}
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_sent_enabled']) %}
-    {% do email_event_models.append(('hubspot__email_event_sent', 'SENT')) %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_delivered_enabled']) %}
-    {% do email_event_models.append(('hubspot__email_event_delivered', 'DELIVERED')) %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_open_enabled']) %}
-    {% do email_event_models.append(('hubspot__email_event_opens', 'OPEN')) %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_click_enabled']) %}
-    {% do email_event_models.append(('hubspot__email_event_clicks', 'CLICK')) %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_bounce_enabled']) %}
-    {% do email_event_models.append(('hubspot__email_event_bounce', 'BOUNCE')) %}
-{% endif %}
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_spam_report_enabled']) %}
-    {% do email_event_models.append(('hubspot__email_event_spam_report', 'SPAM_REPORT')) %}
-{% endif %}
+{% do email_event_models.append(('hubspot__email_event_sent', 'SENT')) if fivetran_utils.enabled_vars(['hubspot_email_event_sent_enabled']) %}
+{% do email_event_models.append(('hubspot__email_event_delivered', 'DELIVERED')) if fivetran_utils.enabled_vars(['hubspot_email_event_delivered_enabled']) %}
+{% do email_event_models.append(('hubspot__email_event_opens', 'OPEN')) if fivetran_utils.enabled_vars(['hubspot_email_event_open_enabled']) %}
+{% do email_event_models.append(('hubspot__email_event_clicks', 'CLICK')) if fivetran_utils.enabled_vars(['hubspot_email_event_click_enabled']) %}
+{% do email_event_models.append(('hubspot__email_event_bounce', 'BOUNCE')) if fivetran_utils.enabled_vars(['hubspot_email_event_bounce_enabled']) %}
+{% do email_event_models.append(('hubspot__email_event_spam_report', 'SPAM_REPORT')) if fivetran_utils.enabled_vars(['hubspot_email_event_spam_report_enabled']) %}
 
 with all_events as (
 
