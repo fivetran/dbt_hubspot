@@ -3,7 +3,7 @@
 [PR #200](https://github.com/fivetran/dbt_hubspot/pull/200), [PR #202](https://github.com/fivetran/dbt_hubspot/pull/202), and [PR #203](https://github.com/fivetran/dbt_hubspot/pull/203) include the following updates:
 
 ## Schema/Data Change
-**22 new models • 0 possible breaking changes**
+**26 new models • 0 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
@@ -13,12 +13,14 @@
 | `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_thread_tmp`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_history_tmp`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_message_recipient_tmp`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_actor_tmp`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_tmp`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_channel_account_tmp`<br>`stg_hubspot__conversation_inbox`<br>`stg_hubspot__conversation_inbox_tmp`<br>`stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp` | New staging models | | |  |
 | `int_hubspot__daily_deal_history`<br>`int_hubspot__deal_calendar_spine`<br>`int_hubspot__pivot_daily_deal_history`<br>`int_hubspot__scd_daily_deal_history` | New intermediate models | | | |
 | `stg_hubspot__deal_property_history`<br>`stg_hubspot__company_property_history`<br>`stg_hubspot__contact_property_history` | New staging columns | | `_fivetran_start`, `_fivetran_end`, `_fivetran_active` | SCD metadata fields used to power `hubspot__daily_deal_history`. |
+| `stg_hubspot__company_list`<br>`stg_hubspot__company_list_tmp`<br>`stg_hubspot__company_list_member`<br>`stg_hubspot__company_list_member_tmp` | New model | | | Stages the `company_list` and `company_list_member` source tables. Enabled by default when `hubspot_sales_enabled` is `true`; disable individually with `hubspot_company_list_enabled` and `hubspot_company_list_member_enabled`. |
 
 ## Feature Update
 - Adds the `hubspot__deal_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_deal_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-ticket-and-deal-history) for configuration details.
 - Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
 - Adds the `hubspot_conversation_enabled` variable to support enabling/disabling `conversation` data. Dynamically configured in Quickstart; `false` by default otherwise. 
-- Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise. 
+- Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise.
+- Adds the `hubspot_company_list_enabled` and `hubspot_company_list_member_enabled` variables to support enabling/disabling the new `company_list` and `company_list_member` source tables. Both are dynamically configured in Quickstart; enabled by default when `hubspot_sales_enabled` is `true` otherwise.
 
 ## Under the Hood
 - Casts `form_id` and `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.

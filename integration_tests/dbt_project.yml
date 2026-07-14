@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.8.0'
+version: '1.9.0'
 
 profile: 'integration_tests'
 config-version: 2
@@ -38,6 +38,8 @@ vars:
       - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
         alias: "funky_field" # @docs-ignore
 
+    hubspot_company_list_identifier: "company_list_data"
+    hubspot_company_list_member_identifier: "company_list_member_data"
     hubspot_company_property_history_identifier: "company_property_history_data"
     hubspot_company_identifier: "company_data"
     hubspot_contact_form_submission_identifier: "contact_form_submission_data"
@@ -108,6 +110,27 @@ seeds:
     show: False
   hubspot_integration_tests:
     +quote_columns: "{{ target.type == 'redshift' or var('fivetran_using_source_casing', false) }}"
+    company_list_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        _fivetran_synced: timestamp
+        created_at: timestamp
+        updated_at: timestamp
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        created_by_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        object_type_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        processing_status: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        processing_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        list_version: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        filters_updated_at: timestamp
+    company_list_member_data:
+      +column_types:
+        company_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        company_list_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        _fivetran_synced: timestamp
+        added_at: timestamp
     contact_merge_audit_data:
       +column_types:
         vid_to_merge: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

@@ -178,6 +178,8 @@ vars:
 
   hubspot_sales_enabled: false                            # Disables all sales models
   hubspot_company_enabled: false
+  hubspot_company_list_enabled: false                     # Disables company list models
+  hubspot_company_list_member_enabled: false              # Disables company list member models
   hubspot_company_property_history_enabled: false         # Disables the company property history models
   hubspot_deal_enabled: false
   hubspot_deal_company_enabled: false

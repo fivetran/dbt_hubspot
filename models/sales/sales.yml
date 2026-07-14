@@ -2,6 +2,54 @@ version: 2
 
 models:
 
+  - name: hubspot__company_lists
+    description: Each record represents a company list in Hubspot, enriched with engagement and ticket metrics aggregated across member companies.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: company_list_id
+        description: The ID of the company list.
+        tests:
+          - not_null
+      - name: company_list_name
+        description: The name of the company list.
+      - name: created_by_id
+        description: The unique identifier of the user who created the company list.
+      - name: object_type_id
+        description: The ID that corresponds to the type of object stored by the list.
+      - name: processing_status
+        description: Indicates the current status of the list's processing, such as 'COMPLETE', 'CANCELED', 'PENDING', or 'PROCESSING'.
+      - name: processing_type
+        description: Specifies the type of processing applied to the list, such as 'MANUAL', 'DYNAMIC', or 'SNAPSHOT'.
+      - name: list_version
+        description: Represents the version number of the list, incrementing with each modification.
+      - name: filters_updated_at
+        description: The timestamp indicating when the list's filters were last updated.
+      - name: is_company_list_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: updated_timestamp
+        description: A timestamp of the time that the list was last modified.
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: created_timestamp
+        description: A timestamp of the time the list was created.
+      - name: count_engagement_notes
+        description: "{{ doc('count_engagement_notes') }}"
+      - name: count_engagement_tasks
+        description: "{{ doc('count_engagement_tasks') }}"
+      - name: count_engagement_calls
+        description: "{{ doc('count_engagement_calls') }}"
+      - name: count_engagement_meetings
+        description: "{{ doc('count_engagement_meetings') }}"
+      - name: count_engagement_emails
+        description: "{{ doc('count_engagement_emails') }}"
+      - name: count_engagement_incoming_emails
+        description: "{{ doc('count_engagement_incoming_emails') }}"
+      - name: count_engagement_forwarded_emails
+        description: "{{ doc('count_engagement_forwarded_emails') }}"
+      - name: count_tickets
+        description: The number of tickets associated with companies in the list.
+
   - name: hubspot__deals
     description: Each record represents a deal in Hubspot.
     columns:

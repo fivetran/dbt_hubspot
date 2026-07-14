@@ -43,6 +43,10 @@ table_variables:
     - contact_merge_audit
   hubspot_company_enabled:
     - company
+  hubspot_company_list_enabled:
+    - company_list
+  hubspot_company_list_member_enabled:
+    - company_list_member
   hubspot_company_property_history_enabled:
     - company_property_history
   hubspot_contact_form_enabled:
@@ -150,6 +154,7 @@ public_models: [
   "hubspot__engagement_tasks",
   "hubspot__company_history",
   "hubspot__companies",
+  "hubspot__company_lists",
   "hubspot__deal_stages",
   "hubspot__deals",
   "hubspot__daily_deal_history",
