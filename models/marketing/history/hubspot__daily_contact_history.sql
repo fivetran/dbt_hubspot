@@ -13,6 +13,7 @@
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('int_hubspot__scd_daily_contact_history')) -%}
 {% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
 {% set email_events_enabled = fivetran_utils.enabled_vars(['hubspot_email_event_enabled']) %}
+{% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
 
 with change_data as (
 
@@ -20,7 +21,7 @@ with change_data as (
     from {{ ref('int_hubspot__scd_daily_contact_history') }}
 
 {% if is_incremental() %}
-    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
+    where date_day >= {{ lookback_date }}
 
 -- If no contact fields have been updated since the last incremental run, the pivoted_daily_history CTE will return no record/rows.
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist
@@ -40,7 +41,7 @@ with change_data as (
     from {{ ref('int_hubspot__contact_calendar_spine') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 {% if var('hubspot_owner_enabled', true) %}
@@ -58,7 +59,7 @@ with change_data as (
     from {{ ref('int_hubspot__daily_engagement_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 {% endif %}
@@ -70,7 +71,7 @@ with change_data as (
     from {{ ref('int_hubspot__daily_email_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 {% endif %}

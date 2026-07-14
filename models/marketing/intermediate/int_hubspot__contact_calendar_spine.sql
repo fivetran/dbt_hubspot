@@ -14,29 +14,31 @@
 with calendar as (
 
     {% if execute and flags.WHICH in ('run', 'build') %}
-    {% set first_date_query %}
-    -- start at the first created contact
-        select min( created_date ) as min_date from {{ ref('stg_hubspot__contact') }}
-    {% endset %}
-    {% set first_date = run_query(first_date_query).columns[0][0]|string %}
+        {% set first_date_query %}
+            {% if is_incremental() %}
+                select max(date_day) from {{ this }}
+            {% else %}
+                select min(created_date) from {{ ref('stg_hubspot__contact') }}
+            {% endif %}
+        {% endset %}
+        {% set first_date = dbt_utils.get_single_value(first_date_query) | string %}
 
-    {% else %} {% set first_date = "2016-01-01" %}
+    {% else %}
+        {% set first_date = "2016-01-01" %}
     {% endif %}
+
+    {% set start_date = "cast('" ~ first_date[0:10] ~ "' as date)" %}
 
     select *
     from (
         {{
             dbt_utils.date_spine(
                 datepart = "day",
-                start_date =  "cast('" ~ first_date[0:10] ~ "' as date)",
+                start_date = start_date,
                 end_date = dbt.dateadd("week", 1, dbt.current_timestamp_in_utc_backcompat())
             )
         }}
     ) as date_spine
-
-    {% if is_incremental() %}
-    where date_day >= (select min(date_day) from {{ this }} )
-    {% endif %}
 
 ), contact as (
 

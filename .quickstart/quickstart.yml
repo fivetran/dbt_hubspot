@@ -237,3 +237,8 @@ supported_vars:
     description: "Include filtered email events in all `hubspot__email_event_*` models and downstream aggregations in `hubspot__email_sends`, `hubspot__email_campaigns`, `hubspot__contacts`, and `hubspot__contact_lists`"
     display_name: "Include Filtered Email Events"
 
+  lookback_window:
+    type: integer
+    value: 3
+    description: "Number of days into the past that the models will look back to capture late-arriving records on incremental runs"
+    display_name: "Incremental Run Lookback Window (Days)"

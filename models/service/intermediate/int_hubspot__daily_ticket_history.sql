@@ -23,7 +23,7 @@ with history as (
     {%- endfor -%} )
 
     {% if is_incremental() %}
-    and change_timestamp >= cast({{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }} as {{ dbt.type_timestamp() }})
+    and cast(change_timestamp as date) >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() }}
     {% endif %}
 
 ), windows as (
