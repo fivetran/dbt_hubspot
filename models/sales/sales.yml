@@ -47,8 +47,6 @@ models:
         description: "{{ doc('count_engagement_incoming_emails') }}"
       - name: count_engagement_forwarded_emails
         description: "{{ doc('count_engagement_forwarded_emails') }}"
-      - name: count_tickets
-        description: The number of tickets associated with companies in the list.
 
   - name: hubspot__deals
     description: Each record represents a deal in Hubspot.

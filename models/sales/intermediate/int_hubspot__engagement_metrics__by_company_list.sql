@@ -3,7 +3,7 @@
     'hubspot_company_list_member_enabled',
     'hubspot_engagement_enabled',
     'hubspot_engagement_company_enabled'
-]), materialized='table') }}
+])) }}
 
 with company_list_member as (
 

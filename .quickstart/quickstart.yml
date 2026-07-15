@@ -208,6 +208,16 @@ supported_vars:
     description: "Additional `TICKET` fields to include in `hubspot__tickets`"
     display_name: "Additional Ticket Columns"
 
+  hubspot__company_list_pass_through_columns:
+    type: dictionary
+    description: "Additional `COMPANY_LIST` fields to include in `hubspot__company_lists`"
+    display_name: "Additional Company List Columns"
+
+  hubspot__contact_list_pass_through_columns:
+    type: dictionary
+    description: "Additional `CONTACT_LIST` fields to include in `hubspot__contact_lists`"
+    display_name: "Additional Contact List Columns"
+
   hubspot__ticket_property_history_columns:
     type: list
     description: "Ticket properties from `TICKET_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
