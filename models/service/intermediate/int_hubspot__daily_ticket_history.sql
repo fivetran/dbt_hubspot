@@ -23,7 +23,7 @@ with history as (
     {%- endfor -%} )
 
     {% if is_incremental() %}
-    and cast(change_timestamp as date) >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() }}
+    and cast(change_timestamp as date) >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 ), windows as (
