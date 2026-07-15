@@ -35,7 +35,7 @@ with calendar as (
             dbt_utils.date_spine(
                 datepart = "day",
                 start_date = start_date,
-                end_date = dbt.dateadd("week", 1, dbt.current_timestamp_in_utc_backcompat())
+                end_date = dbt.dateadd("day", 1, dbt.current_timestamp_in_utc_backcompat())
             )
         }}
     ) as date_spine

@@ -35,7 +35,7 @@ with calendar as (
             dbt_utils.date_spine(
                 datepart = "day",
                 start_date = start_date,
-                end_date = dbt.dateadd("week", 1, dbt.current_timestamp_in_utc_backcompat())
+                end_date = dbt.dateadd("day", 1, dbt.current_timestamp_in_utc_backcompat())
             )
         }}
     ) as date_spine
@@ -43,8 +43,7 @@ with calendar as (
 ), contact as (
 
     select
-        *,
-        cast( {{ dbt.date_trunc('day', dbt.current_timestamp_backcompat()) }} as date) as open_until
+        *
     from {{ ref('stg_hubspot__contact') }}
     where not coalesce(is_contact_deleted, false)
 
@@ -57,7 +56,6 @@ with calendar as (
     from calendar
     inner join contact
         on cast(calendar.date_day as date) >= cast(contact.created_date as date)
-        and cast(calendar.date_day as date) <= contact.open_until
 
 ), surrogate as (
 
