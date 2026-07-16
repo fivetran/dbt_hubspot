@@ -17,6 +17,8 @@ with calendar as (
         {% set first_date_query %}
             {% if is_incremental() %}
                 select max(date_day) from {{ this }}
+            {% elif var('hubspot__daily_history_start_date', none) %}
+                select cast('{{ var("hubspot__daily_history_start_date") }}' as date)
             {% else %}
                 select min(created_date) from {{ ref('stg_hubspot__contact') }}
             {% endif %}

@@ -21,6 +21,8 @@ with history as (
 
     {% if is_incremental() %}
     and cast(change_timestamp as date) >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
+    {% elif var('hubspot__daily_history_start_date', none) %}
+    and cast(change_timestamp as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
 
 ), windows as (

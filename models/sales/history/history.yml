@@ -42,6 +42,64 @@ models:
         description: The ID of the deal owner on that day.
       - name: hubspot_team_id
         description: The ID of the Hubspot team associated with the deal on that day.
+      - name: count_engagement_notes
+        description: Number of notes logged against the deal on that day.
+      - name: count_engagement_tasks
+        description: Number of tasks logged against the deal on that day.
+      - name: count_engagement_calls
+        description: Number of calls logged against the deal on that day.
+      - name: count_engagement_meetings
+        description: Number of meetings logged against the deal on that day.
+      - name: count_engagement_emails
+        description: Number of outbound emails logged against the deal on that day.
+      - name: count_engagement_incoming_emails
+        description: Number of inbound emails logged against the deal on that day.
+      - name: count_engagement_forwarded_emails
+        description: Number of forwarded emails logged against the deal on that day.
+      - name: count_engagement_communications
+        description: Number of communications (LinkedIn, WhatsApp, SMS) logged against the deal on that day. Requires `hubspot_engagement_communication_enabled` to be `true`.
+
+  - name: hubspot__daily_company_history
+    description: >
+      Each record represents a company's day in Hubspot with tracked properties pivoted into columns. By default, tracks the company's owner, lead status, and lifecycle stage on each day.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: company_day_id
+        description: Unique surrogate key hashed on `source_relation`, `date_day`, and `company_id`.
+        tests:
+          - unique
+          - not_null
+      - name: date_day
+        description: Date on which the company had these values.
+      - name: company_id
+        description: Unique id of a company in Hubspot.
+      - name: hubspot_owner_id
+        description: The ID of the company owner on that day.
+      - name: hs_lead_status
+        description: The lead status of the company on that day.
+      - name: lifecyclestage
+        description: The lifecycle stage of the company on that day.
+      - name: owner_full_name
+        description: The full name of the company owner on that day.
+      - name: owner_email_address
+        description: The email address of the company owner on that day.
+      - name: count_engagement_notes
+        description: The number of notes logged against the company on that day.
+      - name: count_engagement_tasks
+        description: The number of tasks logged against the company on that day.
+      - name: count_engagement_calls
+        description: The number of calls logged against the company on that day.
+      - name: count_engagement_meetings
+        description: The number of meetings logged against the company on that day.
+      - name: count_engagement_emails
+        description: The number of emails logged against the company on that day.
+      - name: count_engagement_incoming_emails
+        description: The number of incoming emails logged against the company on that day.
+      - name: count_engagement_forwarded_emails
+        description: The number of forwarded emails logged against the company on that day.
+      - name: count_engagement_communications
+        description: The number of communication engagements logged against the company on that day.
 
   - name: hubspot__company_history
     description: Each record represents a change to company record in Hubspot; the grain of this model is company_id -> field_name -> valid_to.

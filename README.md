@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's HubSpot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 174
+- Number of materialized models¹: 179
 - Connector documentation
   - [HubSpot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [HubSpot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -360,6 +360,15 @@ vars:
   hubspot:
     ticket_history_extension_days: integer_number_of_days # default = 0
     deal_history_extension_days: integer_number_of_days # default = 30
+```
+
+#### Daily history start date
+By default, the daily history models (`hubspot__daily_contact_history`, `hubspot__daily_deal_history`, `hubspot__daily_company_history`, `hubspot__daily_ticket_history`) generate one row per object per day going back to the earliest created record. For large datasets, you may limit history to a specific start date with the following configuration:
+
+```yml
+vars:
+  hubspot:
+    hubspot__daily_history_start_date: "2022-01-01" # ISO date string
 ```
 
 #### Lookback window

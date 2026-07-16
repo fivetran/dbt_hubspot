@@ -1,6 +1,6 @@
 {{
     config(
-        enabled=var('hubspot_service_enabled', False),
+        enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_enabled', 'hubspot_company_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
         partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks'] else ['date_day'],
@@ -10,17 +10,14 @@
     )
 }}
 
+{% set company_columns = (['hubspot_owner_id', 'hs_lead_status', 'lifecyclestage'] + var('hubspot__company_property_history_columns', [])) | unique | list %}
+
 with history as (
 
     select *
-    from {{ ref('stg_hubspot__ticket_property_history') }}
+    from {{ ref('stg_hubspot__company_property_history') }}
 
-    -- should we include an option pivot out ALL properties? in the same vein as our passthrough-all-columns var
-    where lower(field_name) in 
-        ('hs_pipeline', 'hs_pipeline_stage'
-    {% for col in var('hubspot__ticket_property_history_columns', []) %}
-        , '{{ col }}'
-    {%- endfor -%} )
+    where lower(field_name) in ({{ "'" ~ company_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
     and cast(change_timestamp as date) >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
@@ -33,32 +30,32 @@ with history as (
     select
         source_relation,
         cast({{ dbt.date_trunc('day', 'change_timestamp') }} as date) as date_day,
-        ticket_id,
+        company_id,
         field_name,
         new_value,
         change_source,
         change_source_id,
         change_timestamp as valid_from,
         _fivetran_end as valid_to
-        -- if it is currently active fivetran_end = 9999-12-31 23:59:59, but the calendar_spine will end at the current_date
+
     from history
 
 ), order_daily_changes as (
 
-    select 
+    select
         *,
         row_number() over (
-            partition by date_day, ticket_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
+            partition by date_day, company_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
             order by valid_from desc
             ) as row_num
     from windows
 
 ), extract_latest as (
-    
-    select 
+
+    select
         source_relation,
         date_day,
-        ticket_id,
+        company_id,
         field_name,
         case when new_value is null then 'is_null' else new_value end as new_value,
         change_source,
@@ -71,9 +68,9 @@ with history as (
 
 ), surrogate as (
 
-    select 
+    select
         *,
-        {{ dbt_utils.generate_surrogate_key(['field_name','ticket_id','date_day','source_relation']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['field_name','company_id','date_day','source_relation']) }} as id
     from extract_latest
 
 )
