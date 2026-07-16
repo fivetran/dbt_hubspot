@@ -3,18 +3,19 @@
 PR [#200](https://github.com/fivetran/dbt_hubspot/pull/200), [#202](https://github.com/fivetran/dbt_hubspot/pull/202), [#203](https://github.com/fivetran/dbt_hubspot/pull/203), [#204](https://github.com/fivetran/dbt_hubspot/pull/204), and [#205](https://github.com/fivetran/dbt_hubspot/pull/205) include the following updates:
 
 ## Schema/Data Change
-**27 new models • 0 possible breaking changes**
+**27 new models • 1 possible breaking change**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
 | [`hubspot__daily_contact_history`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_contact_history) | New end model | | | Each record represents a contact's state on a given day with lifecycle stage, owner, and other selected properties pivoted into columns. Contains daily engagement and email event metrics as well. |
 | [`hubspot__daily_deal_history`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | New end model | | | Each record represents a deal's state on a given day with pipeline, stage, amount, owner, team, and other selected properties pivoted into columns. |
-| [`hubspot__conversations`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | New end model | | | One record per conversation thread, enriched with inbox, channel, channel account details, and aggregated message metrics. Dynamically enabled in Quickstart. To enable in self-managed dbt projects, set `hubspot_conversation_enabled` to `True`. |
-| [`hubspot__company_lists`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_lists) | New end model | | | Each record represents a company list in HubSpot, enriched with engagement metrics aggregated across member companies. Enabled by default when `hubspot_sales_enabled` is `true`; disable with `hubspot_company_list_enabled`. |
+| [`hubspot__conversations`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | New end model | | | One record per conversation thread, enriched with inbox, channel, channel account details, and aggregated message metrics. To enable in self-managed dbt projects, set `hubspot_conversation_enabled` to `True`. |
+| [`hubspot__company_lists`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_lists) | New end model | | | Each record represents a company list in HubSpot, enriched with engagement metrics aggregated across member companies. |
 | [`hubspot__contacts`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to`<br>`calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Comma-separated list and count of fields submitted during the contact's first and most recent form conversions. |
 | `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_thread_tmp`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_history_tmp`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_message_recipient_tmp`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_actor_tmp`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_tmp`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_channel_account_tmp`<br>`stg_hubspot__conversation_inbox`<br>`stg_hubspot__conversation_inbox_tmp`<br>`stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp`<br>`stg_hubspot__company_list`<br>`stg_hubspot__company_list_tmp`<br>`stg_hubspot__company_list_member`<br>`stg_hubspot__company_list_member_tmp` | New staging models | | | Used to power the above new end models. |
 | `int_hubspot__daily_deal_history`<br>`int_hubspot__deal_calendar_spine`<br>`int_hubspot__pivot_daily_deal_history`<br>`int_hubspot__scd_daily_deal_history` | New intermediate models | | | |
 | `stg_hubspot__deal_property_history`<br>`stg_hubspot__company_property_history`<br>`stg_hubspot__contact_property_history` | New staging columns | | `_fivetran_start`, `_fivetran_end`, `_fivetran_active` | SCD metadata fields used to power `hubspot__daily_deal_history`. |
+| `stg_hubspot__contact_list_tmp` | Fields renamed | `id`, `_fivetran_deleted`, `created_at`, `name`, `updated_at` | `contact_list_id`, `is_contact_list_deleted`, `created_timestamp`, `contact_list_name`, `updated_timestamp` |  |
 
 ## Feature Update
 - Adds the `hubspot__contact_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_contact_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-contact-ticket-and-deal-history) for configuration details.
@@ -22,6 +23,7 @@ PR [#200](https://github.com/fivetran/dbt_hubspot/pull/200), [#202](https://gith
 - Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
 - Adds the `hubspot__company_list_pass_through_columns` variable to bring additional columns from the `company_list` source table through to `hubspot__company_lists` and `stg_hubspot__company_list`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#include-passthrough-columns) for configuration details.
 - Adds the `hubspot__contact_list_pass_through_columns` variable to bring additional columns from the `contact_list` source table through to `hubspot__contact_lists` and `stg_hubspot__contact_list`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#include-passthrough-columns) for configuration details.
+- The [`hubspot__pass_through_all_columns`](https://github.com/fivetran/dbt_hubspot/#include-passthrough-columns) and [`hubspot__enable_all_property_labels`](https://github.com/fivetran/dbt_hubspot/#adding-property-label) variables now also apply to `company_list` and `contact_list` moodels.
 - Adds a configurable `lookback_window` variable to all incremental windows to catch late-arriving records. Default value = 3 days. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#lookback-window) for configuration details.
 - Adds the `hubspot_conversation_enabled` variable to support enabling/disabling `conversation` data. Dynamically configured in Quickstart; `false` by default otherwise. 
 - Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` data. Dynamically configured in Quickstart; `true` by default otherwise.
@@ -30,7 +32,6 @@ PR [#200](https://github.com/fivetran/dbt_hubspot/pull/200), [#202](https://gith
 ## Under the Hood
 - Casts `form_id` and `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
 - Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
-- Moved column aliasing from `stg_hubspot__contact_list` to `stg_hubspot__contact_list_tmp`.
 
 # dbt_hubspot v1.8.0
 

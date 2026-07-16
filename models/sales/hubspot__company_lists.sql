@@ -1,11 +1,13 @@
 {{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_list_enabled'])) }}
 
+{% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_company_list_member_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_company_enabled']) %}
+
 with company_lists as (
 
     select *
     from {{ ref('stg_hubspot__company_list') }}
 
-{% if fivetran_utils.enabled_vars(['hubspot_company_list_member_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_company_enabled']) %}
+{% if engagements_enabled %}
 
 ), engagement_metrics as (
 
@@ -40,7 +42,7 @@ company_list_members_aggregated as (
     select
         company_lists.*
 
-    {% if fivetran_utils.enabled_vars(['hubspot_company_list_member_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_company_enabled']) %}
+    {% if engagements_enabled %}
         {% for metric in engagement_metrics() %}
         , coalesce(engagement_metrics.{{ metric }}, 0) as {{ metric }}
         {% endfor %}
@@ -48,7 +50,7 @@ company_list_members_aggregated as (
 
     from company_lists
 
-    {% if fivetran_utils.enabled_vars(['hubspot_company_list_member_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_company_enabled']) %}
+    {% if engagements_enabled %}
     left join engagement_metrics
         on company_lists.company_list_id = engagement_metrics.company_list_id
         and company_lists.source_relation = engagement_metrics.source_relation
