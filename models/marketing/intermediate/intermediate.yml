@@ -23,3 +23,8 @@ models:
       - name: contact_id
         tests:
           - not_null
+  - name: int_hubspot__daily_email_metrics__by_contact
+    columns:
+      - name: contact_id
+        tests:
+          - not_null

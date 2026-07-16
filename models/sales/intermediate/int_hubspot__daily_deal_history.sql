@@ -15,6 +15,7 @@
 {% do deal_columns.append('owner_id') if var('hubspot_owner_enabled', true) %}
 {% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
 {% set deal_columns = deal_columns | unique | list %}
+{% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
 
 with deal_history as (
 
@@ -34,7 +35,7 @@ with deal_history as (
     where lower(field_name) in ({{ "'" ~ deal_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
-    and valid_from >= (select cast(max(date_day) as {{ dbt.type_timestamp() }}) from {{ this }} )
+    and cast(valid_from as date) >= {{ lookback_date }}
     {% endif %}
 
 {# Deal stages are not stored in deal_property_history #}
@@ -54,7 +55,7 @@ with deal_history as (
     from {{ ref('stg_hubspot__deal_stage') }}
 
     {% if is_incremental() %}
-    where date_entered >= (select cast(max(date_day) as {{ dbt.type_timestamp() }}) from {{ this }} )
+    where cast(date_entered as date) >= {{ lookback_date }}
     {% endif %}
 
 ), combined as (
@@ -68,7 +69,7 @@ with deal_history as (
     select
         *,
         row_number() over (
-            partition by date_day, deal_id, field_name {{ hubspot.partition_by_source_relation() }}
+            partition by date_day, deal_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
             order by valid_from desc
             ) as row_num
     from combined

@@ -11,6 +11,7 @@
 }}
 
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('int_hubspot__scd_daily_deal_history')) -%}
+{% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
 
 with change_data as (
 
@@ -18,7 +19,7 @@ with change_data as (
     from {{ ref('int_hubspot__scd_daily_deal_history') }}
 
 {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ lookback_date }}
 
 -- If no deal fields have been updated since the last incremental run, the pivoted_daily_history CTE will return no record/rows.
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist
@@ -38,7 +39,7 @@ with change_data as (
     from {{ ref('int_hubspot__deal_calendar_spine') }}
 
     {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }})
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 ), pipeline as (
@@ -107,7 +108,7 @@ with change_data as (
         , {{ col.name }}
         -- create a batch/partition once a new value is provided
         , sum(case when joined.{{ col.name }} is null then 0 else 1 end) over (
-                partition by deal_id {{ hubspot.partition_by_source_relation() }}
+                partition by deal_id {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
                 order by date_day rows unbounded preceding) as {{ col.name }}_partition
         {% endfor %}
 
@@ -123,7 +124,7 @@ with change_data as (
         {% for col in change_data_columns if col.name|lower not in ['source_relation','deal_id','date_day','id'] %}
         -- grab the value that started this batch/partition
         , first_value( {{ col.name }} ) over (
-            partition by deal_id, {{ col.name }}_partition {{ hubspot.partition_by_source_relation() }}
+            partition by deal_id, {{ col.name }}_partition {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
             order by date_day asc rows between unbounded preceding and current row) as {{ col.name }}
         {% endfor %}
 

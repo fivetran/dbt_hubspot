@@ -2,6 +2,63 @@ version: 2
 
 models:
 
+  - name: hubspot__daily_contact_history
+    description: >
+      Each record represents a contact's day in Hubspot with tracked properties pivoted into columns. By default, tracks the contact's
+      lifecycle stage, likelihood-to-close score, and owner on each day and includes engagement and email event metrics.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: contact_day_id
+        description: Unique surrogate key hashed on `source_relation`, `date_day`, and `contact_id`.
+        tests:
+          - unique
+          - not_null
+      - name: date_day
+        description: Date on which the contact had these values.
+      - name: contact_id
+        description: Unique id of a contact in Hubspot.
+      - name: lifecyclestage
+        description: The lifecycle stage of the contact on that day.
+      - name: hs_predictivecontactscore_v2
+        description: HubSpot's predicted likelihood (0–100) that the contact will close as a customer on that day.
+      - name: hubspot_owner_id
+        description: The ID of the contact owner on that day.
+      - name: owner_full_name
+        description: The full name of the contact owner on that day.
+      - name: owner_email_address
+        description: The email address of the contact owner on that day.
+      - name: count_engagement_notes
+        description: Number of note engagements logged for the contact on that day.
+      - name: count_engagement_tasks
+        description: Number of task engagements logged for the contact on that day.
+      - name: count_engagement_calls
+        description: Number of call engagements logged for the contact on that day.
+      - name: count_engagement_meetings
+        description: Number of meeting engagements logged for the contact on that day.
+      - name: count_engagement_emails
+        description: Number of outbound email engagements logged for the contact on that day.
+      - name: count_engagement_incoming_emails
+        description: Number of inbound email engagements logged for the contact on that day.
+      - name: count_engagement_forwarded_emails
+        description: Number of forwarded email engagements logged for the contact on that day.
+      - name: count_engagement_communications
+        description: Number of communication engagements logged for the contact on that day.
+      - name: count_emails_sent
+        description: Number of emails sent to the contact on that day.
+      - name: count_email_deliveries
+        description: Number of emails delivered to the contact on that day.
+      - name: count_email_opens
+        description: Number of email opens by the contact on that day.
+      - name: count_email_clicks
+        description: Number of email link clicks by the contact on that day.
+      - name: count_email_bounces
+        description: Number of email bounces for the contact on that day.
+      - name: count_email_spam_reports
+        description: Number of spam reports by the contact on that day.
+      - name: count_email_unsubscribes
+        description: Number of email unsubscribes by the contact on that day.
+
   - name: hubspot__contact_history
     description: Each record represents a change to contact record in Hubspot; the grain of this model is contact_id -> field_name -> valid_to.
     columns:
