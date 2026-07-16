@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's HubSpot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 174
+- Number of materialized models¹: 179
 - Connector documentation
   - [HubSpot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [HubSpot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
