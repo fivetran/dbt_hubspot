@@ -143,6 +143,7 @@ public_models: [
   "hubspot__email_event_spam_report",
   "hubspot__email_event_status_change",
   "hubspot__contact_history",
+  "hubspot__daily_contact_history",
   "hubspot__contact_lists",
   "hubspot__contacts",
   "hubspot__email_campaigns",
@@ -223,6 +224,11 @@ supported_vars:
     description: "Ticket properties from `TICKET_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
     display_name: "Tracked Ticket Properties"
 
+  hubspot__contact_property_history_columns:
+    type: list
+    description: "Contact properties from `CONTACT_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_contact_history`. Lifecycle stage and owner are included automatically"
+    display_name: "Tracked Contact Properties"
+
   hubspot__deal_property_history_columns:
     type: list
     description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
@@ -246,3 +252,8 @@ supported_vars:
     description: "Include filtered email events in all `hubspot__email_event_*` models and downstream aggregations in `hubspot__email_sends`, `hubspot__email_campaigns`, `hubspot__contacts`, and `hubspot__contact_lists`"
     display_name: "Include Filtered Email Events"
 
+  lookback_window:
+    type: integer
+    value: 3
+    description: "Number of days into the past that the models will look back to capture late-arriving records on incremental runs"
+    display_name: "Incremental Run Lookback Window (Days)"

@@ -1,6 +1,6 @@
 {{
     config(
-        enabled=var('hubspot_service_enabled', False),
+        enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_property_enabled', 'hubspot_contact_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
         partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks'] else ['date_day'],
@@ -10,12 +10,12 @@
     )
 }}
 
-{% set ticket_columns = (['hs_pipeline', 'hs_pipeline_stage'] + var('hubspot__ticket_property_history_columns', []))|unique|list %}
+{% set contact_columns = (['lifecyclestage', 'hs_predictivecontactscore_v2', 'hubspot_owner_id'] + var('hubspot__contact_property_history_columns', [])) | unique | list %}
 
 with daily_history as (
 
     select *
-    from {{ ref('int_hubspot__daily_ticket_history') }}
+    from {{ ref('int_hubspot__daily_contact_history') }}
 
     {% if is_incremental() %}
     where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
@@ -23,13 +23,12 @@ with daily_history as (
 
 ), pivot_out as (
 
-    select 
+    select
         source_relation,
-        date_day, 
-        ticket_id
+        date_day,
+        contact_id
 
-        -- should we remove the `hs_` prefix? could introduce some duplicates if people already have something like `hs_owner` and `owner`
-        {% for col in ticket_columns -%}
+        {% for col in contact_columns -%}
         , max(case when lower(field_name) = '{{ col|lower }}' then new_value end) as {{ dbt_utils.slugify(col) | replace(' ', '_') | lower }}
         {% endfor -%}
 
@@ -39,9 +38,9 @@ with daily_history as (
 
 ), surrogate as (
 
-    select 
+    select
         *,
-        {{ dbt_utils.generate_surrogate_key(['source_relation','date_day', 'ticket_id']) }} as id
+        {{ dbt_utils.generate_surrogate_key(['source_relation','date_day', 'contact_id']) }} as id
     from pivot_out
 )
 
