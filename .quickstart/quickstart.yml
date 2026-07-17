@@ -222,7 +222,7 @@ supported_vars:
 
   hubspot__company_property_history_columns:
     type: list
-    description: "Company properties from `COMPANY_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_company_history`. Owner, lead status, and lifecycle stage are included automatically"
+    description: "Company properties from `COMPANY_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_company_history`. Owner and lifecycle stage are included automatically"
     display_name: "Tracked Company Properties"
 
   hubspot__daily_history_start_date:

@@ -10,7 +10,7 @@
     )
 }}
 
-{% set company_columns = (['hubspot_owner_id', 'hs_lead_status', 'lifecyclestage'] + var('hubspot__company_property_history_columns', [])) | unique | list %}
+{% set company_columns = (['hubspot_owner_id', 'lifecyclestage'] + var('hubspot__company_property_history_columns', [])) | unique | list %}
 
 with history as (
 

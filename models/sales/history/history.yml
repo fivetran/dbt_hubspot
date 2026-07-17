@@ -61,7 +61,7 @@ models:
 
   - name: hubspot__daily_company_history
     description: >
-      Each record represents a company's day in Hubspot with tracked properties pivoted into columns. By default, tracks the company's owner, lead status, and lifecycle stage on each day.
+      Each record represents a company's day in Hubspot with tracked properties pivoted into columns. By default, tracks the company's owner and lifecycle stage on each day.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -76,8 +76,6 @@ models:
         description: Unique id of a company in Hubspot.
       - name: hubspot_owner_id
         description: The ID of the company owner on that day.
-      - name: hs_lead_status
-        description: The lead status of the company on that day.
       - name: lifecyclestage
         description: The lifecycle stage of the company on that day.
       - name: owner_full_name
