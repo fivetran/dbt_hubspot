@@ -311,7 +311,7 @@ vars:
 ```
 
 #### Daily contact, ticket, deal, and company history
-The `hubspot__daily_contact_history` model will materialize if `hubspot_marketing_enabled`, `hubspot_contact_property_enabled`, and `hubspot_contact_property_history_enabled` are all set to `true`. The `hubspot__daily_deal_history` model will materialize if `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` are all set to `true`. The `hubspot__daily_company_history` model will materialize if `hubspot_sales_enabled`, `hubspot_company_enabled`, and `hubspot_company_property_history_enabled` are all set to `true`. The `hubspot__daily_ticket_history` model is disabled but will materialize if `hubspot_service_enabled` is set to `true`.
+The `hubspot__daily_contact_history` model will materialize if `hubspot_marketing_enabled`, `hubspot_contact_property_enabled`, and `hubspot_contact_property_history_enabled` are all set to `true`. The `hubspot__daily_deal_history` model will materialize if `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` are all set to `true`. The `hubspot__daily_company_history` model will materialize if `hubspot_sales_enabled`, `hubspot_company_enabled`, and `hubspot_company_property_history_enabled` are all set to `true`. The `hubspot__daily_ticket_history` model is disabled by default but will materialize if `hubspot_service_enabled` is set to `true`.
 
 See additional configurations for these models below.
 
@@ -372,8 +372,8 @@ vars:
     deal_history_extension_days: integer_number_of_days # default = 30
 ```
 
-#### Daily history start date
-By default, the daily history models (`hubspot__daily_contact_history`, `hubspot__daily_deal_history`, `hubspot__daily_company_history`, `hubspot__daily_ticket_history`) generate one row per object per day going back to the earliest created record. For large datasets, you may limit history to a specific start date with the following configuration:
+##### Daily history start date
+By default, the daily history models generate one row per object per day going back to the earliest created record. For large datasets, you may limit history to a specific start date with the following configuration:
 
 ```yml
 vars:
@@ -381,7 +381,7 @@ vars:
     hubspot__daily_history_start_date: "2022-01-01" # ISO date string
 ```
 
-#### Lookback window
+##### Lookback window
 Records from the source can sometimes arrive late. Since several of the models in this package are incremental, by default we look back 3 days from new records to ensure late arrivals are captured and avoiding the need for frequent full refreshes. While the frequency can be reduced, we still recommend running `dbt --full-refresh` periodically to maintain data quality of the models. 
 
 To change the default lookback window, add the following variable to your `dbt_project.yml` file:
