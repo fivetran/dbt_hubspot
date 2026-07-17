@@ -148,8 +148,8 @@ with change_data as (
 
     select
         fill_values.source_relation,
-        date_day,
-        deal_id,
+        fill_values.date_day,
+        fill_values.deal_id,
         pipeline_stage.is_closed as is_deal_closed,
         pipeline.pipeline_label as pipeline_label,
         pipeline_stage.pipeline_stage_label as pipeline_stage_label
