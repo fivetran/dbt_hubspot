@@ -40,10 +40,10 @@ company_list_members_aggregated as (
 ), joined as (
 
     select
-        company_lists.*,
+        company_lists.*
 
         {% if var('hubspot_company_list_member_enabled', true) %}
-        company_list_members_aggregated.total_companies
+        , company_list_members_aggregated.total_companies
         {% endif %}
 
     {% if engagements_enabled %}
