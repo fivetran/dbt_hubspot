@@ -40,7 +40,8 @@ company_list_members_aggregated as (
 ), joined as (
 
     select
-        company_lists.*
+        company_lists.*,
+        company_list_members_aggregated.total_companies
 
     {% if engagements_enabled %}
         {% for metric in engagement_metrics() %}
