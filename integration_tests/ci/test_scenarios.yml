@@ -45,7 +45,7 @@ test_scenarios:
       hubspot_email_event_sent_enabled: false
     include_incremental: false
 
-  - name: "sales only with all features + conversation"
+  - name: "sales only with all features + conversation enabled + no company list members"
     vars:
       hubspot_marketing_enabled: false
       hubspot_sales_enabled: true
@@ -54,6 +54,7 @@ test_scenarios:
       hubspot_using_all_email_events: false
       hubspot_owner_enabled: false
       hubspot_conversation_enabled: true
+      hubspot_company_list_member_enabled: false
     include_incremental: false
 
   - name: "MDLS"

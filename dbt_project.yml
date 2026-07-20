@@ -74,6 +74,8 @@ vars:
     hubspot__contact_pass_through_columns: []
     hubspot__company_pass_through_columns: []
     hubspot__ticket_pass_through_columns: []
+    hubspot__company_list_pass_through_columns: []
+    hubspot__contact_list_pass_through_columns: []
 
 models:
   hubspot:

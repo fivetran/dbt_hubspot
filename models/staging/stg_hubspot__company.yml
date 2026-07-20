@@ -2,6 +2,54 @@ version: 2
 
 models:
 
+  - name: stg_hubspot__company_list
+    description: Each record represents a company list in Hubspot.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: company_list_id
+        description: The ID of the company list.
+        tests:
+          - not_null
+      - name: company_list_name
+        description: The name of the company list.
+      - name: created_by_id
+        description: The unique identifier of the user who created the company list.
+      - name: object_type_id
+        description: The ID that corresponds to the type of object stored by the list.
+      - name: processing_status
+        description: Indicates the current status of the list's processing, such as 'COMPLETE', 'CANCELED', 'PENDING', or 'PROCESSING'.
+      - name: processing_type
+        description: Specifies the type of processing applied to the list, such as 'MANUAL', 'DYNAMIC', or 'SNAPSHOT'.
+      - name: list_version
+        description: Represents the version number of the list, incrementing with each modification.
+      - name: filters_updated_at
+        description: The timestamp indicating when the list's filters were last updated.
+      - name: is_company_list_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: updated_timestamp
+        description: A timestamp of the time that the list was last modified.
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: created_timestamp
+        description: A timestamp of the time the list was created.
+
+  - name: stg_hubspot__company_list_member
+    description: Each record represents a 'link' between a company and a company list.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: is_company_list_member_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: added_timestamp
+        description: The timestamp a company was added to a list.
+      - name: company_id
+        description: The ID of the related company.
+      - name: company_list_id
+        description: The ID of the related company list.
+
   - name: stg_hubspot__company_property_history
     description: Each record represents a change to company record in Hubspot.
     columns:

@@ -43,6 +43,10 @@ table_variables:
     - contact_merge_audit
   hubspot_company_enabled:
     - company
+  hubspot_company_list_enabled:
+    - company_list
+  hubspot_company_list_member_enabled:
+    - company_list_member
   hubspot_company_property_history_enabled:
     - company_property_history
   hubspot_contact_form_enabled:
@@ -151,6 +155,7 @@ public_models: [
   "hubspot__engagement_tasks",
   "hubspot__company_history",
   "hubspot__companies",
+  "hubspot__company_lists",
   "hubspot__deal_stages",
   "hubspot__deals",
   "hubspot__daily_deal_history",
@@ -203,6 +208,16 @@ supported_vars:
     type: dictionary
     description: "Additional `TICKET` fields to include in `hubspot__tickets`"
     display_name: "Additional Ticket Columns"
+
+  hubspot__company_list_pass_through_columns:
+    type: dictionary
+    description: "Additional `COMPANY_LIST` fields to include in `hubspot__company_lists`"
+    display_name: "Additional Company List Columns"
+
+  hubspot__contact_list_pass_through_columns:
+    type: dictionary
+    description: "Additional `CONTACT_LIST` fields to include in `hubspot__contact_lists`"
+    display_name: "Additional Contact List Columns"
 
   hubspot__ticket_property_history_columns:
     type: list
