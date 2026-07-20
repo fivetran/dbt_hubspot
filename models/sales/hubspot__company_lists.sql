@@ -41,7 +41,10 @@ company_list_members_aggregated as (
 
     select
         company_lists.*,
+
+        {% if var('hubspot_company_list_member_enabled', true) %}
         company_list_members_aggregated.total_companies
+        {% endif %}
 
     {% if engagements_enabled %}
         {% for metric in engagement_metrics() %}
