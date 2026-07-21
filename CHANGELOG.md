@@ -3,7 +3,7 @@
 [PR #TBD](https://github.com/fivetran/dbt_hubspot/pull/TBD) includes the following updates:
 
 ## Schema/Data Change
-**32 new models • 1 possible breaking change**
+**37 new models • 1 possible breaking change**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
