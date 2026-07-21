@@ -103,6 +103,54 @@ sources:
           - name: property_annualrevenue
             description: The actual or estimated annual revenue of the company.
 
+      - name: company_list
+        identifier: "{{ var('hubspot_company_list_identifier', 'company_list')}}"
+        description: Each record represents a company list in Hubspot.
+        config:
+          enabled: "{{ var('hubspot_sales_enabled', true) and var('hubspot_company_list_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The ID of the company list.
+          - name: name
+            description: The name of the company list.
+          - name: created_at
+            description: A timestamp of the time the list was created.
+          - name: updated_at
+            description: A timestamp of the time that the list was last modified.
+          - name: created_by_id
+            description: The unique identifier of the user who created the company list.
+          - name: object_type_id
+            description: The ID that corresponds to the type of object stored by the list.
+          - name: processing_status
+            description: Indicates the current status of the list's processing, such as 'COMPLETE', 'CANCELED', 'PENDING', or 'PROCESSING'.
+          - name: processing_type
+            description: Specifies the type of processing applied to the list, such as 'MANUAL', 'DYNAMIC', or 'SNAPSHOT'.
+          - name: list_version
+            description: Represents the version number of the list, incrementing with each modification.
+          - name: filters_updated_at
+            description: The timestamp indicating when the list's filters were last updated.
+
+      - name: company_list_member
+        identifier: "{{ var('hubspot_company_list_member_identifier', 'company_list_member')}}"
+        description: Each record represents a 'link' between a company and a company list.
+        config:
+          enabled: "{{ var('hubspot_sales_enabled', true) and var('hubspot_company_list_member_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: company_id
+            description: The ID of the related company.
+          - name: company_list_id
+            description: The ID of the related company list.
+          - name: added_at
+            description: The timestamp a company was added to a list.
+
       - name: company_property_history
         identifier: "{{ var('hubspot_company_property_history_identifier', 'company_property_history')}}"
         description: Each record represents a change to company record in Hubspot.
