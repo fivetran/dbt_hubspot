@@ -11,6 +11,7 @@ schema_variable_name: "hubspot_schema"
 include_databricks_sql: true
 include_sqlserver: false
 include_dbt_compile: true
+include_duckdb: false
 
 test_scenarios:
   - name: "Default"

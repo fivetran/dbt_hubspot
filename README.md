@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's HubSpot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 179
+- Number of materialized models¹: 184
 - Connector documentation
   - [HubSpot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [HubSpot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -35,6 +35,7 @@ By default, this package materializes the following final tables:
 | :---- | :---- |
 | [hubspot__companies](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__companies) | Each record represents a company in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>Which companies receive many emails but send few replies?</li><li>Which industries or regions have the most engaged companies?</li></ul> |
 | [hubspot__company_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_history) | Each record represents a change to a company in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>Which companies change owners or lifecycle stages most often?</li><li>How long after updating company details do deals typically get created?</li></ul> |
+| [hubspot__daily_company_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_company_history) | Each record represents a company's day in Hubspot with owner, lifecycle stage, daily engagement activity counts, and other selected properties pivoted into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long have companies spent in each lifecycle stage on average?</li><li>Which companies have the highest engagement activity relative to their lifecycle stage?</li></ul> |
 | [hubspot__contacts](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | Each record represents a contact in Hubspot, enriched with metrics about email and engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>Which job titles have the highest email open and click rates?</li><li>Do contacts prefer calls and meetings or email?</li></ul> |
 | [hubspot__contact_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contact_history) | Each record represents a change to a contact in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>What is the typical progression timeline of contact lifecycle stage changes from "lead" to "customer"?</li><li>What proportion of contacts revert to earlier lifecycle stages?</li></ul> |
 | [hubspot__daily_contact_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_contact_history) | Each record represents a contact's day in Hubspot with tracked properties and engagement/email metrics pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did contacts spend in each lifecycle stage on average last quarter?</li><li>Which contacts have changed owners most frequently over the past year?</li></ul> |
@@ -43,7 +44,7 @@ By default, this package materializes the following final tables:
 | [hubspot__deals](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deals) | Each record represents a deal in Hubspot, enriched with metrics about engagement activities.<br><br>**Example Analytics Questions:**<br><ul><li>How do won deals differ from lost deals in engagement activity?</li><li>Which high-value deals have low engagement and may be at risk?</li></ul> |
 | [hubspot__deal_stages](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_stages) | Each record represents when a deal stage changes in Hubspot, with stage entry/exit dates and pipeline metadata.<br><br>**Example Analytics Questions:**<br><ul><li>Which pipeline stages have the highest drop-off rates?</li><li>Which deals are currently in stages longer than the historical average, indicating stalled opportunities?</li></ul> |
 | [hubspot__deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__deal_history) | Each record represents a change to a deal in Hubspot, with `valid_to` and `valid_from` information.<br><br>**Example Analytics Questions:**<br><ul><li>How do deal amounts fluctuate throughout the sales cycle?</li><li>Which deals have experienced frequent ownership transfers or reassignments, possibly slowing progress?</li></ul> |
-| [hubspot__daily_deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | Each record represents a deal's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did deals spend in each pipeline stage on average last quarter?</li><li>Which deals have been stalled in the same stage the longest?</li></ul> |
+| [hubspot__daily_deal_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | Each record represents a deal's day in Hubspot with tracked properties and engagement metrics pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did deals spend in each pipeline stage on average last quarter?</li><li>Which deals have been stalled in the same stage the longest?</li></ul> |
 | [hubspot__tickets](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__tickets) | Each record represents a ticket in Hubspot, enriched with metrics about engagement activities and information on associated deals, contacts, companies, and owners.<br><br>**Example Analytics Questions:**<br><ul><li>Which currently open tickets are linked to high-value customers or companies and should be prioritized?</li><li>Which customers generate the highest support volume relative to their deal size or lifetime value?</li></ul> |
 | [hubspot__daily_ticket_history](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_ticket_history) | Each record represents a ticket's day in Hubspot with tracked properties pivoted out into columns.<br><br>**Example Analytics Questions:**<br><ul><li>How long did tickets spend in each pipeline stage on average last quarter?</li><li>What is the distribution of ticket ages by priority level and pipeline stage?</li></ul> |
 | [hubspot__conversations](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | Each record represents a conversation thread in HubSpot, enriched with inbox, channel, and message metrics.<br><br>**Example Analytics Questions:**<br><ul><li>What is the average first response time and resolution time by inbox or channel?</li><li>Which agents handle the most conversations and how does their message volume compare?</li></ul> |
@@ -328,20 +329,23 @@ vars:
   hubspot_using_all_email_events: false # True by default
 ```
 
-#### Daily contact, ticket, and deal history
-The `hubspot__daily_contact_history` model is disabled by default, but will materialize if `hubspot_marketing_enabled`, `hubspot_contact_property_enabled`, and `hubspot_contact_property_history_enabled` are all set to `true`. The `hubspot__daily_ticket_history` model is disabled by default, but will materialize if `hubspot_service_enabled` is set to `true`. The `hubspot__daily_deal_history` model is disabled by default, but will materialize if `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` are all set to `true`. See additional configurations for these models below.
+#### Daily contact, ticket, deal, and company history
+The `hubspot__daily_contact_history` model will materialize if `hubspot_marketing_enabled`, `hubspot_contact_property_enabled`, and `hubspot_contact_property_history_enabled` are all set to `true`. The `hubspot__daily_deal_history` model will materialize if `hubspot_sales_enabled`, `hubspot_deal_enabled`, and `hubspot_deal_property_history_enabled` are all set to `true`. The `hubspot__daily_company_history` model will materialize if `hubspot_sales_enabled`, `hubspot_company_enabled`, and `hubspot_company_property_history_enabled` are all set to `true`. The `hubspot__daily_ticket_history` model is disabled by default but will materialize if `hubspot_service_enabled` is set to `true`.
 
-> **Note**: `hubspot__daily_contact_history`, `hubspot__daily_ticket_history`, `hubspot__daily_deal_history`, and their parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
+See additional configurations for these models below.
 
-##### **Tracking contact, ticket, and deal properties**
+> **Note**: `hubspot__daily_contact_history`, `hubspot__daily_ticket_history`, `hubspot__daily_deal_history`, `hubspot__daily_company_history`, and their parent intermediate models are incremental. After making any of the below configurations, you will need to run a full refresh.
+
+##### **Tracking contact, ticket, deal, and company properties**
 
 By default, the following properties are tracked daily and pivoted into columns in the respective end model:
 
 * Each contact's lifecycle stage, likelihood-to-close score (`hs_predictivecontactscore_v2`), and owner is tracked in `hubspot__daily_contact_history`
 * Each deal's stage, pipeline, amount, owner, and team is tracked in `hubspot__daily_deal_history`
 * Each ticket's state, pipeline, and pipeline stage is tracked in `hubspot__daily_ticket_history`
+* Each company's lifecycle stage and owner is tracked in `hubspot__daily_company_history`
 
-However, any property `name` from the source `CONTACT_PROPERTY_HISTORY`, `DEAL_PROPERTY_HISTORY`, or `TICKET_PROPERTY_HISTORY` tables can be included. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
+However, any property `name` from the source `CONTACT_PROPERTY_HISTORY`, `DEAL_PROPERTY_HISTORY`, `TICKET_PROPERTY_HISTORY`, or `COMPANY_PROPERTY_HISTORY` tables can be included. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
 
 ```yml
 vars:
@@ -358,6 +362,12 @@ vars:
     - property
     - names
   hubspot__deal_property_history_columns:
+    - the
+    - list
+    - of
+    - property
+    - names
+  hubspot__company_property_history_columns:
     - the
     - list
     - of
@@ -381,7 +391,16 @@ vars:
     deal_history_extension_days: integer_number_of_days # default = 30
 ```
 
-#### Lookback window
+##### Daily history start date
+By default, the daily history models generate one row per object per day going back to the earliest created record. For large datasets, you may limit history to a specific start date with the following configuration:
+
+```yml
+vars:
+  hubspot:
+    hubspot__daily_history_start_date: "2022-01-01" # ISO date string
+```
+
+##### Lookback window
 Records from the source can sometimes arrive late. Since several of the models in this package are incremental, by default we look back 3 days from new records to ensure late arrivals are captured and avoiding the need for frequent full refreshes. While the frequency can be reduced, we still recommend running `dbt --full-refresh` periodically to maintain data quality of the models. 
 
 To change the default lookback window, add the following variable to your `dbt_project.yml` file:

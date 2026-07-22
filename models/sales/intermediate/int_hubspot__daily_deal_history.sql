@@ -36,6 +36,8 @@ with deal_history as (
 
     {% if is_incremental() %}
     and cast(valid_from as date) >= {{ lookback_date }}
+    {% elif var('hubspot__daily_history_start_date', none) %}
+    and cast(valid_from as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
 
 {# Deal stages are not stored in deal_property_history #}
@@ -56,6 +58,8 @@ with deal_history as (
 
     {% if is_incremental() %}
     where cast(date_entered as date) >= {{ lookback_date }}
+    {% elif var('hubspot__daily_history_start_date', none) %}
+    where cast(date_entered as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
 
 ), combined as (

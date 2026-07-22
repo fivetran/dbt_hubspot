@@ -158,6 +158,7 @@ public_models: [
   "hubspot__company_lists",
   "hubspot__deal_stages",
   "hubspot__deals",
+  "hubspot__daily_company_history",
   "hubspot__daily_deal_history",
   "hubspot__deal_history",
   "hubspot__engagements",
@@ -233,6 +234,16 @@ supported_vars:
     type: list
     description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
     display_name: "Tracked Deal Properties"
+
+  hubspot__company_property_history_columns:
+    type: list
+    description: "Company properties from `COMPANY_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_company_history`. Owner and lifecycle stage are included automatically"
+    display_name: "Tracked Company Properties"
+
+  hubspot__daily_history_start_date:
+    type: string
+    description: "ISO date string (e.g. '2022-01-01') that limits all daily history models to records on or after this date. Useful for reducing build time on large datasets"
+    display_name: "Daily History Start Date"
 
   ticket_history_extension_days:
     type: integer
