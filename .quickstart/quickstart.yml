@@ -4,6 +4,14 @@ schema_key: hubspot_schema
 dbt_versions: ">=1.3.0 <3.0.0"
 
 table_variables:
+  hubspot_marketing_event_enabled:
+    - marketing_event
+  hubspot_marketing_event_list_enabled:
+    - marketing_event_list
+  hubspot_marketing_event_participant_enabled:
+    - marketing_event_participant
+  hubspot_marketing_event_custom_property_enabled:
+    - marketing_event_custom_property
   hubspot_contact_enabled:
     - contact
   hubspot_contact_list_enabled:
@@ -164,7 +172,8 @@ public_models: [
   "hubspot__engagements",
   "hubspot__daily_ticket_history",
   "hubspot__tickets",
-  "hubspot__conversations"
+  "hubspot__conversations",
+  "hubspot__marketing_event_performance"
 ]
 
 supported_vars:
@@ -234,6 +243,11 @@ supported_vars:
     type: list
     description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
     display_name: "Tracked Deal Properties"
+
+  hubspot_marketing_event_custom_properties:
+    type: list
+    description: "Custom property names from `MARKETING_EVENT_CUSTOM_PROPERTY.name` to pivot into columns in `hubspot__marketing_event_performance`. Requires `hubspot_marketing_event_custom_property_enabled: true`."
+    display_name: "Marketing Event Custom Property Columns"
 
   hubspot__company_property_history_columns:
     type: list

@@ -149,6 +149,10 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
 - `hubspot_conversation_enabled`
+- `hubspot_marketing_event_enabled`
+- `hubspot_marketing_event_list_enabled`
+- `hubspot_marketing_event_participant_enabled`
+- `hubspot_marketing_event_custom_property_enabled`
 
 You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
@@ -157,6 +161,10 @@ vars:
   # Marketing
 
   hubspot_marketing_enabled: false                        # Disables all marketing models
+  hubspot_marketing_event_enabled: true                   # Enables marketing event models. Default = False
+  hubspot_marketing_event_list_enabled: true              # Enables marketing event list models. Default = False
+  hubspot_marketing_event_participant_enabled: true       # Enables marketing event participant models. Default = False
+  hubspot_marketing_event_custom_property_enabled: true   # Enables marketing event custom property models. Default = False
   hubspot_contact_enabled: false                          # Disables the contact models
   hubspot_contact_form_enabled: false                     # Disables form and contact form submission data and its relationship to contacts
   hubspot_submission_response_enabled: false              # Disables the submission_response source table and its enrichment of form conversion metrics in hubspot__contacts. Default = True
@@ -327,6 +335,14 @@ When leveraging email events, HubSpot customers may take advantage of filtering 
 ```yml
 vars:
   hubspot_using_all_email_events: false # True by default
+```
+
+#### Pivoting marketing event custom properties
+When `hubspot_marketing_event_custom_property_enabled` is true, you can pivot specific custom property values into columns in `hubspot__marketing_event_performance` using the `hubspot_marketing_event_custom_properties` variable. Each property name you list produces a `custom_property_<name>` column in the final model. By default, no properties are pivoted.
+
+```yml
+vars:
+  hubspot_marketing_event_custom_properties: ['spent', 'budget'] # Default = []
 ```
 
 #### Daily contact, ticket, deal, and company history

@@ -1792,6 +1792,132 @@ sources:
           - name: _fivetran_active
             description: Boolean indicating whether this is the currently active version of the record.
 
+      - name: marketing_event
+        identifier: "{{ var('hubspot_marketing_event_identifier', 'marketing_event')}}"
+        description: Each record represents a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The unique ID of the marketing event.
+          - name: app_id
+            description: The string ID of the app associated with the marketing event.
+          - name: app_name
+            description: The name of the app associated with the marketing event.
+          - name: attendees
+            description: Number of attended contact records of a marketing event.
+          - name: cancellations
+            description: Number of cancelled contact records of a marketing event.
+          - name: created_at
+            description: The timestamp when the marketing event was created.
+          - name: end_date_time
+            description: The timestamp when the marketing event ends.
+          - name: event_cancelled
+            description: Boolean indicating whether the marketing event was cancelled.
+          - name: event_completed
+            description: Boolean indicating whether the marketing event has been completed.
+          - name: event_description
+            description: A description of the marketing event.
+          - name: event_name
+            description: The name of the marketing event.
+          - name: event_organizer
+            description: The name of the organizer of the marketing event.
+          - name: event_status
+            description: The current status of the marketing event.
+          - name: event_type
+            description: The type of marketing event.
+          - name: event_url
+            description: A URL in the external event application where the marketing event can be managed.
+          - name: external_event_id
+            description: The ID that is associated with this marketing event in the external event application.
+          - name: no_shows
+            description: Number of no-show contact records of a marketing event.
+          - name: registrants
+            description: Number of registered contact records of a marketing event.
+          - name: start_date_time
+            description: The timestamp when the marketing event starts.
+          - name: updated_at
+            description: The timestamp when the marketing event was last updated.
+
+      - name: marketing_event_list
+        identifier: "{{ var('hubspot_marketing_event_list_identifier', 'marketing_event_list')}}"
+        description: Each record represents a list associated with a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_marketing_event_list_enabled', false) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The unique ID of the marketing event list.
+          - name: marketing_event_id
+            description: The ID of the related marketing event.
+          - name: name
+            description: The name of the marketing event list.
+          - name: created_by_id
+            description: The ID of the user who created the list.
+          - name: updated_by_id
+            description: The ID of the user who last updated the list.
+          - name: filters_updated_at
+            description: The timestamp when the list filters were last updated.
+          - name: created_at
+            description: The timestamp when the list was created.
+          - name: processing_status
+            description: The current processing status of the list.
+          - name: deleted_at
+            description: The timestamp when the list was deleted, if applicable.
+          - name: list_version
+            description: The version number of the list.
+          - name: object_type_id
+            description: The ID corresponding to the object type stored by the list.
+          - name: size
+            description: The number of records in the list.
+          - name: updated_at
+            description: The timestamp when the list was last updated.
+
+      - name: marketing_event_participant
+        identifier: "{{ var('hubspot_marketing_event_participant_identifier', 'marketing_event_participant')}}"
+        description: Each record represents a participant in a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_marketing_event_participant_enabled', false) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The unique ID of the marketing event participant record.
+          - name: marketing_event_id
+            description: The ID of the related marketing event.
+          - name: contact_id
+            description: The ID of the related contact.
+          - name: created_at
+            description: The timestamp when the participant record was created.
+          - name: properties_occurred_at
+            description: The timestamp when the participation event occurred.
+          - name: properties_attendance_percentage
+            description: Percentage of the participation duration relative to the event duration.
+          - name: properties_attendance_state
+            description: The attendance state of the participant (e.g., ATTENDED, CANCELLED, EMPTY, NO_SHOW, REGISTERED).
+          - name: properties_attendance_duration_seconds
+            description: The number of seconds the participation lasted.
+
+      - name: marketing_event_custom_property
+        identifier: "{{ var('hubspot_marketing_event_custom_property_identifier', 'marketing_event_custom_property')}}"
+        description: Each record represents a custom property on a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_marketing_event_custom_property_enabled', false) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: marketing_event_id
+            description: The ID of the related marketing event.
+          - name: name
+            description: The name of the custom property.
+          - name: value
+            description: The value of the custom property.
+
       - name: conversation_message_recipient
         identifier: '{{ var("hubspot_conversation_message_recipient_identifier", "conversation_message_recipient") }}'
         description: Each record represents a recipient associated with a conversation message.

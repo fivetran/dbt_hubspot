@@ -1,0 +1,7 @@
+marketing_event_id,name,value,_fivetran_synced
+1,campaign_id,camp-2024-q1,2024-02-01 14:00:00
+1,region,North America,2024-02-01 14:00:00
+1,spent,10000,2024-02-01 14:00:00
+2,campaign_id,camp-2024-spring,2024-03-15 11:00:00
+2,spent,5000,2024-03-15 11:00:00
+2,region,Europe,2024-03-15 11:00:00
