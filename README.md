@@ -149,10 +149,6 @@ By default, all variables are assumed to be `true`, **with the exception of the 
 - `hubspot_merged_deal_enabled`
 - `hubspot_engagement_communication_enabled`
 - `hubspot_conversation_enabled`
-- `hubspot_marketing_event_enabled`
-- `hubspot_marketing_event_list_enabled`
-- `hubspot_marketing_event_participant_enabled`
-- `hubspot_marketing_event_custom_property_enabled`
 
 You only need to add variables for the sources that differ from their defaults. To do so, add the relevant variable configuration from below to your `dbt_project.yml`:
 
@@ -160,11 +156,6 @@ You only need to add variables for the sources that differ from their defaults. 
 vars:
   # Marketing
 
-  hubspot_marketing_enabled: false                        # Disables all marketing models
-  hubspot_marketing_event_enabled: true                   # Enables marketing event models. Default = False
-  hubspot_marketing_event_list_enabled: true              # Enables marketing event list models. Default = False
-  hubspot_marketing_event_participant_enabled: true       # Enables marketing event participant models. Default = False
-  hubspot_marketing_event_custom_property_enabled: true   # Enables marketing event custom property models. Default = False
   hubspot_contact_enabled: false                          # Disables the contact models
   hubspot_contact_form_enabled: false                     # Disables form and contact form submission data and its relationship to contacts
   hubspot_submission_response_enabled: false              # Disables the submission_response source table and its enrichment of form conversion metrics in hubspot__contacts. Default = True
@@ -189,6 +180,12 @@ vars:
   hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
 
+  hubspot_marketing_enabled: false                        # Disables all marketing models
+  hubspot_marketing_event_enabled: false                  # Disables marketing event models. Default = True
+  hubspot_marketing_event_list_enabled: false             # Disables marketing event list models. Default = True
+  hubspot_marketing_event_participant_enabled: false      # Disables marketing event participant models. Default = True
+  hubspot_marketing_event_custom_property_enabled: false  # Disables marketing event custom property models. Default = True
+  
   # Sales
 
   hubspot_sales_enabled: false                            # Disables all sales models

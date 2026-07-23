@@ -1796,7 +1796,7 @@ sources:
         identifier: "{{ var('hubspot_marketing_event_identifier', 'marketing_event')}}"
         description: Each record represents a marketing event in HubSpot.
         config:
-          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_sources', []) == [] }}"
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_sources', []) == [] }}"
         columns:
           - name: _fivetran_deleted
             description: '{{ doc("_fivetran_deleted") }}'
@@ -1847,7 +1847,7 @@ sources:
         identifier: "{{ var('hubspot_marketing_event_list_identifier', 'marketing_event_list')}}"
         description: Each record represents a list associated with a marketing event in HubSpot.
         config:
-          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_marketing_event_list_enabled', false) and var('hubspot_sources', []) == [] }}"
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_marketing_event_list_enabled', true) and var('hubspot_sources', []) == [] }}"
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
@@ -1882,7 +1882,7 @@ sources:
         identifier: "{{ var('hubspot_marketing_event_participant_identifier', 'marketing_event_participant')}}"
         description: Each record represents a participant in a marketing event in HubSpot.
         config:
-          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_marketing_event_participant_enabled', false) and var('hubspot_sources', []) == [] }}"
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_marketing_event_participant_enabled', true) and var('hubspot_sources', []) == [] }}"
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
@@ -1907,7 +1907,7 @@ sources:
         identifier: "{{ var('hubspot_marketing_event_custom_property_identifier', 'marketing_event_custom_property')}}"
         description: Each record represents a custom property on a marketing event in HubSpot.
         config:
-          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false) and var('hubspot_marketing_event_custom_property_enabled', false) and var('hubspot_sources', []) == [] }}"
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_marketing_event_custom_property_enabled', true) and var('hubspot_sources', []) == [] }}"
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'

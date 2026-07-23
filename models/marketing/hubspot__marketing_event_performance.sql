@@ -1,11 +1,11 @@
-{{ config(enabled=var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false)) }}
+{{ config(enabled=var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true)) }}
 
 with marketing_events as (
 
     select *
     from {{ ref('stg_hubspot__marketing_event') }}
 
-{% if var('hubspot_marketing_event_participant_enabled', false) %}
+{% if var('hubspot_marketing_event_participant_enabled', true) %}
 
 ), participants_agg as (
 
@@ -25,7 +25,7 @@ with marketing_events as (
 
 {% endif %}
 
-{% if var('hubspot_marketing_event_list_enabled', false) %}
+{% if var('hubspot_marketing_event_list_enabled', true) %}
 
 ), lists_agg as (
 
@@ -41,7 +41,7 @@ with marketing_events as (
 
 {% set custom_property_columns = var('hubspot_marketing_event_custom_properties', []) %}
 
-{% if var('hubspot_marketing_event_custom_property_enabled', false) and custom_property_columns != [] %}
+{% if var('hubspot_marketing_event_custom_property_enabled', true) and custom_property_columns != [] %}
 
 ), custom_properties as (
 
@@ -62,7 +62,7 @@ with marketing_events as (
         marketing_events.*,
 
         -- Derived time and rate metrics
-        {{ dbt.datediff("minute", "marketing_events.start_timestamp", "marketing_events.end_timestamp") }} as event_duration_minutes,
+        {{ dbt.datediff("marketing_events.start_timestamp", "marketing_events.end_timestamp", "minute") }} as event_duration_minutes,
 
         case when coalesce(marketing_events.registrants, 0) > 0
             then cast(marketing_events.attendees as {{ dbt.type_numeric() }}) / marketing_events.registrants
@@ -76,7 +76,7 @@ with marketing_events as (
             then cast(marketing_events.cancellations as {{ dbt.type_numeric() }}) / marketing_events.registrants
         end as cancellation_rate
 
-        {% if var('hubspot_marketing_event_participant_enabled', false) %}
+        {% if var('hubspot_marketing_event_participant_enabled', true) %}
         , participants_agg.total_contacts
         , participants_agg.total_attended_contacts
         , participants_agg.total_cancelled_contacts
@@ -87,11 +87,11 @@ with marketing_events as (
         , participants_agg.avg_attendance_duration_seconds
         {% endif %}
 
-        {% if var('hubspot_marketing_event_list_enabled', false) %}
+        {% if var('hubspot_marketing_event_list_enabled', true) %}
         , coalesce(lists_agg.total_lists, 0) as total_lists
         {% endif %}
 
-        {% if var('hubspot_marketing_event_custom_property_enabled', false) and custom_property_columns != [] %}
+        {% if var('hubspot_marketing_event_custom_property_enabled', true) and custom_property_columns != [] %}
         {% for column in custom_property_columns %}
         , custom_properties.{{ column }}
         {% endfor %}
@@ -99,19 +99,19 @@ with marketing_events as (
 
     from marketing_events
 
-    {% if var('hubspot_marketing_event_participant_enabled', false) %}
+    {% if var('hubspot_marketing_event_participant_enabled', true) %}
     left join participants_agg
         on marketing_events.marketing_event_id = participants_agg.marketing_event_id
         and marketing_events.source_relation = participants_agg.source_relation
     {% endif %}
 
-    {% if var('hubspot_marketing_event_list_enabled', false) %}
+    {% if var('hubspot_marketing_event_list_enabled', true) %}
     left join lists_agg
         on marketing_events.marketing_event_id = lists_agg.marketing_event_id
         and marketing_events.source_relation = lists_agg.source_relation
     {% endif %}
 
-    {% if var('hubspot_marketing_event_custom_property_enabled', false) %}
+    {% if var('hubspot_marketing_event_custom_property_enabled', true) %}
     left join custom_properties
         on marketing_events.marketing_event_id = custom_properties.marketing_event_id
         and marketing_events.source_relation = custom_properties.source_relation

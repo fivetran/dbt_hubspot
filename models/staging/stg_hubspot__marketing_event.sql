@@ -1,4 +1,4 @@
-{{ config(enabled=var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', false)) }}
+{{ config(enabled=var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true)) }}
 
 with base as (
 
