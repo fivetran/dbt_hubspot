@@ -97,7 +97,7 @@ models:
       - name: _fivetran_active
         description: Boolean indicating whether the deal stage is active.
       - name: _fivetran_end
-        description: The Fivetran calculated exist time of the deal stage. 
+        description: The Fivetran calculated exit time of the deal stage.
       - name: _fivetran_start
         description: The date the deal stage was entered.
       - name: _fivetran_synced

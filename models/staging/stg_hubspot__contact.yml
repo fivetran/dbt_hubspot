@@ -100,7 +100,7 @@ models:
         description: '{{ doc("history_value") }}'
 
   - name: stg_hubspot__contact_merge_audit
-    description: Each record contains a contact merge event and the contacts effected by the merge.
+    description: Each record contains a contact merge event and the contacts affected by the merge.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

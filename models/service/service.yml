@@ -55,7 +55,7 @@ models:
       - name: created_date
         description: The date the ticket was created.
       - name: first_agent_reply_at
-        description: the date for the first agent reply on the ticket.
+        description: The date for the first agent reply on the ticket.
       - name: ticket_pipeline_id
         description: The ID of the ticket's pipeline.
       - name: ticket_pipeline_stage_id
