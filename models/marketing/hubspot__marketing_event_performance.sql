@@ -18,7 +18,6 @@ with marketing_events as (
         count(distinct case when attendance_state = 'EMPTY'      then contact_id end)                 as total_empty_contacts,
         count(distinct case when attendance_state = 'NO_SHOW'    then contact_id end)                 as total_no_show_contacts,
         count(distinct case when attendance_state = 'REGISTERED' then contact_id end)                 as total_registered_contacts,
-        avg(attendance_percentage)                                                                    as avg_attendance_percentage,
         avg(attendance_duration_seconds)                                                              as avg_attendance_duration_seconds
     from {{ ref('stg_hubspot__marketing_event_participant') }}
     group by 1, 2
@@ -83,7 +82,6 @@ with marketing_events as (
         , participants_agg.total_empty_contacts
         , participants_agg.total_no_show_contacts
         , participants_agg.total_registered_contacts
-        , participants_agg.avg_attendance_percentage
         , participants_agg.avg_attendance_duration_seconds
         {% endif %}
 
@@ -111,7 +109,7 @@ with marketing_events as (
         and marketing_events.source_relation = lists_agg.source_relation
     {% endif %}
 
-    {% if var('hubspot_marketing_event_custom_property_enabled', true) %}
+    {% if var('hubspot_marketing_event_custom_property_enabled', true) and custom_property_columns != [] %}
     left join custom_properties
         on marketing_events.marketing_event_id = custom_properties.marketing_event_id
         and marketing_events.source_relation = custom_properties.source_relation

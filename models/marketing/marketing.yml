@@ -5,8 +5,7 @@ models:
   - name: hubspot__marketing_event_performance
     description: >
       Each record represents a marketing event with aggregated attendance metrics, contact-level participation counts,
-      segment list membership, and optional custom properties (e.g. budget spent). Use this model to measure event
-      ROI, attendance rates, and engagement across your event-based demand generation programs.
+      segment list membership, and optional custom properties (e.g. budget spent).
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -61,23 +60,21 @@ models:
       - name: cancellation_rate
         description: Ratio of cancellations to registrants. Null when registrants is zero.
       - name: total_contacts
-        description: Count of distinct contacts with a record in the participant table. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Count of distinct contacts with a record in the participant table.
       - name: total_attended_contacts
-        description: Count of distinct contacts with attendance_state = 'ATTENDED'. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Count of distinct contacts with attendance_state = 'ATTENDED'.
       - name: total_cancelled_contacts
-        description: Count of distinct contacts with attendance_state = 'CANCELLED'. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Count of distinct contacts with attendance_state = 'CANCELLED'.
       - name: total_empty_contacts
-        description: Count of distinct contacts with attendance_state = 'EMPTY'. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Count of distinct contacts with attendance_state = 'EMPTY'.
       - name: total_no_show_contacts
-        description: Count of distinct contacts with attendance_state = 'NO_SHOW'. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Count of distinct contacts with attendance_state = 'NO_SHOW'.
       - name: total_registered_contacts
-        description: Count of distinct contacts with attendance_state = 'REGISTERED'. Populated when `hubspot_marketing_event_participant_enabled` is true.
-      - name: avg_attendance_percentage
-        description: Average percentage of the participation duration relative to the event duration, across all participant records. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Count of distinct contacts with attendance_state = 'REGISTERED'.
       - name: avg_attendance_duration_seconds
-        description: Average number of seconds the participation lasted, across all participant records. Populated when `hubspot_marketing_event_participant_enabled` is true.
+        description: Average number of seconds the participation lasted, across all participant records.
       - name: total_lists
-        description: Count of active (non-deleted) lists associated with the event. Populated when `hubspot_marketing_event_list_enabled` is true.
+        description: Count of active (non-deleted) lists associated with the event.
       - name: created_timestamp
         description: The timestamp when the marketing event was created.
       - name: updated_timestamp
