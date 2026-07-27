@@ -147,7 +147,7 @@
 ## Additional Breaking Changes
 If you are currently using the `hubspot__company_pass_through_columns` or `hubspot__deal_pass_through_columns` variables to persist the `_fivetran_deleted` field, please add an `alias` to avoid duplicate column errors.
 
-> Please note that `_fivetran_deleted` is coalesced with the `is_<company/deal>_eabled` field present in the `hubspot__companies`, `hubspot__deals`, and `hubspot__deal_stages` models.
+> Please note that `_fivetran_deleted` is coalesced with the `is_<company/deal>_enabled` field present in the `hubspot__companies`, `hubspot__deals`, and `hubspot__deal_stages` models.
 
 ```yml
 vars:
