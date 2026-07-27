@@ -246,7 +246,7 @@ supported_vars:
 
   hubspot_marketing_event_custom_properties:
     type: list
-    description: "Custom property names from `MARKETING_EVENT_CUSTOM_PROPERTY.name` to pivot into columns in `hubspot__marketing_event_performance`
+    description: "Custom property names from `MARKETING_EVENT_CUSTOM_PROPERTY.name` to pivot into columns in `hubspot__marketing_event_performance`"
     display_name: "Marketing Event Custom Property Columns"
 
   hubspot__company_property_history_columns:
