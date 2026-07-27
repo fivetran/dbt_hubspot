@@ -33,6 +33,7 @@
 - Adds the `hubspot_conversation_enabled` variable to support enabling/disabling `conversation` models. Dynamically configured in Quickstart; `false` by default otherwise. 
 - Adds the `hubspot_submission_response_enabled` variable to support enabling/disabling `submission_response` models. Dynamically configured in Quickstart; `true` by default otherwise.
 - Adds the `hubspot_company_list_enabled` and `hubspot_company_list_member_enabled` variables to support enabling/disabling the new `company_list` and `company_list_member` models. Both are dynamically configured in Quickstart; enabled by default when `hubspot_sales_enabled` is `true` otherwise.
+- Adds the `hubspot_marketing_event_enabled`, `hubspot_marketing_event_list_enabled`, `hubspot_marketing_event_participant_enabled`, and `hubspot_marketing_event_custom_property_enabled` variables to support enabling/disabling the new marketing event models and their source tables. All default to `true` when `hubspot_marketing_enabled` is `true`.
 
 ## Under the Hood
 - Casts `form_id` and `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
