@@ -35,7 +35,6 @@ test_scenarios:
       hubspot_merged_deal_enabled: true
       hubspot_submission_response_enabled: false
       hubspot_email_event_enabled: false
-      hubspot_marketing_event_list_enabled: false
       hubspot_marketing_event_participant_enabled: false
       hubspot_marketing_event_custom_property_enabled: false
     include_incremental: false
@@ -47,7 +46,7 @@ test_scenarios:
       hubspot_sales_enabled: true
       hubspot_engagement_enabled: false
       hubspot_email_event_sent_enabled: false
-      hubspot_marketing_event_enabled: false
+      hubspot_marketing_event_list_enabled: false
     include_incremental: false
 
   - name: "sales only with all features + conversation enabled + no company list members"
@@ -65,6 +64,7 @@ test_scenarios:
   - name: "MDLS"
     vars:
       fivetran_using_source_casing: true
+      hubspot_marketing_event_enabled: false
     include_incremental: false
     include_dbt_seed: true
     warehouses: ["bigquery", "redshift", "postgres", "snowflake"]

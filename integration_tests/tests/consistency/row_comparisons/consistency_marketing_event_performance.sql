@@ -1,6 +1,6 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=(var('fivetran_validation_tests_enabled', false) and var('hubspot_marketing_event_enabled', false))
+    enabled=(var('fivetran_validation_tests_enabled', false) and var('hubspot_marketing_event_enabled', true))
 ) }}
 
 {% set exclude_cols = var('consistency_test_exclude', []) + ['source_relation'] %}

@@ -48,7 +48,7 @@ with marketing_events as (
         source_relation,
         marketing_event_id
         {% for column in custom_property_columns %}
-        , max(case when property_name = '{{ column }}' then property_value end) as {{ column }}
+        , max(case when property_name = '{{ column }}' then property_value end) as property_{{ column }}
         {% endfor %}
     from {{ ref('stg_hubspot__marketing_event_custom_property') }}
     group by 1, 2
@@ -91,7 +91,7 @@ with marketing_events as (
 
         {% if var('hubspot_marketing_event_custom_property_enabled', true) and custom_property_columns != [] %}
         {% for column in custom_property_columns %}
-        , custom_properties.{{ column }}
+        , custom_properties.property_{{ column }}
         {% endfor %}
         {% endif %}
 
