@@ -5,7 +5,7 @@ This dbt package transforms data from Fivetran's HubSpot connector into analytic
 
 ## Resources
 
-- Number of materialized models¹: 184
+- Number of materialized models¹: 193
 - Connector documentation
   - [HubSpot connector documentation](https://fivetran.com/docs/connectors/applications/hubspot)
   - [HubSpot ERD](https://fivetran.com/docs/connectors/applications/hubspot#schemainformation)
@@ -155,7 +155,6 @@ You only need to add variables for the sources that differ from their defaults. 
 ```yml
 vars:
   # Marketing
-
   hubspot_marketing_enabled: false                        # Disables all marketing models
   hubspot_contact_enabled: false                          # Disables the contact models
   hubspot_contact_form_enabled: false                     # Disables form and contact form submission data and its relationship to contacts
@@ -180,7 +179,11 @@ vars:
   hubspot_email_event_sent_enabled: false
   hubspot_email_event_spam_report_enabled: false
   hubspot_email_event_status_change_enabled: false
-
+  hubspot_marketing_event_enabled: false                  # Disables marketing event models. Default = True
+  hubspot_marketing_event_list_enabled: false             # Disables marketing event list models. Default = True
+  hubspot_marketing_event_participant_enabled: false      # Disables marketing event participant models. Default = True
+  hubspot_marketing_event_custom_property_enabled: false  # Disables marketing event custom property models. Default = True
+  
   # Sales
 
   hubspot_sales_enabled: false                            # Disables all sales models
@@ -327,6 +330,16 @@ When leveraging email events, HubSpot customers may take advantage of filtering 
 ```yml
 vars:
   hubspot_using_all_email_events: false # True by default
+```
+
+#### Pivoting marketing event custom properties
+When `hubspot_marketing_event_custom_property_enabled` is true, you can pivot specific custom property values from `MARKETING_EVENT_CUSTOM_PROPERTY` into columns in `hubspot__marketing_event_performance` using the `hubspot_marketing_event_custom_properties` variable.
+
+Each property `name` you list produces a column prefixed with `property_` in the final model. By default, no properties are pivoted.
+
+```yml
+vars:
+  hubspot_marketing_event_custom_properties: ['spent', 'budget'] # Default = []
 ```
 
 #### Daily contact, ticket, deal, and company history

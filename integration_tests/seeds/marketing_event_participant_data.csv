@@ -1,0 +1,5 @@
+id,marketing_event_id,contact_id,created_at,properties_occurred_at,properties_attendance_percentage,properties_attendance_state,properties_attendance_duration_seconds,_fivetran_synced
+1001,1,5001,2024-01-20 10:00:00,2024-02-01 10:15:00,95.5,ATTENDED,3430,2024-02-01 14:00:00
+1002,1,5002,2024-01-21 10:00:00,2024-02-01 10:05:00,0.0,CANCELLED,,2024-02-01 14:00:00
+1003,1,5003,2024-01-22 10:00:00,2024-02-01 10:00:00,75.0,ATTENDED,2700,2024-02-01 14:00:00
+1004,2,5001,2024-03-10 10:00:00,2024-03-10 10:00:00,,REGISTERED,,2024-03-10 11:00:00

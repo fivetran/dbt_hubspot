@@ -38,6 +38,8 @@ vars:
       - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
         alias: "funky_field" # @docs-ignore
 
+    hubspot_marketing_event_custom_properties: ["campaign_id", "region", "spent"]
+
     hubspot_company_list_identifier: "company_list_data"
     hubspot_company_list_member_identifier: "company_list_member_data"
     hubspot_company_property_history_identifier: "company_property_history_data"
@@ -101,6 +103,10 @@ vars:
     hubspot_ticket_identifier: "ticket_data"
     hubspot_users_identifier: "users_data"
     hubspot_contact_list_identifier: "contact_list_data"
+    hubspot_marketing_event_identifier: "marketing_event_data"
+    hubspot_marketing_event_list_identifier: "marketing_event_list_data"
+    hubspot_marketing_event_participant_identifier: "marketing_event_participant_data"
+    hubspot_marketing_event_custom_property_identifier: "marketing_event_custom_property_data"
     hubspot_email_event_sent_identifier: "email_event_sent_data"
     hubspot_email_event_dropped_identifier: "email_event_dropped_data"
     hubspot_merged_deal_identifier: "merged_deal_data"
@@ -395,6 +401,63 @@ seeds:
         recipient_field: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         delivery_identifier_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
         delivery_identifier_value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    marketing_event_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        app_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        attendees: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        cancellations: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        no_shows: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        registrants: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        event_cancelled: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        event_completed: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        _fivetran_deleted: "{{ 'bool' if target.type == 'bigquery' else 'boolean' }}"
+        created_at: timestamp
+        end_date_time: timestamp
+        start_date_time: timestamp
+        updated_at: timestamp
+        _fivetran_synced: timestamp
+        app_name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        event_description: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        event_name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        event_organizer: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        event_status: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        event_type: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        event_url: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        external_event_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    marketing_event_list_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        marketing_event_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        list_version: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        size: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        filters_updated_at: timestamp
+        created_at: timestamp
+        deleted_at: timestamp
+        updated_at: timestamp
+        _fivetran_synced: timestamp
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        created_by_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        updated_by_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        processing_status: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        object_type_id: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    marketing_event_participant_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        marketing_event_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        contact_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        properties_attendance_duration_seconds: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        properties_attendance_percentage: "{{ 'float64' if target.type == 'bigquery' else 'float' }}"
+        created_at: timestamp
+        properties_occurred_at: timestamp
+        _fivetran_synced: timestamp
+        properties_attendance_state: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+    marketing_event_custom_property_data:
+      +column_types:
+        marketing_event_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        _fivetran_synced: timestamp
+        name: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
+        value: "{{ 'string' if target.type in ('bigquery', 'spark', 'databricks') else 'varchar' }}"
     conversation_thread_data:
       +column_types:
         _fivetran_synced: timestamp
