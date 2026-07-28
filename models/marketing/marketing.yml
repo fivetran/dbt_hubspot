@@ -7,6 +7,11 @@ models:
       Each record represents a marketing event with aggregated attendance metrics, contact-level participation counts,
       segment list membership, and optional custom properties (e.g. budget spent).
     columns:
+      - name: marketing_event_performance_id
+        description: Surrogate key hashed on `source_relation` and `marketing_event_id`.
+        tests:
+          - not_null
+          - unique
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: is_marketing_event_deleted

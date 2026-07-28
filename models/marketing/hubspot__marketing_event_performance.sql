@@ -117,5 +117,7 @@ with marketing_events as (
 
 )
 
-select *
+select
+    {{ dbt_utils.generate_surrogate_key(['source_relation', 'marketing_event_id']) }} as marketing_event_performance_id,
+    *
 from joined
