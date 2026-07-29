@@ -1,6 +1,6 @@
 # dbt_hubspot v1.9.0
 
-[PR #TBD](https://github.com/fivetran/dbt_hubspot/pull/TBD) includes the following updates:
+[PR #209](https://github.com/fivetran/dbt_hubspot/pull/209) includes the following updates:
 
 ## Schema/Data Change
 **46 new models • 1 possible breaking change**
