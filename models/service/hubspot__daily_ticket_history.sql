@@ -25,12 +25,15 @@ with change_data as (
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist 
 -- those values into the future.
 
-), most_recent_data as ( 
+), most_recent_data as (
 
-    select 
-        *
+    select *
     from {{ this }}
-    where date_day = (select max(date_day) from {{ this }} )
+    where date_day = (
+        select max(date_day)
+        from {{ this }}
+        where date_day <= {{ lookback_date }}
+    )
 {% endif %}
 
 ), calendar as (

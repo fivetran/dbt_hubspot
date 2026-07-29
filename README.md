@@ -238,7 +238,7 @@ vars:
 ```
 
 #### Include passthrough columns
-This package includes all source columns defined in the macros folder. We highly recommend including custom fields in this package as models now only bring in a few fields for the `company`, `contact`, `deal`, `ticket`, `company_list`, and `contact_list` tables. You can add more columns using our pass-through column variables. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-though fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
+This package includes all source columns defined in the macros folder. We highly recommend including custom fields in this package as models now only bring in a few fields for the `company`, `contact`, `deal`, `ticket`, `company_list`, and `contact_list` tables. You can add more columns using our pass-through column variables. These variables allow for the pass-through fields to be aliased (`alias`) and casted (`transform_sql`) if desired, but not required. Datatype casting is configured via a sql snippet within the `transform_sql` key. You may add the desired sql while omitting the `as field_name` at the end and your custom pass-through fields will be casted accordingly. Use the below format for declaring the respective pass-through variables in your root `dbt_project.yml`.
 
 ```yml
 vars:
@@ -386,12 +386,12 @@ vars:
     - names
 ```
 
-> Note: All values will be stored as strings.
+> Note: All values are stored as strings.
 
 ##### **Extending ticket and deal history**
 This package creates one row per day for each contact, ticket, or deal, starting at its creation date.
 
-By default, the package will track a contact to the current date, a ticket up to its closing date (or the current date if still open), and a deal 30 days past its close date.
+By default, the package tracks a contact to the current date, a ticket up to its closing date (or the current date if still open), and a deal 30 days past its close date.
 
 To extend or limit history past the close date for either tickets or deals, add the following configuration to your root `dbt_project.yml` file:
 

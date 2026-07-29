@@ -4,7 +4,7 @@ models:
 
   - name: hubspot__daily_ticket_history
     description: >
-      Each record represents a ticket's day in Hubspot with tracked properties from THE `TICKET_PROPERTY_HISTORY` source table pivoted out into columns. Enabled by setting `hubspot_service_enabled` to `True`.
+      Each record represents a ticket's day in Hubspot with tracked properties from the `TICKET_PROPERTY_HISTORY` source table pivoted out into columns. Enabled by setting `hubspot_service_enabled` to `True`.
 
       By default, tracks the ticket's pipeline, pipeline stage, and state. Additional properties can be tracked by configuring the `hubspot__ticket_property_history_columns` variable.
 

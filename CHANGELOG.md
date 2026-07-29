@@ -3,7 +3,7 @@
 [PR #209](https://github.com/fivetran/dbt_hubspot/pull/209) includes the following updates:
 
 ## Schema/Data Change
-**46 new models • 1 possible breaking change**
+**46 new models • 0 possible breaking changes**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
@@ -17,7 +17,6 @@
 | `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_thread_tmp`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_history_tmp`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_message_recipient_tmp`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_actor_tmp`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_tmp`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_channel_account_tmp`<br>`stg_hubspot__conversation_inbox`<br>`stg_hubspot__conversation_inbox_tmp`<br>`stg_hubspot__submission_response`<br>`stg_hubspot__submission_response_tmp`<br>`stg_hubspot__company_list`<br>`stg_hubspot__company_list_tmp`<br>`stg_hubspot__company_list_member`<br>`stg_hubspot__company_list_member_tmp`<br>`stg_hubspot__marketing_event`<br>`stg_hubspot__marketing_event_tmp`<br>`stg_hubspot__marketing_event_list`<br>`stg_hubspot__marketing_event_list_tmp`<br>`stg_hubspot__marketing_event_participant`<br>`stg_hubspot__marketing_event_participant_tmp`<br>`stg_hubspot__marketing_event_custom_property`<br>`stg_hubspot__marketing_event_custom_property_tmp` | New staging models | | | Used to power the above new end models. |
 | `int_hubspot__daily_deal_history`<br>`int_hubspot__deal_calendar_spine`<br>`int_hubspot__pivot_daily_deal_history`<br>`int_hubspot__scd_daily_deal_history`<br>`int_hubspot__daily_contact_history`<br>`int_hubspot__contact_calendar_spine`<br>`int_hubspot__pivot_daily_contact_history`<br>`int_hubspot__scd_daily_contact_history`<br>`int_hubspot__daily_company_history`<br>`int_hubspot__company_calendar_spine`<br>`int_hubspot__pivot_daily_company_history`<br>`int_hubspot__scd_daily_company_history` | New intermediate models | | | Used to power new daily property history end models. |
 | `stg_hubspot__deal_property_history`<br>`stg_hubspot__company_property_history`<br>`stg_hubspot__contact_property_history` | New staging columns | | `_fivetran_start`, `_fivetran_end`, `_fivetran_active` | SCD metadata fields used to power `hubspot__daily_deal_history`. |
-| `stg_hubspot__contact_list_tmp` | Fields renamed | `id`, `_fivetran_deleted`, `created_at`, `name`, `updated_at` | `contact_list_id`, `is_contact_list_deleted`, `created_timestamp`, `contact_list_name`, `updated_timestamp` |  |
 
 ## Feature Updates
 

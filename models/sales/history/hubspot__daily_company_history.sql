@@ -28,10 +28,13 @@ with change_data as (
 
 ), most_recent_data as (
 
-    select
-        *
+    select *
     from {{ this }}
-    where date_day = (select max(date_day) from {{ this }} )
+    where date_day = (
+        select max(date_day)
+        from {{ this }}
+        where date_day <= {{ lookback_date }}
+    )
 {% endif %}
 
 ), calendar as (

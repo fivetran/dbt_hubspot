@@ -22,6 +22,7 @@ with company_lists as (
 
     select *
     from {{ ref('stg_hubspot__company_list_member') }}
+    where not coalesce(is_company_list_member_deleted, false)
 
 ),
 
