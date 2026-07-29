@@ -24,12 +24,12 @@ test_scenarios:
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_engagement_communication_enabled: true
-      hubspot_conversation_enabled: true
     include_incremental: false
 
-  - name: "marketing with merged deals + no email events"
+  - name: "marketing with merged deals + no email events or conversations"
     vars:
       hubspot_service_enabled: true
+      hubspot_conversation_enabled: false
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_merged_deal_enabled: true

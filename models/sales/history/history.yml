@@ -57,7 +57,7 @@ models:
       - name: count_engagement_forwarded_emails
         description: Number of forwarded emails logged against the deal on that day.
       - name: count_engagement_communications
-        description: Number of communications (LinkedIn, WhatsApp, SMS) logged against the deal on that day. Requires `hubspot_engagement_communication_enabled` to be `true`.
+        description: Number of communications (LinkedIn, WhatsApp, SMS) logged against the deal on that day.
 
   - name: hubspot__daily_company_history
     description: >

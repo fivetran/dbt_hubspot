@@ -132,7 +132,7 @@ models:
   - name: hubspot__conversations
     description: >
       Each record represents a conversation thread in HubSpot. Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
-      Optionally joins to ticket and contact data when the respective features are enabled. Enable by setting `hubspot_conversation_enabled` to `True`.
+      Optionally joins to ticket and contact data when the respective features are enabled.
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -193,27 +193,27 @@ models:
       - name: is_channel_account_deleted
         description: '{{ doc("is_deleted") }}'
       - name: ticket_subject
-        description: Short summary of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+        description: Short summary of the associated ticket.
       - name: ticket_content
-        description: Text in the body of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+        description: Text in the body of the associated ticket.
       - name: ticket_created_date
-        description: Date the associated ticket was created. Only populated when `hubspot_service_enabled` is `True`.
+        description: Date the associated ticket was created.
       - name: ticket_closed_date
-        description: Date the associated ticket was closed. Only populated when `hubspot_service_enabled` is `True`.
+        description: Date the associated ticket was closed.
       - name: ticket_category
-        description: Category of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+        description: Category of the associated ticket.
       - name: ticket_owner_id
-        description: ID of the owner of the associated ticket. Only populated when `hubspot_service_enabled` is `True`.
+        description: ID of the owner of the associated ticket.
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'
       - name: contact_email
-        description: Email address of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+        description: Email address of the associated contact.
       - name: contact_first_name
-        description: First name of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+        description: First name of the associated contact.
       - name: contact_last_name
-        description: Last name of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+        description: Last name of the associated contact.
       - name: contact_company
-        description: Company of the associated contact. Only populated when `hubspot_marketing_enabled` and `hubspot_contact_enabled` are `True`.
+        description: Company of the associated contact.
       - name: is_contact_deleted
         description: '{{ doc("is_deleted") }}'
       - name: first_response_time_seconds
@@ -257,16 +257,16 @@ models:
       - name: has_welcome_message
         description: Boolean indicating whether the thread includes a welcome message.
       - name: ticket_owner_email_address
-        description: Email address of the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: Email address of the associated ticket owner.
       - name: ticket_owner_full_name
-        description: Full name of the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: Full name of the associated ticket owner.
       - name: ticket_owner_primary_team_id
-        description: ID of the primary team assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: ID of the primary team assigned to the associated ticket owner.
       - name: ticket_owner_primary_team_name
-        description: Name of the primary team assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: Name of the primary team assigned to the associated ticket owner.
       - name: ticket_owner_role_id
-        description: ID of the role assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: ID of the role assigned to the associated ticket owner.
       - name: ticket_owner_role_name
-        description: Name of the role assigned to the associated ticket owner. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: Name of the role assigned to the associated ticket owner.
       - name: ticket_owner_active_user_id
-        description: Unique ID of the active HubSpot user who owns the associated ticket. Only populated when `hubspot_service_enabled` and `hubspot_owner_enabled` are `True`.
+        description: Unique ID of the active HubSpot user who owns the associated ticket.
