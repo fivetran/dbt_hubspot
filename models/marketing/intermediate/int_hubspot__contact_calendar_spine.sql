@@ -20,7 +20,7 @@ with calendar as (
             {% elif var('hubspot__daily_history_start_date', none) %}
                 select cast('{{ var("hubspot__daily_history_start_date") }}' as date)
             {% else %}
-                select coalesce(min(created_date), cast('2016-01-01' as {{ dbt.type_timestamp() }})) from {{ ref('stg_hubspot__contact') }}
+                select coalesce(min(cast(created_date as date)), cast('2016-01-01' as date)) from {{ ref('stg_hubspot__contact') }}
             {% endif %}
         {% endset %}
         {% set first_date = dbt_utils.get_single_value(first_date_query) | string %}
