@@ -12,6 +12,7 @@ with end_model as (
 staging_model as (
     select count(*) as staging_model_rows
     from {{ ref('stg_hubspot__deal') }}
+    where not is_deal_deleted
 )
 
 select *

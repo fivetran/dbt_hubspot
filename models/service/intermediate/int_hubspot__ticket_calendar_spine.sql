@@ -16,11 +16,11 @@ with calendar as (
     {% if execute and flags.WHICH in ('run', 'build') %}
         {% set first_date_query %}
             {% if is_incremental() %}
-                select max(date_day) from {{ this }}
+                select coalesce(max(date_day), cast('2016-01-01' as date)) from {{ this }}
             {% elif var('hubspot__daily_history_start_date', none) %}
                 select cast('{{ var("hubspot__daily_history_start_date") }}' as date)
             {% else %}
-                select min(property_createdate) from {{ ref('stg_hubspot__ticket_tmp') }}
+                select coalesce(min(property_createdate), cast('2016-01-01' as {{ dbt.type_timestamp() }})) from {{ ref('stg_hubspot__ticket_tmp') }}
             {% endif %}
         {% endset %}
         {% set first_date = dbt_utils.get_single_value(first_date_query) | string %}
