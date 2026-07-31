@@ -1,6 +1,6 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_company_property_history_enabled', true)
+    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) and var('hubspot_company_property_history_enabled', true)
 ) }}
 
 -- this test is to make sure the rows counts are the same between versions

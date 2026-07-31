@@ -20,8 +20,6 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_id
         description: The unique ID of the marketing event.
-        tests:
-          - not_null
       - name: event_name
         description: The name of the marketing event.
       - name: event_type

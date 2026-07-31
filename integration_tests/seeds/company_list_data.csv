@@ -1,6 +1,6 @@
-id,_fivetran_deleted,_fivetran_synced,created_at,updated_at,name,created_by_id,object_type_id,processing_status,processing_type,list_version,filters_updated_at
-1001,false,2024-01-15 10:00:00.000,2024-01-10 08:00:00.000,2024-01-15 10:00:00.000,Enterprise Accounts,abc123,0-2,COMPLETE,DYNAMIC,1,2024-01-10 08:00:00.000
-1002,false,2024-01-15 10:00:00.000,2024-01-11 09:00:00.000,2024-01-15 10:00:00.000,SMB Companies,def456,0-2,COMPLETE,STATIC,2,2024-01-11 09:00:00.000
-1003,false,2024-02-01 12:00:00.000,2024-01-20 14:00:00.000,2024-02-01 12:00:00.000,Partner Organizations,ghi789,0-2,COMPLETE,DYNAMIC,1,2024-01-20 14:00:00.000
-1004,true,2024-02-10 15:00:00.000,2024-01-25 11:00:00.000,2024-02-10 15:00:00.000,Archived Prospects,jkl012,0-2,COMPLETE,STATIC,1,2024-01-25 11:00:00.000
-1005,false,2024-03-01 08:30:00.000,2024-02-15 09:30:00.000,2024-03-01 08:30:00.000,Healthcare Sector,mno345,0-2,PROCESSING,DYNAMIC,3,2024-02-20 16:00:00.000
+id,_fivetran_deleted,_fivetran_synced,created_at,updated_at,name,created_by_id,object_type_id,processing_status,processing_type,list_version,filters_updated_at,custom_field
+1001,false,2024-01-15 10:00:00.000,2024-01-10 08:00:00.000,2024-01-15 10:00:00.000,Enterprise Accounts,abc123,0-2,COMPLETE,DYNAMIC,1,2024-01-10 08:00:00.000,custom_value_1
+1002,false,2024-01-15 10:00:00.000,2024-01-11 09:00:00.000,2024-01-15 10:00:00.000,SMB Companies,def456,0-2,COMPLETE,STATIC,2,2024-01-11 09:00:00.000,custom_value_2
+1003,false,2024-02-01 12:00:00.000,2024-01-20 14:00:00.000,2024-02-01 12:00:00.000,Partner Organizations,ghi789,0-2,COMPLETE,DYNAMIC,1,2024-01-20 14:00:00.000,custom_value_3
+1004,true,2024-02-10 15:00:00.000,2024-01-25 11:00:00.000,2024-02-10 15:00:00.000,Archived Prospects,jkl012,0-2,COMPLETE,STATIC,1,2024-01-25 11:00:00.000,custom_value_4
+1005,false,2024-03-01 08:30:00.000,2024-02-15 09:30:00.000,2024-03-01 08:30:00.000,Healthcare Sector,mno345,0-2,PROCESSING,DYNAMIC,3,2024-02-20 16:00:00.000,custom_value_5

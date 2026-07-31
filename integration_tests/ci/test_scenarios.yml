@@ -47,9 +47,15 @@ test_scenarios:
       hubspot_engagement_enabled: false
       hubspot_email_event_sent_enabled: false
       hubspot_marketing_event_list_enabled: false
+      hubspot__company_list_pass_through_columns:
+        - name: "custom_field"
+          alias: "my_custom_field"
+      hubspot__contact_list_pass_through_columns:
+        - name: "custom_field"
+          alias: "my_custom_field"
     include_incremental: false
 
-  - name: "sales only with all features + conversation enabled + no company list members"
+  - name: "sales only with all features + no company list members"
     vars:
       hubspot_marketing_enabled: false
       hubspot_sales_enabled: true
@@ -57,7 +63,6 @@ test_scenarios:
       hubspot__pass_through_all_columns: true
       hubspot_using_all_email_events: false
       hubspot_owner_enabled: false
-      hubspot_conversation_enabled: true
       hubspot_company_list_member_enabled: false
     include_incremental: false
 
@@ -65,6 +70,10 @@ test_scenarios:
     vars:
       fivetran_using_source_casing: true
       hubspot_marketing_event_enabled: false
+      hubspot_company_list_enabled: false
+      hubspot_contact_property_enabled: false
+      hubspot_contact_property_history_enabled: false
+      hubspot_company_property_history_enabled: false
+      hubspot_deal_property_history_enabled: false
     include_incremental: false
     include_dbt_seed: true
-    warehouses: ["bigquery", "redshift", "postgres", "snowflake"]

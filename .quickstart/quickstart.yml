@@ -244,15 +244,15 @@ supported_vars:
     description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
     display_name: "Tracked Deal Properties"
 
-  hubspot_marketing_event_custom_properties:
-    type: list
-    description: "Custom property names from `MARKETING_EVENT_CUSTOM_PROPERTY.name` to pivot into columns in `hubspot__marketing_event_performance`"
-    display_name: "Marketing Event Custom Property Columns"
-
   hubspot__company_property_history_columns:
     type: list
     description: "Company properties from `COMPANY_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_company_history`. Owner and lifecycle stage are included automatically"
     display_name: "Tracked Company Properties"
+
+  hubspot_marketing_event_custom_properties:
+    type: list
+    description: "Custom property names from `MARKETING_EVENT_CUSTOM_PROPERTY.name` to pivot into columns in `hubspot__marketing_event_performance`"
+    display_name: "Marketing Event Custom Property Columns"
 
   hubspot__daily_history_start_date:
     type: string

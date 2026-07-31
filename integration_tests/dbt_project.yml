@@ -17,7 +17,6 @@ vars:
   hubspot:
     ## Enable when generating docs
     # hubspot_service_enabled: true # @docs-include
-    # hubspot_conversation_enabled: true # @docs-include
     # hubspot_deal_enabled: true # @docs-include
     # hubspot_contact_enabled: true # @docs-include
     # hubspot_sales_enabled: true # @docs-include

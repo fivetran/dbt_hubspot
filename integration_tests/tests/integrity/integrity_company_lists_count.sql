@@ -1,6 +1,6 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_company_list_enabled', true)
+    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_company_list_enabled', true) and var('hubspot_sales_enabled', true)
 ) }}
 
 -- This test will ensure the total count of records from the company_list staging model matches the end model.
