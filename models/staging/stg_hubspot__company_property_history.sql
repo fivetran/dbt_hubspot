@@ -22,6 +22,9 @@ with base as (
     select
         source_relation,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced,
+        cast(_fivetran_start as {{ dbt.type_timestamp() }}) as _fivetran_start,
+        cast(_fivetran_end as {{ dbt.type_timestamp() }}) as _fivetran_end,
+        _fivetran_active,
         company_id,
         name as field_name,
         source as change_source,

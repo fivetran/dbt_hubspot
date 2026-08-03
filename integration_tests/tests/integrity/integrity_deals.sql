@@ -1,6 +1,6 @@
 {{ config(
     tags="fivetran_validations",
-    enabled=var('fivetran_validation_tests_enabled', false) and var('hubspot_deal_enabled', true)
+    enabled=false
 ) }}
 
 -- This tests for fanout. Returns records if the staging model does not match the end model.

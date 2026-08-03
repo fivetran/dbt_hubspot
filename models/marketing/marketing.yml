@@ -2,6 +2,87 @@ version: 2
 
 models:
 
+  - name: hubspot__marketing_event_performance
+    description: >
+      Each record represents a marketing event with aggregated attendance metrics, contact-level participation counts,
+      segment list membership, and optional custom properties (e.g. budget spent).
+    columns:
+      - name: marketing_event_performance_id
+        description: Surrogate key hashed on `source_relation` and `marketing_event_id`.
+        tests:
+          - not_null
+          - unique
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: is_marketing_event_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: marketing_event_id
+        description: The unique ID of the marketing event.
+      - name: event_name
+        description: The name of the marketing event.
+      - name: event_type
+        description: The type of marketing event.
+      - name: event_status
+        description: The current status of the marketing event.
+      - name: event_url
+        description: A URL in the external event application where the marketing event can be managed.
+      - name: event_organizer
+        description: The name of the organizer of the marketing event.
+      - name: event_description
+        description: A description of the marketing event.
+      - name: app_id
+        description: The string ID of the app associated with the marketing event.
+      - name: app_name
+        description: The name of the app associated with the marketing event.
+      - name: external_event_id
+        description: The ID that is associated with this marketing event in the external event application.
+      - name: start_timestamp
+        description: The timestamp when the marketing event starts.
+      - name: end_timestamp
+        description: The timestamp when the marketing event ends.
+      - name: event_duration_minutes
+        description: The duration of the event in minutes, calculated from start to end timestamp.
+      - name: event_cancelled
+        description: Boolean indicating whether the marketing event was cancelled.
+      - name: event_completed
+        description: Boolean indicating whether the marketing event has been completed.
+      - name: registrants
+        description: Number of registered contact records of a marketing event.
+      - name: attendees
+        description: Number of attended contact records of a marketing event.
+      - name: cancellations
+        description: Number of cancelled contact records of a marketing event.
+      - name: no_shows
+        description: Number of no-show contact records of a marketing event.
+      - name: attendance_rate
+        description: Ratio of attendees to registrants. Null when registrants is zero.
+      - name: no_show_rate
+        description: Ratio of no-shows to registrants. Null when registrants is zero.
+      - name: cancellation_rate
+        description: Ratio of cancellations to registrants. Null when registrants is zero.
+      - name: total_contacts
+        description: Count of distinct contacts with a record in the participant table.
+      - name: total_attended_contacts
+        description: Count of distinct contacts with attendance_state = 'ATTENDED'.
+      - name: total_cancelled_contacts
+        description: Count of distinct contacts with attendance_state = 'CANCELLED'.
+      - name: total_empty_contacts
+        description: Count of distinct contacts with attendance_state = 'EMPTY'.
+      - name: total_no_show_contacts
+        description: Count of distinct contacts with attendance_state = 'NO_SHOW'.
+      - name: total_registered_contacts
+        description: Count of distinct contacts with attendance_state = 'REGISTERED'.
+      - name: avg_attendance_duration_seconds
+        description: Average number of seconds the participation lasted, across all participant records.
+      - name: total_lists
+        description: Count of active (non-deleted) lists associated with the event.
+      - name: created_timestamp
+        description: The timestamp when the marketing event was created.
+      - name: updated_timestamp
+        description: The timestamp when the marketing event was last updated.
+
   - name: hubspot__email_sends
     description: Each record represents a SENT email event.
     columns:
@@ -248,6 +329,14 @@ models:
         description: Name of the form submitted during the contact's most recent conversion, calculated by this package.
       - name: calculated_most_recent_conversion_form_type
         description: Type of form submitted during the contact's most recent conversion (e.g., regular, pop-up), calculated by this package.
+      - name: calculated_first_conversion_fields_responded_to
+        description: Comma-separated list of unique field names submitted during the contact's first form conversion. Only populated when `hubspot_submission_response_enabled` is true.
+      - name: calculated_first_conversion_total_responses
+        description: Number of fields submitted during the contact's first form conversion. Only populated when `hubspot_submission_response_enabled` is true.
+      - name: calculated_most_recent_conversion_fields_responded_to
+        description: Comma-separated list of unique field names submitted during the contact's most recent form conversion. Only populated when `hubspot_submission_response_enabled` is true.
+      - name: calculated_most_recent_conversion_total_responses
+        description: Number of fields submitted during the contact's most recent form conversion. Only populated when `hubspot_submission_response_enabled` is true.
       - name: total_form_submissions
         description: Total number of form submissions made by the contact.
       - name: total_unique_form_submissions

@@ -39,3 +39,29 @@ models:
         description: Timestamp when the form was last updated.
       - name: is_deleted
         description: '{{ doc("_fivetran_deleted") }}'
+
+  - name: stg_hubspot__submission_response
+    description: Each record represents a single field response from a HubSpot form submission.
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: conversion_id
+        description: Unique identifier for the specific form conversion event.
+        tests:
+          - not_null
+      - name: form_id
+        description: The ID of the form the submission belongs to.
+      - name: field_name
+        description: The name of the form field.
+      - name: field_value
+        description: The value submitted for the form field.
+      - name: submitted_at
+        description: Unix timestamp in milliseconds of when the form was submitted.
+      - name: submitted_timestamp
+        description: Timestamp of when the form was submitted, converted from the `submitted_at` field.
+      - name: page_url
+        description: The URL of the page where the form was submitted.
+      - name: object_type_id
+        description: The ID corresponding to the HubSpot object type associated with the submission.
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'

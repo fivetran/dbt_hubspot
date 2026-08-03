@@ -1,0 +1,4 @@
+id,marketing_event_id,created_by_id,updated_by_id,filters_updated_at,created_at,processing_status,deleted_at,list_version,object_type_id,size,name,updated_at,_fivetran_synced
+101,1,user-aaa,user-bbb,2024-01-05 10:00:00,2024-01-05 10:00:00,COMPLETE,,1,0-1,58,Q1 Webinar Registrants,2024-01-10 10:00:00,2024-01-10 11:00:00
+102,1,user-aaa,user-aaa,2024-01-06 10:00:00,2024-01-06 10:00:00,COMPLETE,,1,0-1,50,Q1 Webinar Attendees,2024-02-02 10:00:00,2024-02-02 11:00:00
+103,2,user-ccc,,2024-03-02 10:00:00,2024-03-02 10:00:00,PROCESSING,,1,0-1,0,Spring Launch Registrants,2024-03-02 10:00:00,2024-03-02 10:30:00

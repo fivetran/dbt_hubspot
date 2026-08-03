@@ -11,6 +11,7 @@ schema_variable_name: "hubspot_schema"
 include_databricks_sql: true
 include_sqlserver: false
 include_dbt_compile: true
+include_duckdb: false
 
 test_scenarios:
   - name: "Default"
@@ -23,24 +24,39 @@ test_scenarios:
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_engagement_communication_enabled: true
+      hubspot_marketing_event_custom_properties: ["campaign_id", "region", "spent"]
     include_incremental: false
 
-  - name: "marketing with merged deals"
+  - name: "marketing with merged deals + no email events or conversations"
     vars:
       hubspot_service_enabled: true
+      hubspot_conversation_enabled: false
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_merged_deal_enabled: true
+      hubspot_submission_response_enabled: false
+      hubspot_email_event_enabled: false
+      hubspot_marketing_event_participant_enabled: false
     include_incremental: false
 
-  - name: "marketing with contact merge audit"
+  - name: "marketing and sales with contact merge audit and no engagements or email sent"
     vars:
       hubspot_marketing_enabled: true
       hubspot_contact_merge_audit_enabled: true
-      hubspot_sales_enabled: false
+      hubspot_sales_enabled: true
+      hubspot_engagement_enabled: false
+      hubspot_email_event_sent_enabled: false
+      hubspot_marketing_event_list_enabled: false
+      hubspot_marketing_event_custom_property_enabled: false
+      hubspot__company_list_pass_through_columns:
+        - name: "custom_field"
+          alias: "my_custom_field"
+      hubspot__contact_list_pass_through_columns:
+        - name: "custom_field"
+          alias: "my_custom_field"
     include_incremental: false
 
-  - name: "sales only with all features"
+  - name: "sales only with all features + no company list members"
     vars:
       hubspot_marketing_enabled: false
       hubspot_sales_enabled: true
@@ -48,10 +64,17 @@ test_scenarios:
       hubspot__pass_through_all_columns: true
       hubspot_using_all_email_events: false
       hubspot_owner_enabled: false
+      hubspot_company_list_member_enabled: false
     include_incremental: false
 
   - name: "MDLS"
     vars:
       fivetran_using_source_casing: true
+      hubspot_marketing_event_enabled: false
+      hubspot_company_list_enabled: false
+      hubspot_contact_property_enabled: false
+      hubspot_contact_property_history_enabled: false
+      hubspot_company_property_history_enabled: false
+      hubspot_deal_property_history_enabled: false
     include_incremental: false
     include_dbt_seed: true

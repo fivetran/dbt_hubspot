@@ -103,6 +103,54 @@ sources:
           - name: property_annualrevenue
             description: The actual or estimated annual revenue of the company.
 
+      - name: company_list
+        identifier: "{{ var('hubspot_company_list_identifier', 'company_list')}}"
+        description: Each record represents a company list in Hubspot.
+        config:
+          enabled: "{{ var('hubspot_sales_enabled', true) and var('hubspot_company_list_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The ID of the company list.
+          - name: name
+            description: The name of the company list.
+          - name: created_at
+            description: A timestamp of the time the list was created.
+          - name: updated_at
+            description: A timestamp of the time that the list was last modified.
+          - name: created_by_id
+            description: The unique identifier of the user who created the company list.
+          - name: object_type_id
+            description: The ID that corresponds to the type of object stored by the list.
+          - name: processing_status
+            description: Indicates the current status of the list's processing, such as 'COMPLETE', 'CANCELED', 'PENDING', or 'PROCESSING'.
+          - name: processing_type
+            description: Specifies the type of processing applied to the list, such as 'MANUAL', 'DYNAMIC', or 'SNAPSHOT'.
+          - name: list_version
+            description: Represents the version number of the list, incrementing with each modification.
+          - name: filters_updated_at
+            description: The timestamp indicating when the list's filters were last updated.
+
+      - name: company_list_member
+        identifier: "{{ var('hubspot_company_list_member_identifier', 'company_list_member')}}"
+        description: Each record represents a 'link' between a company and a company list.
+        config:
+          enabled: "{{ var('hubspot_sales_enabled', true) and var('hubspot_company_list_member_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: company_id
+            description: The ID of the related company.
+          - name: company_list_id
+            description: The ID of the related company list.
+          - name: added_at
+            description: The timestamp a company was added to a list.
+
       - name: company_property_history
         identifier: "{{ var('hubspot_company_property_history_identifier', 'company_property_history')}}"
         description: Each record represents a change to company record in Hubspot.
@@ -111,6 +159,12 @@ sources:
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_start
+            description: The date the company property history record became active.
+          - name: _fivetran_end
+            description: The Fivetran calculated exit time of the company property history record.
+          - name: _fivetran_active
+            description: Boolean indicating whether the company property history record is currently active.
           - name: company_id
             description: The ID of the related company record.
           - name: name
@@ -314,6 +368,12 @@ sources:
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_start
+            description: The date the contact property history record became active.
+          - name: _fivetran_end
+            description: The Fivetran calculated exit time of the contact property history record.
+          - name: _fivetran_active
+            description: Boolean indicating whether the contact property history record is currently active.
           - name: contact_id
             description: The ID of the related contact record.
           - name: name
@@ -481,6 +541,12 @@ sources:
         columns:
           - name: _fivetran_synced
             description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_start
+            description: The date the deal property history record became active.
+          - name: _fivetran_end
+            description: The Fivetran calculated exit time of the deal property history record.
+          - name: _fivetran_active
+            description: Boolean indicating whether the deal property history record is currently active.
           - name: deal_id
             description: The ID of the related deal record.
           - name: name
@@ -1149,6 +1215,29 @@ sources:
           - name: _fivetran_deleted
             description: '{{ doc("_fivetran_deleted") }}'
 
+      - name: submission_response
+        identifier: "{{ var('hubspot_submission_response_identifier', 'submission_response')}}"
+        description: Each record represents a single field response from a HubSpot form submission.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_contact_form_enabled', true) and var('hubspot_submission_response_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: conversion_id
+            description: Unique identifier for the specific form conversion event. Joins with `CONTACT_FORM_SUBMISSION.conversion_id`.
+          - name: form_id
+            description: The ID of the `FORM` the submission belongs to.
+          - name: field_name
+            description: The name of the form field.
+          - name: field_value
+            description: The value submitted for the form field.
+          - name: submitted_at
+            description: Unix timestamp in milliseconds of when the form was submitted.
+          - name: page_url
+            description: The URL of the page where the form was submitted.
+          - name: object_type_id
+            description: The ID corresponding to the HubSpot object type associated with the submission.
+
       - name: owner
         identifier: "{{ var('hubspot_owner_identifier', 'owner')}}"
         description: Each record represents an owner/user in Hubspot.
@@ -1518,3 +1607,338 @@ sources:
             description: '{{ doc("_fivetran_synced") }}'
           - name: _fivetran_deleted
             description: '{{ doc("_fivetran_deleted") }}'
+
+      - name: conversation_actor
+        identifier: '{{ var("hubspot_conversation_actor_identifier", "conversation_actor") }}'
+        description: Table containing actors involved in Hubspot conversations.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: id
+            description: Unique ID of the actor. The first letter corresponds with the type of actor (A- agent, B- bot, S- system, E- email, I- integration, L- customer agent)
+          - name: avatar
+            description: URL of the actor's avatar image.
+          - name: email
+            description: Email address of the actor.
+          - name: name
+            description: Display name of the actor.
+          - name: type
+            description: Type of the actor (e.g., VISITOR, AGENT, BOT, SYSTEM)
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: conversation_inbox
+        identifier: '{{ var("hubspot_conversation_inbox_identifier", "conversation_inbox") }}'
+        description: Each record represents a conversation inbox in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: id
+            description: Unique ID of the inbox.
+          - name: active
+            description: Boolean indicating whether the inbox is active.
+          - name: created_at
+            description: Timestamp when the inbox was created.
+          - name: name
+            description: Display name of the inbox.
+          - name: type
+            description: Type of the inbox (e.g., HELP_DESK, INBOX).
+          - name: updated_at
+            description: Timestamp when the inbox was last updated.
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: conversation_channel
+        identifier: '{{ var("hubspot_conversation_channel_identifier", "conversation_channel") }}'
+        description: Each record represents a channel through which users can contact your team, such as email, Chat, Facebook Messenger, or WhatsApp.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: id
+            description: Unique ID of the channel.
+          - name: name
+            description: Display name of the channel.
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: conversation_channel_account
+        identifier: '{{ var("hubspot_conversation_channel_account_identifier", "conversation_channel_account") }}'
+        description: Each record represents an instance of a channel connected to an inbox, such as a specific email address or Facebook Messenger account.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: id
+            description: Unique ID of the channel account.
+          - name: channel_id
+            description: ID of the channel this account belongs to.
+          - name: inbox_id
+            description: ID of the inbox this channel account is connected to.
+          - name: active
+            description: Boolean indicating whether the channel account is active.
+          - name: authorized
+            description: Boolean indicating whether the channel account is authorized.
+          - name: created_at
+            description: Timestamp when the channel account was created.
+          - name: name
+            description: Display name of the channel account.
+          - name: delivery_identifier_type
+            description: The type of delivery identifier for this channel account (e.g., HS_EMAIL_ADDRESS).
+          - name: delivery_identifier_value
+            description: The value of the delivery identifier (e.g., the email address).
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: conversation_thread
+        identifier: '{{ var("hubspot_conversation_thread_identifier", "conversation_thread") }}'
+        description: Each record represents a conversation thread in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: id
+            description: Unique ID of the conversation thread.
+          - name: inbox_id
+            description: ID of the inbox the thread belongs to.
+          - name: associated_contact_id
+            description: ID of the contact associated with the thread.
+          - name: associated_ticket_id
+            description: ID of the ticket associated with the thread.
+          - name: original_channel_account_id
+            description: ID of the channel account through which the thread was originally created.
+          - name: original_channel_id
+            description: ID of the channel through which the thread was originally created.
+          - name: assigned_to
+            description: ID of the agent the thread is assigned to.
+          - name: closed_at
+            description: Timestamp when the thread was closed.
+          - name: created_at
+            description: Timestamp when the thread was created.
+          - name: latest_message_received_timestamp
+            description: Timestamp of the most recently received message in the thread.
+          - name: latest_message_sent_timestamp
+            description: Timestamp of the most recently sent message in the thread.
+          - name: latest_message_timestamp
+            description: Timestamp of the most recent message (sent or received) in the thread.
+          - name: spam
+            description: Indicates whether the thread has been marked as spam.
+          - name: status
+            description: Current status of the thread (e.g., OPEN, CLOSED).
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: conversation_message_history
+        identifier: '{{ var("hubspot_conversation_message_history_identifier", "conversation_message_history") }}'
+        description: Each record represents a version of a conversation message, tracking changes over time via SCD Type 2.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: id
+            description: Unique ID of the conversation message.
+          - name: thread_id
+            description: ID of the thread this message belongs to.
+          - name: channel_account_id
+            description: ID of the channel account associated with this message.
+          - name: channel_id
+            description: ID of the channel associated with this message.
+          - name: from_inbox_id
+            description: ID of the inbox the message was sent from.
+          - name: to_inbox_id
+            description: ID of the inbox the message was sent to.
+          - name: assigned_to
+            description: ID of the agent the thread was assigned to at message time.
+          - name: assigned_from
+            description: ID of the previous assignee before this message triggered a reassignment.
+          - name: created_at
+            description: Timestamp when the message was created.
+          - name: created_by
+            description: ID of the user who created the message.
+          - name: direction
+            description: Direction of the message (e.g., INCOMING, OUTGOING).
+          - name: in_reply_to_id
+            description: ID of the message this message is a reply to.
+          - name: new_status
+            description: The thread status set by this message event (e.g., OPEN, CLOSED).
+          - name: rich_text
+            description: HTML-formatted body of the message.
+          - name: subject
+            description: Subject line of the message.
+          - name: text
+            description: Plain-text body of the message.
+          - name: truncation_status
+            description: Indicates whether the message body was truncated (e.g., NOT_TRUNCATED, TRUNCATED_TO_MOST_RECENT_REPLY, TRUNCATED).
+          - name: type
+            description: Type of the message event (e.g., MESSAGE, COMMENT, WELCOME_MESSAGE).
+          - name: updated_at
+            description: Timestamp when the message record was last updated.
+          - name: client_type
+            description: The type of client used to send the message (e.g., SYSTEM, HUBSPOT, INTEGRATION)
+          - name: status_type
+            description: The status type of the message (e.g., SENT, RECEIVED)
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: _fivetran_start
+            description: '{{ doc("_fivetran_start") }}'
+          - name: _fivetran_end
+            description: '{{ doc("_fivetran_end") }}'
+          - name: _fivetran_active
+            description: Boolean indicating whether this is the currently active version of the record.
+
+      - name: marketing_event
+        identifier: "{{ var('hubspot_marketing_event_identifier', 'marketing_event')}}"
+        description: Each record represents a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The unique ID of the marketing event.
+          - name: app_id
+            description: The string ID of the app associated with the marketing event.
+          - name: app_name
+            description: The name of the app associated with the marketing event.
+          - name: attendees
+            description: Number of attended contact records of a marketing event.
+          - name: cancellations
+            description: Number of cancelled contact records of a marketing event.
+          - name: created_at
+            description: The timestamp when the marketing event was created.
+          - name: end_date_time
+            description: The timestamp when the marketing event ends.
+          - name: event_cancelled
+            description: Boolean indicating whether the marketing event was cancelled.
+          - name: event_completed
+            description: Boolean indicating whether the marketing event has been completed.
+          - name: event_description
+            description: A description of the marketing event.
+          - name: event_name
+            description: The name of the marketing event.
+          - name: event_organizer
+            description: The name of the organizer of the marketing event.
+          - name: event_status
+            description: The current status of the marketing event.
+          - name: event_type
+            description: The type of marketing event.
+          - name: event_url
+            description: A URL in the external event application where the marketing event can be managed.
+          - name: external_event_id
+            description: The ID that is associated with this marketing event in the external event application.
+          - name: no_shows
+            description: Number of no-show contact records of a marketing event.
+          - name: registrants
+            description: Number of registered contact records of a marketing event.
+          - name: start_date_time
+            description: The timestamp when the marketing event starts.
+          - name: updated_at
+            description: The timestamp when the marketing event was last updated.
+
+      - name: marketing_event_list
+        identifier: "{{ var('hubspot_marketing_event_list_identifier', 'marketing_event_list')}}"
+        description: Each record represents a list associated with a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_marketing_event_list_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The unique ID of the marketing event list.
+          - name: marketing_event_id
+            description: The ID of the related marketing event.
+          - name: name
+            description: The name of the marketing event list.
+          - name: created_by_id
+            description: The ID of the user who created the list.
+          - name: updated_by_id
+            description: The ID of the user who last updated the list.
+          - name: filters_updated_at
+            description: The timestamp when the list filters were last updated.
+          - name: created_at
+            description: The timestamp when the list was created.
+          - name: processing_status
+            description: The current processing status of the list.
+          - name: deleted_at
+            description: The timestamp when the list was deleted, if applicable.
+          - name: list_version
+            description: The version number of the list.
+          - name: object_type_id
+            description: The ID corresponding to the object type stored by the list.
+          - name: size
+            description: The number of records in the list.
+          - name: updated_at
+            description: The timestamp when the list was last updated.
+
+      - name: marketing_event_participant
+        identifier: "{{ var('hubspot_marketing_event_participant_identifier', 'marketing_event_participant')}}"
+        description: Each record represents a participant in a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_marketing_event_participant_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: id
+            description: The unique ID of the marketing event participant record.
+          - name: marketing_event_id
+            description: The ID of the related marketing event.
+          - name: contact_id
+            description: The ID of the related contact.
+          - name: created_at
+            description: The timestamp when the participant record was created.
+          - name: properties_occurred_at
+            description: The timestamp when the participation event occurred.
+          - name: properties_attendance_percentage
+            description: Percentage of the participation duration relative to the event duration.
+          - name: properties_attendance_state
+            description: The attendance state of the participant (e.g., ATTENDED, CANCELLED, EMPTY, NO_SHOW, REGISTERED).
+          - name: properties_attendance_duration_seconds
+            description: The number of seconds the participation lasted.
+
+      - name: marketing_event_custom_property
+        identifier: "{{ var('hubspot_marketing_event_custom_property_identifier', 'marketing_event_custom_property')}}"
+        description: Each record represents a custom property on a marketing event in HubSpot.
+        config:
+          enabled: "{{ var('hubspot_marketing_enabled', true) and var('hubspot_marketing_event_enabled', true) and var('hubspot_marketing_event_custom_property_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: marketing_event_id
+            description: The ID of the related marketing event.
+          - name: name
+            description: The name of the custom property.
+          - name: value
+            description: The value of the custom property.
+
+      - name: conversation_message_recipient
+        identifier: '{{ var("hubspot_conversation_message_recipient_identifier", "conversation_message_recipient") }}'
+        description: Each record represents a recipient associated with a conversation message.
+        config:
+          enabled: "{{ var('hubspot_conversation_enabled', true) and var('hubspot_sources', []) == [] }}"
+        columns:
+          - name: _fivetran_id
+            description: Unique ID generated by Fivetran for this recipient record.
+          - name: actor_id
+            description: ID of the actor (user or contact) who received the message.
+          - name: message_id
+            description: ID of the message this recipient is associated with.
+          - name: thread_id
+            description: ID of the thread this message belongs to.
+          - name: name
+            description: Display name of the recipient.
+          - name: recipient_field
+            description: The role of this recipient in the message (e.g., TO, CC, BCC).
+          - name: delivery_identifier_type
+            description: The type of delivery identifier for the recipient (e.g., HS_EMAIL_ADDRESS).
+          - name: delivery_identifier_value
+            description: The value of the delivery identifier (e.g., the email address).
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
