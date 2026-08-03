@@ -44,8 +44,7 @@ The following changes allow for additional custom columns:
 - Casts `form_id` and/or `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
 - Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
 - Optimizes `int_hubspot__ticket_calendar_spine` by limiting how far into the future it looks (one day vs one week) and its start date on incremental runs.
-
-> **This will require a `--full-refresh` run**.
+  - **This will require a `--full-refresh` run**.
 
 # dbt_hubspot v1.8.0
 
