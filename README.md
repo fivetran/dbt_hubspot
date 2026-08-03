@@ -188,8 +188,8 @@ vars:
 
   hubspot_sales_enabled: false                            # Disables all sales models
   hubspot_company_enabled: false
-  hubspot_company_list_enabled: false                     # Disables company list models
-  hubspot_company_list_member_enabled: false              # Disables company list member models
+  hubspot_company_list_enabled: false                     # Disables company list models. Default = True
+  hubspot_company_list_member_enabled: false              # Disables company list member models. Default = True
   hubspot_company_property_history_enabled: false         # Disables the company property history models
   hubspot_deal_enabled: false
   hubspot_deal_company_enabled: false
@@ -269,7 +269,7 @@ vars:
       alias:          "my_custom_field"
 ```
 
-**Alternatively**, if you would like to simply pass through **all columns** in the above four tables, add the following configuration to your dbt_project.yml. Note that this will override any `hubspot__[table_name]_pass_through_columns` variables.
+**Alternatively**, if you would like to simply pass through **all columns** in the above six tables, add the following configuration to your dbt_project.yml. Note that this will override any `hubspot__[table_name]_pass_through_columns` variables.
 
 ```yml
 vars:
@@ -352,10 +352,10 @@ See additional configurations for these models below.
 
 By default, the following properties are tracked daily and pivoted into columns in the respective end model:
 
-* Each contact's lifecycle stage, likelihood-to-close score (`hs_predictivecontactscore_v2`), and owner is tracked in `hubspot__daily_contact_history`
-* Each deal's stage, pipeline, amount, owner, and team is tracked in `hubspot__daily_deal_history`
-* Each ticket's state, pipeline, and pipeline stage is tracked in `hubspot__daily_ticket_history`
-* Each company's lifecycle stage and owner is tracked in `hubspot__daily_company_history`
+* Each contact's lifecycle stage, likelihood-to-close score (`hs_predictivecontactscore_v2`), and owner are tracked in `hubspot__daily_contact_history`
+* Each deal's stage, pipeline, amount, owner, and team are tracked in `hubspot__daily_deal_history`
+* Each ticket's state, pipeline, and pipeline stage are tracked in `hubspot__daily_ticket_history`
+* Each company's lifecycle stage and owner are tracked in `hubspot__daily_company_history`
 
 However, any property `name` from the source `CONTACT_PROPERTY_HISTORY`, `DEAL_PROPERTY_HISTORY`, `TICKET_PROPERTY_HISTORY`, or `COMPANY_PROPERTY_HISTORY` tables can be included. To add other properties to these end models, add the following configuration to your `dbt_project.yml` file:
 
@@ -413,7 +413,7 @@ vars:
 ```
 
 ##### Lookback window
-Records from the source can sometimes arrive late. Since several of the models in this package are incremental, by default we look back 3 days from new records to ensure late arrivals are captured and avoiding the need for frequent full refreshes. While the frequency can be reduced, we still recommend running `dbt --full-refresh` periodically to maintain data quality of the models. 
+Records from the source can sometimes arrive late. Since several of the models in this package are incremental, by default we look back 3 days from new records to ensure late arrivals are captured, avoiding the need for frequent full refreshes. While the frequency can be reduced, we still recommend running `dbt --full-refresh` periodically to maintain data quality of the models. 
 
 To change the default lookback window, add the following variable to your `dbt_project.yml` file:
 
