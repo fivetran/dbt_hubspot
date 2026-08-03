@@ -168,7 +168,7 @@ models:
       - name: created_by_actor_id
         description: ID of the user who created the message.
       - name: created_by_actor_type
-        description: Type of the actor (VISITOR, AGENT, BOT, SYSTEM, EMAIL, INTEGRATION, BREEZE, OTHER) who created the message. Inferred from the prefix of `created_by_actor_id`.
+        description: Type of the actor (VISITOR, AGENT, BOT, SYSTEM, EMAIL, INTEGRATION, LLM, OTHER) who created the message. Inferred from the prefix of `created_by_actor_id`.
       - name: direction
         description: Direction of the message (e.g., INCOMING, OUTGOING).
       - name: in_reply_to_id

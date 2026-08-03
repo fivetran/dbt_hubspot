@@ -41,7 +41,7 @@ with base as (
             when created_by like 'B-%' then 'BOT'
             when created_by like 'E-%' then 'EMAIL'
             when created_by like 'I-%' then 'INTEGRATION'
-            when created_by like 'L-%' then 'BREEZE'  -- customer agent powered by Hubspot's AI called Breeze
+            when created_by like 'L-%' then 'LLM'  -- customer agent powered by Hubspot's AI called Breeze
             when created_by like 'S-%' then 'SYSTEM'
             when created_by like 'V-%' then 'VISITOR'
             else 'OTHER' end as created_by_actor_type,

@@ -24,6 +24,7 @@ test_scenarios:
       hubspot_marketing_enabled: true
       hubspot_sales_enabled: false
       hubspot_engagement_communication_enabled: true
+      hubspot_marketing_event_custom_properties: ["campaign_id", "region", "spent"]
     include_incremental: false
 
   - name: "marketing with merged deals + no email events or conversations"
@@ -36,7 +37,6 @@ test_scenarios:
       hubspot_submission_response_enabled: false
       hubspot_email_event_enabled: false
       hubspot_marketing_event_participant_enabled: false
-      hubspot_marketing_event_custom_property_enabled: false
     include_incremental: false
 
   - name: "marketing and sales with contact merge audit and no engagements or email sent"
@@ -47,6 +47,7 @@ test_scenarios:
       hubspot_engagement_enabled: false
       hubspot_email_event_sent_enabled: false
       hubspot_marketing_event_list_enabled: false
+      hubspot_marketing_event_custom_property_enabled: false
       hubspot__company_list_pass_through_columns:
         - name: "custom_field"
           alias: "my_custom_field"

@@ -217,7 +217,7 @@ models:
       - name: is_contact_deleted
         description: '{{ doc("is_deleted") }}'
       - name: first_response_time_seconds
-        description: Time taken to respond to the first incoming message in the thread (in seconds).
+        description: Time taken to respond to the first incoming message in the thread (in seconds). Negative values indicate that the conversation was initiated by an internal agent or bot.
       - name: resolution_time_seconds
         description: Time taken to resolve the thread (in seconds), starting at the first incoming message and ending at thread close.
       - name: first_message_at
@@ -238,6 +238,10 @@ models:
         description: Number of distinct outgoing messages sent by a bot.
       - name: system_outgoing_message_count
         description: Number of distinct outgoing messages sent by a system actor.
+      - name: llm_outgoing_message_count
+        description: Number of distinct outgoing messages sent by Hubspot's LLM-powered agent called Breeze.
+      - name: integration_outgoing_message_count
+        description: Number of distinct outgoing messages sent by an integration actor.
       - name: comment_count
         description: Number of internal comments on the thread.
       - name: assignment_count

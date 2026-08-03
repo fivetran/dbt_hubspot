@@ -78,12 +78,14 @@ message_history_join as (
         count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'AGENT' then conversation_message_history.message_id end) agent_outgoing_message_count,
         count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'BOT' then conversation_message_history.message_id end) bot_outgoing_message_count,
         count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'SYSTEM' then conversation_message_history.message_id end) system_outgoing_message_count,
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'LLM' then conversation_message_history.message_id end) llm_outgoing_message_count,
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'INTEGRATION' then conversation_message_history.message_id end) integration_outgoing_message_count,
 
         count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'AGENT' then conversation_message_history.created_by_actor_id end) agent_author_count,
         count(distinct case when coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'AGENT' then conversation_message_history.created_by_actor_id end) involved_agent_count,
         count(distinct case when conversation_message_history.direction = 'INCOMING' and conversation_message_history.type = 'MESSAGE' and coalesce(actor_sender.type, conversation_message_history.created_by_actor_type) = 'VISITOR' then conversation_message_history.created_by_actor_id end) visitor_author_count,
 
-        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and actor_recipient.type = 'VISITOR' then actor_recipient.actor_id end) visitor_recipient_count,
+        count(distinct case when conversation_message_history.direction = 'OUTGOING' and conversation_message_history.type = 'MESSAGE' and (actor_recipient.type = 'VISITOR' or actor_recipient.actor_id like 'V-%') then actor_recipient.actor_id end) visitor_recipient_count,
 
         -- Other conversation event counts
         count(distinct case when conversation_message_history.type = 'COMMENT' then conversation_message_history.message_id end) comment_count,
