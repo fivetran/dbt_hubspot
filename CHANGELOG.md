@@ -24,10 +24,10 @@
 
 The following changes apply to daily property history models:
 
-- Adds the `hubspot__contact_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_contact_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-contact-ticket-and-deal-history) for configuration details.
-- Adds the `hubspot__deal_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_deal_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-contact-ticket-and-deal-history) for configuration details.
-- Adds the `hubspot__company_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_company_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-contact-ticket-deal-and-company-history) for configuration details.
-- Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history-past-closing-date) for configuration details.
+- Adds the `hubspot__contact_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_contact_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main#tracking-contact-ticket-deal-and-company-properties) for configuration details.
+- Adds the `hubspot__deal_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_deal_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main#tracking-contact-ticket-deal-and-company-properties) for configuration details.
+- Adds the `hubspot__company_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_company_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main#tracking-contact-ticket-deal-and-company-properties) for configuration details.
+- Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history) for configuration details.
 - Adds the `hubspot__daily_history_start_date` variable to limit daily history models to a specific start date, reducing build time for large datasets. Applies to `hubspot__daily_contact_history`, `hubspot__daily_deal_history`, `hubspot__daily_company_history`, and `hubspot__daily_ticket_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-history-start-date) for configuration details.
 - Adds a configurable `lookback_window` variable to all incremental windows to catch late-arriving records. Default value = 3 days. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#lookback-window) for configuration details.
 
@@ -44,6 +44,8 @@ The following changes allow for additional custom columns:
 - Casts `form_id` and/or `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
 - Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
 - Optimizes `int_hubspot__ticket_calendar_spine` by limiting how far into the future it looks (one day vs one week) and its start date on incremental runs.
+
+> **This will require a `--full-refresh` run**.
 
 # dbt_hubspot v1.8.0
 
