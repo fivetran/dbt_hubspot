@@ -37,8 +37,6 @@ vars:
       - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
         alias: "funky_field" # @docs-ignore
 
-    hubspot_marketing_event_custom_properties: ["campaign_id", "region", "spent"]
-
     hubspot_company_list_identifier: "company_list_data"
     hubspot_company_list_member_identifier: "company_list_member_data"
     hubspot_company_property_history_identifier: "company_property_history_data"
