@@ -3,7 +3,7 @@
 [PR #210](https://github.com/fivetran/dbt_hubspot/pull/210) includes the following updates:
 
 ## Bug Fix
-- Fixes a compilation error in `hubspot__conversations` when `hubspot_team_enabled` or `hubspot_role_enabled` is set to `false`.
+- Fixes a compilation error in `hubspot__conversations` when either variable `hubspot_team_enabled` or `hubspot_role_enabled` is set to `false`.
 
 # dbt_hubspot v1.9.0
 
