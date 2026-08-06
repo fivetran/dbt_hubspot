@@ -48,6 +48,7 @@ test_scenarios:
       hubspot_email_event_sent_enabled: false
       hubspot_marketing_event_list_enabled: false
       hubspot_marketing_event_custom_property_enabled: false
+      hubspot_role_enabled: false
       hubspot__company_list_pass_through_columns:
         - name: "custom_field"
           alias: "my_custom_field"
@@ -65,6 +66,7 @@ test_scenarios:
       hubspot_using_all_email_events: false
       hubspot_owner_enabled: false
       hubspot_company_list_member_enabled: false
+      hubspot_team_enabled: false
     include_incremental: false
 
   - name: "MDLS"
@@ -76,5 +78,7 @@ test_scenarios:
       hubspot_contact_property_history_enabled: false
       hubspot_company_property_history_enabled: false
       hubspot_deal_property_history_enabled: false
+      hubspot_team_enabled: false
+      hubspot_role_enabled: false
     include_incremental: false
     include_dbt_seed: true

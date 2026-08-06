@@ -142,10 +142,14 @@ thread_join as (
             {% if var('hubspot_owner_enabled', true) %}
             owners_enhanced.owner_email_address as ticket_owner_email_address,
             owners_enhanced.owner_full_name as ticket_owner_full_name,
+                {% if var('hubspot_team_enabled', true) %}
             owners_enhanced.owner_primary_team_id as ticket_owner_primary_team_id,
             owners_enhanced.owner_primary_team_name as ticket_owner_primary_team_name,
+                {% endif %}
+                {% if var('hubspot_role_enabled', true) %}
             owners_enhanced.owner_role_id as ticket_owner_role_id,
             owners_enhanced.owner_role_name as ticket_owner_role_name,
+                {% endif %}
             owners_enhanced.owner_active_user_id as ticket_owner_active_user_id,
             {% endif %}
         {% endif %}
