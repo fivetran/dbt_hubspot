@@ -77,8 +77,12 @@ with contacts as (
 
     select 
         {{ cte_ref }}.*,
+        {% set form_metrics = ['form_id', 'date', 'form_name', 'form_type'] %}
+        {% if var('hubspot_submission_response_enabled', true) %}
+            {% set form_metrics = form_metrics + ['fields_responded_to', 'total_responses'] %}
+        {% endif %}
         {% for first_or_last in ['first_conversion', 'most_recent_conversion'] %}
-            {% for metric in ['form_id', 'date', 'form_name', 'form_type'] %}
+            {% for metric in form_metrics %}
                 conversions.{{ first_or_last }}_{{ metric }} as calculated_{{ first_or_last }}_{{ metric }},
             {% endfor %}
         {% endfor %}

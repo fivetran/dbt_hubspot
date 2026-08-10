@@ -3,7 +3,7 @@
 {% set columns = [
     {"name": "_fivetran_synced", "datatype": dbt.type_timestamp()},
     {"name": "_fivetran_deleted", "datatype": dbt.type_boolean()},
-    {"name": "guid", "datatype": dbt.type_bigint()},
+    {"name": "guid", "datatype": dbt.type_string()},
     {"name": "action", "datatype": dbt.type_string()},
     {"name": "created_at", "datatype": dbt.type_timestamp()},
     {"name": "css_class", "datatype": dbt.type_string()},

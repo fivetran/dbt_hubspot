@@ -1,0 +1,79 @@
+{{
+    config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_company_enabled']))
+}}
+
+{# Build a list of (model_ref, enabled_var) pairs so we can union only what's enabled #}
+{% set engagement_staging_models = [] %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_call') if fivetran_utils.enabled_vars(['hubspot_engagement_call_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_email') if fivetran_utils.enabled_vars(['hubspot_engagement_email_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_meeting') if fivetran_utils.enabled_vars(['hubspot_engagement_meeting_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_note') if fivetran_utils.enabled_vars(['hubspot_engagement_note_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_task') if fivetran_utils.enabled_vars(['hubspot_engagement_task_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_communication') if var('hubspot_engagement_communication_enabled', false) %}
+
+with engagement_companies as (
+
+    select
+        source_relation,
+        engagement_id,
+        company_id
+    from {{ ref('stg_hubspot__engagement_company') }}
+
+), all_engagements as (
+
+    {% if engagement_staging_models | length > 0 %}
+        {% for model in engagement_staging_models %}
+        {% if not loop.first %}union all{% endif %}
+        select
+            source_relation,
+            engagement_id,
+            occurred_timestamp,
+            engagement_type
+        from {{ ref(model) }}
+        {% endfor %}
+
+    {% else %}
+
+        select
+            cast(null as {{ dbt.type_string() }}) as source_relation,
+            cast(null as {{ dbt.type_int() }}) as engagement_id,
+            cast(null as {{ dbt.type_timestamp() }}) as occurred_timestamp,
+            cast(null as {{ dbt.type_string() }}) as engagement_type
+        where false
+
+    {% endif %}
+
+), joined as (
+
+    select
+        engagement_companies.source_relation,
+        engagement_companies.company_id,
+        cast({{ dbt.date_trunc('day', 'all_engagements.occurred_timestamp') }} as date) as date_day,
+        all_engagements.engagement_type
+    from all_engagements
+    join engagement_companies
+        on all_engagements.engagement_id = engagement_companies.engagement_id
+        and all_engagements.source_relation = engagement_companies.source_relation
+    where all_engagements.occurred_timestamp is not null
+
+), aggregated as (
+
+    select
+        source_relation,
+        company_id,
+        date_day,
+        count(case when engagement_type = 'NOTE' then 1 end) as count_engagement_notes,
+        count(case when engagement_type = 'TASK' then 1 end) as count_engagement_tasks,
+        count(case when engagement_type = 'CALL' then 1 end) as count_engagement_calls,
+        count(case when engagement_type = 'MEETING' then 1 end) as count_engagement_meetings,
+        count(case when engagement_type = 'EMAIL' then 1 end) as count_engagement_emails,
+        count(case when engagement_type = 'INCOMING_EMAIL' then 1 end) as count_engagement_incoming_emails,
+        count(case when engagement_type = 'FORWARDED_EMAIL' then 1 end) as count_engagement_forwarded_emails,
+        count(case when engagement_type = 'COMMUNICATION' then 1 end) as count_engagement_communications
+    from joined
+    group by 1, 2, 3
+
+)
+
+select *
+from aggregated

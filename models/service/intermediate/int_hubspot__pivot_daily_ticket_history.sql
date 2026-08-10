@@ -18,7 +18,7 @@ with daily_history as (
     from {{ ref('int_hubspot__daily_ticket_history') }}
 
     {% if is_incremental() %}
-    where date_day >= (select max(date_day) from {{ this }} )
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 ), pivot_out as (

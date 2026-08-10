@@ -4,6 +4,14 @@ schema_key: hubspot_schema
 dbt_versions: ">=1.3.0 <3.0.0"
 
 table_variables:
+  hubspot_marketing_event_enabled:
+    - marketing_event
+  hubspot_marketing_event_list_enabled:
+    - marketing_event_list
+  hubspot_marketing_event_participant_enabled:
+    - marketing_event_participant
+  hubspot_marketing_event_custom_property_enabled:
+    - marketing_event_custom_property
   hubspot_contact_enabled:
     - contact
   hubspot_contact_list_enabled:
@@ -43,11 +51,20 @@ table_variables:
     - contact_merge_audit
   hubspot_company_enabled:
     - company
+  hubspot_company_list_enabled:
+    - company_list
+  hubspot_company_list_member_enabled:
+    - company_list_member
   hubspot_company_property_history_enabled:
     - company_property_history
   hubspot_contact_form_enabled:
     - contact_form_submission
     - form
+  hubspot_submission_response_enabled:
+    - submission_response
+  hubspot_conversation_enabled:
+    - conversation_thread
+    - conversation_message_history
   hubspot_deal_enabled:
     - deal
     - deal_stage
@@ -85,7 +102,6 @@ table_variables:
     - owner
   hubspot_property_enabled:
     - property
-  hubspot_property_enabled:
     - property_option
   hubspot_role_enabled:
     - role
@@ -106,6 +122,17 @@ table_variables:
   hubspot_ticket_deal_enabled:
     - ticket_deal
 
+  _fivetran_quickstart_conversation_actor:
+    - conversation_actor
+  _fivetran_quickstart_conversation_channel:
+    - conversation_channel
+  _fivetran_quickstart_conversation_channel_account:
+    - conversation_channel_account
+  _fivetran_quickstart_conversation_inbox:
+    - conversation_inbox
+  _fivetran_quickstart_conversation_message_recipient:
+    - conversation_message_recipient
+
 destination_configurations:
   databricks:
     dispatch:
@@ -124,6 +151,7 @@ public_models: [
   "hubspot__email_event_spam_report",
   "hubspot__email_event_status_change",
   "hubspot__contact_history",
+  "hubspot__daily_contact_history",
   "hubspot__contact_lists",
   "hubspot__contacts",
   "hubspot__email_campaigns",
@@ -134,13 +162,18 @@ public_models: [
   "hubspot__engagement_notes",
   "hubspot__engagement_tasks",
   "hubspot__company_history",
-  "hubspot__deal_history",
   "hubspot__companies",
+  "hubspot__company_lists",
   "hubspot__deal_stages",
   "hubspot__deals",
+  "hubspot__daily_company_history",
+  "hubspot__daily_deal_history",
+  "hubspot__deal_history",
   "hubspot__engagements",
   "hubspot__daily_ticket_history",
-  "hubspot__tickets"
+  "hubspot__tickets",
+  "hubspot__conversations",
+  "hubspot__marketing_event_performance"
 ]
 
 supported_vars:
@@ -186,16 +219,57 @@ supported_vars:
     description: "Additional `TICKET` fields to include in `hubspot__tickets`"
     display_name: "Additional Ticket Columns"
 
+  hubspot__company_list_pass_through_columns:
+    type: dictionary
+    description: "Additional `COMPANY_LIST` fields to include in `hubspot__company_lists`"
+    display_name: "Additional Company List Columns"
+
+  hubspot__contact_list_pass_through_columns:
+    type: dictionary
+    description: "Additional `CONTACT_LIST` fields to include in `hubspot__contact_lists`"
+    display_name: "Additional Contact List Columns"
+
   hubspot__ticket_property_history_columns:
     type: list
-    description: "Ticket properties from `TICKET_PROPERTY_HISTORY` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
+    description: "Ticket properties from `TICKET_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_ticket_history`. Ticket state, pipeline, and pipeline stage are included automatically"
     display_name: "Tracked Ticket Properties"
+
+  hubspot__contact_property_history_columns:
+    type: list
+    description: "Contact properties from `CONTACT_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_contact_history`. Lifecycle stage and owner are included automatically"
+    display_name: "Tracked Contact Properties"
+
+  hubspot__deal_property_history_columns:
+    type: list
+    description: "Deal properties from `DEAL_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_deal_history`. Deal stage, pipeline, and amount are included automatically"
+    display_name: "Tracked Deal Properties"
+
+  hubspot__company_property_history_columns:
+    type: list
+    description: "Company properties from `COMPANY_PROPERTY_HISTORY.name` to track daily in `hubspot__daily_company_history`. Owner and lifecycle stage are included automatically"
+    display_name: "Tracked Company Properties"
+
+  hubspot_marketing_event_custom_properties:
+    type: list
+    description: "Custom property names from `MARKETING_EVENT_CUSTOM_PROPERTY.name` to pivot into columns in `hubspot__marketing_event_performance`"
+    display_name: "Marketing Event Custom Property Columns"
+
+  hubspot__daily_history_start_date:
+    type: string
+    description: "ISO date string (e.g. '2022-01-01') that limits all daily history models to records on or after this date. Useful for reducing build time on large datasets"
+    display_name: "Daily History Start Date"
 
   ticket_history_extension_days:
     type: integer
     value: 0
-    description: "Number of days that `hubspot__daily_ticket_history` will track for each ticket after it has been closed. Hubspot tickets can be altered after closing"
+    description: "Number of days that `hubspot__daily_ticket_history` will track for each ticket after it has been closed. HubSpot tickets can be altered after closing"
     display_name: "Post-Close Ticket History Extension (Days)"
+
+  deal_history_extension_days:
+    type: integer
+    value: 30
+    description: "Number of days that `hubspot__daily_deal_history` will track for each deal after it has been closed. HubSpot deals can be altered after closing"
+    display_name: "Post-Close Deal History Extension (Days)"
 
   hubspot_using_all_email_events:
     type: boolean
@@ -203,3 +277,8 @@ supported_vars:
     description: "Include filtered email events in all `hubspot__email_event_*` models and downstream aggregations in `hubspot__email_sends`, `hubspot__email_campaigns`, `hubspot__contacts`, and `hubspot__contact_lists`"
     display_name: "Include Filtered Email Events"
 
+  lookback_window:
+    type: integer
+    value: 3
+    description: "Number of days into the past that the models will look back to capture late-arriving records on incremental runs"
+    display_name: "Incremental Run Lookback Window (Days)"

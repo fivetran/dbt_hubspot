@@ -1,10 +1,64 @@
-# dbt_hubspot v1.8.1
+# dbt_hubspot v1.9.2
 
 [PR #211](https://github.com/fivetran/dbt_hubspot/pull/211) includes the following updates:
 
 ## Feature Updates
 - Adds DuckDB as a supported destination.
 
+# dbt_hubspot v1.9.1
+
+[PR #210](https://github.com/fivetran/dbt_hubspot/pull/210) includes the following updates:
+
+## Bug Fix
+- Fixes a compilation error in `hubspot__conversations` when either variable `hubspot_team_enabled` or `hubspot_role_enabled` is set to `false`.
+
+# dbt_hubspot v1.9.0
+
+[PR #209](https://github.com/fivetran/dbt_hubspot/pull/209) includes the following updates:
+
+## Schema/Data Change
+**46 new models • 0 possible breaking changes**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| [`hubspot__daily_contact_history`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_contact_history) | New end model | | | Each record represents a contact's state on a given day with lifecycle stage, owner, and other selected properties pivoted into columns. Contains daily engagement and email event metrics as well. |
+| [`hubspot__daily_deal_history`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_deal_history) | New end model | | | Each record represents a deal's state on a given day with pipeline, stage, amount, owner, team, daily engagement metrics, and other selected properties pivoted into columns. |
+| [`hubspot__daily_company_history`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__daily_company_history) | New end model | | | Each record represents a company's state on a given day with owner, lifecycle stage, daily engagement metrics, and other selected properties pivoted into columns. |
+| [`hubspot__company_lists`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__company_lists) | New end model | | | Each record represents a company list in HubSpot, enriched with engagement metrics aggregated across member companies. Self-managed dbt projects can disable by setting the `hubspot_company_list_enabled` variable to False ([README](https://github.com/fivetran/dbt_hubspot/tree/main#disableenable-models-and-sources)). |
+| [`hubspot__conversations`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__conversations) | New end model | | | One record per conversation thread, enriched with inbox, channel, channel account details, and aggregated message metrics. Dynamically enabled in Quickstart. Self-managed dbt projects can disable by setting the `hubspot_conversation_enabled` variable to False ([README](https://github.com/fivetran/dbt_hubspot/tree/main#disableenable-models-and-sources)). |
+| [`hubspot__marketing_event_performance`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__marketing_event_performance) | New end model | | | Each record represents a marketing event with aggregated attendance metrics, contact-level participation counts, segment list membership, and optional pivoted custom properties. Self-managed dbt projects can disable the entire model by setting the `hubspot_marketing_event_enabled` variable to False and child table transformations with `hubspot_marketing_event_list_enabled`, `hubspot_marketing_event_participant_enabled`, and `hubspot_marketing_event_custom_property_enabled` ([README](https://github.com/fivetran/dbt_hubspot/tree/main#disableenable-models-and-sources)). |
+| [`hubspot__contacts`](https://fivetran.github.io/dbt_hubspot/#!/model/model.hubspot.hubspot__contacts) | New fields | | `calculated_first_conversion_fields_responded_to`<br>`calculated_most_recent_conversion_fields_responded_to`<br>`calculated_first_conversion_total_responses`<br>`calculated_most_recent_conversion_total_responses` | Comma-separated list and count of fields submitted during the contact's first and most recent form conversions. Self-managed dbt projects can disable by setting the `hubspot_submission_response_enabled` variable to False ([README](https://github.com/fivetran/dbt_hubspot/tree/main#disableenable-models-and-sources)). |
+| `stg_hubspot__conversation_thread`<br>`stg_hubspot__conversation_message_history`<br>`stg_hubspot__conversation_message_recipient`<br>`stg_hubspot__conversation_actor`<br>`stg_hubspot__conversation_channel`<br>`stg_hubspot__conversation_channel_account`<br>`stg_hubspot__conversation_inbox`<br>`stg_hubspot__submission_response`<br>`stg_hubspot__company_list`<br>`stg_hubspot__company_list_member`<br>`stg_hubspot__marketing_event`<br>`stg_hubspot__marketing_event_list`<br>`stg_hubspot__marketing_event_participant`<br>`stg_hubspot__marketing_event_custom_property` | New staging models (and `*_tmp` counterparts) | | | Used to power the above new end models. |
+| `int_hubspot__daily_deal_history`<br>`int_hubspot__deal_calendar_spine`<br>`int_hubspot__pivot_daily_deal_history`<br>`int_hubspot__scd_daily_deal_history`<br>`int_hubspot__daily_contact_history`<br>`int_hubspot__contact_calendar_spine`<br>`int_hubspot__pivot_daily_contact_history`<br>`int_hubspot__scd_daily_contact_history`<br>`int_hubspot__daily_company_history`<br>`int_hubspot__company_calendar_spine`<br>`int_hubspot__pivot_daily_company_history`<br>`int_hubspot__scd_daily_company_history` | New intermediate models | | | Used to power new daily property history end models. |
+| `stg_hubspot__deal_property_history`<br>`stg_hubspot__company_property_history`<br>`stg_hubspot__contact_property_history` | New staging columns | | `_fivetran_start`, `_fivetran_end`, `_fivetran_active` | SCD metadata fields used to power daily history models. |
+
+## Feature Updates
+
+### Property History Models
+
+The following changes apply to daily property history models:
+
+- Adds the `hubspot__contact_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_contact_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main#tracking-contact-ticket-deal-and-company-properties) for configuration details.
+- Adds the `hubspot__deal_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_deal_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main#tracking-contact-ticket-deal-and-company-properties) for configuration details.
+- Adds the `hubspot__company_property_history_columns` variable to pivot out additional properties as `string` columns in `hubspot__daily_company_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main#tracking-contact-ticket-deal-and-company-properties) for configuration details.
+- Adds the `deal_history_extension_days` variable to limit or extend the history of deals in `hubspot__daily_deal_history` past their close dates (default=30 days). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#extending-ticket-and-deal-history) for configuration details.
+- Adds the `hubspot__daily_history_start_date` variable to limit daily history models to a specific start date, reducing build time for large datasets. Applies to `hubspot__daily_contact_history`, `hubspot__daily_deal_history`, `hubspot__daily_company_history`, and `hubspot__daily_ticket_history`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#daily-history-start-date) for configuration details.
+- Adds a configurable `lookback_window` variable to all incremental windows to catch late-arriving records. Default value = 3 days. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#lookback-window) for configuration details.
+
+### Custom Columns
+
+The following changes allow for additional custom columns:
+
+- Adds the `hubspot_marketing_event_custom_properties` variable to pivot custom property values from `marketing_event_custom_property` into columns in `hubspot__marketing_event_performance`. Set to a list of property names (e.g. `['spent', 'budget']`); defaults to `[]` (no properties pivoted). See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#pivoting-marketing-event-custom-properties) for details.
+- Adds the `hubspot__company_list_pass_through_columns` variable to bring additional columns from the `company_list` source table through to `hubspot__company_lists` and `stg_hubspot__company_list`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#include-passthrough-columns) for configuration details.
+- Adds the `hubspot__contact_list_pass_through_columns` variable to bring additional columns from the `contact_list` source table through to `hubspot__contact_lists` and `stg_hubspot__contact_list`. See the [README](https://github.com/fivetran/dbt_hubspot/tree/main?tab=readme-ov-file#include-passthrough-columns) for configuration details.
+- The [`hubspot__pass_through_all_columns`](https://github.com/fivetran/dbt_hubspot/#include-passthrough-columns) and [`hubspot__enable_all_property_labels`](https://github.com/fivetran/dbt_hubspot/#adding-property-label) variables now also apply to `company_list` and `contact_list` models.
+
+## Under the Hood
+- Casts `form_id` and/or `conversion_id` as strings when missing from source data in `stg_hubspot__form` and `stg_hubspot__contact_form_submission`.
+- Ensures `user_id` is an integer in `stg_hubspot__users` when missing from source data.
+- Optimizes `int_hubspot__ticket_calendar_spine` by limiting how far into the future it looks (one day vs one week) and its start date on incremental runs.
+  - **This will require a `--full-refresh` run**.
 
 # dbt_hubspot v1.8.0
 
@@ -115,7 +169,7 @@
 ## Additional Breaking Changes
 If you are currently using the `hubspot__company_pass_through_columns` or `hubspot__deal_pass_through_columns` variables to persist the `_fivetran_deleted` field, please add an `alias` to avoid duplicate column errors.
 
-> Please note that `_fivetran_deleted` is coalesced with the `is_<company/deal>_eabled` field present in the `hubspot__companies`, `hubspot__deals`, and `hubspot__deal_stages` models.
+> Please note that `_fivetran_deleted` is coalesced with the `is_<company/deal>_enabled` field present in the `hubspot__companies`, `hubspot__deals`, and `hubspot__deal_stages` models.
 
 ```yml
 vars:

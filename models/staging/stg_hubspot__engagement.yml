@@ -110,7 +110,7 @@ models:
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
       - name: deal_id
-        description: The ID of the related contact.
+        description: The ID of the related deal.
       - name: engagement_id
         description: The ID of the related engagement.
       - name: category

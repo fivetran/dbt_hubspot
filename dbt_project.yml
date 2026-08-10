@@ -1,5 +1,5 @@
 name: 'hubspot'
-version: '1.8.1'
+version: '1.9.2'
 
 config-version: 2
 require-dbt-version: [">=1.3.0", "<3.0.0"]
@@ -8,6 +8,8 @@ vars:
   hubspot:
     company: "{{ source('hubspot','company') }}"
     company_property_history: "{{ source('hubspot','company_property_history') }}"
+    company_list: "{{ source('hubspot','company_list') }}"
+    company_list_member: "{{ source('hubspot','company_list_member') }}"
     contact: "{{ source('hubspot','contact') }}"
     contact_form_submission: "{{ source('hubspot','contact_form_submission') }}"
     contact_merge_audit: "{{ source('hubspot','contact_merge_audit') }}"
@@ -46,11 +48,16 @@ vars:
     engagement_note: "{{ source('hubspot','engagement_note') }}"
     engagement_task: "{{ source('hubspot','engagement_task') }}"
     form: "{{ source('hubspot','form') }}"
+    marketing_event: "{{ source('hubspot','marketing_event') }}"
+    marketing_event_custom_property: "{{ source('hubspot','marketing_event_custom_property') }}"
+    marketing_event_participant: "{{ source('hubspot','marketing_event_participant') }}"
+    marketing_event_list: "{{ source('hubspot','marketing_event_list') }}"
     owner: "{{ source('hubspot','owner') }}"
     owner_team: "{{ source('hubspot','owner_team') }}"
     property: "{{ source('hubspot','property') }}"
     property_option: "{{ source('hubspot','property_option') }}"
     role: "{{ source('hubspot','role') }}"
+    submission_response: "{{ source('hubspot','submission_response') }}"
     team: "{{ source('hubspot','team') }}"
     team_user: "{{ source('hubspot','team_user') }}"
     ticket_company: "{{ source('hubspot','ticket_company') }}"
@@ -62,10 +69,19 @@ vars:
     ticket_property_history: "{{ source('hubspot','ticket_property_history') }}"
     ticket: "{{ source('hubspot','ticket') }}"
     users: "{{ source('hubspot','users') }}"
+    conversation_actor: "{{ source('hubspot','conversation_actor') }}"
+    conversation_channel: "{{ source('hubspot','conversation_channel') }}"
+    conversation_channel_account: "{{ source('hubspot','conversation_channel_account') }}"
+    conversation_inbox: "{{ source('hubspot','conversation_inbox') }}"
+    conversation_message_history: "{{ source('hubspot','conversation_message_history') }}"
+    conversation_message_recipient: "{{ source('hubspot','conversation_message_recipient') }}"
+    conversation_thread: "{{ source('hubspot','conversation_thread') }}"
     hubspot__deal_pass_through_columns: []
     hubspot__contact_pass_through_columns: []
     hubspot__company_pass_through_columns: []
     hubspot__ticket_pass_through_columns: []
+    hubspot__company_list_pass_through_columns: []
+    hubspot__contact_list_pass_through_columns: []
 
 models:
   hubspot:
