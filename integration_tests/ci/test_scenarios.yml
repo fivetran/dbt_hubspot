@@ -12,7 +12,6 @@ include_databricks_sql: true
 include_sqlserver: false
 include_duckdb: true
 include_dbt_compile: true
-include_duckdb: false
 
 test_scenarios:
   - name: "Default"
