@@ -3,7 +3,7 @@
         enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_enabled', 'hubspot_company_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
         partition_by = {'field': 'date_day', 'data_type': 'date'}
-            if target.type not in ['spark', 'databricks'] else ['date_day'],
+            if target.type not in ['spark', 'databricks', 'duckdb'] else ['date_day'],
         unique_key='id',
         incremental_strategy='insert_overwrite' if target.type in ('bigquery', 'spark', 'databricks') else 'delete+insert',
         file_format='delta'
