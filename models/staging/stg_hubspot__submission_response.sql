@@ -26,11 +26,7 @@ with base as (
         field_name,
         field_value,
         submitted_at,
-        {% if target.type == 'duckdb' %}
-        epoch_ms(submitted_at) as submitted_timestamp,
-        {% else %}
         {{ dbt.dateadd(datepart='millisecond',interval='submitted_at', from_date_or_timestamp="cast('1970-01-01' as " ~ dbt.type_timestamp() ~ ")") }} as submitted_timestamp,
-        {% endif %}
         page_url,
         object_type_id,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
