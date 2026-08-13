@@ -26,7 +26,6 @@ test_scenarios:
       hubspot_engagement_communication_enabled: true
       hubspot_marketing_event_custom_properties: ["campaign_id", "region", "spent"]
     include_incremental: false
-    warehouses: ["bigquery", "postgres", "snowflake", "databricks"]
 
   - name: "marketing with merged deals + no email events or conversations"
     vars:
