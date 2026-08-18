@@ -1,3 +1,10 @@
+# dbt_hubspot v1.9.2
+
+[PR #211](https://github.com/fivetran/dbt_hubspot/pull/211) includes the following updates:
+
+## Feature Updates
+- Adds DuckDB as a supported destination.
+
 # dbt_hubspot v1.9.1
 
 [PR #210](https://github.com/fivetran/dbt_hubspot/pull/210) includes the following updates:

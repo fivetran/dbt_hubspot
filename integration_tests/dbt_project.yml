@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.9.1'
+version: '1.9.2'
 
 profile: 'integration_tests'
 config-version: 2
@@ -8,8 +8,7 @@ models:
   +persist_docs:
     relation: true
     columns: "{{ false if target.type in ('databricks') else true }}"
-  +schema: "{{ 'hubspot_sqlw_integration_tests' if target.name == 'databricks-sql' else 'hubspot' }}"
-  # +schema: "hubspot_{{ var('directed_schema','dev') }}" ## To be used for validation testing
+  +schema: "hubspot_{{ var('directed_schema','dev') }}"
 
 vars:
   # jsons and arrays
@@ -112,7 +111,7 @@ seeds:
   +docs:
     show: False
   hubspot_integration_tests:
-    +quote_columns: "{{ target.type == 'redshift' or var('fivetran_using_source_casing', false) }}"
+    +quote_columns: "{{ target.type in ('redshift', 'duckdb') or var('fivetran_using_source_casing', false) }}"
     company_list_data:
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

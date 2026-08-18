@@ -63,7 +63,7 @@ By default, this package materializes the following final tables:
 To use this dbt package, you must have the following:
 
 - At least one Fivetran HubSpot connection syncing data into your destination.
-- A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, or **Databricks** destination.
+- A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, **Databricks**, or **DuckDB** destination.
 
 ## How do I use the dbt package?
 You can either add this dbt package in the Fivetran dashboard or import it into your dbt project:

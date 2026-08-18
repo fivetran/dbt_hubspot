@@ -66,3 +66,15 @@
     lateral view explode(split(merged_object_ids, ';')) merges_view as merges
 
 {% endmacro %}
+
+{% macro duckdb__merge_contacts() %}
+    select
+        contacts.source_relation,
+        contacts.contact_id,
+        merges as vid_to_merge
+
+    from contacts
+    cross join
+        unnest(string_split(merged_object_ids, ';')) as t(merges)
+
+{% endmacro %}
