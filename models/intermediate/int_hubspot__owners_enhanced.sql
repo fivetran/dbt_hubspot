@@ -14,6 +14,7 @@ with owners as (
 ), owner_teams as (
     select *
     from {{ ref('stg_hubspot__owner_team') }}
+    where is_deleted is false
 
 ), teams as (
     select *
