@@ -1,3 +1,9 @@
+# dbt_hubspot v1.9.3?
+
+## Contributors
+- [@zhoward101](https://github.com/zhoward101) ([PR #213](https://github.com/fivetran/dbt_hubspot/pull/213))
+
+
 # dbt_hubspot v1.9.2
 
 [PR #211](https://github.com/fivetran/dbt_hubspot/pull/211) includes the following updates:
