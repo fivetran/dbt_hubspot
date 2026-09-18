@@ -14,7 +14,7 @@ with owners as (
 ), owner_teams as (
     select *
     from {{ ref('stg_hubspot__owner_team') }}
-    where not is_deleted
+    where not coalesce(is_deleted, false)
 
 ), teams as (
     select *
