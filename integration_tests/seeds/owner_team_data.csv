@@ -1,4 +1,5 @@
-owner_id,team_id,is_team_primary,_fivetran_synced
-35252170,6789,true,2023-07-09 15:55:40.878
-40706000,1234,true,2023-07-09 15:55:40.878
-40706000,9999,false,2023-07-09 15:55:40.878
+owner_id,team_id,is_team_primary,_fivetran_synced,_fivetran_deleted
+35252170,6789,true,2023-07-09 15:55:40.878,false
+40706000,1234,true,2023-07-09 15:55:40.878,false
+40706000,9999,false,2023-07-09 15:55:40.878,false
+40706000,6789,false,2023-07-09 15:55:40.878,true

@@ -1,3 +1,18 @@
+# dbt_hubspot v1.10.0
+
+[PR #214](https://github.com/fivetran/dbt_hubspot/pull/214) includes the following updates:
+
+## Schema/Data Change
+**1 total change • 1 possible breaking change**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| `hubspot__deals`, `hubspot__deal_stages`, `hubspot__deal_history`, `hubspot__tickets`, `hubspot__conversations` | Fix | `owner_primary_team_id`, `owner_primary_team_name`, `owner_all_team_ids`, and `owner_all_team_names` (`ticket_owner_primary_team_id`/`ticket_owner_primary_team_name` in `hubspot__conversations`) could reflect a team an owner was removed from | These fields now only reflect the owner's active, non-deleted team memberships | Only changes output for accounts where an owner has since been removed from a HubSpot team |
+
+## Contributors
+- [@zhoward101](https://github.com/zhoward101) ([PR #213](https://github.com/fivetran/dbt_hubspot/pull/213))
+
+
 # dbt_hubspot v1.9.2
 
 [PR #211](https://github.com/fivetran/dbt_hubspot/pull/211) includes the following updates:
