@@ -3,7 +3,7 @@
 [PR #215](https://github.com/fivetran/dbt_hubspot/pull/215) includes the following updates:
 
 ## Bug Fixes
-- Fixes a type mismatch error in `hubspot__marketing_event_performance` by casting `marketing_event_id` to string on both sides of the joins with `participants_agg`, `lists_agg`, and `custom_properties`.
+- Fixes a type mismatch error in `hubspot__marketing_event_performance` by casting relevant join keys as strings.
 - Fixes an integer overflow error in `stg_hubspot__conversation_thread` by casting `associated_contact_id` and `associated_ticket_id` as `bigint` instead of `int`.
 
 # dbt_hubspot v1.9.2
