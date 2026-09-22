@@ -99,19 +99,19 @@ with marketing_events as (
 
     {% if var('hubspot_marketing_event_participant_enabled', true) %}
     left join participants_agg
-        on marketing_events.marketing_event_id = participants_agg.marketing_event_id
+        on cast(marketing_events.marketing_event_id as {{ dbt.type_string() }}) = cast(participants_agg.marketing_event_id as {{ dbt.type_string() }})
         and marketing_events.source_relation = participants_agg.source_relation
     {% endif %}
 
     {% if var('hubspot_marketing_event_list_enabled', true) %}
     left join lists_agg
-        on marketing_events.marketing_event_id = lists_agg.marketing_event_id
+        on cast(marketing_events.marketing_event_id as {{ dbt.type_string() }}) = cast(lists_agg.marketing_event_id as {{ dbt.type_string() }})
         and marketing_events.source_relation = lists_agg.source_relation
     {% endif %}
 
     {% if var('hubspot_marketing_event_custom_property_enabled', true) and custom_property_columns != [] %}
     left join custom_properties
-        on marketing_events.marketing_event_id = custom_properties.marketing_event_id
+        on cast(marketing_events.marketing_event_id as {{ dbt.type_string() }}) = cast(custom_properties.marketing_event_id as {{ dbt.type_string() }})
         and marketing_events.source_relation = custom_properties.source_relation
     {% endif %}
 
