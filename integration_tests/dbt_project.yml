@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.9.2'
+version: '1.9.3'
 
 profile: 'integration_tests'
 config-version: 2
