@@ -11,6 +11,8 @@
 }}
 
 {% set company_columns = (['hubspot_owner_id', 'lifecyclestage'] + var('hubspot__company_property_history_columns', [])) | unique | list %}
+{% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
+{% set partition_lookback_start = ("date_trunc(" ~ lookback_date ~ ", month)") if (is_incremental() and target.type == 'bigquery') else lookback_date %}
 
 with daily_history as (
 
@@ -18,7 +20,7 @@ with daily_history as (
     from {{ ref('int_hubspot__daily_company_history') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
+    where date_day >= {{ partition_lookback_start }}
     {% endif %}
 
 ), pivot_out as (
