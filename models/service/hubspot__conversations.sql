@@ -199,7 +199,7 @@ thread_join as (
         and conversation_thread.source_relation = conversation_actor.source_relation
     {% if var('hubspot_service_enabled', false) %}
     left join ticket
-        on conversation_thread.associated_ticket_id = ticket.ticket_id
+        on conversation_thread.associated_ticket_id = cast(ticket.ticket_id as {{ dbt.type_string() }})
         and conversation_thread.source_relation = ticket.source_relation
         {% if var('hubspot_owner_enabled', true) %}
         left join owners_enhanced
@@ -209,7 +209,7 @@ thread_join as (
     {% endif %}
     {% if var('hubspot_marketing_enabled', true) and var('hubspot_contact_enabled', true) %}
     left join contact
-        on conversation_thread.associated_contact_id = contact.contact_id
+        on conversation_thread.associated_contact_id = cast(contact.contact_id as {{ dbt.type_string() }})
         and conversation_thread.source_relation = contact.source_relation
     {% endif %}
 )
