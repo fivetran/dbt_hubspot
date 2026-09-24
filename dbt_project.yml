@@ -1,5 +1,9 @@
 name: 'hubspot'
+<<<<<<< HEAD
 version: '1.10.0'
+=======
+version: '1.9.3'
+>>>>>>> 8c09171614041caea1e3617ce3e52af1ce8b86d6
 
 config-version: 2
 require-dbt-version: [">=1.3.0", "<3.0.0"]
