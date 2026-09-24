@@ -80,7 +80,7 @@ Include the following HubSpot package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/hubspot
-    version: [">=1.10.0", "<1.11.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.10.0", "<2.0.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.

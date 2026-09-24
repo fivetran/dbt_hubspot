@@ -1,17 +1,13 @@
 # dbt_hubspot v1.10.0
 
-[PR #216](https://github.com/fivetran/dbt_hubspot/pull/215) includes the following updates:
+[PR #216](https://github.com/fivetran/dbt_hubspot/pull/216) includes the following updates:
 
 ## Schema/Data Changes
-**1 total change • 1 possible breaking changes**
+**2 total changes • 1 possible breaking change**
 
 | Data Model(s) | Change type | Old | New | Notes |
 | ------------- | ----------- | --- | --- | ----- |
 | `stg_hubspot__conversation_thread` | Modified column type | `associated_contact_id` (`bigint`), `associated_ticket_id` (`bigint`) | `associated_contact_id` (`string`), `associated_ticket_id` (`string`) |  |
-
-## Under the Hood
-- Updates the BigQuery `partition_by` granularity from `day` to `month` for contact, deal, and company daily history models to reduce partition count and improve query performance on large datasets. Ticket history models retain `day`-level granularity. See [DECISIONLOG](https://github.com/fivetran/dbt_hubspot/blob/main/DECISIONLOG.md) for details. **This will require a full refresh.**
-- Adds `DECISIONLOG.md` to document non-obvious package decisions.
 
 # dbt_hubspot v1.9.3
 

@@ -2,7 +2,7 @@
     config(
         enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_enabled', 'hubspot_company_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
-        partition_by = {'field': 'date_day', 'data_type': 'date', 'granularity': 'month'}
+        partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks', 'duckdb'] else ['date_day'],
         unique_key='id',
         incremental_strategy = 'insert_overwrite' if target.type not in ('snowflake', 'postgres', 'redshift') else 'delete+insert',
@@ -11,8 +11,6 @@
 }}
 
 {% set company_columns = (['hubspot_owner_id', 'lifecyclestage'] + var('hubspot__company_property_history_columns', [])) | unique | list %}
-{% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
-{% set partition_lookback_start = ("date_trunc(" ~ lookback_date ~ ", month)") if (is_incremental() and target.type == 'bigquery') else lookback_date %}
 
 with daily_history as (
 
@@ -20,7 +18,7 @@ with daily_history as (
     from {{ ref('int_hubspot__daily_company_history') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ partition_lookback_start }}
+    where date_day >= {{ hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) }}
     {% endif %}
 
 ), pivot_out as (

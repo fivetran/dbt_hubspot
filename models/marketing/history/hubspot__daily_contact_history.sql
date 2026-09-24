@@ -2,7 +2,7 @@
     config(
         enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_property_enabled', 'hubspot_contact_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
-        partition_by = {'field': 'date_day', 'data_type': 'date', 'granularity': 'month'}
+        partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks', 'duckdb'] else ['date_day'],
         unique_key='contact_day_id',
         incremental_strategy = 'insert_overwrite' if target.type not in ('snowflake', 'postgres', 'redshift') else 'delete+insert',
@@ -14,7 +14,6 @@
 {% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
 {% set email_events_enabled = fivetran_utils.enabled_vars(['hubspot_email_event_enabled']) %}
 {% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
-{% set partition_lookback_start = ("date_trunc(" ~ lookback_date ~ ", month)") if (is_incremental() and target.type == 'bigquery') else lookback_date %}
 
 with change_data as (
 
@@ -22,7 +21,7 @@ with change_data as (
     from {{ ref('int_hubspot__scd_daily_contact_history') }}
 
 {% if is_incremental() %}
-    where date_day >= {{ partition_lookback_start }}
+    where date_day >= {{ lookback_date }}
 
 -- If no contact fields have been updated since the last incremental run, the pivoted_daily_history CTE will return no record/rows.
 -- When this is the case, we need to grab the most recent day's records from the previously built table so that we can persist
@@ -35,7 +34,7 @@ with change_data as (
     where date_day = (
         select max(date_day)
         from {{ this }}
-        where date_day < {{ partition_lookback_start }}
+        where date_day <= {{ lookback_date }}
     )
 {% endif %}
 
@@ -45,7 +44,7 @@ with change_data as (
     from {{ ref('int_hubspot__contact_calendar_spine') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ partition_lookback_start }}
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 {% if var('hubspot_owner_enabled', true) %}
@@ -63,7 +62,7 @@ with change_data as (
     from {{ ref('int_hubspot__daily_engagement_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ partition_lookback_start }}
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 {% endif %}
@@ -75,7 +74,7 @@ with change_data as (
     from {{ ref('int_hubspot__daily_email_metrics__by_contact') }}
 
     {% if is_incremental() %}
-    where date_day >= {{ partition_lookback_start }}
+    where date_day >= {{ lookback_date }}
     {% endif %}
 
 {% endif %}

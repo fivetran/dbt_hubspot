@@ -2,7 +2,7 @@
     config(
         enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled','hubspot_deal_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
-        partition_by = {'field': 'date_day', 'data_type': 'date', 'granularity': 'month'}
+        partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks', 'duckdb'] else ['date_day'],
         unique_key='id',
         incremental_strategy = 'insert_overwrite' if target.type not in ('snowflake', 'postgres', 'redshift') else 'delete+insert',

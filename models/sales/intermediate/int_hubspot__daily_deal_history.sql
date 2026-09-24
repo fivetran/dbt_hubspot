@@ -2,7 +2,7 @@
     config(
         enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled','hubspot_deal_property_history_enabled']),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
-        partition_by = {'field': 'date_day', 'data_type': 'date', 'granularity': 'month'}
+        partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks', 'duckdb'] else ['date_day'],
         unique_key='id',
         incremental_strategy='insert_overwrite' if target.type in ('bigquery', 'spark', 'databricks') else 'delete+insert',
@@ -16,7 +16,6 @@
 {% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
 {% set deal_columns = deal_columns | unique | list %}
 {% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
-{% set partition_lookback_start = ("date_trunc(" ~ lookback_date ~ ", month)") if (is_incremental() and target.type == 'bigquery') else lookback_date %}
 
 with deal_history as (
 
@@ -36,7 +35,7 @@ with deal_history as (
     where lower(field_name) in ({{ "'" ~ deal_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
-    and cast(valid_from as date) >= {{ partition_lookback_start }}
+    and cast(valid_from as date) >= {{ lookback_date }}
     {% elif var('hubspot__daily_history_start_date', none) %}
     and cast(valid_from as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
@@ -58,7 +57,7 @@ with deal_history as (
     from {{ ref('stg_hubspot__deal_stage') }}
 
     {% if is_incremental() %}
-    where cast(date_entered as date) >= {{ partition_lookback_start }}
+    where cast(date_entered as date) >= {{ lookback_date }}
     {% elif var('hubspot__daily_history_start_date', none) %}
     where cast(date_entered as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
