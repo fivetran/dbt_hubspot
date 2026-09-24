@@ -1,5 +1,22 @@
 # dbt_hubspot v1.10.0
 
+[PR #216](https://github.com/fivetran/dbt_hubspot/pull/216) includes the following updates:
+
+## Schema/Data Changes
+**2 total changes • 1 possible breaking change**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ------------- | ----------- | --- | --- | ----- |
+| `stg_hubspot__conversation_thread` | Modified column type | `associated_contact_id` (`bigint`), `associated_ticket_id` (`bigint`) | `associated_contact_id` (`string`), `associated_ticket_id` (`string`) |  |
+
+# dbt_hubspot v1.9.3
+
+[PR #215](https://github.com/fivetran/dbt_hubspot/pull/215) includes the following updates:
+
+## Bug Fixes
+- Fixes a type mismatch error in `hubspot__marketing_event_performance` by casting relevant join keys as strings.
+- Fixes an integer overflow error in `stg_hubspot__conversation_thread` by casting `associated_contact_id` and `associated_ticket_id` as `bigint` instead of `int`.
+
 [PR #214](https://github.com/fivetran/dbt_hubspot/pull/214) includes the following updates:
 
 ## Schema/Data Change
