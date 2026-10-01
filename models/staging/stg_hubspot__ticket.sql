@@ -23,9 +23,10 @@ with base as (
 
 {% if var('hubspot__pass_through_all_columns', false) %}
         {{
-            fivetran_utils.fill_staging_columns(
+            fill_staging_columns_with_casts(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__ticket_tmp')),
-                staging_columns=get_ticket_columns()
+                staging_columns=get_ticket_columns(),
+                cast_columns=['_fivetran_synced', 'closed_date', 'created_date', 'ticket_pipeline_id', 'ticket_pipeline_stage_id']
             )
         }}
         {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}

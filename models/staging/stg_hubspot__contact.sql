@@ -23,9 +23,10 @@ with base as (
 
 {% if var('hubspot__pass_through_all_columns', false) %}
         {{
-            fivetran_utils.fill_staging_columns(
+            fill_staging_columns_with_casts(
                 source_columns=adapter.get_columns_in_relation(ref('stg_hubspot__contact_tmp')),
-                staging_columns=get_contact_columns()
+                staging_columns=get_contact_columns(),
+                cast_columns=['merged_object_ids', 'created_date', '_fivetran_synced']
             )
         }}
         {{ fivetran_utils.apply_source_relation(package_name='hubspot') }}
