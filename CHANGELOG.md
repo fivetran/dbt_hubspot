@@ -1,3 +1,20 @@
+# dbt_hubspot v1.11.0
+
+[PR #220](https://github.com/fivetran/dbt_hubspot/pull/220) and [PR #221](https://github.com/fivetran/dbt_hubspot/pull/221) include the following updates:
+
+## Schema/Data Change
+**1 total change • 1 possible breaking change**
+
+| Data Model(s) | Change type | Old | New | Notes |
+| ---------- | ----------- | -------- | -------- | ----- |
+| `stg_hubspot__contact_list`, `stg_hubspot__company_list`, `stg_hubspot__deal`, `stg_hubspot__ticket`, `stg_hubspot__contact`, `stg_hubspot__company` and the end models that read from them | Bug Fix, column data types | When `hubspot__pass_through_all_columns` is `true`, the timestamp, `merged_object_ids`, and pipeline ID columns kept the source data type. For example, `created_timestamp`, `updated_timestamp`, and `_fivetran_synced` were `TIMESTAMP_TZ` on Snowflake. | These columns are now cast to the same data types as when `hubspot__pass_through_all_columns` is `false`. For example, `TIMESTAMP_NTZ` on Snowflake. | Only affects you if `hubspot__pass_through_all_columns` is `true`. Values stay the same, and only the data type changes. If you convert these columns to another timezone downstream, your results may change. |
+
+## Bug Fix
+- Adds the new `fill_staging_columns_with_casts` macro. The six staging models above now use it to apply the default casts in the `hubspot__pass_through_all_columns: true` branch. The variable now only decides which extra columns come through. See [Issue #219](https://github.com/fivetran/dbt_hubspot/issues/219).
+
+## Documentation
+- Removes the `_fivetran_synced` column from the `hubspot__deal_history`, `hubspot__company_history`, and `hubspot__contact_history` yml documentation. The models never selected this column, so dbt Fusion raised a `dbt1071` warning on every build. See [Issue #218](https://github.com/fivetran/dbt_hubspot/issues/218).
+
 # dbt_hubspot v1.10.0
 
 [PR #214](https://github.com/fivetran/dbt_hubspot/pull/214) includes the following updates:
