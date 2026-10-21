@@ -31,12 +31,12 @@ vars:
 
     hubspot_schema: hubspot_integration_tests
 
-    
+
 
     # hubspot__pass_through_all_columns: true
-    # hubspot__company_pass_through_columns: # @docs-ignore
-    #   - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
-    #     alias: "funky_field" # @docs-ignore
+    hubspot__company_pass_through_columns: # @docs-ignore
+      - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
+        alias: "funky_field" # @docs-ignore
 
     hubspot_company_list_identifier: "company_list_data"
     hubspot_company_list_member_identifier: "company_list_member_data"
