@@ -144,6 +144,7 @@ seeds:
       +enabled: "{{ true if target.type not in ('postgres','snowflake','databricks') or var('fivetran_using_source_casing', false) else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        property_createdate: timestamp
     company_data_postgres:
       +alias: company_data
       +enabled: "{{ true if target.type == 'postgres' and not var('fivetran_using_source_casing', false) else false }}"
