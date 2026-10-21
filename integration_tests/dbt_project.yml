@@ -31,8 +31,6 @@ vars:
 
     hubspot_schema: hubspot_integration_tests
 
-    
-
     # hubspot__pass_through_all_columns: true
     # hubspot__company_pass_through_columns: # @docs-ignore
     #   - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
