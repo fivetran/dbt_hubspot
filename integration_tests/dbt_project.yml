@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.11.0'
+version: '1.10.1'
 
 profile: 'integration_tests'
 config-version: 2
@@ -29,12 +29,14 @@ vars:
     # hubspot_role_enabled: true # @docs-include
     # hubspot_team_enabled: true # @docs-include
 
-    hubspot_schema: hubspot_integration_tests
+    hubspot_schema: zz_dbt_avinash_seed
+
+    
 
     # hubspot__pass_through_all_columns: true
-    hubspot__company_pass_through_columns: # @docs-ignore
-      - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
-        alias: "funky_field" # @docs-ignore
+    # hubspot__company_pass_through_columns: # @docs-ignore
+    #   - name: "property_hs_all-funky-a9384-syntax" # @docs-ignore
+    #     alias: "funky_field" # @docs-ignore
 
     hubspot_company_list_identifier: "company_list_data"
     hubspot_company_list_member_identifier: "company_list_member_data"
