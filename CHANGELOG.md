@@ -3,7 +3,7 @@
 [PR #224](https://github.com/fivetran/dbt_hubspot/pull/224) includes the following updates:
 
 ## Bug Fix
-- Staging models where `hubspot__pass_through_all_columns` is utilized now cast fields to the same datatype for when this variable is either `true` or `false` (previously only when the value had been `false`). This ensures consistent column types to all downstream models for dbt users who had been setting `hubspot__pass_through_all_columns` to `true`. 
+- Staging models where `hubspot__pass_through_all_columns` is utilized now cast fields to the same datatype for when this variable is either `true` or `false` (previously only casting when the value had been `false`). This ensures consistent column types to all downstream models for dbt users who had been setting `hubspot__pass_through_all_columns` to `true`. 
 
 ## Under the Hood
 - Adds the new `fill_staging_columns_with_casts` macro to apply the default casts for when `hubspot__pass_through_all_columns` is `true`. The variable now only decides which extra columns come through.  
