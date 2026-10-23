@@ -1,7 +1,7 @@
 version: 1.10.1
 pr_number: 224
 bug_fixes:
-  - description: Staging models where `hubspot__pass_through_all_columns` is utilized now cast fields to the same datatype for when this variable is either `true` or `false` (previously only casting when the value had been `false`). This ensures consistent column types to all downstream models for dbt users who had been setting `hubspot__pass_through_all_columns` to `true`.
+  - description: Staging models where `hubspot__pass_through_all_columns` is utilized now cast fields to the same datatype for when this variable is either `true` or `false` (previously only casting when the value had been `false`). This ensures consistent column types to all downstream models for dbt users who had been setting `hubspot__pass_through_all_columns` to `true`. This only applies to self-managed dbt projects, as `hubspot__pass_through_all_columns` is not available in Quickstart.
 under_the_hood:
   - description: Adds the new `fill_staging_columns_with_casts` macro to apply the default casts for when `hubspot__pass_through_all_columns` is `true`. The variable now only decides which extra columns come through.
   - description: Removes `_fivetran_synced` from the `hubspot__deal_history`, `hubspot__company_history`, and `hubspot__contact_history` yml documentation to remove dbt Fusion build warnings.
