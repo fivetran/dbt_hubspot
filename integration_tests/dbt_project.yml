@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.10.0'
+version: '1.10.1'
 
 profile: 'integration_tests'
 config-version: 2
@@ -30,6 +30,7 @@ vars:
     # hubspot_team_enabled: true # @docs-include
 
     hubspot_schema: hubspot_integration_tests
+
 
     # hubspot__pass_through_all_columns: true
     hubspot__company_pass_through_columns: # @docs-ignore
@@ -143,6 +144,7 @@ seeds:
       +enabled: "{{ true if target.type not in ('postgres','snowflake','databricks') or var('fivetran_using_source_casing', false) else false }}"
       +column_types:
         id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        property_createdate: timestamp
     company_data_postgres:
       +alias: company_data
       +enabled: "{{ true if target.type == 'postgres' and not var('fivetran_using_source_casing', false) else false }}"

@@ -105,9 +105,6 @@ models:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
 
-      - name: _fivetran_synced
-        description: '{{ doc("_fivetran_synced") }}'
-
       - name: change_source
         description: '{{ doc("history_source") }}'
 
@@ -141,9 +138,6 @@ models:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
         
-      - name: _fivetran_synced
-        description: '{{ doc("_fivetran_synced") }}'
-
       - name: change_source
         description: '{{ doc("history_source") }}'
 
