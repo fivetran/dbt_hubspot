@@ -3,16 +3,15 @@
 [PR #224](https://github.com/fivetran/dbt_hubspot/pull/224) includes the following updates:
 
 ## Bug Fix
-- Staging models where `hubspot__pass_through_all_columns` is utilized now cast fields to the same datatype for when this variable is either `true` or `false` (previously only casting when the value had been `false`). This ensures consistent column types to all downstream models for dbt users who had been setting `hubspot__pass_through_all_columns` to `true`. 
+- Staging models where `hubspot__pass_through_all_columns` is utilized now cast fields to the same datatype for when this variable is either `true` or `false` (previously only casting when the value had been `false`). This ensures consistent column types to all downstream models for dbt users who had been setting `hubspot__pass_through_all_columns` to `true`. This only applies to self-managed dbt projects, as `hubspot__pass_through_all_columns` is not available in Quickstart.
 
 ## Under the Hood
-- Adds the new `fill_staging_columns_with_casts` macro to apply the default casts for when `hubspot__pass_through_all_columns` is `true`. The variable now only decides which extra columns come through.  
-
-## Documentation
-- Removes `_fivetran_synced` from `hubspot__deal_history`, `hubspot__company_history`, and `hubspot__contact_history` yml to remove dbt Fusion build warnings.
+- Adds the new `fill_staging_columns_with_casts` macro to apply the default casts for when `hubspot__pass_through_all_columns` is `true`. The variable now only decides which extra columns come through.
+- Removes `_fivetran_synced` from the `hubspot__deal_history`, `hubspot__company_history`, and `hubspot__contact_history` yml documentation to remove dbt Fusion build warnings.
 
 ## Contributors
-- [@acrahen](https://github.com/acrahen) ([PR #220](https://github.com/fivetran/dbt_hubspot/pull/220) and [PR #221](https://github.com/fivetran/dbt_hubspot/pull/221))
+- [@acrahen](https://github.com/acrahen) ([PR #220](https://github.com/fivetran/dbt_hubspot/pull/220)) — Fixed the inconsistent column data types when `hubspot__pass_through_all_columns` is `true`.
+- [@acrahen](https://github.com/acrahen) ([PR #221](https://github.com/fivetran/dbt_hubspot/pull/221)) — Removed the undocumented `_fivetran_synced` column from the history model yml files.
 
 # dbt_hubspot v1.10.0
 
