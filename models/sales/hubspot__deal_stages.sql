@@ -20,6 +20,13 @@ with deals_enhanced as (
     select *
     from {{ ref('stg_hubspot__deal_pipeline') }}
 
+{% if var('hubspot_merged_deal_enabled', false) %}
+), merged_deals as (
+
+    select *
+    from {{ ref('stg_hubspot__merged_deal') }}
+{% endif %}
+
 ), final as (
 
     select
@@ -66,6 +73,13 @@ with deals_enhanced as (
     left join deals_enhanced
         on deal_stage.deal_id = deals_enhanced.deal_id
         and deal_stage.source_relation = deals_enhanced.source_relation
+
+    {% if var('hubspot_merged_deal_enabled', false) %}
+    left join merged_deals
+        on deal_stage.deal_id = merged_deals.merged_deal_id
+        and deal_stage.source_relation = merged_deals.source_relation
+    where merged_deals.merged_deal_id is null
+    {% endif %}
 )
 
 select * 
