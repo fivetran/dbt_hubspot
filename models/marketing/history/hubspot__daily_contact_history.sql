@@ -1,6 +1,6 @@
 {{
     config(
-        enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_property_enabled', 'hubspot_contact_property_history_enabled']),
+        enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_contact_property_enabled', true) and var('hubspot_contact_property_history_enabled', true)),
         materialized='incremental' if hubspot.is_incremental_compatible() else 'table',
         partition_by = {'field': 'date_day', 'data_type': 'date'}
             if target.type not in ['spark', 'databricks', 'duckdb'] else ['date_day'],
@@ -11,8 +11,8 @@
 }}
 
 {%- set change_data_columns = adapter.get_columns_in_relation(ref('int_hubspot__scd_daily_contact_history')) -%}
-{% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled','hubspot_engagement_contact_enabled']) %}
-{% set email_events_enabled = fivetran_utils.enabled_vars(['hubspot_email_event_enabled']) %}
+{% set engagements_enabled = (var('hubspot_sales_enabled', true) and var('hubspot_engagement_enabled', true) and var('hubspot_engagement_contact_enabled', true)) %}
+{% set email_events_enabled = var('hubspot_email_event_enabled', true) %}
 {% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
 
 with change_data as (
@@ -179,7 +179,7 @@ with change_data as (
         , coalesce(email_metrics.count_email_clicks, 0) as count_email_clicks
         , coalesce(email_metrics.count_email_bounces, 0) as count_email_bounces
         , coalesce(email_metrics.count_email_spam_reports, 0) as count_email_spam_reports
-        {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+        {% if var('hubspot_email_event_status_change_enabled', true) %}
         , coalesce(email_metrics.count_email_unsubscribes, 0) as count_email_unsubscribes
         {% endif %}
         {% endif %}

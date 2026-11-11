@@ -1,11 +1,11 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled'])) }}
+{{ config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_engagement_enabled', true))) }}
 
 with engagements as (
 
     select *
     from {{ ref('stg_hubspot__engagement') }}
 
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %}
+{% if var('hubspot_engagement_contact_enabled', true) %}
 
 ), contacts as (
 
@@ -17,13 +17,13 @@ with engagements as (
     select
         source_relation,
         engagement_id,
-        {{ fivetran_utils.array_agg('contact_id') }} as contact_ids
+        {{ hubspot_array_agg('contact_id') }} as contact_ids
     from contacts
     group by 1, 2
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %}
+{% if var('hubspot_engagement_deal_enabled', true) %}
 
 ), deals as (
 
@@ -35,13 +35,13 @@ with engagements as (
     select
         source_relation,
         engagement_id,
-        {{ fivetran_utils.array_agg('deal_id') }} as deal_ids
+        {{ hubspot_array_agg('deal_id') }} as deal_ids
     from deals
     group by 1, 2
 
 {% endif %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %}
+{% if var('hubspot_engagement_company_enabled', true) %}
 
 ), companies as (
 
@@ -53,7 +53,7 @@ with engagements as (
     select
         source_relation,
         engagement_id,
-        {{ fivetran_utils.array_agg('company_id') }} as company_ids
+        {{ hubspot_array_agg('company_id') }} as company_ids
     from companies
     group by 1, 2
 
@@ -62,22 +62,22 @@ with engagements as (
 ), joined as (
 
     select 
-        {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %} contacts_agg.contact_ids, {% endif %}
-        {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %} deals_agg.deal_ids, {% endif %}
-        {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %} companies_agg.company_ids, {% endif %}
+        {% if var('hubspot_engagement_contact_enabled', true) %} contacts_agg.contact_ids, {% endif %}
+        {% if var('hubspot_engagement_deal_enabled', true) %} deals_agg.deal_ids, {% endif %}
+        {% if var('hubspot_engagement_company_enabled', true) %} companies_agg.company_ids, {% endif %}
         engagements.*
     from engagements
-    {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %}
+    {% if var('hubspot_engagement_contact_enabled', true) %}
     left join contacts_agg
         on engagements.engagement_id = contacts_agg.engagement_id
         and engagements.source_relation = contacts_agg.source_relation
     {% endif %}
-    {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %}
+    {% if var('hubspot_engagement_deal_enabled', true) %}
     left join deals_agg
         on engagements.engagement_id = deals_agg.engagement_id
         and engagements.source_relation = deals_agg.source_relation
     {% endif %}
-    {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %}
+    {% if var('hubspot_engagement_company_enabled', true) %}
     left join companies_agg
         on engagements.engagement_id = companies_agg.engagement_id
         and engagements.source_relation = companies_agg.source_relation

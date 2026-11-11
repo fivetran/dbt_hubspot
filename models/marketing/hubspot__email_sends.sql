@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_email_event_sent_enabled'])) }}
+{{ config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_email_event_enabled', true) and var('hubspot_email_event_sent_enabled', true))) }}
 
 with sends as (
 
@@ -42,7 +42,7 @@ with sends as (
         spam_reports > 0 as was_spam_reported
     from joined
 
-{% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+{% if var('hubspot_email_event_status_change_enabled', true) %}
 
 ), unsubscribes as (
 

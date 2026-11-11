@@ -1,4 +1,4 @@
-{{ config(materialized='table', enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled','hubspot_deal_property_history_enabled'])) }}
+{{ config(materialized='table', enabled=(var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true) and var('hubspot_deal_property_history_enabled', true))) }}
 
 {%- set deal_columns = adapter.get_columns_in_relation(ref('int_hubspot__pivot_daily_deal_history')) -%}
 

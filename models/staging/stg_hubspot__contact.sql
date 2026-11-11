@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_enabled'])) }}
+{{ config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_contact_enabled', true))) }}
 
 with base as (
 
@@ -61,7 +61,7 @@ with base as (
         {{ fivetran_utils.fill_pass_through_columns('hubspot__contact_pass_through_columns') }}
 
         -- The below macro add the ability to create calculated fields using the hubspot__contact_calculated_fields variable.
-        {{ fivetran_utils.calculated_fields('hubspot__contact_calculated_fields') }}
+        {{ hubspot_calculated_fields('hubspot__contact_calculated_fields') }}
 
     from macro
 {% endif %}    

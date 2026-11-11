@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_list_member_enabled'])) }}
+{{ config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_company_list_member_enabled', true))) }}
 
 {{
     fivetran_utils.union_connections(

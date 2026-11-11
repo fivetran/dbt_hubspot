@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_team_enabled', 'hubspot_team_user_enabled'])) }}
+{{ config(enabled=(var('hubspot_team_enabled', true) and var('hubspot_team_user_enabled', true))) }}
 
 {{
     fivetran_utils.union_connections(

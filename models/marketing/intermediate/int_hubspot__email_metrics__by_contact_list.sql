@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled','hubspot_contact_list_member_enabled','hubspot_contact_enabled','hubspot_email_event_sent_enabled']), materialized='table') }}
+{{ config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_email_event_enabled', true) and var('hubspot_contact_list_member_enabled', true) and var('hubspot_contact_enabled', true) and var('hubspot_email_event_sent_enabled', true)), materialized='table') }}
 
 with email_sends as (
 

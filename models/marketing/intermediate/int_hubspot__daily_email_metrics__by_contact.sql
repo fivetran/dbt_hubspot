@@ -1,15 +1,15 @@
 {{
-    config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_email_event_enabled']))
+    config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_email_event_enabled', true)))
 }}
 
 {# Build a list of (model_ref, event_type) pairs so we can union only what's enabled #}
 {% set email_event_models = [] %}
-{% do email_event_models.append(('hubspot__email_event_sent', 'SENT')) if fivetran_utils.enabled_vars(['hubspot_email_event_sent_enabled']) %}
-{% do email_event_models.append(('hubspot__email_event_delivered', 'DELIVERED')) if fivetran_utils.enabled_vars(['hubspot_email_event_delivered_enabled']) %}
-{% do email_event_models.append(('hubspot__email_event_opens', 'OPEN')) if fivetran_utils.enabled_vars(['hubspot_email_event_open_enabled']) %}
-{% do email_event_models.append(('hubspot__email_event_clicks', 'CLICK')) if fivetran_utils.enabled_vars(['hubspot_email_event_click_enabled']) %}
-{% do email_event_models.append(('hubspot__email_event_bounce', 'BOUNCE')) if fivetran_utils.enabled_vars(['hubspot_email_event_bounce_enabled']) %}
-{% do email_event_models.append(('hubspot__email_event_spam_report', 'SPAM_REPORT')) if fivetran_utils.enabled_vars(['hubspot_email_event_spam_report_enabled']) %}
+{% do email_event_models.append(('hubspot__email_event_sent', 'SENT')) if var('hubspot_email_event_sent_enabled', true) %}
+{% do email_event_models.append(('hubspot__email_event_delivered', 'DELIVERED')) if var('hubspot_email_event_delivered_enabled', true) %}
+{% do email_event_models.append(('hubspot__email_event_opens', 'OPEN')) if var('hubspot_email_event_open_enabled', true) %}
+{% do email_event_models.append(('hubspot__email_event_clicks', 'CLICK')) if var('hubspot_email_event_click_enabled', true) %}
+{% do email_event_models.append(('hubspot__email_event_bounce', 'BOUNCE')) if var('hubspot_email_event_bounce_enabled', true) %}
+{% do email_event_models.append(('hubspot__email_event_spam_report', 'SPAM_REPORT')) if var('hubspot_email_event_spam_report_enabled', true) %}
 
 with all_events as (
 
@@ -39,7 +39,7 @@ with all_events as (
 
     {% endif %}
 
-    {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+    {% if var('hubspot_email_event_status_change_enabled', true) %}
     union all
     select
         source_relation,
@@ -64,7 +64,7 @@ with all_events as (
         count(case when event_type = 'CLICK' then 1 end) as count_email_clicks,
         count(case when event_type = 'BOUNCE' then 1 end) as count_email_bounces,
         count(case when event_type = 'SPAM_REPORT' then 1 end) as count_email_spam_reports
-        {% if fivetran_utils.enabled_vars(['hubspot_email_event_status_change_enabled']) %}
+        {% if var('hubspot_email_event_status_change_enabled', true) %}
         , count(case when event_type = 'STATUS_CHANGE' and subscription_status = 'UNSUBSCRIBED' then 1 end) as count_email_unsubscribes
         {% endif %}
     from all_events

@@ -1,6 +1,6 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_list_enabled'])) }}
+{{ config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_company_list_enabled', true))) }}
 
-{% set engagements_enabled = fivetran_utils.enabled_vars(['hubspot_company_list_member_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_company_enabled']) %}
+{% set engagements_enabled = (var('hubspot_company_list_member_enabled', true) and var('hubspot_engagement_enabled', true) and var('hubspot_engagement_company_enabled', true)) %}
 
 with company_lists as (
 

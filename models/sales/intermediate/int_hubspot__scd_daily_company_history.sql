@@ -1,4 +1,4 @@
-{{ config(materialized='table', enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_company_enabled', 'hubspot_company_property_history_enabled'])) }}
+{{ config(materialized='table', enabled=(var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true) and var('hubspot_company_property_history_enabled', true))) }}
 
 {%- set company_columns = adapter.get_columns_in_relation(ref('int_hubspot__pivot_daily_company_history')) -%}
 

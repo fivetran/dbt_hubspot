@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled'])) }}
+{{ config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_company_enabled', true))) }}
 
 with base as (
 
@@ -63,7 +63,7 @@ with base as (
         {{ fivetran_utils.fill_pass_through_columns('hubspot__company_pass_through_columns') }}
 
         -- The below macro add the ability to create calculated fields using the hubspot__company_calculated_fields variable.
-        {{ fivetran_utils.calculated_fields('hubspot__company_calculated_fields') }}
+        {{ hubspot_calculated_fields('hubspot__company_calculated_fields') }}
         
     from macro
 
