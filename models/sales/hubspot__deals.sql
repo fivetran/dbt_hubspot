@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{{ config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true))) }}
 
 with deals_enhanced as (
 
@@ -6,7 +6,7 @@ with deals_enhanced as (
     from {{ ref('int_hubspot__deals_enhanced') }}
 {% set cte_ref = 'deals_enhanced' %}
 
-{% if fivetran_utils.enabled_vars(['hubspot_engagement_enabled','hubspot_engagement_deal_enabled']) %}
+{% if (var('hubspot_engagement_enabled', true) and var('hubspot_engagement_deal_enabled', true)) %}
 
 ), engagements as (
 

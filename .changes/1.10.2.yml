@@ -1,8 +1,15 @@
 version: 1.10.2
 pr_number: 228
+bug_fixes:
+- description: Replaces `fivetran_utils.string_agg` with dbt's built-in `dbt.listagg`. On Databricks,
+    aggregated values that contain a comma followed by a space are no longer split apart. Output on
+    other warehouses doesn't change.
 under_the_hood:
 - description: Moves the `array_agg`, `calculated_fields`, and `remove_prefix_from_columns` macros
     from `fivetran_utils` into this package as `hubspot_array_agg`, `hubspot_calculated_fields`,
     and `hubspot_remove_prefix_from_columns`. Hubspot was the only package that used them, and
     `fivetran_utils` removes them in a future release. The macro logic is unchanged, so model
     outputs don't change.
+- description: Replaces `fivetran_utils.enabled_vars` in model configs with `and` and an explicit `true`
+    default for each variable, so each model's default shows where it's used. Unset variables still
+    default to `true`.

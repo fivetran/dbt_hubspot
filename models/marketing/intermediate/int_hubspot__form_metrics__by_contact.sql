@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_form_enabled' ])) }}
+{{ config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_contact_form_enabled', true))) }}
 
 with form as (
 
@@ -16,7 +16,7 @@ with form as (
     select
         source_relation,
         conversion_id,
-        {{ fivetran_utils.string_agg("distinct field_name", "', '") }} as fields_responded_to,
+        {{ dbt.listagg("distinct field_name", "', '") }} as fields_responded_to,
         count(*) as total_responses
     from {{ ref('stg_hubspot__submission_response') }}
     group by 1, 2

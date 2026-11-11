@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_form_enabled', 'hubspot_submission_response_enabled'])) }}
+{{ config(enabled=(var('hubspot_marketing_enabled', true) and var('hubspot_contact_form_enabled', true) and var('hubspot_submission_response_enabled', true))) }}
 
 with base as (
 

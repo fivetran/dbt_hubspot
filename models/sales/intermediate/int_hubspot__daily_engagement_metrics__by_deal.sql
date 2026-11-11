@@ -1,14 +1,14 @@
 {{
-    config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled', 'hubspot_engagement_enabled', 'hubspot_engagement_deal_enabled']))
+    config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_engagement_enabled', true) and var('hubspot_engagement_deal_enabled', true)))
 }}
 
 {# Build a list of (model_ref, enabled_var) pairs so we can union only what's enabled #}
 {% set engagement_staging_models = [] %}
-{% do engagement_staging_models.append('stg_hubspot__engagement_call') if fivetran_utils.enabled_vars(['hubspot_engagement_call_enabled']) %}
-{% do engagement_staging_models.append('stg_hubspot__engagement_email') if fivetran_utils.enabled_vars(['hubspot_engagement_email_enabled']) %}
-{% do engagement_staging_models.append('stg_hubspot__engagement_meeting') if fivetran_utils.enabled_vars(['hubspot_engagement_meeting_enabled']) %}
-{% do engagement_staging_models.append('stg_hubspot__engagement_note') if fivetran_utils.enabled_vars(['hubspot_engagement_note_enabled']) %}
-{% do engagement_staging_models.append('stg_hubspot__engagement_task') if fivetran_utils.enabled_vars(['hubspot_engagement_task_enabled']) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_call') if var('hubspot_engagement_call_enabled', true) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_email') if var('hubspot_engagement_email_enabled', true) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_meeting') if var('hubspot_engagement_meeting_enabled', true) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_note') if var('hubspot_engagement_note_enabled', true) %}
+{% do engagement_staging_models.append('stg_hubspot__engagement_task') if var('hubspot_engagement_task_enabled', true) %}
 {% do engagement_staging_models.append('stg_hubspot__engagement_communication') if var('hubspot_engagement_communication_enabled', false) %}
 
 with engagement_deals as (

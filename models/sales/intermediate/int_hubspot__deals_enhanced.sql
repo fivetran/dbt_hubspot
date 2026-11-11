@@ -1,4 +1,4 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{{ config(enabled=(var('hubspot_sales_enabled', true) and var('hubspot_deal_enabled', true))) }}
 {% set merged_deal_enabled = var('hubspot_merged_deal_enabled', false) %}
 {% set owner_enabled = var('hubspot_owner_enabled', true) %}
 

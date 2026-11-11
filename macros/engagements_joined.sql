@@ -14,9 +14,9 @@ with base as (
 
     select
         {{ dbt_utils.star(from=base_model, relation_alias="base", except=["_fivetran_deleted"]) }},
-        {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %} engagements.contact_ids, {% endif %}
-        {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %} engagements.deal_ids, {% endif %}
-        {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %} engagements.company_ids, {% endif %}
+        {% if var('hubspot_engagement_contact_enabled', true) %} engagements.contact_ids, {% endif %}
+        {% if var('hubspot_engagement_deal_enabled', true) %} engagements.deal_ids, {% endif %}
+        {% if var('hubspot_engagement_company_enabled', true) %} engagements.company_ids, {% endif %}
         not base._fivetran_deleted as is_active
     from base
     left join engagements
