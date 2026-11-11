@@ -18,7 +18,7 @@ with deals as (
     select
         source_relation,
         deal_id,
-        {{ fivetran_utils.array_agg("merged_deal_id") }} as merged_deal_ids
+        {{ hubspot_array_agg("merged_deal_id") }} as merged_deal_ids
     from merged_deals
     group by 1, 2
 {% endif %}

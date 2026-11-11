@@ -44,8 +44,8 @@ with ticket as (
     select
         source_relation,
         ticket_id,
-        {{ fivetran_utils.array_agg("case when deal_id is null then '' else cast(deal_id as " ~ dbt.type_string() ~ ") end") }} as deal_ids,
-        {{ fivetran_utils.array_agg("case when deal_name is null then '' else deal_name end") }} as deal_names
+        {{ hubspot_array_agg("case when deal_id is null then '' else cast(deal_id as " ~ dbt.type_string() ~ ") end") }} as deal_ids,
+        {{ hubspot_array_agg("case when deal_name is null then '' else deal_name end") }} as deal_names
 
     from join_deals
     group by 1,2
@@ -81,8 +81,8 @@ with ticket as (
     select
         source_relation,
         ticket_id,
-        {{ fivetran_utils.array_agg("case when company_id is null then '' else cast(company_id as " ~ dbt.type_string() ~ ") end") }} as company_ids,
-        {{ fivetran_utils.array_agg("case when company_name is null then '' else company_name end") }} as company_names
+        {{ hubspot_array_agg("case when company_id is null then '' else cast(company_id as " ~ dbt.type_string() ~ ") end") }} as company_ids,
+        {{ hubspot_array_agg("case when company_name is null then '' else company_name end") }} as company_names
 
     from join_companies
     group by 1,2
@@ -118,8 +118,8 @@ with ticket as (
     select
         source_relation,
         ticket_id,
-        {{ fivetran_utils.array_agg("case when contact_id is null then '' else cast(contact_id as " ~ dbt.type_string() ~ ") end") }} as contact_ids,
-        {{ fivetran_utils.array_agg("case when email is null then '' else email end") }} as contact_emails
+        {{ hubspot_array_agg("case when contact_id is null then '' else cast(contact_id as " ~ dbt.type_string() ~ ") end") }} as contact_ids,
+        {{ hubspot_array_agg("case when email is null then '' else email end") }} as contact_emails
 
     from join_contacts
     group by 1,2

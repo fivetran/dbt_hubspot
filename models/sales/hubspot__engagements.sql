@@ -17,7 +17,7 @@ with engagements as (
     select
         source_relation,
         engagement_id,
-        {{ fivetran_utils.array_agg('contact_id') }} as contact_ids
+        {{ hubspot_array_agg('contact_id') }} as contact_ids
     from contacts
     group by 1, 2
 
@@ -35,7 +35,7 @@ with engagements as (
     select
         source_relation,
         engagement_id,
-        {{ fivetran_utils.array_agg('deal_id') }} as deal_ids
+        {{ hubspot_array_agg('deal_id') }} as deal_ids
     from deals
     group by 1, 2
 
@@ -53,7 +53,7 @@ with engagements as (
     select
         source_relation,
         engagement_id,
-        {{ fivetran_utils.array_agg('company_id') }} as company_ids
+        {{ hubspot_array_agg('company_id') }} as company_ids
     from companies
     group by 1, 2
 

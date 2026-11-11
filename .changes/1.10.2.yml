@@ -1,0 +1,7 @@
+version: 1.10.2
+under_the_hood:
+- description: Moves the `array_agg`, `calculated_fields`, and `remove_prefix_from_columns` macros
+    from `fivetran_utils` into this package as `hubspot_array_agg`, `hubspot_calculated_fields`,
+    and `hubspot_remove_prefix_from_columns`. Hubspot was the only package that used them, and
+    `fivetran_utils` removes them in a future release. The macro logic is unchanged, so model
+    outputs don't change.
