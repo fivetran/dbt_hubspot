@@ -9,3 +9,4 @@ under_the_hood:
 - description: Removes `portal_id` from the `hubspot__companies` yml documentation
     and `_fivetran_synced` from the `stg_hubspot__deal_stage` yml documentation, as
     neither model outputs these columns.
+date: '2026-11-12'
