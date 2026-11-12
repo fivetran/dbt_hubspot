@@ -1,4 +1,5 @@
 version: 1.10.2
+pr_number: 229
 under_the_hood:
 - description: Adds yml documentation for columns that the `hubspot__companies`, `hubspot__engagement_calls`,
     `hubspot__engagement_communication`, `hubspot__engagement_emails`, `hubspot__engagement_meetings`,
