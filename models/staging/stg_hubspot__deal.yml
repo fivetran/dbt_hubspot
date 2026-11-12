@@ -100,8 +100,6 @@ models:
         description: The Fivetran calculated exit time of the deal stage.
       - name: _fivetran_start
         description: The date the deal stage was entered.
-      - name: _fivetran_synced
-        description: '{{ doc("_fivetran_synced") }}'
       - name: date_entered
         description: The timestamp the deal stage was entered.
       - name: deal_id

@@ -13,6 +13,48 @@ models:
       - name: contact_list_id
         tests:
           - not_null
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: total_bounces
+        description: "{{ doc('bounces') }}"
+      - name: total_clicks
+        description: "{{ doc('clicks') }}"
+      - name: total_deferrals
+        description: "{{ doc('deferrals') }}"
+      - name: total_deliveries
+        description: "{{ doc('deliveries') }}"
+      - name: total_drops
+        description: "{{ doc('drops') }}"
+      - name: total_forwards
+        description: "{{ doc('forwards') }}"
+      - name: total_opens
+        description: "{{ doc('opens') }}"
+      - name: total_prints
+        description: "{{ doc('prints') }}"
+      - name: total_spam_reports
+        description: "{{ doc('spam_reports') }}"
+      - name: total_unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+      - name: total_unique_bounces
+        description: "{{ doc('unique_bounces') }}"
+      - name: total_unique_clicks
+        description: "{{ doc('unique_clicks') }}"
+      - name: total_unique_deferrals
+        description: "{{ doc('unique_deferrals') }}"
+      - name: total_unique_deliveries
+        description: "{{ doc('unique_deliveries') }}"
+      - name: total_unique_drops
+        description: "{{ doc('unique_drops') }}"
+      - name: total_unique_forwards
+        description: "{{ doc('unique_forwards') }}"
+      - name: total_unique_opens
+        description: "{{ doc('unique_opens') }}"
+      - name: total_unique_prints
+        description: "{{ doc('unique_prints') }}"
+      - name: total_unique_spam_reports
+        description: "{{ doc('unique_spam_reports') }}"
+      - name: total_unique_unsubscribes
+        description: "{{ doc('unique_unsubscribes') }}"
   - name: int_hubspot__email_event_aggregates
     columns:
       - name: email_send_id
