@@ -4,6 +4,12 @@ models:
 
   - name: stg_hubspot__form
     description: Each record represents a form created in HubSpot, including metadata about its configuration and behavior.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - form_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -42,6 +48,13 @@ models:
 
   - name: stg_hubspot__submission_response
     description: Each record represents a single field response from a HubSpot form submission.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - conversion_id
+              - field_name
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

@@ -4,6 +4,14 @@ models:
 
   - name: stg_hubspot__ticket_company
     description: Each record represents a 'link' between a ticket and company.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
+              - company_id
+              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -18,6 +26,14 @@ models:
 
   - name: stg_hubspot__ticket_contact
     description: Each record represents a 'link' between a ticket and a contact.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
+              - contact_id
+              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -32,6 +48,14 @@ models:
 
   - name: stg_hubspot__ticket_deal
     description: Each record represents a 'link' between a ticket and a deal.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
+              - deal_id
+              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -46,6 +70,14 @@ models:
 
   - name: stg_hubspot__ticket_engagement
     description: Each record represents a 'link' between a ticket and an engagement.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
+              - engagement_id
+              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -60,6 +92,14 @@ models:
 
   - name: stg_hubspot__ticket_property_history
     description: Each record represents a change to ticket record in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
+              - field_name
+              - change_timestamp
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -84,6 +124,12 @@ models:
 
   - name: stg_hubspot__ticket
     description: Each record represents a ticket in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -118,6 +164,13 @@ models:
 
   - name: stg_hubspot__ticket_pipeline_stage
     description: Each record represents a ticket pipeline stage.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_pipeline_id
+              - ticket_pipeline_stage_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -146,6 +199,12 @@ models:
 
   - name: stg_hubspot__ticket_pipeline
     description: Each record represents a ticket pipeline.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_pipeline_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

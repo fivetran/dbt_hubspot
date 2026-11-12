@@ -4,6 +4,12 @@ models:
 
   - name: hubspot__company_lists
     description: Each record represents a company list in Hubspot, enriched with engagement and ticket metrics aggregated across member companies.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - company_list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -52,6 +58,12 @@ models:
 
   - name: hubspot__deals
     description: Each record represents a deal in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - deal_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -132,6 +144,12 @@ models:
 
   - name: hubspot__deal_stages
     description: Each record represents when a deal stage changes in Hubspot, enriched with metrics about deal activities
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - deal_stage_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -188,6 +206,12 @@ models:
 
   - name: hubspot__companies
     description: Each record represents a company in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - company_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -216,6 +240,12 @@ models:
 
   - name: hubspot__engagements
     description: Each record represents an engagement
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

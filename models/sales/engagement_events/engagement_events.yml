@@ -4,6 +4,12 @@ models:
 
   - name: hubspot__engagement_calls
     description: Each record represents a CALL engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -30,6 +36,12 @@ models:
 
   - name: hubspot__engagement_communication
     description: Each record represents a COMMUNICATION engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -56,6 +68,12 @@ models:
 
   - name: hubspot__engagement_emails
     description: Each record represents an EMAIL engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -82,6 +100,12 @@ models:
 
   - name: hubspot__engagement_meetings
     description: Each record represents a MEETING engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -108,6 +132,12 @@ models:
 
   - name: hubspot__engagement_notes
     description: Each record represents a NOTE engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -136,6 +166,12 @@ models:
 
   - name: hubspot__engagement_tasks
     description: Each record represents a TASK engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

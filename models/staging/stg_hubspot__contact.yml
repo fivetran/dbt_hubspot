@@ -3,6 +3,14 @@ version: 2
 models:
   - name: stg_hubspot__contact_form_submission
     description: Table containing contact form submission information.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_id
+              - form_id
+              - occurred_timestamp
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -27,6 +35,13 @@ models:
 
   - name: stg_hubspot__contact_list_member
     description: Each record represents a 'link' between a contact and a contact list.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_list_id
+              - contact_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -43,6 +58,12 @@ models:
 
   - name: stg_hubspot__contact_list
     description: Each record represents a contact list in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -75,6 +96,14 @@ models:
         
   - name: stg_hubspot__contact_property_history
     description: Each record represents a change to contact record in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_id
+              - field_name
+              - change_timestamp
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -101,6 +130,13 @@ models:
 
   - name: stg_hubspot__contact_merge_audit
     description: Each record contains a contact merge event and the contacts affected by the merge.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_id
+              - vid_to_merge
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -127,6 +163,12 @@ models:
 
   - name: stg_hubspot__contact
     description: Each record represents a contact in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

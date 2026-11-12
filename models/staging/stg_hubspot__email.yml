@@ -4,6 +4,12 @@ models:
 
   - name: stg_hubspot__email_event_bounce
     description: Each record represents a BOUNCE email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -25,6 +31,12 @@ models:
 
   - name: stg_hubspot__email_event_click
     description: Each record represents a CLICK email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -49,6 +61,12 @@ models:
 
   - name: stg_hubspot__email_event_deferred
     description: Each record represents a DEFERRED email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -65,6 +83,12 @@ models:
 
   - name: stg_hubspot__email_event_delivered
     description: Each record represents a DELIVERED email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -81,6 +105,12 @@ models:
 
   - name: stg_hubspot__email_event_dropped
     description: Each record represents a DROPPED email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -107,6 +137,12 @@ models:
 
   - name: stg_hubspot__email_event_forward
     description: Each record represents a FORWARD email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -127,6 +163,12 @@ models:
 
   - name: stg_hubspot__email_event_open
     description: Each record represents a OPEN email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -149,6 +191,12 @@ models:
 
   - name: stg_hubspot__email_event_print
     description: Each record represents a PRINT email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -169,6 +217,12 @@ models:
 
   - name: stg_hubspot__email_event_sent
     description: Each record represents a SENT email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -191,6 +245,12 @@ models:
 
   - name: stg_hubspot__email_event_spam_report
     description: Each record represents a SPAM_REPORT email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -207,6 +267,12 @@ models:
 
   - name: stg_hubspot__email_event_status_change
     description: Each record represents a STATUS_CHANGE email event in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -239,6 +305,12 @@ models:
 
   - name: stg_hubspot__email_event
     description: Each record represents an email event in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -277,6 +349,12 @@ models:
 
   - name: stg_hubspot__email_campaign
     description: Each record represents an email campaign in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
