@@ -15,7 +15,7 @@ This dbt package transforms data from Fivetran's HubSpot connector into analytic
   - [DAG](https://fivetran.github.io/dbt_hubspot/#!/overview?g_v=1)
   - [Changelog](https://github.com/fivetran/dbt_hubspot/blob/main/CHANGELOG.md)
 - dbt Core™ supported versions
-  - `>=1.3.0, <3.0.0`
+  - `>=1.10.0, <3.0.0`
 
 ## What does this dbt package do?
 This package enables you to better understand your HubSpot email and engagement performance and generates comprehensive data dictionaries. It creates enriched models with metrics focused on contacts, companies, deals, and analysis-ready event tables for email and engagement activities.
@@ -80,7 +80,7 @@ Include the following HubSpot package version in your `packages.yml` file:
 ```yml
 packages:
   - package: fivetran/hubspot
-    version: [">=1.10.0", "<1.11.0"] # we recommend using ranges to capture non-breaking changes automatically
+    version: [">=1.11.0", "<1.12.0"] # we recommend using ranges to capture non-breaking changes automatically
 ```
 
 > All required sources and staging models are now bundled into this transformation package. Do not include `fivetran/hubspot_source` in your `packages.yml` since this package has been deprecated.
