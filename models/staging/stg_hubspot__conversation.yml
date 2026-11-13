@@ -4,6 +4,12 @@ models:
 
   - name: stg_hubspot__conversation_actor
     description: Each record represents an actor (user or contact) in HubSpot conversations.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - actor_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -24,6 +30,12 @@ models:
 
   - name: stg_hubspot__conversation_inbox
     description: Each record represents a conversation inbox in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - inbox_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -48,6 +60,12 @@ models:
 
   - name: stg_hubspot__conversation_channel
     description: Each record represents a channel through which users can contact your team, such as email, Chat, Facebook Messenger, or WhatsApp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - channel_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -64,6 +82,12 @@ models:
 
   - name: stg_hubspot__conversation_channel_account
     description: Each record represents an instance of a channel connected to an inbox, such as a specific email address or Facebook Messenger account.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - channel_account_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -94,6 +118,12 @@ models:
 
   - name: stg_hubspot__conversation_thread
     description: Each record represents a conversation thread in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - conversation_thread_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -132,6 +162,12 @@ models:
 
   - name: stg_hubspot__conversation_message_history
     description: Each record represents a version of a conversation message, tracking changes over time via SCD Type 2.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - message_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -196,6 +232,12 @@ models:
 
   - name: stg_hubspot__conversation_message_recipient
     description: Each record represents a recipient associated with a conversation message.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - _fivetran_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

@@ -85,6 +85,12 @@ models:
 
   - name: hubspot__email_sends
     description: Each record represents a SENT email event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -159,6 +165,12 @@ models:
 
   - name: hubspot__email_campaigns
     description: Each record represents an email campaign in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - email_campaign_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -229,6 +241,12 @@ models:
 
   - name: hubspot__contacts
     description: Each record represents a contact in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -345,6 +363,12 @@ models:
 
   - name: hubspot__contact_lists
     description: Each record represents a contact list in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - contact_list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

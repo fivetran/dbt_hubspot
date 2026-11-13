@@ -4,6 +4,13 @@ models:
 
   - name: stg_hubspot__owner_team
     description: Table mapping owners to their associated teams in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - owner_id
+              - team_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -20,6 +27,12 @@ models:
 
   - name: stg_hubspot__role
     description: Table containing role information for HubSpot users.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - role_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -38,6 +51,12 @@ models:
 
   - name: stg_hubspot__team
     description: Table containing HubSpot team details.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - team_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -54,6 +73,13 @@ models:
 
   - name: stg_hubspot__team_user
     description: Table representing associations between users and teams, including secondary team assignments.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - user_id
+              - team_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -70,6 +96,12 @@ models:
 
   - name: stg_hubspot__users
     description: Table containing information about HubSpot users.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - user_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

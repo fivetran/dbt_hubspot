@@ -39,6 +39,12 @@ models:
 
       Custom columns from `TICKET` can be included by configuring the `hubspot__ticket_pass_through_columns` variable.
       Custom calculated ticket fields can be added by configuring the `hubspot__ticket_calculated_fields` variable.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -133,6 +139,12 @@ models:
     description: >
       Each record represents a conversation thread in HubSpot. Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
       Optionally joins to ticket and contact data when the respective features are enabled.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - conversation_thread_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
