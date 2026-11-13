@@ -1,0 +1,98 @@
+title: HubSpot Marketing Overview
+notes: |
+  Contact growth and email engagement from hubspot__contacts and hubspot__email_campaigns.
+  The date filter applies to contact creation only; email metrics cover all campaign history.
+  Unique clicks are unique email sends with a click within each campaign, not unique people
+  across campaigns. Email models require the package's marketing and email-event models.
+  Contact counts exclude records explicitly marked deleted; unknown deletion status is included.
+
+variables:
+  date_range:
+    label: Contacts created between
+    input: daterange
+
+queries:
+  contacts:
+    dialect: duckdb
+    sql: |
+      select count(*) as contacts,
+        sum(case when email is not null and email <> '' then 1 else 0 end) as contacts_with_email
+      from {{ ref('hubspot__contacts') }}
+      where is_contact_deleted is not true
+        and {{ filter_date_range('created_date', date_range) }}
+  monthly_growth:
+    dialect: duckdb
+    sql: |
+      select date_trunc('month', created_date) as month, count(*) as contacts_created
+      from {{ ref('hubspot__contacts') }}
+      where is_contact_deleted is not true
+        and {{ filter_date_range('created_date', date_range) }}
+      group by 1
+      order by 1
+  email_totals:
+    dialect: duckdb
+    sql: |
+      select count(*) as campaigns,
+        sum(total_unique_clicks) as campaign_unique_clicks
+      from {{ ref('hubspot__email_campaigns') }}
+  campaign_types:
+    dialect: duckdb
+    sql: |
+      select coalesce(email_campaign_type, 'Unknown') as campaign_type,
+        sum(total_unique_clicks) as campaign_unique_clicks
+      from {{ ref('hubspot__email_campaigns') }}
+      group by 1
+      order by 2 desc, 1
+      limit 15
+  campaigns:
+    dialect: duckdb
+    sql: |
+      select source_relation, email_campaign_id, email_campaign_name,
+        total_deliveries, total_unique_opens, total_unique_clicks, total_unsubscribes
+      from {{ ref('hubspot__email_campaigns') }}
+      order by total_unique_clicks desc, source_relation, email_campaign_id
+      limit 15
+
+charts:
+  contact_count:
+    type: kpi
+    query: contacts
+    value: contacts
+    label: Contacts in creation cohort
+  with_email:
+    type: kpi
+    query: contacts
+    value: contacts_with_email
+    label: Cohort contacts with email
+  campaign_count:
+    type: kpi
+    query: email_totals
+    value: campaigns
+    label: Email campaigns (all time)
+  click_count:
+    type: kpi
+    query: email_totals
+    value: campaign_unique_clicks
+    label: Campaign unique clicks (all time)
+  growth:
+    type: bar
+    query: monthly_growth
+    title: Contacts Created per Month
+    x: month
+    y: contacts_created
+  types:
+    type: bar
+    query: campaign_types
+    title: Campaign Unique Clicks by Type (All Time)
+    x: campaign_type
+    y: campaign_unique_clicks
+  top_campaigns:
+    type: table
+    query: campaigns
+    title: Top Email Campaigns by Unique Clicks (All Time)
+
+rows:
+  - cols: [contact_count, with_email, campaign_count, click_count]
+  - growth
+  - types
+  - top_campaigns
