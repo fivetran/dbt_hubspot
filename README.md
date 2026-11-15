@@ -412,6 +412,8 @@ vars:
     hubspot__daily_history_start_date: "2022-01-01" # ISO date string
 ```
 
+The deal history model uses earlier property and stage changes to establish each deal's state on the first reporting day. A full refresh can read changes from before the start date while still limiting the days it produces.
+
 ##### Lookback window
 Records from the source can sometimes arrive late. Since several of the models in this package are incremental, by default we look back 3 days from new records to ensure late arrivals are captured, avoiding the need for frequent full refreshes. While the frequency can be reduced, we still recommend running `dbt --full-refresh` periodically to maintain data quality of the models. 
 

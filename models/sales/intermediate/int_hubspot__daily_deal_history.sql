@@ -16,6 +16,8 @@
 {% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
 {% set deal_columns = deal_columns | unique | list %}
 {% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
+{% set history_start_date = var('hubspot__daily_history_start_date', none) %}
+{% set start_date = "cast('" ~ history_start_date ~ "' as date)" if history_start_date %}
 
 with deal_history as (
 
@@ -35,9 +37,15 @@ with deal_history as (
     where lower(field_name) in ({{ "'" ~ deal_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
-    and cast(valid_from as date) >= {{ lookback_date }}
-    {% elif var('hubspot__daily_history_start_date', none) %}
-    and cast(valid_from as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
+    and (cast(valid_from as date) >= {{ lookback_date }}
+        {% if history_start_date %}
+        or {{ lookback_date }} <= {{ start_date }}
+        {% endif %}
+    )
+    {% endif %}
+    {% if history_start_date %}
+    -- A property version superseded before the cutoff cannot contribute to opening state.
+    and (valid_to is null or valid_to >= {{ start_date }})
     {% endif %}
 
 {# Deal stages are not stored in deal_property_history #}
@@ -58,8 +66,9 @@ with deal_history as (
 
     {% if is_incremental() %}
     where cast(date_entered as date) >= {{ lookback_date }}
-    {% elif var('hubspot__daily_history_start_date', none) %}
-    where cast(date_entered as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
+        {% if history_start_date %}
+        or {{ lookback_date }} <= {{ start_date }}
+        {% endif %}
     {% endif %}
 
 ), combined as (
@@ -68,21 +77,39 @@ with deal_history as (
     union all
     select * from deal_stages
 
+), set_history_date as (
+
+    select
+        *,
+        {% if history_start_date %}
+        -- Rebuild the entire opening day when an incremental lookback overlaps it.
+        case
+            when date_day < {{ start_date }} then {{ start_date }}
+            else date_day
+        end as history_date
+        {% else %}
+        date_day as history_date
+        {% endif %}
+    from combined
+    {% if history_start_date %}
+    where date_day is not null
+    {% endif %}
+
 ), order_daily_changes as (
 
     select
         *,
         row_number() over (
-            partition by date_day, deal_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
-            order by valid_from desc
+            partition by history_date, deal_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
+            order by date_day desc, valid_from desc
             ) as row_num
-    from combined
+    from set_history_date
 
 ), extract_latest as (
 
     select
         source_relation,
-        date_day,
+        history_date as date_day,
         deal_id,
         field_name,
         case when new_value is null then 'is_null' else new_value end as new_value,

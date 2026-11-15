@@ -64,6 +64,7 @@ test_scenarios:
     vars:
       hubspot_marketing_enabled: false
       hubspot_sales_enabled: true
+      hubspot__daily_history_start_date: "2021-01-08"
       hubspot_merged_deal_enabled: true
       hubspot__pass_through_all_columns: true
       hubspot_using_all_email_events: false
