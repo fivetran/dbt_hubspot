@@ -16,6 +16,7 @@
 {% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
 {% set deal_columns = deal_columns | unique | list %}
 {% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
+{% set history_start_date = var('hubspot__daily_history_start_date', none) if not is_incremental() else none %}
 
 with deal_history as (
 
@@ -36,8 +37,6 @@ with deal_history as (
 
     {% if is_incremental() %}
     and cast(valid_from as date) >= {{ lookback_date }}
-    {% elif var('hubspot__daily_history_start_date', none) %}
-    and cast(valid_from as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
 
 {# Deal stages are not stored in deal_property_history #}
@@ -58,8 +57,6 @@ with deal_history as (
 
     {% if is_incremental() %}
     where cast(date_entered as date) >= {{ lookback_date }}
-    {% elif var('hubspot__daily_history_start_date', none) %}
-    where cast(date_entered as date) >= cast('{{ var("hubspot__daily_history_start_date") }}' as date)
     {% endif %}
 
 ), combined as (
@@ -68,21 +65,37 @@ with deal_history as (
     union all
     select * from deal_stages
 
+), set_history_date as (
+
+    select
+        *,
+        {% if history_start_date %}
+        -- Carry the state already in effect into the first day of the report.
+        case
+            when date_day < cast('{{ history_start_date }}' as date)
+                then cast('{{ history_start_date }}' as date)
+            else date_day
+        end as history_date
+        {% else %}
+        date_day as history_date
+        {% endif %}
+    from combined
+
 ), order_daily_changes as (
 
     select
         *,
         row_number() over (
-            partition by date_day, deal_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
-            order by valid_from desc
+            partition by history_date, deal_id, field_name {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
+            order by date_day desc, valid_from desc
             ) as row_num
-    from combined
+    from set_history_date
 
 ), extract_latest as (
 
     select
         source_relation,
-        date_day,
+        history_date as date_day,
         deal_id,
         field_name,
         case when new_value is null then 'is_null' else new_value end as new_value,
