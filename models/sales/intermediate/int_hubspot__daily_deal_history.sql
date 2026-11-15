@@ -16,7 +16,8 @@
 {% do deal_columns.append('hubspot_team_id') if var('hubspot_team_enabled', true) %}
 {% set deal_columns = deal_columns | unique | list %}
 {% set lookback_date = hubspot.hubspot_lookback(from_date='max(date_day)', datepart='day', interval=var('lookback_window', 3)) if is_incremental() %}
-{% set history_start_date = var('hubspot__daily_history_start_date', none) if not is_incremental() else none %}
+{% set history_start_date = var('hubspot__daily_history_start_date', none) %}
+{% set start_date = "cast('" ~ history_start_date ~ "' as date)" if history_start_date %}
 
 with deal_history as (
 
@@ -36,7 +37,15 @@ with deal_history as (
     where lower(field_name) in ({{ "'" ~ deal_columns | join("', '") ~ "'" }})
 
     {% if is_incremental() %}
-    and cast(valid_from as date) >= {{ lookback_date }}
+    and (cast(valid_from as date) >= {{ lookback_date }}
+        {% if history_start_date %}
+        or {{ lookback_date }} <= {{ start_date }}
+        {% endif %}
+    )
+    {% endif %}
+    {% if history_start_date %}
+    -- A property version superseded before the cutoff cannot contribute to opening state.
+    and (valid_to is null or valid_to >= {{ start_date }})
     {% endif %}
 
 {# Deal stages are not stored in deal_property_history #}
@@ -57,6 +66,9 @@ with deal_history as (
 
     {% if is_incremental() %}
     where cast(date_entered as date) >= {{ lookback_date }}
+        {% if history_start_date %}
+        or {{ lookback_date }} <= {{ start_date }}
+        {% endif %}
     {% endif %}
 
 ), combined as (
@@ -70,16 +82,18 @@ with deal_history as (
     select
         *,
         {% if history_start_date %}
-        -- Carry the state already in effect into the first day of the report.
+        -- Rebuild the entire opening day when an incremental lookback overlaps it.
         case
-            when date_day < cast('{{ history_start_date }}' as date)
-                then cast('{{ history_start_date }}' as date)
+            when date_day < {{ start_date }} then {{ start_date }}
             else date_day
         end as history_date
         {% else %}
         date_day as history_date
         {% endif %}
     from combined
+    {% if history_start_date %}
+    where date_day is not null
+    {% endif %}
 
 ), order_daily_changes as (
 
