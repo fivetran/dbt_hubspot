@@ -1,3 +1,15 @@
+# dbt_hubspot v1.11.0
+
+[PR #230](https://github.com/fivetran/dbt_hubspot/pull/230) includes the following updates:
+
+## Feature Update
+- Raises the minimum dbt version to 1.10.0.
+- Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose).
+
+## Under the Hood
+- Adds yml documentation for columns that the `hubspot__companies`, `hubspot__engagement_calls`, `hubspot__engagement_communication`, `hubspot__engagement_emails`, `hubspot__engagement_meetings`, `hubspot__engagement_notes`, `hubspot__engagement_tasks`, and `int_hubspot__email_metrics__by_contact_list` models already output. The dbt docs site and your persisted column comments now match what these models return.
+- Removes `portal_id` from the `hubspot__companies` yml documentation and `_fivetran_synced` from the `stg_hubspot__deal_stage` yml documentation, as neither model outputs these columns.
+
 # dbt_hubspot v1.10.1
 
 [PR #224](https://github.com/fivetran/dbt_hubspot/pull/224) includes the following updates:
