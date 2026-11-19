@@ -7,10 +7,7 @@
 - Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose).
 
 ## Under the Hood
-- Adds `engagement_type` and `team_id` to the `hubspot__engagement_calls`, `hubspot__engagement_communication`, `hubspot__engagement_emails`, `hubspot__engagement_meetings`, `hubspot__engagement_notes`, and `hubspot__engagement_tasks` models of the `engagement_events.yml` file.
-- Adds `_fivetran_synced`, `company_name`, `description`, `created_date`, `industry`, `street_address`, `street_address_2`, `city`, `state`, `country`, and `company_annual_revenue` to the `hubspot__companies` model of the `sales.yml` file.
-- Adds `source_relation`, `total_bounces`, `total_clicks`, `total_deferrals`, `total_deliveries`, `total_drops`, `total_forwards`, `total_opens`, `total_prints`, `total_spam_reports`, `total_unsubscribes`, `total_unique_bounces`, `total_unique_clicks`, `total_unique_deferrals`, `total_unique_deliveries`, `total_unique_drops`, `total_unique_forwards`, `total_unique_opens`, `total_unique_prints`, `total_unique_spam_reports`, and `total_unique_unsubscribes` to the `int_hubspot__email_metrics__by_contact_list` model of the `intermediate.yml` file.
-- Removes `portal_id` from the `hubspot__companies` yml documentation and `_fivetran_synced` from the `stg_hubspot__deal_stage` yml documentation.
+- Updates yml column documentation to match model output.
 
 # dbt_hubspot v1.10.1
 
