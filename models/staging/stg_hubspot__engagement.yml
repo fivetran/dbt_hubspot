@@ -17,7 +17,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: _fivetran_deleted
         description: Boolean to mark rows that were deleted in the source database.
@@ -61,7 +61,7 @@ models:
         description: '{{ doc("_fivetran_deleted") }}'
       - name: engagement_id
         description: ID of the engagement associated with the communication.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: The type of the engagement.
@@ -169,7 +169,7 @@ models:
         description: Boolean to mark rows that were deleted in the source database.
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: The type of the engagement.
@@ -211,7 +211,7 @@ models:
         description: Boolean to mark rows that were deleted in the source database.
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: The type of the engagement.
@@ -253,7 +253,7 @@ models:
         description: Boolean to mark rows that were deleted in the source database.
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: The type of the engagement.
@@ -297,7 +297,7 @@ models:
         description: Boolean to mark rows that were deleted in the source database.
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: The type of the engagement.
@@ -337,7 +337,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement. 

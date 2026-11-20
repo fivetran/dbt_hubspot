@@ -15,7 +15,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ticket_day_id
         description: Unique surrogate key hashed on `source_relation`, `date_day`, and `ticket_id`.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: date_day
@@ -50,7 +50,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ticket_id
         description: Unique id of a ticket in Hubspot.
-        tests:
+        data_tests:
           - not_null
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'
@@ -152,7 +152,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: conversation_thread_id
         description: Unique ID of the conversation thread.
-        tests:
+        data_tests:
           - not_null
       - name: inbox_id
         description: ID of the inbox the thread belongs to.

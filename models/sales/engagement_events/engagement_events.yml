@@ -17,7 +17,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
       - name: engagement_type
         description: The type of the engagement.
@@ -56,7 +56,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
       - name: engagement_type
         description: The type of the engagement.
@@ -95,7 +95,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
       - name: engagement_type
         description: The type of the engagement.
@@ -134,7 +134,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
       - name: engagement_type
         description: The type of the engagement.
@@ -173,7 +173,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
       - name: engagement_type
         description: The type of the engagement.
@@ -214,7 +214,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
       - name: engagement_type
         description: The type of the engagement.

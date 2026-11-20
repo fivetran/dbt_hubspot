@@ -18,7 +18,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_id
         description: The unique ID of the marketing event.
-        tests:
+        data_tests:
           - not_null
       - name: app_id
         description: The string ID of the app associated with the marketing event.
@@ -74,7 +74,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_list_id
         description: The unique ID of the marketing event list.
-        tests:
+        data_tests:
           - not_null
       - name: marketing_event_id
         description: The ID of the related marketing event.
@@ -116,7 +116,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_participant_id
         description: The unique ID of the marketing event participant record.
-        tests:
+        data_tests:
           - not_null
       - name: marketing_event_id
         description: The ID of the related marketing event.

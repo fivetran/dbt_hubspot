@@ -11,7 +11,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: deal_day_id
         description: Unique surrogate key hashed on `source_relation`, `date_day`, and `deal_id`.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: date_day
@@ -67,7 +67,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: company_day_id
         description: Unique surrogate key hashed on `source_relation`, `date_day`, and `company_id`.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: date_day
@@ -128,7 +128,7 @@ models:
 
       - name: id
         description: The ID of the change. Hashed on `source_relation`, `field_name`, `company_id`, and `valid_from`.
-        tests:
+        data_tests:
           - unique
           - not_null
 
@@ -161,6 +161,6 @@ models:
 
       - name: id
         description: The ID of the change. Hashed on `source_relation`, `field_name`, `deal_id`, and `valid_from`.
-        tests:
+        data_tests:
           - unique
           - not_null

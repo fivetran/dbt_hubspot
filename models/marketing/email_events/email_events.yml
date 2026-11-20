@@ -27,7 +27,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: returned_response
@@ -80,7 +80,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: geo_location
@@ -136,7 +136,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: returned_response
@@ -180,7 +180,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: returned_response
@@ -242,7 +242,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: from_email
@@ -292,7 +292,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: geo_location
@@ -348,7 +348,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: geo_location
@@ -401,7 +401,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: geo_location
@@ -460,7 +460,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: from_email
@@ -507,7 +507,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: ip_address
@@ -557,7 +557,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
 
       - name: is_bounced

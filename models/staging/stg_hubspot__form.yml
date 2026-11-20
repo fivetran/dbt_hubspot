@@ -15,7 +15,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: form_id
         description: Unique identifier for the form.
-        tests:
+        data_tests:
           - not_null
       - name: action
         description: The form action type or endpoint triggered upon submission.
@@ -60,7 +60,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: conversion_id
         description: Unique identifier for the specific form conversion event.
-        tests:
+        data_tests:
           - not_null
       - name: form_id
         description: The ID of the form the submission belongs to.

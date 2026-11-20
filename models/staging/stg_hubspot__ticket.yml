@@ -137,7 +137,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: ticket_id
         description: ID of the ticket.
-        tests:
+        data_tests:
           - not_null
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'

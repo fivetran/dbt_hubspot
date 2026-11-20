@@ -15,7 +15,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: company_list_id
         description: The ID of the company list.
-        tests:
+        data_tests:
           - not_null
       - name: company_list_name
         description: The name of the company list.
@@ -79,7 +79,7 @@ models:
         description: The date the deal was created. This property is set automatically by HubSpot.
       - name: deal_id
         description: The ID of the deal
-        tests:
+        data_tests:
           - not_null
       - name: deal_name
         description: The name you have given this deal.
@@ -155,7 +155,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: deal_stage_id
         description: The unique deal stage identifier.
-        tests:
+        data_tests:
           - not_null
       - name: is_deal_pipeline_deleted
         description: '{{ doc("is_deleted") }}'
@@ -219,7 +219,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: company_id
         description: The ID of the company.
-        tests:
+        data_tests:
           - not_null
       - name: is_company_deleted
         description: '{{ doc("is_deleted") }}'
@@ -273,7 +273,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null
       - name: engagement_type
         description: One of NOTE, EMAIL, TASK, MEETING, or CALL, the type of the engagement.

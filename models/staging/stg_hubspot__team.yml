@@ -38,7 +38,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: role_id
         description: Unique ID of the role.
-        tests:
+        data_tests:
           - not_null
       - name: role_name
         description: Name of the role.
@@ -62,7 +62,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: team_id
         description: Unique ID of the team.
-        tests:
+        data_tests:
           - not_null
       - name: team_name
         description: Name of the team.
@@ -107,7 +107,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: user_id
         description: Unique ID of the user.
-        tests:
+        data_tests:
           - not_null
       - name: primary_team_id
         description: ID of the user's primary team.

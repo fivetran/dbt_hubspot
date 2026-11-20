@@ -9,7 +9,7 @@ models:
     columns:
       - name: marketing_event_performance_id
         description: Surrogate key hashed on `source_relation` and `marketing_event_id`.
-        tests:
+        data_tests:
           - not_null
           - unique
       - name: source_relation
@@ -106,7 +106,7 @@ models:
         description: The subject line of the email message.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: from_email
         description: The 'from' field of the email message.
@@ -184,7 +184,7 @@ models:
         description: The ID of the content.
       - name: email_campaign_id
         description: The ID of the email campaign.
-        tests:
+        data_tests:
           - not_null
       - name: email_campaign_name
         description: The name of the email campaign.
@@ -256,7 +256,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: contact_id
         description: The ID of the contact.
-        tests:
+        data_tests:
           - not_null
       - name: contact_company
         description: The name of the contact's company
@@ -376,7 +376,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: contact_list_id
         description: The ID of the contact list.
-        tests:
+        data_tests:
           - not_null
       - name: contact_list_name
         description: The name of the contact list.

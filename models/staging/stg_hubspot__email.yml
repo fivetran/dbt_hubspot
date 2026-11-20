@@ -22,7 +22,7 @@ models:
               Note that this is a derived value, and may be modified at any time to improve the accuracy of classification.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -48,7 +48,7 @@ models:
         description: The URL within the message that the recipient clicked.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -76,7 +76,7 @@ models:
         description: The delivery attempt number.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -96,7 +96,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: returned_response
         description: The full response from the recipient's email server.
@@ -128,7 +128,7 @@ models:
         description: The subject line of the email message.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: from_email
         description: The 'from' field of the email message.
@@ -152,7 +152,7 @@ models:
         description: '{{ doc("email_event_browser") }}'
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -180,7 +180,7 @@ models:
         description: If provided and nonzero, the approximate number of milliseconds the user had opened the email.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -206,7 +206,7 @@ models:
         description: '{{ doc("email_event_browser") }}'
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: geo_location
         description: '{{ doc("email_event_location") }}'
@@ -236,7 +236,7 @@ models:
         description: The subject line of the email message.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: from_email
         description: The 'from' field of the email message.
@@ -258,7 +258,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: ip_address
         description: '{{ doc("email_event_ip_address") }}'
@@ -283,7 +283,7 @@ models:
 
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: is_bounced
         description: | 
@@ -328,7 +328,7 @@ models:
         description: The ID of the related email campaign.
       - name: event_id
         description: The ID of the event.
-        tests:
+        data_tests:
           - not_null
       - name: event_type
         description: The type of event.
@@ -368,7 +368,7 @@ models:
         description: The ID of the content.
       - name: email_campaign_id
         description: The ID of the email campaign.
-        tests:
+        data_tests:
           - not_null
       - name: email_campaign_name
         description: The name of the email campaign.

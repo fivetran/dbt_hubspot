@@ -21,7 +21,7 @@ models:
         description: The ID of the related pipeline.
       - name: deal_pipeline_stage_id
         description: The ID of the pipeline stage.
-        tests:
+        data_tests:
           - not_null
       - name: display_order
         description: Used to determine the order in which the stages appear when viewed in HubSpot.
@@ -55,7 +55,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: deal_pipeline_id
         description: The ID of the pipeline.
-        tests:
+        data_tests:
           - not_null
       - name: display_order
         description: Used to determine the order in which the pipelines appear when viewed in HubSpot
@@ -86,7 +86,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: deal_id
         description: The ID of the deal
-        tests:
+        data_tests:
           - not_null
       - name: portal_id
         description: '{{ doc("portal_id") }}'
@@ -234,11 +234,11 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: merged_deal_id
         description: ID of deal that has been merged.
-        tests:
+        data_tests:
           - not_null
       - name: deal_id
         description: The ID of the deal the record has been merged INTO.
-        tests:
+        data_tests:
           - not_null
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'
