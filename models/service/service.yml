@@ -15,7 +15,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: ticket_day_id
         description: Unique surrogate key hashed on `source_relation`, `date_day`, and `ticket_id`.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: date_day
@@ -39,12 +39,18 @@ models:
 
       Custom columns from `TICKET` can be included by configuring the `hubspot__ticket_pass_through_columns` variable.
       Custom calculated ticket fields can be added by configuring the `hubspot__ticket_calculated_fields` variable.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - ticket_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: ticket_id
         description: Unique id of a ticket in Hubspot.
-        tests:
+        data_tests:
           - not_null
       - name: is_ticket_deleted
         description: '{{ doc("is_deleted") }}'
@@ -133,6 +139,12 @@ models:
     description: >
       Each record represents a conversation thread in HubSpot. Enriches each thread with inbox, channel, channel account details, and aggregated message metrics derived from the message history.
       Optionally joins to ticket and contact data when the respective features are enabled.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - conversation_thread_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -140,7 +152,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: conversation_thread_id
         description: Unique ID of the conversation thread.
-        tests:
+        data_tests:
           - not_null
       - name: inbox_id
         description: ID of the inbox the thread belongs to.

@@ -4,6 +4,12 @@ models:
 
   - name: hubspot__engagement_calls
     description: Each record represents a CALL engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -11,8 +17,10 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
+      - name: engagement_type
+        description: The type of the engagement.
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -21,6 +29,11 @@ models:
         description: A timestamp in representing the time that the engagement should appear in the timeline.  
       - name: owner_id
         description: The ID of the engagement's owner.  
+      - name: team_id
+        description: >
+          The ID of the team associated with the call. This field determines the team listed as the call creator on the record timeline.
+
+          PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
       - name: contact_ids
         description: List of contacts related to the engagement.  
       - name: deal_ids
@@ -30,6 +43,12 @@ models:
 
   - name: hubspot__engagement_communication
     description: Each record represents a COMMUNICATION engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -37,8 +56,10 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
+      - name: engagement_type
+        description: The type of the engagement.
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -47,6 +68,11 @@ models:
         description: A timestamp in representing the time that the engagement should appear in the timeline.  
       - name: owner_id
         description: The ID of the engagement's owner.  
+      - name: team_id
+        description: >
+          The ID of the team associated with the communication. This field determines the team listed as the communication creator on the record timeline.
+
+          PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
       - name: contact_ids
         description: List of contacts related to the engagement.  
       - name: deal_ids
@@ -56,6 +82,12 @@ models:
 
   - name: hubspot__engagement_emails
     description: Each record represents an EMAIL engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -63,8 +95,10 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
+      - name: engagement_type
+        description: The type of the engagement.
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -73,6 +107,11 @@ models:
         description: A timestamp in representing the time that the engagement should appear in the timeline.  
       - name: owner_id
         description: The ID of the engagement's owner.  
+      - name: team_id
+        description: >
+          The ID of the team associated with the email. This field determines the team listed as the email creator on the record timeline.
+
+          PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
       - name: contact_ids
         description: List of contacts related to the engagement.  
       - name: deal_ids
@@ -82,6 +121,12 @@ models:
 
   - name: hubspot__engagement_meetings
     description: Each record represents a MEETING engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -89,8 +134,10 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
+      - name: engagement_type
+        description: The type of the engagement.
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -99,6 +146,11 @@ models:
         description: A timestamp in representing the time that the engagement should appear in the timeline.  
       - name: owner_id
         description: The ID of the engagement's owner.  
+      - name: team_id
+        description: >
+          The ID of the team associated with the meeting. This field determines the team listed as the meeting creator on the record timeline.
+
+          PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
       - name: contact_ids
         description: List of contacts related to the engagement.  
       - name: deal_ids
@@ -108,6 +160,12 @@ models:
 
   - name: hubspot__engagement_notes
     description: Each record represents a NOTE engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -115,8 +173,10 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
+      - name: engagement_type
+        description: The type of the engagement.
       - name: note
         description: The body of the note. The body has a limit of 65536 characters.  
       - name: is_active
@@ -127,6 +187,11 @@ models:
         description: A timestamp in representing the time that the engagement should appear in the timeline.  
       - name: owner_id
         description: The ID of the engagement's owner.  
+      - name: team_id
+        description: >
+          The ID of the team associated with the note. This field determines the team listed as the note creator on the record timeline.
+
+          PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
       - name: contact_ids
         description: List of contacts related to the engagement.  
       - name: deal_ids
@@ -136,6 +201,12 @@ models:
 
   - name: hubspot__engagement_tasks
     description: Each record represents a TASK engagement event.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -143,8 +214,10 @@ models:
         description: '{{ doc("_fivetran_synced") }}'  
       - name: engagement_id
         description: The ID of the engagement.
-        tests:
+        data_tests:
           - not_null  
+      - name: engagement_type
+        description: The type of the engagement.
       - name: is_active
         description: Whether the engagement is currently being shown in the UI.  
       - name: created_timestamp
@@ -153,6 +226,11 @@ models:
         description: A timestamp in representing the time that the engagement should appear in the timeline.  
       - name: owner_id
         description: The ID of the engagement's owner.  
+      - name: team_id
+        description: >
+          The ID of the team associated with the task. This field determines the team listed as the task creator on the record timeline.
+
+          PLEASE NOTE: This field will only be populated for connectors utilizing the HubSpot v3 API version.
       - name: contact_ids
         description: List of contacts related to the engagement.  
       - name: deal_ids

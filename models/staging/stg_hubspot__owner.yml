@@ -4,12 +4,18 @@ models:
 
   - name: stg_hubspot__owner
     description: Each record represents an owner/user in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - owner_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: owner_id
         description: The ID of the owner.
-        tests:
+        data_tests:
           - not_null
       - name: _fivetran_synced
         description: '{{ doc("_fivetran_synced") }}'

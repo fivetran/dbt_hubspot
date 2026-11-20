@@ -11,7 +11,7 @@ models:
         description: "{{ doc('source_relation') }}"
       - name: contact_day_id
         description: Unique surrogate key hashed on `source_relation`, `date_day`, and `contact_id`.
-        tests:
+        data_tests:
           - unique
           - not_null
       - name: date_day
@@ -88,6 +88,6 @@ models:
 
       - name: id
         description: The ID of the change. Hashed on `source_relation`, `contact_id`, `field_name`, and `valid_from`.
-        tests:
+        data_tests:
           - unique
           - not_null
