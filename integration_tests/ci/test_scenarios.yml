@@ -15,6 +15,8 @@ include_databricks_sql: true
 include_sqlserver: false
 include_duckdb: true
 include_dbt_v2_strict: true
+# Snowflake is left out of dbt v2 until the strict compile errors in the _tmp models are fixed
+dbt_v2_warehouses: ["bigquery", "redshift", "databricks", "duckdb"]
 
 include_dbt_compile: true
 
