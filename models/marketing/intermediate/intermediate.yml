@@ -5,21 +5,22 @@ models:
     columns:
       - name: unique_key
         description: Hashed on `source_relation`, `email_send_id`, and `email_campaign_id`.
-        tests:
+        data_tests:
           - unique
           - not_null
   - name: int_hubspot__email_metrics__by_contact_list
     columns:
       - name: contact_list_id
-        tests:
+        data_tests:
           - not_null
+
   - name: int_hubspot__email_event_aggregates
     columns:
       - name: email_send_id
-        tests:
+        data_tests:
           - not_null
   - name: int_hubspot__engagement_metrics__by_contact
     columns:
       - name: contact_id
-        tests:
+        data_tests:
           - not_null

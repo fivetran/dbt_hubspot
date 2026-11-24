@@ -4,12 +4,18 @@ models:
 
   - name: stg_hubspot__company_list
     description: Each record represents a company list in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - company_list_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: company_list_id
         description: The ID of the company list.
-        tests:
+        data_tests:
           - not_null
       - name: company_list_name
         description: The name of the company list.
@@ -36,6 +42,13 @@ models:
 
   - name: stg_hubspot__company_list_member
     description: Each record represents a 'link' between a company and a company list.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - company_list_id
+              - company_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -52,6 +65,14 @@ models:
 
   - name: stg_hubspot__company_property_history
     description: Each record represents a change to company record in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - company_id
+              - field_name
+              - change_timestamp
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -78,6 +99,12 @@ models:
 
   - name: stg_hubspot__company
     description: Each record represents a company in Hubspot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - company_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -87,7 +114,7 @@ models:
         description: '{{ doc("is_deleted") }}'
       - name: company_id
         description: The ID of the company.
-        tests:
+        data_tests:
           - not_null
       - name: company_name
         description: The name of the company.

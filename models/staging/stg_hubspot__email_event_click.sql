@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_event_click_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -29,7 +29,7 @@ with base as (
         referer as referer_url,
         url as click_url,
         user_agent
-    from macro
+    from macro_columns
     
 )
 

@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_campaign_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -32,7 +32,7 @@ with base as (
         sub_type as email_campaign_sub_type,
         subject as email_campaign_subject,
         type as email_campaign_type
-    from macro
+    from macro_columns
     
 )
 

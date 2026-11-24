@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_channel_account_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -32,7 +32,7 @@ with base as (
         name,
         delivery_identifier_type,
         delivery_identifier_value
-    from macro
+    from macro_columns
 
 )
 

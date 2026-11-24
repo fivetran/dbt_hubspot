@@ -1,3 +1,16 @@
+# dbt_hubspot v1.11.0
+
+[PR #230](https://github.com/fivetran/dbt_hubspot/pull/230) includes the following updates:
+
+## Feature Update
+- **Breaking change**: Raises the minimum dbt version to 1.10.0.
+- Adds `dbt_utils.unique_combination_of_columns` tests to staging and end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose).
+
+## Under the Hood
+- Updates yml column documentation to match model output.
+- Renames the `macro` CTE to `macro_columns` in staging models, because `macro` is a reserved keyword in the dbt Fusion static analysis parser for DuckDB.
+- Casts the end of the date range in `int_hubspot__deal_calendar_spine` to a date so both sides of the comparison are dates. The output is unchanged.
+
 # dbt_hubspot v1.10.1
 
 [PR #224](https://github.com/fivetran/dbt_hubspot/pull/224) includes the following updates:

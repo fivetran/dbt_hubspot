@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_event_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -36,7 +36,7 @@ with base as (
         cast(sent_by_created as {{ dbt.type_timestamp() }}) as sent_timestamp,
         sent_by_id as sent_by_event_id,
         type as event_type
-    from macro
+    from macro_columns
     
 )
 

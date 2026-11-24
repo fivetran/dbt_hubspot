@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__owner_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -32,7 +32,7 @@ with base as (
         type as owner_type,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_timestamp,
         trim( {{ dbt.concat(['first_name', "' '", 'last_name']) }} ) as full_name
-    from macro
+    from macro_columns
     
 )
 

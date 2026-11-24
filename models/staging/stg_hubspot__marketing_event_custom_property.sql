@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__marketing_event_custom_property_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -25,7 +25,7 @@ with base as (
         marketing_event_id,
         name as property_name,
         value as property_value
-    from macro
+    from macro_columns
 
 )
 

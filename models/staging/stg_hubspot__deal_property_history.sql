@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__deal_property_history_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -31,7 +31,7 @@ with base as (
         source_id as change_source_id,
         cast(change_timestamp as {{ dbt.type_timestamp() }}) as change_timestamp, -- source field name = timestamp ; alias declared in macros/get_deal_property_history_columns.sql
         value as new_value
-    from macro
+    from macro_columns
     
 )
 

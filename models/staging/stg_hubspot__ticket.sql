@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__ticket_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -65,7 +65,7 @@ with base as (
         -- The below macro add the ability to create calculated fields using the hubspot__ticket_calculated_fields variable.
         {{ fivetran_utils.calculated_fields('hubspot__ticket_calculated_fields') }}
         
-    from macro
+    from macro_columns
 {% endif %}
 
 ), joined as (

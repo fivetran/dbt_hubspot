@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_event_spam_report_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -25,7 +25,7 @@ with base as (
         id as event_id,
         ip_address,
         user_agent
-    from macro
+    from macro_columns
     
 )
 

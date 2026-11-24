@@ -59,7 +59,7 @@ with calendar as (
     from calendar
     inner join deal
         on cast(calendar.date_day as date) >= cast(deal.created_date as date)
-        and cast(calendar.date_day as date) <= {{ dbt.dateadd('day', var('deal_history_extension_days', 30), 'deal.open_until') }}
+        and cast(calendar.date_day as date) <= cast({{ dbt.dateadd('day', var('deal_history_extension_days', 30), 'deal.open_until') }} as date)
 
 ), surrogate as (
 

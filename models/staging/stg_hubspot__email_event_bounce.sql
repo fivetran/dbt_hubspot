@@ -6,7 +6,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_event_bounce_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -27,7 +27,7 @@ with base as (
         id as event_id,
         response as returned_response,
         status as returned_status
-    from macro
+    from macro_columns
     
 )
 

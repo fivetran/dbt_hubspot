@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_inbox_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -29,7 +29,7 @@ with base as (
         name,
         upper(type) as type,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at
-    from macro
+    from macro_columns
 
 )
 

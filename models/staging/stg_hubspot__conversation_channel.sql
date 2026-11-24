@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_channel_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -25,7 +25,7 @@ with base as (
         _fivetran_deleted as is_deleted,
         id as channel_id,
         name
-    from macro
+    from macro_columns
 
 )
 

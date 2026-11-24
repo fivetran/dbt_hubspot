@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__property_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -34,7 +34,7 @@ with base as (
         name as property_name,
         type as property_type,
         updated_at
-    from macro
+    from macro_columns
     
 )
 

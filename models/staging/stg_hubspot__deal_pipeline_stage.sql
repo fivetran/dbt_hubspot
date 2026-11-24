@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__deal_pipeline_stage_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -32,7 +32,7 @@ with base as (
         cast(stage_id as {{ dbt.type_string() }}) as deal_pipeline_stage_id,
         created_at as deal_pipeline_stage_created_at,
         updated_at as deal_pipeline_stage_updated_at
-    from macro
+    from macro_columns
     
 )
 

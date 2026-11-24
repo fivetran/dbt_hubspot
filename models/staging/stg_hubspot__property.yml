@@ -4,6 +4,13 @@ models:
 
   - name: stg_hubspot__property
     description: Each record represents a property.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - hubspot_object
+              - property_name
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -40,6 +47,14 @@ models:
 
   - name: stg_hubspot__property_option
     description: Each record represents an option for the related property.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - hubspot_object
+              - property_option_name
+              - property_option_label
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

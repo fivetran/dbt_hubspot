@@ -3,6 +3,12 @@ version: 2
 models:
   - name: stg_hubspot__marketing_event
     description: Each record represents a marketing event in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - marketing_event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -12,7 +18,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_id
         description: The unique ID of the marketing event.
-        tests:
+        data_tests:
           - not_null
       - name: app_id
         description: The string ID of the app associated with the marketing event.
@@ -55,6 +61,13 @@ models:
 
   - name: stg_hubspot__marketing_event_list
     description: Each record represents a list associated with a marketing event in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - marketing_event_list_id
+              - marketing_event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -62,7 +75,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_list_id
         description: The unique ID of the marketing event list.
-        tests:
+        data_tests:
           - not_null
       - name: marketing_event_id
         description: The ID of the related marketing event.
@@ -91,6 +104,13 @@ models:
 
   - name: stg_hubspot__marketing_event_participant
     description: Each record represents a participant in a marketing event in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - marketing_event_participant_id
+              - marketing_event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -98,7 +118,7 @@ models:
         description: '{{ doc("_fivetran_synced") }}'
       - name: marketing_event_participant_id
         description: The unique ID of the marketing event participant record.
-        tests:
+        data_tests:
           - not_null
       - name: marketing_event_id
         description: The ID of the related marketing event.
@@ -117,6 +137,13 @@ models:
 
   - name: stg_hubspot__marketing_event_custom_property
     description: Each record represents a custom property on a marketing event in HubSpot.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - marketing_event_id
+              - property_name
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

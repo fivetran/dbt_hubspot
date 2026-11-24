@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__company_list_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -60,7 +60,7 @@ with base as (
         --The below macro adds the fields defined within your hubspot__company_list_pass_through_columns variable into the staging model
         {{ fivetran_utils.fill_pass_through_columns('hubspot__company_list_pass_through_columns') }}
 
-    from macro
+    from macro_columns
 {% endif %}
 
 ), joined as (

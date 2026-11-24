@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__deal_company_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -27,7 +27,7 @@ with base as (
         category,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
         
-    from macro
+    from macro_columns
     
 )
 

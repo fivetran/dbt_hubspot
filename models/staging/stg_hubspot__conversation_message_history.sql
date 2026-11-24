@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_message_history_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -57,7 +57,7 @@ with base as (
         upper(client_type) as client_type,
         upper(status_type) as status_type,
         row_number() over (partition by id order by _fivetran_end desc) as version_rank
-    from macro
+    from macro_columns
     where coalesce(_fivetran_active, true)
         and not coalesce(_fivetran_deleted, false)
 

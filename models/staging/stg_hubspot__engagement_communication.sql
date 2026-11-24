@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__engagement_communication_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select 
         {% set default_cols = adapter.get_columns_in_relation(ref('stg_hubspot__engagement_communication_tmp')) %}
@@ -26,6 +26,6 @@ with base as (
 )
 
 select *
-from macro
+from macro_columns
 
 

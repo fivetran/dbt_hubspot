@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__submission_response_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -34,7 +34,7 @@ with base as (
         page_url,
         object_type_id,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
-    from macro
+    from macro_columns
 )
 
 select *

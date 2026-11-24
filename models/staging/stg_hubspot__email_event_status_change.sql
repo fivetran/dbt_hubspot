@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_event_status_change_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -28,7 +28,7 @@ with base as (
         requested_by as requested_by_email,
         source as change_source,
         subscriptions
-    from macro
+    from macro_columns
     
 )
 

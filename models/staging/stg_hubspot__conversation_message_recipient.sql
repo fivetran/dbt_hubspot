@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_message_recipient_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -30,7 +30,7 @@ with base as (
         recipient_field,
         delivery_identifier_type,
         delivery_identifier_value
-    from macro
+    from macro_columns
 
 )
 

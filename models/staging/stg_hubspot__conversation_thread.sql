@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_thread_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -36,7 +36,7 @@ with base as (
         cast(latest_message_sent_timestamp as {{ dbt.type_timestamp() }}) as latest_message_sent_at,
         spam as is_spam,
         status
-    from macro
+    from macro_columns
     where not coalesce(_fivetran_deleted, false)
 )
 

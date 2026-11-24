@@ -4,12 +4,18 @@ models:
 
   - name: stg_hubspot__form
     description: Each record represents a form created in HubSpot, including metadata about its configuration and behavior.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - form_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: form_id
         description: Unique identifier for the form.
-        tests:
+        data_tests:
           - not_null
       - name: action
         description: The form action type or endpoint triggered upon submission.
@@ -42,12 +48,22 @@ models:
 
   - name: stg_hubspot__submission_response
     description: Each record represents a single field response from a HubSpot form submission.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - conversion_id
+              - form_id
+              - object_type_id
+              - field_name
+              - field_value
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
       - name: conversion_id
         description: Unique identifier for the specific form conversion event.
-        tests:
+        data_tests:
           - not_null
       - name: form_id
         description: The ID of the form the submission belongs to.
