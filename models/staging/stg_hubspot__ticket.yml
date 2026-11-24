@@ -137,6 +137,7 @@ models:
           arguments:
             combination_of_columns:
               - source_relation
+              - ticket_pipeline_id
               - ticket_pipeline_stage_id
     columns:
       - name: source_relation
