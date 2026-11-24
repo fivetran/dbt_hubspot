@@ -7,4 +7,5 @@ new_features:
     end models. If a test fails, please [open an issue](https://github.com/fivetran/dbt_hubspot/issues/new/choose).
 under_the_hood:
 - description: Updates yml column documentation to match model output.
+- description: Renames the `macro` CTE to `macro_columns` in staging models, because `macro` is a reserved keyword in the dbt Fusion static analysis parser for DuckDB.
 date: '2026-11-18'

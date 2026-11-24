@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__contact_merge_audit_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -36,7 +36,7 @@ with base as (
         user_id,
         vid_to_merge,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
-    from macro
+    from macro_columns
     
 )
 

@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__marketing_event_list_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -35,7 +35,7 @@ with base as (
         object_type_id,
         size,
         cast(updated_at as {{ dbt.type_timestamp() }}) as updated_timestamp
-    from macro
+    from macro_columns
 
 )
 

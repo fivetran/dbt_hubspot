@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__engagement_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -25,7 +25,7 @@ with base as (
         id as engagement_id,
         portal_id,
         engagement_type
-    from macro
+    from macro_columns
 
 )
 

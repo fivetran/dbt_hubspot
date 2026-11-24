@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__email_event_print_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -27,7 +27,7 @@ with base as (
         ip_address,
         location as geo_location,
         user_agent
-    from macro
+    from macro_columns
     
 )
 

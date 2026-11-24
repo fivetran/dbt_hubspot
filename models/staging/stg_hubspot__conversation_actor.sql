@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__conversation_actor_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -27,7 +27,7 @@ with base as (
         email,
         name,
         upper(type) as type
-    from macro
+    from macro_columns
 
 )
 

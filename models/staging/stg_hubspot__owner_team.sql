@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__owner_team_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -26,7 +26,7 @@ with base as (
         is_team_primary,
         _fivetran_deleted as is_deleted,
         cast(_fivetran_synced as {{ dbt.type_timestamp() }}) as _fivetran_synced
-    from macro
+    from macro_columns
 )
 
 select *

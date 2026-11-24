@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__company_list_member_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -26,7 +26,7 @@ with base as (
         cast(added_at as {{ dbt.type_timestamp() }}) as added_timestamp,
         company_id,
         company_list_id
-    from macro
+    from macro_columns
 
 )
 

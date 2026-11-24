@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__marketing_event_participant_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -30,7 +30,7 @@ with base as (
         properties_attendance_percentage as attendance_percentage,
         properties_attendance_state as attendance_state,
         properties_attendance_duration_seconds as attendance_duration_seconds
-    from macro
+    from macro_columns
 
 )
 

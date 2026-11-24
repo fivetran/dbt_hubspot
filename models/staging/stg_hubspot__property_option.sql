@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__property_option_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -29,7 +29,7 @@ with base as (
         display_order,
         hidden,
         value as property_option_value
-    from macro
+    from macro_columns
     
 )
 

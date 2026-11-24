@@ -5,7 +5,7 @@ with base as (
     select *
     from {{ ref('stg_hubspot__form_tmp') }}
 
-), macro as (
+), macro_columns as (
 
     select
         {{
@@ -37,7 +37,7 @@ with base as (
         updated_at,
         _fivetran_deleted as is_deleted
 
-    from macro
+    from macro_columns
 )
 
 select *
