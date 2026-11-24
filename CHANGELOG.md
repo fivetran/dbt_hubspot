@@ -8,6 +8,8 @@
 
 ## Under the Hood
 - Updates yml column documentation to match model output.
+- Renames the `macro` CTE to `macro_columns` in staging models, because `macro` is a reserved keyword in the dbt Fusion static analysis parser for DuckDB.
+- Casts the end of the date range in `int_hubspot__deal_calendar_spine` to a date so both sides of the comparison are dates. The output is unchanged.
 
 # dbt_hubspot v1.10.1
 
