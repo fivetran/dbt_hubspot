@@ -88,6 +88,16 @@ models:
 
   - name: stg_hubspot__engagement_company
     description: Each record represents a 'link' between a company and an engagement.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
+              - company_id
+              - category
+              - engagement_type
+              - type_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -102,6 +112,16 @@ models:
 
   - name: stg_hubspot__engagement_contact
     description: Each record represents a 'link' between a contact and an engagement.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
+              - contact_id
+              - category
+              - engagement_type
+              - type_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -116,6 +136,16 @@ models:
 
   - name: stg_hubspot__engagement_deal
     description: Each record represents a 'link' between a deal and an engagement.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - source_relation
+              - engagement_id
+              - deal_id
+              - category
+              - engagement_type
+              - type_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
