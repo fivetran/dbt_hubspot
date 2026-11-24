@@ -1,3 +1,10 @@
+# dbt_hubspot v1.10.2-a1
+
+[PR #234](https://github.com/fivetran/dbt_hubspot/pull/234) includes the following updates:
+
+## Bug Fix
+- Fixes a failure in `int_hubspot__deals_enhanced` when a deal's `owner_id` holds more than one owner ID separated by a semicolon (for example, `35252170;44023296`). On warehouses such as Snowflake, the owner join tried to cast this value to a number and failed, so `hubspot__deals` and `hubspot__deal_stages` didn't build. The join now compares owner IDs as strings and matches a multi-owner deal to its first owner ID. The `owner_id` column keeps its original value. See the DECISIONLOG for details.
+
 # dbt_hubspot v1.10.1
 
 [PR #224](https://github.com/fivetran/dbt_hubspot/pull/224) includes the following updates:

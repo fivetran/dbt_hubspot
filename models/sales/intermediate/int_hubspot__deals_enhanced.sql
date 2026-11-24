@@ -67,7 +67,7 @@ with deals as (
 
     {% if owner_enabled %}
     left join owners_enhanced
-        on deals.owner_id = owners_enhanced.owner_id
+        on {{ dbt.split_part('cast(deals.owner_id as ' ~ dbt.type_string() ~ ')', "';'", 1) }} = cast(owners_enhanced.owner_id as {{ dbt.type_string() }})
         and deals.source_relation = owners_enhanced.source_relation
     {% endif %}
 
