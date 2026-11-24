@@ -1,5 +1,5 @@
 name: 'hubspot_integration_tests'
-version: '1.10.1'
+version: '1.10.2-a1'
 
 profile: 'integration_tests'
 config-version: 2
@@ -167,7 +167,7 @@ seeds:
     deal_data:
       +column_types:
         deal_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
-        owner_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        owner_id: "{{ 'varchar(100)' if target.type in ('redshift','postgres') else 'string' }}"
         property_closedate: timestamp
         property_createdate: timestamp
         deal_pipeline_id: "{{ 'varchar(100)'  if target.type in ('redshift','postgres') else 'string'}}"
