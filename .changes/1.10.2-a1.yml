@@ -1,4 +1,5 @@
 version: 1.10.2-a1
+pr_number: 234
 bug_fixes:
 - description: Fixes a failure in `int_hubspot__deals_enhanced` when a deal's `owner_id` holds more than
     one owner ID separated by a semicolon (for example, `35252170;44023296`). On warehouses such as
