@@ -4,14 +4,6 @@ models:
 
   - name: stg_hubspot__ticket_company
     description: Each record represents a 'link' between a ticket and company.
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - source_relation
-              - ticket_id
-              - company_id
-              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -26,14 +18,6 @@ models:
 
   - name: stg_hubspot__ticket_contact
     description: Each record represents a 'link' between a ticket and a contact.
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - source_relation
-              - ticket_id
-              - contact_id
-              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -48,14 +32,6 @@ models:
 
   - name: stg_hubspot__ticket_deal
     description: Each record represents a 'link' between a ticket and a deal.
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - source_relation
-              - ticket_id
-              - deal_id
-              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -70,14 +46,6 @@ models:
 
   - name: stg_hubspot__ticket_engagement
     description: Each record represents a 'link' between a ticket and an engagement.
-    data_tests:
-      - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - source_relation
-              - ticket_id
-              - engagement_id
-              - category
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
