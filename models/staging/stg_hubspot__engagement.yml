@@ -330,6 +330,7 @@ models:
             combination_of_columns:
               - source_relation
               - engagement_id
+              - engagement_type
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

@@ -54,7 +54,10 @@ models:
             combination_of_columns:
               - source_relation
               - conversion_id
+              - form_id
+              - object_type_id
               - field_name
+              - field_value
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

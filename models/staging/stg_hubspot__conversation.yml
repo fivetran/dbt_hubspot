@@ -168,6 +168,7 @@ models:
             combination_of_columns:
               - source_relation
               - message_id
+              - thread_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"

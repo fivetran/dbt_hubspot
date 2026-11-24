@@ -9,8 +9,8 @@ models:
           arguments:
             combination_of_columns:
               - source_relation
-              - _fivetran_id
               - hubspot_object
+              - property_name
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -52,7 +52,8 @@ models:
           arguments:
             combination_of_columns:
               - source_relation
-              - property_id
+              - hubspot_object
+              - property_option_name
               - property_option_label
     columns:
       - name: source_relation

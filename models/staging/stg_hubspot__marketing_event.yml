@@ -67,6 +67,7 @@ models:
             combination_of_columns:
               - source_relation
               - marketing_event_list_id
+              - marketing_event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
@@ -109,6 +110,7 @@ models:
             combination_of_columns:
               - source_relation
               - marketing_event_participant_id
+              - marketing_event_id
     columns:
       - name: source_relation
         description: "{{ doc('source_relation') }}"
