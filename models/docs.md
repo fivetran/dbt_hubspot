@@ -111,3 +111,7 @@ The total number of related forwarded email engagements.
 {% docs source_relation %}
 Identifies the record's source.
 {% enddocs %}
+
+{% docs email_event_contact_id %}
+The ID of the contact that holds the recipient's email address. If more than one contact holds the address, the event joins to one contact: a live contact before a deleted one, then the most recently created. A live contact is chosen even if it was created after the event.
+{% enddocs %}

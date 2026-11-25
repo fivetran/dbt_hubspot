@@ -15,6 +15,27 @@ with base as (
 
     select *
     from {{ ref('int_hubspot__contact_merge_adjust') }} 
+
+), contacts_ranked as (
+
+    -- More than one contact can hold the same email address, for example a live contact and a
+    -- deleted one. Keep one contact per address so each event joins to a single contact:
+    -- a live contact before a deleted one, then the most recently created.
+    select
+        source_relation,
+        contact_id,
+        email,
+        is_contact_deleted,
+        row_number() over (
+            partition by email {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
+            order by
+                case when coalesce(is_contact_deleted, false) then 1 else 0 end,
+                case when created_date is null then 1 else 0 end,
+                created_date desc,
+                contact_id desc
+        ) as email_rank
+    from contacts
+    where email is not null
 {% endif %}
 
 ), events_joined as (
@@ -39,9 +60,10 @@ with base as (
         contacts.contact_id,
         coalesce(contacts.is_contact_deleted, false) as is_contact_deleted
     from events_joined
-    left join contacts
+    left join contacts_ranked as contacts
         on events_joined.recipient_email_address = contacts.email
         and events_joined.source_relation = contacts.source_relation
+        and contacts.email_rank = 1
 
 )
 

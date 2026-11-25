@@ -1,0 +1,43 @@
+version: 1.12.0
+pr_number: 236
+schema_data_changes:
+  entries:
+    - models:
+        - hubspot__email_sends
+        - hubspot__email_event_bounce
+        - hubspot__email_event_clicks
+        - hubspot__email_event_deferred
+        - hubspot__email_event_delivered
+        - hubspot__email_event_dropped
+        - hubspot__email_event_forward
+        - hubspot__email_event_opens
+        - hubspot__email_event_print
+        - hubspot__email_event_sent
+        - hubspot__email_event_spam_report
+        - hubspot__email_event_status_change
+      change_type: "Changed field/model"
+      old: "One row per event and contact. An event sent to an email address that several contacts share appears once per contact."
+      new: "One row per event. The event joins to one contact on the address: a live contact before a deleted one, then the most recently created."
+      is_breaking: false
+      notes: "A live contact is chosen even if it was created after the event, for example when a contact was deleted and recreated. `contact_id` and `is_contact_deleted` describe the chosen contact. For details, see [issue #235](https://github.com/fivetran/dbt_hubspot/issues/235)."
+    - models:
+        - hubspot__email_campaigns
+        - hubspot__contacts
+      change_type: "Changed field/model"
+      old: "`total_*` email metrics count an event once per contact that shares the recipient's email address."
+      new: "`total_*` email metrics count each event once. Email metrics follow the live contact."
+      is_breaking: false
+      notes: "`total_*` metrics can decrease for campaigns and contacts that sent to shared addresses. A deleted contact that shares an address with a live contact no longer receives those email metrics. `total_unique_*` metrics are unchanged."
+    - models:
+        - hubspot__contact_lists
+      change_type: "Changed field/model"
+      old: "An event counts toward every list that holds any contact on the recipient's email address."
+      new: "An event counts only toward lists that hold the contact it joins to."
+      is_breaking: false
+      notes: "`total_*` and `total_unique_*` email metrics can decrease for lists that hold only the other contact on a shared address, such as a deleted contact."
+under_the_hood:
+  - description: "Adds back the `dbt_utils.unique_combination_of_columns` tests on `source_relation` and `event_id` for `hubspot__email_sends` and the eleven `hubspot__email_event_*` models. v1.11.1 removed these tests."
+  - description: "Updates the `contact_id` description in the email event models and `hubspot__email_sends` to explain which contact an event joins to."
+  - description: "Adds a `DECISIONLOG.md` that explains which contact an email event joins to."
+contributors:
+  - acrahen
