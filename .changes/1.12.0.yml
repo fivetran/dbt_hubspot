@@ -38,5 +38,6 @@ schema_data_changes:
 under_the_hood:
   - description: "Adds back the `dbt_utils.unique_combination_of_columns` tests on `source_relation` and `event_id` for `hubspot__email_sends` and the eleven `hubspot__email_event_*` models. v1.11.1 removed these tests."
   - description: "Updates the `contact_id` description in the email event models and `hubspot__email_sends` to explain which contact an event joins to."
+  - description: "Adds a `DECISIONLOG.md` that explains which contact an email event joins to."
 contributors:
   - acrahen
