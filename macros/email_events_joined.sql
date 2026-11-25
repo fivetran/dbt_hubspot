@@ -27,7 +27,7 @@ with base as (
         email,
         is_contact_deleted,
         row_number() over (
-            partition by source_relation, email
+            partition by email {{ fivetran_utils.partition_by_source_relation(package_name='hubspot') }}
             order by
                 case when coalesce(is_contact_deleted, false) then 1 else 0 end,
                 case when created_date is null then 1 else 0 end,
