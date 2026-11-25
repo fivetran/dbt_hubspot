@@ -6,7 +6,3 @@ bug_fixes:
       - These tests fail when two contacts share an email address, for example a deleted contact and a live contact. When they fail, `dbt build` skips the downstream models.
       - The models and their data are unchanged. An event sent to a shared email address still appears once per contact on that address. For details, see [issue #235](https://github.com/fivetran/dbt_hubspot/issues/235).
       - v1.12.0 corrects the join so each event appears once, and adds these tests back.
-contributors:
-  - name: Adam Crahen
-    github_handle: acrahen
-    contribution: Reported the uniqueness test failures on the email event models.
