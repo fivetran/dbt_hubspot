@@ -5,8 +5,8 @@
 ## Bug Fix
 - Removes the `dbt_utils.unique_combination_of_columns` tests on `source_relation` and `event_id` that v1.11.0 added to `hubspot__email_sends` and the eleven `hubspot__email_event_*` models.
   - These tests fail when two contacts share an email address, for example a deleted contact and a live contact. When they fail, `dbt build` skips the downstream models.
-  - The models and their data are unchanged. An event sent to a shared email address still appears once per contact on that address. For details, see [issue
-  - v1.12.0 will correct the join so each event appears once, and adds these tests back.
+  - The models and their data are unchanged. An event sent to a shared email address still appears once per contact on that address. For details, see [issue #235](https://github.com/fivetran/dbt_hubspot/issues/235).
+  - v1.12.0 will correct the join so each event appears once, and add these tests back.
 
 # dbt_hubspot v1.11.0
 
