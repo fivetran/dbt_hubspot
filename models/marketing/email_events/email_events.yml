@@ -52,7 +52,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
           
   - name: hubspot__email_event_clicks
     description: Each record represents a CLICK email event.
@@ -111,7 +111,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
           
   - name: hubspot__email_event_deferred
     description: Each record represents a DEFERRED email event.
@@ -158,7 +158,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
  
   - name: hubspot__email_event_delivered
     description: Each record represents a DELIVERED email event.
@@ -205,7 +205,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
    
   - name: hubspot__email_event_dropped
     description: Each record represents a DROPPED email event.
@@ -267,7 +267,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
  
   - name: hubspot__email_event_forward
     description: Each record represents a FORWARD email event.
@@ -320,7 +320,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
 
   - name: hubspot__email_event_opens
     description: Each record represents a OPEN email event.
@@ -376,7 +376,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
 
   - name: hubspot__email_event_print
     description: Each record represents a PRINT email event.
@@ -429,7 +429,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
 
   - name: hubspot__email_event_sent
     description: Each record represents a SENT email event.
@@ -485,7 +485,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
 
   - name: hubspot__email_event_spam_report
     description: Each record represents a SPAM_REPORT email event.
@@ -532,7 +532,7 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
 
   - name: hubspot__email_event_status_change
     description: Each record represents a STATUS_CHANGE email event in Hubspot.
@@ -595,4 +595,4 @@ models:
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
 
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'

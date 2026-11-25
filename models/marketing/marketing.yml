@@ -123,7 +123,7 @@ models:
       - name: email_send_id
         description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
       - name: contact_id
-        description: The ID of the related contact.
+        description: '{{ doc("email_event_contact_id") }}'
       - name: bounces
         description: "{{ doc('bounces') }}"
       - name: clicks
